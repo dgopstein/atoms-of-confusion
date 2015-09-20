@@ -1,0 +1,14 @@
+7:50 pm
+macro-replace #define m 21                       | %s/m/21/g
+macro-replace #define o(l, k) for(l=0; l<k; l++) | %s/o(\([^,]*\), *\([^)]*\))/for(\1=0; \1<\2; \1++)/
+macro-replace #define n(k) for(T=0; T<k; T++)    | %s/n(\([^)]*\))/for(T=0; T<\1; T++)/
+
+(I tried using s///g, but there are issues with newlines occuring at random places, I resorted to using gcc -E instead)
+
+(i tried newline-after-line-term-semicolon (but not after for-loop semicolons, let vim indentation do its thing), but it was awful, used gcc-indent instead)
+
+collapse all lines, then gcc-indent
+
+expand: char*_ = "'""/*"; -> char* _ = "'" "/*";
+
+concatenate: "'" "/*" -> "'/*"
