@@ -1,0 +1,4 @@
+#!/bin/sh
+
+prog=$1
+gcc -o bin/$prog $prog.c   && bin/$prog
