@@ -44,4 +44,23 @@ int sum_ints2() {
 //}
 
 
-int main() { int a = 6; if (a == 1) goto output1; goto output1; printf("%d\n", 6); output1: printf("%d\n", 4); }
+//int main() { int a = 6; if (a == 1) goto output1; goto output1; printf("%d\n", 6); output1: printf("%d\n", 4); }
+
+int atoi(char *s) {
+    int v;
+    char c;
+    while ((c = *s++) != 0) {
+        int d;
+        if (c >= '0' && c <= '9')
+            d = c - '0';
+        else
+            break;
+
+        v = (v * 10) + d;
+    }
+
+    return v;
+}
+
+// atoi, busted with octal
+int main() { char *s = "71 inches"; int v; char c; while ((c = *s++) != 0) { int d; if (c >= '0' && c <= '9') d = c - '0'; else break; v = (v * 010) + d; } printf("%d\n", v); }
