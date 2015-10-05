@@ -70,7 +70,19 @@ void dec_counts() {
   printf("%s\n", v2);
 }
 
-int main() { int v1[] = {2,3,1,0,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0}; char v2[11] = {0}; int v3 = 1; int v6 = 0; while (v3) { v3 = 0; for (int v4 = 0; v4 < 26; v4++) { int *v5 = v1+v4; if (*v5 > 0) { *v5--; v2[v6++] = 'a' + v4; v3 = 1; } } } printf("%s\n", v2); }
+//int main() { int v1[] = {2,3,1,0,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0}; char v2[11] = {0}; int v3 = 1; int v6 = 0; while (v3) { v3 = 0; for (int v4 = 0; v4 < 26; v4++) { int *v5 = v1+v4; if (*v5 > 0) { *v5--; v2[v6++] = 'a' + v4; v3 = 1; } } } printf("%s\n", v2); }
+
+//int main() {
+//  int a, *b;
+//  a = 2, *b = 3;
+//  //int v3 = 1++*a*++*b*++1;
+//  int v3 = a+a++a+a;
+//
+//  printf("%d\n", v3);
+//}
+
+// http://stackoverflow.com/questions/2371118/how-do-the-post-increment-i-and-pre-increment-i-operators-work-in-java
+int main() { int a = 5; a = a++ + ++a + a++; printf("%d\n", a); }
 
 //int main() {
 //  //inc_iter();
