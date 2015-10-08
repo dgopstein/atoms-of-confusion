@@ -82,7 +82,14 @@ void dec_counts() {
 //}
 
 // http://stackoverflow.com/questions/2371118/how-do-the-post-increment-i-and-pre-increment-i-operators-work-in-java
-int main() { int a = 5; a = a++ + ++a + a++; printf("%d\n", a); }
+void main1() { int a = 5; a = a++ + ++a + a++; printf("%d\n", a); }
+
+// Same, but decrementation
+int main() {
+  int a = 5;
+  a = a-- - --a;
+  printf("%d\n", a);
+}
 
 //int main() {
 //  //inc_iter();

@@ -63,4 +63,25 @@ int atoi(char *s) {
 }
 
 // atoi, busted with octal
-int main() { char *s = "71 inches"; int v; char c; while ((c = *s++) != 0) { int d; if (c >= '0' && c <= '9') d = c - '0'; else break; v = (v * 010) + d; } printf("%d\n", v); }
+void main1() { char *s = "71 inches"; int v; char c; while ((c = *s++) != 0) { int d; if (c >= '0' && c <= '9') d = c - '0'; else break; v = (v * 010) + d; } printf("%d\n", v); }
+
+
+// to_upper
+void main1() {
+  char *v1 = "71 inches";
+  char v2[10] = {0};
+
+  char v3 = -1;
+  char v4 = 0;
+
+  while ((v4 = *(v1 + ++v3)) != 0) {
+    if (v4 > 'a' && v4 < 'z') {
+      v2[v3] = v4 - 0x32;
+      //v2[v3] = v4 - 32; // Correct line
+    } else {
+      v2[v3] = v4;
+    }
+  }
+
+  printf("%s\n", v2);
+}
