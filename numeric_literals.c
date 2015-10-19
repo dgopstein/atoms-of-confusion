@@ -67,7 +67,7 @@ void main1() { char *s = "71 inches"; int v; char c; while ((c = *s++) != 0) { i
 
 
 // to_upper
-void main1() {
+void main2() {
   char *v1 = "71 inches";
   char v2[10] = {0};
 
@@ -84,4 +84,12 @@ void main1() {
   }
 
   printf("%s\n", v2);
+}
+
+void main3() {
+  printf("%d\n", 012);
+}
+
+int main() {
+  printf("%d\n", 0x12);
 }

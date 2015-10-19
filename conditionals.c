@@ -12,9 +12,25 @@ void conditional_assignment() {
 void compare_strings() {
   if (strcmp("a", "a")) printf("true\n"); else printf("false\n");
 }
-int main() { if (strcmp("a", "a")) printf("true\n"); else printf("false\n"); }
+//int main() { if (strcmp("a", "a")) printf("true\n"); else printf("false\n"); }
 
 //int main() {
 //  //conditional_assignment();
 //  //compare_strings();
 //}
+
+void main1() {
+  if ("false") {
+    printf("true\n");
+  } else {
+    printf("false\n");
+  }
+}
+
+int main() {
+  if (-1) {
+    printf("true\n");
+  } else {
+    printf("false\n");
+  }
+}
