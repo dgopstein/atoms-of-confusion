@@ -27,10 +27,15 @@ void main1() {
   }
 }
 
+//int main() {
+//  if (-1) {
+//    printf("true\n");
+//  } else {
+//    printf("false\n");
+//  }
+//}
+//
+
 int main() {
-  if (-1) {
-    printf("true\n");
-  } else {
-    printf("false\n");
-  }
+  printf("%d\n", '\0');
 }

@@ -96,7 +96,18 @@ void dec_counts() {
 //  dec_counts();
 //}
 
+//int main() {
+//  int v1 = 0;
+//  printf("%d\n", v1++);
+//}
+
+//int main() {
+//  int v1 = 5;
+//  v1 = v1-- + 3;
+//  printf("%d\n", v1);
+//}
+
 int main() {
-  int v1 = 0;
-  printf("%d\n", v1++);
+   int v1 = 5;
+   printf("%d\n", v1-- + 3);
 }
