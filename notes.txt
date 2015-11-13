@@ -1,7 +1,11 @@
 Sometimes the purpose of a variable changes over time... v starts as the number of arguments, but then gets assigned the value of fread later.
 
-Can we use contractual obligations in our simplifications? What if they're guaranteed by a spec? E.G. argc is guaranteed to be non-negative, though there's no reason a bug, for example, couldn't invalidate that promise.
+Simlarly what if there are 3 different ints, and they rotate values throughout the program
+a=b,b=c,c=a
+// some stuff
+a=b,b=c,c=a
 
+Can we use contractual obligations in our simplifications? What if they're guaranteed by a spec? E.G. argc is guaranteed to be non-negative, though there's no reason a bug, for example, couldn't invalidate that promise. (On the otherhand, whatabout something like malloc? We often assume it never returns 0, though theoretically it could) I think probably we shouldn't take advantage of these semantic constraints, but sometimes we have to in order to deobfuscate.
 
 Atoms:
 *= vs =* => *a*=1;
@@ -21,3 +25,5 @@ Transformations:
 050: isolate for-loop initialization
 060: indent/paranthesize ternaries
 070: convert side-effect-only ternaries to if-else
+080: replace commas with semi-colons
+090: replace ^(xor) with !(not)
