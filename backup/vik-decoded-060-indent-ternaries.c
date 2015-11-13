@@ -12,16 +12,13 @@ int main(int v, char** b) {
 
   while (v>0&&v<5&&(v*=t=fread(X,1,1,stdin))) {
 
-    if (v-1&&101==*1[b]) {
-        if (++g%1500) {
-            u+=(g&1^1)*((*X<0)?-*X:*X);
-        } else {
-            ((f=e,e=w,w=d,d=u, m=((1 - h%2*2)*(d -f)/((d<f) ?d|1 : 1|f) > 5)?
-                T[ h%Q]=o+l,l=W[h++%Q]=o,o=0:m,o++,u=main(0,b)));
-        }
-     } else {
+    (v-1&&101==*1[b]) ? 
+        (++g%1500 ?
+            u+=(g&1^1)*((*X<0)?-*X:*X) :
+            ((f=e,e=w,w=d,d=u, m=(1 - h%2*2)*(d -f)/((d<f) ?d|1 : 1|f) > 5)?
+                T[ h%Q] =o+l  , l=W[ h++%Q]=o,o=0:
+                m,o++,u=main(0,b))):
         (c=strrchr(X,~(Q&*X&*X/2)&*X)-X,j=255);
-     }
 
     for (; v==1&&(c*j||main(*X-Q?8:24,b));j/=2) {
         c<j?0:main(9+(c-j)/(j/2+1)%2*10,b);

@@ -6,9 +6,18 @@ Can we use contractual obligations in our simplifications? What if they're guara
 Atoms:
 *= vs =* => *a*=1;
 !! as clomp to 0/1
+random stuff in for loop initialization
 
 Notes:
 fread(dest, size, count, stream), returns number bytes read
 in main(argc, argv), argc is guaranteed non-negative
 The first for-loop does: read the nth byte of stdin into the first character of X, where n is the number of arguments to the program (or 5, if there are more than 5 arguments). Store 1 into v* and t if stdin has atleast n bytes.
 
+Transformations:
+010: add curly braces around first for-loop
+020: move for-loop assignment of i to outside the loop
+030: change for-loop with only condition to while
+040: add parens and indentation to second for-loop
+050: isolate for-loop initialization
+060: indent/paranthesize ternaries
+070: convert side-effect-only ternaries to if-else
