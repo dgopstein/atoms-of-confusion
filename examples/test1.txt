@@ -1,0 +1,1 @@
+echo 'No. I want chocolate!' | ./prog | mplayer -demuxer rawaudio -
