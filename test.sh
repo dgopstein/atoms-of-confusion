@@ -1,6 +1,7 @@
 #!/bin/bash
 
-src_a=$1
+#src_a=$1
+src_a=vik-decoded.c
 src_b=vik-original.c
 
 #prg_a=`basename $src_a`
@@ -12,16 +13,28 @@ gcc $src_a -o $prg_a
 gcc $src_b -o $prg_b
 
 mkdir -p test
-for f in `ls examples`; do
-  test_a="test/$f.a"
-  test_b="test/$f.b"
 
-  # Encode and Decode each example... why not?
-  $prg_a < "examples/$f" > "${test_a}.raw"
-  $prg_b < "examples/$f" > "${test_b}.raw"
+# Encode each txt example
+for f in `ls examples/*.txt`; do
+  f=`basename $f`
+  test_a="test/$f.a.raw"
+  test_b="test/$f.b.raw"
 
-  $prg_a e < "examples/$f" > "${test_a}.txt"
-  $prg_b e < "examples/$f" > "${test_b}.txt"
+  $prg_a < "examples/$f" > $test_a
+  $prg_b < "examples/$f" > $test_b
+  cmp $test_a $test_b
+  echo "$f: $?"
+done
+
+# Decode each txt example
+for f in `ls examples/*.raw`; do
+  f=`basename $f`
+  test_a="test/$f.a.txt"
+  test_b="test/$f.b.txt"
+
+  $prg_a e < "examples/$f" > $test_a
+  $prg_b e < "examples/$f" > $test_b
 
   cmp $test_a $test_b
+  echo "$f: $?"
 done

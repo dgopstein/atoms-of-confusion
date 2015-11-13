@@ -9,6 +9,8 @@ int j,w,h,f,u,d,g,e,n,i,l,a,r,p,c,m,o,t,s,Q=32,T[32],W[32],I=13000;
 
 int main(int v, char** b) {
 
+  //DAN fread(dest, size, count, stream), returns number bytes read
+  //DAN read the nth byte of stdin into the first character of X, where n is the number of arguments to the program (or 5, if there are more than 5 arguments). Store 1 into v* and t if stdin has atleast n bytes.
   for (i=0;v>0&&v<5&&(v*=t=fread(X,1,1,stdin));)
 
   for (v-1&&101==*1[b]?++g%1500?u+=(g&1^1)*(*X<0?-*X:*X):(f=e,e=w,w=d,d=u,
