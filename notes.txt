@@ -36,3 +36,4 @@ Transformations:
 100: remove unused variables
 110: convert ternary to if
 120: remove trivial else branch
+130: replace commas with semi-colons
