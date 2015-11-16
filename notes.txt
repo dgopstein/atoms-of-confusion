@@ -34,3 +34,4 @@ Transformations:
 080: replace commas with semi-colons
 090: replace ^(xor) with !(not)
 100: remove unused variables
+110: convert ternary to if
