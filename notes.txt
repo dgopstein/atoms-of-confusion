@@ -7,6 +7,12 @@ a=b,b=c,c=a
 
 Can we use contractual obligations in our simplifications? What if they're guaranteed by a spec? E.G. argc is guaranteed to be non-negative, though there's no reason a bug, for example, couldn't invalidate that promise. (On the otherhand, whatabout something like malloc? We often assume it never returns 0, though theoretically it could) I think probably we shouldn't take advantage of these semantic constraints, but sometimes we have to in order to deobfuscate.
 
+There are cases where the author does things by (bit) arithmetic that should have names (or library funcations), i.e. testing even/odd (x&1) or absolute value ((x<0)?-x:x)
+
+Too many operations per statement. Can't keep track of them all. Cognitive load.
+
+Which direction does the comma operator work, left-to-right or right-to-left?
+
 Atoms:
 *= vs =* => *a*=1;
 !! as clomp to 0/1
@@ -27,3 +33,4 @@ Transformations:
 070: convert side-effect-only ternaries to if-else
 080: replace commas with semi-colons
 090: replace ^(xor) with !(not)
+100: remove unused variables
