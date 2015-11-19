@@ -13,6 +13,10 @@ Too many operations per statement. Can't keep track of them all. Cognitive load.
 
 Which direction does the comma operator work, left-to-right or right-to-left?
 
+A function which does completely different logical functions based on its arguments
+
+
+
 Atoms:
 *= vs =* => *a*=1;
 !! as clomp to 0/1
@@ -22,6 +26,10 @@ Notes:
 fread(dest, size, count, stream), returns number bytes read
 in main(argc, argv), argc is guaranteed non-negative
 The first for-loop does: read the nth byte of stdin into the first character of X, where n is the number of arguments to the program (or 5, if there are more than 5 arguments). Store 1 into v* and t if stdin has atleast n bytes.
+argc is used to flag whether the function was called from the commandline or from code. The main invocation, or a programmatic one, there are several conditions later that check whether v is 0.
+
+Questions:
+Can removal transformations be valid even if their only valid given constraints, i.e. replacing abs(x) with x is valid only when x >= 0. Can that still be a valid transformation, or do atoms need to be valid regardless of the state or constraints of the system.
 
 Transformations:
 010: add curly braces around first for-loop
@@ -38,3 +46,4 @@ Transformations:
 120: remove trivial else branch
 130: replace commas with semi-colons
 140: remove unused variable
+150: for to while
