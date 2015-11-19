@@ -21,6 +21,7 @@ Atoms:
 *= vs =* => *a*=1;
 !! as clomp to 0/1
 random stuff in for loop initialization
+using arithmetic operations as logical ones... a*b vs a&&b, or a+b vs a||b
 
 Notes:
 fread(dest, size, count, stream), returns number bytes read
@@ -47,3 +48,4 @@ Transformations:
 130: replace commas with semi-colons
 140: remove unused variable
 150: for to while
+160: arithmetic to logical
