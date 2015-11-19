@@ -19,4 +19,8 @@ int main(int v, char** b) {
   int ternary;
   ternary = 1 ?a=2,3:4,c=5;
   printf("ternary: %d\n", ternary);
+
+  printf("\n");
+  // how tightly does the ! bind?
+  printf("negate ternary: %d\n", !0?1:2);
 }

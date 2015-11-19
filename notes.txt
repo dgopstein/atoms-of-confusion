@@ -15,6 +15,9 @@ Which direction does the comma operator work, left-to-right or right-to-left?
 
 A function which does completely different logical functions based on its arguments
 
+Global variables accessed in recursive function calls makes it unclear when things get updated and what assumptions you can make about their values
+
+Sometimes its hard to know what the valid range of variables is, can c be non-zero?
 
 
 Atoms:
@@ -22,6 +25,7 @@ Atoms:
 !! as clomp to 0/1
 random stuff in for loop initialization
 using arithmetic operations as logical ones... a*b vs a&&b, or a+b vs a||b
+using logical operations as control flow... a&&b() vs if (a) { b(); }
 
 Notes:
 fread(dest, size, count, stream), returns number bytes read
@@ -50,3 +54,7 @@ Transformations:
 150: for to while
 160: arithmetic to logical
 170: clarifying parens
+180: ternary to if
+190: remove unused if branch
+200: logical to conditional
+210: parens and braces

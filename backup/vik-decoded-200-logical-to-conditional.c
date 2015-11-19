@@ -45,9 +45,8 @@ int main(int v, char** b) {
     }
   }
 
-  for (a=u=0;i<=Q*Q&&!v;j>7&&j<13?s=c*s+T[i/Q]/2,s/=++c:0) {
-    ((!(i++%Q))?a=c>a?u=s,c:a,c=s=0:0),j=T[i%Q],j=j?T[i/Q]*10/j:0,j*=(j<5)*2+1;
-  }
+  for (a=u=0;i<=Q*Q&&!v;j>7&&j<13?s=c*s+T[i/Q]/2,s/=++c:0)
+    !(i++%Q)?a=c>a?u=s,c:a,c=s=0:0,j=T[i%Q],j=j?T[i/Q]*10/j:0,j*=(j<5)*2+1;
 
   for (r+=(h-r)/Q*Q;i<v/4*I;putchar((i/I<v%4)*i%2*85<<(i%176/88)),i++);
 
