@@ -9,7 +9,7 @@ src_b=vik-original.c
 prg_a="bin/${src_a%.*}"
 prg_b="bin/${src_b%.*}"
 
-gcc $src_a -o $prg_a
+gcc $src_a -o $prg_a || exit 1
 gcc $src_b -o $prg_b
 
 mkdir -p test

@@ -19,6 +19,10 @@ Global variables accessed in recursive function calls makes it unclear when thin
 
 Sometimes its hard to know what the valid range of variables is, can c be non-zero?
 
+j=j?a:0 is the same as j &&= a
+
+rather than !!a, you can do a*3+5 and !!(a > 4 && a < 14)
+
 
 Atoms:
 *= vs =* => *a*=1;
@@ -58,3 +62,7 @@ Transformations:
 190: remove unused if branch
 200: logical to conditional
 210: parens and braces
+220: commas to semicolons
+230: ternary to if without irrelevance
+240: for to while
+250: ternary to if
