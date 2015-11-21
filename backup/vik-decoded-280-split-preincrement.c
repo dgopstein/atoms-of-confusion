@@ -63,7 +63,8 @@ int main(int v, char** b) {
       j *= 3;
     }
     if (j>7&&j<13) {
-      s=(c*s+T[i/Q]/2)/(c+1);
+      s=c*s+T[i/Q]/2;
+      s/=(c+1);
       c = c + 1;
     }
   }

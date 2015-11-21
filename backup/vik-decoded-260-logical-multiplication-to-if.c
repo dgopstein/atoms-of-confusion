@@ -62,10 +62,7 @@ int main(int v, char** b) {
     if (j < 5) {
       j *= 3;
     }
-    if (j>7&&j<13) {
-      s=(c*s+T[i/Q]/2)/(c+1);
-      c = c + 1;
-    }
+    j>7&&j<13?s=c*s+T[i/Q]/2,s/=++c:0;
   }
 
   for (r+=(h-r)/Q*Q;i<v/4*I;putchar((i/I<v%4)*i%2*85<<(i%176/88)),i++);
