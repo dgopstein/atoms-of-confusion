@@ -82,25 +82,9 @@ int main(int v, char** b) {
   }
 
   r+=(h-r)/Q*Q;
-  g*=!!v;
-  while (r+t!=h+1&&h>5&&!v) {
-    *X=Q;
-
-    if (r%2) {
-      ++n;
-      p = 2*p+(W[r++%Q]>2*u);
-    }
-
-    if (r+t!=h+1) {
-      if (W[r%Q]>2*u||r==h) {
-        p=n=(n>6?0:putchar(X[p-1+(1<<n)])&0);
-      }
-      if (W[r++%Q]>6*u) {
-        putchar(Q);
-      }
-    }
-  }
-
+  for (g*=!!v;r+t!=h+1&&h>5&&!v;r+t!=h+1?(W[r%Q]>2*u||r==h?p=n=n>6?0:
+    putchar(X[p-1+(1<<n)])&0:0,W[r++%Q]>6*u?putchar(Q):0):0)
+    *X=Q,p=r%2?++n,2*p+(W[r++%Q]>2*u):p;
 
   return 0;
 }

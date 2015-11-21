@@ -69,38 +69,14 @@ int main(int v, char** b) {
   }
 
   while (i<((int)(v/4)*I)) {
-    int V1 = 0;
-    if (i/I<v%4) {
-      V1 = (i%2)*85;
-    }
-    if (i%176 >= 88) {
-      V1 *= 2;
-    }
-
-    putchar(V1);
+    putchar(((((i/I<v%4)*i)%2)*85)<<((i%176)/88));
     i++;
   }
 
   r+=(h-r)/Q*Q;
-  g*=!!v;
-  while (r+t!=h+1&&h>5&&!v) {
-    *X=Q;
-
-    if (r%2) {
-      ++n;
-      p = 2*p+(W[r++%Q]>2*u);
-    }
-
-    if (r+t!=h+1) {
-      if (W[r%Q]>2*u||r==h) {
-        p=n=(n>6?0:putchar(X[p-1+(1<<n)])&0);
-      }
-      if (W[r++%Q]>6*u) {
-        putchar(Q);
-      }
-    }
-  }
-
+  for (g*=!!v;r+t!=h+1&&h>5&&!v;r+t!=h+1?(W[r%Q]>2*u||r==h?p=n=n>6?0:
+    putchar(X[p-1+(1<<n)])&0:0,W[r++%Q]>6*u?putchar(Q):0):0)
+    *X=Q,p=r%2?++n,2*p+(W[r++%Q]>2*u):p;
 
   return 0;
 }

@@ -75,3 +75,13 @@ Transformations:
 270: ternary to expanded if
 280: split pre-increment
 290: join sequential assignments
+300: for to while
+310: move initialization before usage
+320: add parentheses
+330: add type reminder
+340: add parentheses
+350: add intermediate variable
+360: logical multiplication to conditional
+370: for to while
+380: comma to semicolon
+390: ternaries to ifs
