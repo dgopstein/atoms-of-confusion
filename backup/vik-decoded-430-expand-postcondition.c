@@ -5,14 +5,14 @@ char X[] =
   " ETIANMSURWDKGOHVF:L:PJBXCYZQ::54:3:::2&:+::::16=/:::(:7:::8:90"
   "::::::::::::?_::::\"::.::::@:::'::-::::::::;!:):::::,:::::";
 
-int j,h,f,u,d,g,n,i,l,r,p,c,o,t,s,Q=32,T[32],W[32],I=13000;
+int j,h,f,u,d,g,n,i,l,a,r,p,c,o,t,s,Q=32,T[32],W[32],I=13000;
 
 int main(int v, char** b) {
   i = 0;
 
   while (v>0&&v<5&&(v*=t=fread(X,1,1,stdin))) {
 
-    if (v != 1 && 'e'==b[1][0]) {
+    if (v-1&&101==*1[b]) {
         if (++g%1500) {
             u+=(!(g&1))*((*X<0)?-*X:*X);
         } else {
@@ -46,12 +46,11 @@ int main(int v, char** b) {
     }
   }
   
-  int a=0;
-  int V2 = 0;
+  a=u=0;
   while (i<=Q*Q&&!v) {
     if (!(i++%Q)) {
       if (c>a) {
-        V2=s;
+        u=s;
         a=c;
       }
       c=s=0;
@@ -93,18 +92,18 @@ int main(int v, char** b) {
 
       if (r%2) {
         ++n;
-        p = 2*p+(W[r%Q]>2*V2);
+        p = 2*p+(W[r%Q]>2*u);
         r += 1;
       }
 
       if (r+t!=h+1) {
-        if (W[r%Q]>2*V2||r==h) {
+        if (W[r%Q]>2*u||r==h) {
           if (n<=6) {
             putchar(X[p-1+(1<<n)]);
           }
           p=n=0;
         }
-        if (W[r%Q]>6*V2) {
+        if (W[r%Q]>6*u) {
           putchar(Q);
         }
         r += 1;

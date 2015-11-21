@@ -25,6 +25,10 @@ rather than !!a, you can do a*3+5 and !!(a > 4 && a < 14)
 
 int math isn't distributive over addition: (1 + 1)/2 != (1/2) + (1/2)
 
+(a & 0) == 0
+
+a?0:b(); -> if (!a) b;
+
 
 Atoms:
 *= vs =* => *a*=1;
@@ -85,3 +89,11 @@ Transformations:
 370: for to while
 380: comma to semicolon
 390: ternaries to ifs
+400: ternary to if
+410: multiplication to condition
+420: pull constant condition from loop
+430: expand postcondition
+440: make global variables local and uniquely purposed
+450: swap array subscript
+460: replace ascii int with character
+470: replace arithmetic with logic

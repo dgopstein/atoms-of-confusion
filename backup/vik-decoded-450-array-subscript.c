@@ -12,7 +12,7 @@ int main(int v, char** b) {
 
   while (v>0&&v<5&&(v*=t=fread(X,1,1,stdin))) {
 
-    if (v != 1 && 'e'==b[1][0]) {
+    if (v-1&&101==b[1][0]) {
         if (++g%1500) {
             u+=(!(g&1))*((*X<0)?-*X:*X);
         } else {
