@@ -28,7 +28,7 @@ int main(int v, char** b) {
   char X[] =
     //" ETIANMSURWDKGOHVF:L:PJBXCYZQ::54:3:::2&:+::::16=/:::(:7:::8:90"
     //"::::::::::::?_::::\"::.::::@:::'::-::::::::;!:):::::,:::::";
-    " etianmsurwdkgohvf:l:pjbxcyzq::54:3:::2&:+::::16=/:::(:7:::8:90"
+    "`etianmsurwdkgohvf:l:pjbxcyzq::54:3:::2&:+::::16=/:::(:7:::8:90"
     "::::::::::::?_::::\"::.::::@:::'::-::::::::;!:):::::,:::::";
   for (int i = 0; i < sizeof(X)/sizeof(X[0]); i++) {
     int x = X[i];

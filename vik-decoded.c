@@ -30,7 +30,11 @@ int main(int v, char** b) {
             u=main(0,b);
         }
      } else {
-        c=strrchr(X,~(32&V3&V3/2)&V3)-X;
+        int V4 = V3;
+        if (V3 >= '`' && V3 <= '\x7F') {
+          V4 -= 'a' - 'A';
+        }
+        c=strrchr(X,V4)-X;
         j=255;
      }
 

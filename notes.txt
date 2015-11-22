@@ -33,6 +33,8 @@ a?0:b(); -> if (!a) b;
 
 you can use free slots in an array as independent variables, but don't.
 
+algorithm doesn't correctly translate '`'
+
 
 Atoms:
 *= vs =* => *a*=1;
@@ -42,6 +44,8 @@ using arithmetic operations as logical ones... a*b vs a&&b, or a+b vs a||b
 using logical operations as control flow... a&&b() vs if (a) { b(); }
 multiple assignments that could be expressed as one
 *b vs b[0]
+add intermediate variable
+replace value with it's calculation (32 == 'a' - 'A')
 
 Notes:
 fread(dest, size, count, stream), returns number bytes read
@@ -107,3 +111,8 @@ Transformations:
 490: replace int with char
 500: replace arithmetic with logic
 510: use variable instead of free array space
+520: replace bitshift with logic
+530: introduce intermediate variable
+540: multiplication to condition
+550: bitwise to arithmetic
+560: replace value with it's calculation
