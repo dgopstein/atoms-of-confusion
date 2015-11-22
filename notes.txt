@@ -29,6 +29,10 @@ int math isn't distributive over addition: (1 + 1)/2 != (1/2) + (1/2)
 
 a?0:b(); -> if (!a) b;
 
+~(32&*X&*X/2)&*X converts a character to uppercase
+
+you can use free slots in an array as independent variables, but don't.
+
 
 Atoms:
 *= vs =* => *a*=1;
@@ -37,6 +41,7 @@ random stuff in for loop initialization
 using arithmetic operations as logical ones... a*b vs a&&b, or a+b vs a||b
 using logical operations as control flow... a&&b() vs if (a) { b(); }
 multiple assignments that could be expressed as one
+*b vs b[0]
 
 Notes:
 fread(dest, size, count, stream), returns number bytes read
@@ -45,6 +50,7 @@ The first for-loop does: read the nth byte of stdin into the first character of 
 argc is used to flag whether the function was called from the commandline or from code. The main invocation, or a programmatic one, there are several conditions later that check whether v is 0.
 At j>7&&j>13, the values of j are 9,10,12
 Values of s right after ^: 0 104 17 26 4 43 52 78 8 86 9
+X (ETIA...) stores a morse->ascii mapping assuming 0/1 in binary (of the array index) maps to dah/dit in morse. E=10,T=11,I=100,A=101
 
 Questions:
 Can removal transformations be valid even if their only valid given constraints, i.e. replacing abs(x) with x is valid only when x >= 0. Can that still be a valid transformation, or do atoms need to be valid regardless of the state or constraints of the system.
@@ -97,3 +103,7 @@ Transformations:
 450: swap array subscript
 460: replace ascii int with character
 470: replace arithmetic with logic
+480: replace constant with value
+490: replace int with char
+500: replace arithmetic with logic
+510: use variable instead of free array space

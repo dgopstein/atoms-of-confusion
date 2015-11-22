@@ -23,4 +23,16 @@ int main(int v, char** b) {
   printf("\n");
   // how tightly does the ! bind?
   printf("negate ternary: %d\n", !0?1:2);
+
+  // Converts character to upper case
+  char X[] =
+    //" ETIANMSURWDKGOHVF:L:PJBXCYZQ::54:3:::2&:+::::16=/:::(:7:::8:90"
+    //"::::::::::::?_::::\"::.::::@:::'::-::::::::;!:):::::,:::::";
+    " etianmsurwdkgohvf:l:pjbxcyzq::54:3:::2&:+::::16=/:::(:7:::8:90"
+    "::::::::::::?_::::\"::.::::@:::'::-::::::::;!:):::::,:::::";
+  for (int i = 0; i < sizeof(X)/sizeof(X[0]); i++) {
+    int x = X[i];
+    int d = ~(32&x&x/2)&x;
+    printf("~X[%d]: %c\n", i, d);
+  }
 }

@@ -5,18 +5,16 @@ char X[] =
   " ETIANMSURWDKGOHVF:L:PJBXCYZQ::54:3:::2&:+::::16=/:::(:7:::8:90"
   "::::::::::::?_::::\"::.::::@:::'::-::::::::;!:):::::,:::::";
 
-int V3 = ' ';
-
 int j,h,f,u,d,g,n,i,l,r,p,c,o,t,s,T[32],W[32],I=13000;
 
 int main(int v, char** b) {
   i = 0;
 
-  while (v>0&&v<5&&(v*=t=fread(&V3,1,1,stdin))) {
+  while (v>0&&v<5&&(v*=t=fread(X,1,1,stdin))) {
 
     if (v != 1 && 'e'==b[1][0]) {
         if (++g%1500) {
-            u+=(!(g&1))*((V3<0)?-V3:V3);
+            u+=(!(g&1))*((*X<0)?-*X:*X);
         } else {
             f=d;
             d=u;
@@ -30,7 +28,7 @@ int main(int v, char** b) {
             u=main(0,b);
         }
      } else {
-        c=strrchr(X,~(32&V3&V3/2)&V3)-X;
+        c=strrchr(X,~(32&*X&*X/2)&*X)-X;
         j=255;
      }
 
@@ -44,7 +42,7 @@ int main(int v, char** b) {
         j/=2;
       }
 
-      main((V3 != 32)?8:24,b);
+      main((*X != 32)?8:24,b);
     }
   }
   
@@ -91,7 +89,7 @@ int main(int v, char** b) {
     g = 0;
 
     while (r+t!=h+1&&h>5) {
-      V3=32;
+      *X=32;
 
       if (r%2) {
         ++n;
