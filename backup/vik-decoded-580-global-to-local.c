@@ -55,7 +55,7 @@ int main(int v, char** b) {
   
   int a=0;
   int V2 = 0;
-  while (i<=32*32&&v==0) {
+  while (i<=32*32&&!v) {
     if (!(i++%32)) {
       if (c>a) {
         V2=s;

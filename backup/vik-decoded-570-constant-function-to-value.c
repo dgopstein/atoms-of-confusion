@@ -7,7 +7,7 @@ char X[] =
 
 int V3 = ' ';
 
-int j,h,f,u,d,g,n,i,l,r,p,c,o,t,s,T[32],W[32];
+int j,h,f,u,d,g,n,i,l,r,p,c,o,t,s,T[32],W[32],I=13000;
 
 int main(int v, char** b) {
   i = 0;
@@ -55,7 +55,7 @@ int main(int v, char** b) {
   
   int a=0;
   int V2 = 0;
-  while (i<=32*32&&v==0) {
+  while (i<=32*32&&!v) {
     if (!(i++%32)) {
       if (c>a) {
         V2=s;
@@ -77,7 +77,6 @@ int main(int v, char** b) {
     }
   }
 
-  int I=13000;
   while (i<((int)(v/4)*I)) {
     int V1 = 0;
     if (i/I<v%4) {

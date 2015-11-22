@@ -46,6 +46,7 @@ multiple assignments that could be expressed as one
 *b vs b[0]
 add intermediate variable
 replace value with it's calculation (32 == 'a' - 'A')
+replace constant-return function with its value;
 
 Notes:
 fread(dest, size, count, stream), returns number bytes read
@@ -55,6 +56,7 @@ argc is used to flag whether the function was called from the commandline or fro
 At j>7&&j>13, the values of j are 9,10,12
 Values of s right after ^: 0 104 17 26 4 43 52 78 8 86 9
 X (ETIA...) stores a morse->ascii mapping assuming 0/1 in binary (of the array index) maps to dah/dit in morse. E=10,T=11,I=100,A=101
+c is the index of the current stdin character in the X lookup table
 
 Questions:
 Can removal transformations be valid even if their only valid given constraints, i.e. replacing abs(x) with x is valid only when x >= 0. Can that still be a valid transformation, or do atoms need to be valid regardless of the state or constraints of the system.
@@ -116,3 +118,6 @@ Transformations:
 540: multiplication to condition
 550: bitwise to arithmetic
 560: replace value with it's calculation
+570: split constant-returned function call and its assignment
+580: rescope global variable
+590: make condition explicit
