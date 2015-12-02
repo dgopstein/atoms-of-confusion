@@ -81,12 +81,10 @@ int main(int v, char** b) {
   while (i<((int)(v/4)*I)) {
     int V1 = 0;
     if (i/I<v%4) {
-      if (i % 2 == 1) {
-        V1 = 0x55;
+      V1 = (i%2)*85;
 
-        if (i%176 >= 88) {
-          V1 <<= 1;
-        }
+      if (i%176 >= 88) {
+        V1 *= 2;
       }
     }
 

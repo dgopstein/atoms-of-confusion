@@ -82,12 +82,11 @@ int main(int v, char** b) {
     int V1 = 0;
     if (i/I<v%4) {
       if (i % 2 == 1) {
-        V1 = 0x55;
-
-        if (i%176 >= 88) {
-          V1 <<= 1;
-        }
+        V1 = 85;
       }
+    }
+    if (i%176 >= 88) {
+      V1 *= 2;
     }
 
     putchar(V1);

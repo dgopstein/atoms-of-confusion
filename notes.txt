@@ -60,6 +60,10 @@ c is the index of the current stdin character in the X lookup table
 
 Questions:
 Can removal transformations be valid even if their only valid given constraints, i.e. replacing abs(x) with x is valid only when x >= 0. Can that still be a valid transformation, or do atoms need to be valid regardless of the state or constraints of the system.
+GCC allows binary literals, is this valid in the transformation (my strong assumption is no) putting a comment expressing what would otherwise be very useful, might be useful. No?
+
+Play audio with sox-play (brew install sox):
+play -r 112000 -b 16 -c 1 -e signed-integer examples/test2.raw
 
 Transformations:
 010: add curly braces around first for-loop
@@ -121,3 +125,6 @@ Transformations:
 570: split constant-returned function call and its assignment
 580: rescope global variable
 590: make condition explicit
+600: multiplication to condition
+610: multiplication by 0 allows movement inside if
+620: replace decimal with hex/binary, and multiplication with bitshift

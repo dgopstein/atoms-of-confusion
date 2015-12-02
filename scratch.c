@@ -35,4 +35,11 @@ int main(int v, char** b) {
     int d = ~(32&x&x/2)&x;
     printf("~X[%d]: %c\n", i, d);
   }
+
+  // Why print 85 and 85*2?
+  printf("85:\n");
+  putchar(85);
+  printf("\n85*2:\n");
+  putchar(85*2);
+  printf("\n----\n");
 }
