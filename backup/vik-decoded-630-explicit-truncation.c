@@ -99,33 +99,26 @@ int main(int v, char** b) {
   if (v == 0) {
     g = 0;
 
-    if (h > 5) {
-      while (r+t <= h) {
-        V3=32;
+    while (r+t!=h+1&&h>5) {
+      V3=32;
 
-        if (r%2) {
-          ++n;
+      if (r%2) {
+        ++n;
+        p = 2*p+(W[r%32]>2*V2);
+        r += 1;
+      }
 
-          p *= 2;
-          if (W[r%32]>2*V2) {
-            p += 1;
+      if (r+t!=h+1) {
+        if (W[r%32]>2*V2||r==h) {
+          if (n<=6) {
+            putchar(X[p-1+(1<<n)]);
           }
-
-          r += 1;
+          p=n=0;
         }
-
-        if (r+t <= h) {
-          if (W[r%32]>2*V2||t==0) {
-            if (n<=6) {
-              putchar(X[p-1+(1<<n)]);
-            }
-            p=n=0;
-          }
-          if (W[r%32]>6*V2) {
-            putchar(' ');
-          }
-          r += 1;
+        if (W[r%32]>6*V2) {
+          putchar(' ');
         }
+        r += 1;
       }
     }
   }

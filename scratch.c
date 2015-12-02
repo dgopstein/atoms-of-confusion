@@ -42,4 +42,9 @@ int main(int v, char** b) {
   printf("\n85*2:\n");
   putchar(85*2);
   printf("\n----\n");
+
+  // precedence of division/multiplication
+  printf("%d\n", 64/32*32);
+  printf("%d\n", 34/32*32);
+  printf("%d\n", 2/32*32);
 }

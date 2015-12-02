@@ -105,17 +105,12 @@ int main(int v, char** b) {
 
         if (r%2) {
           ++n;
-
-          p *= 2;
-          if (W[r%32]>2*V2) {
-            p += 1;
-          }
-
+          p = 2*p+(W[r%32]>2*V2);
           r += 1;
         }
 
         if (r+t <= h) {
-          if (W[r%32]>2*V2||t==0) {
+          if (W[r%32]>2*V2||r==h) {
             if (n<=6) {
               putchar(X[p-1+(1<<n)]);
             }

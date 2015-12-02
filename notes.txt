@@ -128,3 +128,8 @@ Transformations:
 600: multiplication to condition
 610: multiplication by 0 allows movement inside if
 620: replace decimal with hex/binary, and multiplication with bitshift
+630: explicit truncation
+640: not-equal to less-than
+650: constant loop condition to if
+660: mathematical equivalence
+670: replace arithmetic with logic
