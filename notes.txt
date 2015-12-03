@@ -47,6 +47,7 @@ multiple assignments that could be expressed as one
 add intermediate variable
 replace value with it's calculation (32 == 'a' - 'A')
 replace constant-return function with its value;
+undistribute operator a>b?a|1:1|b -> 1|(a>b?a:b)
 
 Notes:
 fread(dest, size, count, stream), returns number bytes read
@@ -133,3 +134,6 @@ Transformations:
 650: constant loop condition to if
 660: mathematical equivalence
 670: replace arithmetic with logic
+680: constant loop condition to if
+690: remove variable and reduce scope
+700: undistribute operator

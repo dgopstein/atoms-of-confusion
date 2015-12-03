@@ -7,19 +7,20 @@ char X[] =
 
 int V3 = ' ';
 
-int j,h,g,n,i,l,r,p,c,o,t,s,T[32],W[32];
+int j,h,f,u,d,g,n,i,l,r,p,c,o,t,s,T[32],W[32];
 
 int main(int v, char** b) {
   i = 0;
 
-  int d, u;
   while (v>0&&v<5&&(v*=t=fread(&V3,1,1,stdin))) {
 
     if (v != 1 && 'e'==b[1][0]) {
         if (++g%1500) {
             u+=(!(g&1))*((V3<0)?-V3:V3);
         } else {
-            if ((1 - h%2*2)*(u -d)/(1 | (u<d?u:d)) > 5) {
+            f=d;
+            d=u;
+            if ((1 - h%2*2)*(d -f)/((d<f) ?d|1 : 1|f) > 5) {
                 T[ h%32]=o+l;
                 l=W[h%32]=o;
                 h += 1;
@@ -27,7 +28,6 @@ int main(int v, char** b) {
             }
             o++;
             main(0,b);
-            d=u;
             u=0;
         }
      } else {
