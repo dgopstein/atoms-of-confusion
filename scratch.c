@@ -47,4 +47,21 @@ int main(int v, char** b) {
   printf("%d\n", 64/32*32);
   printf("%d\n", 34/32*32);
   printf("%d\n", 2/32*32);
+  printf("\n----\n");
+
+  // using for-loop post-condition instead of body
+  for (int i = 0; i < 3; printf("i: %d\n", i), i++) {}
+  for (int i = 0; i < 3; i++) { printf("i: %d\n", i); }
+  printf("\n----\n");
+
+  int V3 = 'D';
+  printf("%d\n", 32&V3&V3/2);
+  printf("%d\n", 32*(V3 >= '`' && V3 <= '\x7F'));
+  printf("\n----\n");
+
+  int f = 3;
+  printf("%d %d %d\n", 3%2, 0%2, -3%2);
+  printf("%d %d %d\n", 3&1, 0&1, (-3&~((~0)>>1))*(-3&1));
+  printf("\n----\n");
+
 }
