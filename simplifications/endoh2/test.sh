@@ -1,6 +1,6 @@
 #!/bin/bash
 
-gcc="gcc -I. -Iorig_files"
+gcc="gcc -Itest "
 
 src_a=endoh2.c
 src_b=orig_files/prog.c
@@ -20,7 +20,7 @@ cp orig_files/prog.c test/
 echo "-- Executed --"
 
 # Encode each txt example
-for f in `ls examples/*[0-9].txt`; do
+for f in `ls examples/*.txt`; do
   f=`basename $f`
 
   test_a="test/$f.a.c"
@@ -35,19 +35,23 @@ done
 echo "-- Included --"
 
 # Decode each txt example
-for f in `ls examples/*a.c`; do
+for f in `ls examples/*.c`; do
   f=`basename $f`
 
-  base="${f%.a.c}"
-  test_a="examples/$base.a.c"
-  test_b="examples/$base.b.c"
-
+  base="${f%.c}"
   prg_a="test/$base.a"
   prg_b="test/$base.b"
 
-  $gcc $test_a -o $prg_a || exit 1
-  $gcc $test_b -o $prg_b
+  test_include=test/prog.c
+  cp $src_a $test_include; $gcc $test_a -o $prg_a || exit 1
+  cp $src_b $test_include; $gcc $test_b -o $prg_b
 
-  cmp $prg_a $prg_b
+  out_a="test/$base.a.out"
+  out_b="test/$base.b.out"
+
+  $prg_a > $out_a
+  $prg_b > $out_b
+
+  cmp $out_a $out_b
   echo "$f: $?"
 done
