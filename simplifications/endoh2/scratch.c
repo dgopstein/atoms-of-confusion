@@ -1,6 +1,9 @@
+#include <stdio.h>
+
 int main() {
-  int/*comment*/x = 5;
-  printf("x: %d", x);
+  int/**/x = 1;
+  int    y = 2;
+  printf("x y: %d %d\n", x, y);
 
   return 0;
 }
