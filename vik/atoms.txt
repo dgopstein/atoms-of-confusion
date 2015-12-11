@@ -1,0 +1,85 @@
+1) Simple textual transpositions
+
+  Examples:
+    1) a=*c can be confused with a*=c which in turn can be confused with *a=c
+
+  Removal:
+    1) Parens/spacing:
+      - a=*b -> a = *b or a=(*b)
+
+2) Implicit type-conversions as data manipulation:
+
+  Examples:
+    Assume: int a;
+    1) !!a can be confused with (a)
+    2) a/32*32 can be confused with (a)
+
+  Removal:
+    1) Use non-type-conversion techniques that accomplish the same thing
+      - !!a -> (a == 0)
+      - a/32*32 -> a - (a % 32)
+    2) Use explicit truncation operations:
+      - a/32*32 -> floor(a/32)*32
+
+3) Ignoring conventions
+
+  Examples:
+    1) for (int i = 0; i < 3; printf("i: %d\n", i), i++) {}
+    2) *(b+1) can be confused with *b+1
+    
+  Removal:
+    1) Use constructs as intended
+      - for (int i = 0; i < 3; printf("i: %d\n", i), i++) {}
+        for (int i = 0; i < 3; i++) { printf("i: %d\n", i); }
+      - *(b+1)
+        b[1]
+
+4) Bitwise operations instead of logic
+
+  Examples:
+    1) 32&V3&V3/2 -> ???
+
+  Removal:
+    1) Use logical operators instead
+      - 32&V3&V3/2
+        32*(V3 >= '`' && V3 <= '\x7F'));
+
+6) Using common values that have specific derivations:
+
+  Examples:
+    1) 32 has many meanings (which may make the value harder to remember or reason about)
+
+  Removal:
+    1) Show it's derivation
+      - 32 -> (2<<5) or (0x100/8) ('a' - 'A')
+      - 0 -> NULL or i-- or a-b
+
+7) Common operations are distributed
+
+   Examples:
+     1) a<b?a|1:1|b
+
+   Removal:
+     1) Factor out common elements:
+       - a<b?a|1:1|b
+         (a<b?a:b)|1
+
+8) Arithmetic used as logic
+
+  Examples:
+    1) a = (a > 3) * 5;
+
+  Removal:
+    1) Use an if statment
+      - a = (a > 3) * 5;
+        a = (a > 3) ? 0 : 5
+
+9) Constant loop predicates
+
+  Examples:
+    1) while (i > 0 && j > 0) { i--; }
+
+  Removal:
+    1) Move constant condition to a surrounding if-statement instead
+      - while (i > 0 && j > 0) { i--; }
+        if (j > 0) { while (i > 0) { i--; } }

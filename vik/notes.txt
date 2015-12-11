@@ -1,0 +1,140 @@
+Sometimes the purpose of a variable changes over time... v starts as the number of arguments, but then gets assigned the value of fread later.
+
+Simlarly what if there are 3 different ints, and they rotate values throughout the program
+a=b,b=c,c=a
+// some stuff
+a=b,b=c,c=a
+
+Can we use contractual obligations in our simplifications? What if they're guaranteed by a spec? E.G. argc is guaranteed to be non-negative, though there's no reason a bug, for example, couldn't invalidate that promise. (On the otherhand, whatabout something like malloc? We often assume it never returns 0, though theoretically it could) I think probably we shouldn't take advantage of these semantic constraints, but sometimes we have to in order to deobfuscate.
+
+There are cases where the author does things by (bit) arithmetic that should have names (or library funcations), i.e. testing even/odd (x&1) or absolute value ((x<0)?-x:x)
+
+Too many operations per statement. Can't keep track of them all. Cognitive load.
+
+Which direction does the comma operator work, left-to-right or right-to-left?
+
+A function which does completely different logical functions based on its arguments
+
+Global variables accessed in recursive function calls makes it unclear when things get updated and what assumptions you can make about their values
+
+Sometimes its hard to know what the valid range of variables is, can c be non-zero?
+
+j=j?a:0 is the same as j &&= a
+
+rather than !!a, you can do a*3+5 and !!(a > 4 && a < 14)
+
+int math isn't distributive over addition: (1 + 1)/2 != (1/2) + (1/2)
+
+(a & 0) == 0
+
+a?0:b(); -> if (!a) b;
+
+~(32&*X&*X/2)&*X converts a character to uppercase
+
+you can use free slots in an array as independent variables, but don't.
+
+algorithm doesn't correctly translate '`'
+
+
+Atoms:
+*= vs =* => *a*=1;
+!! as clomp to 0/1
+random stuff in for loop initialization
+using arithmetic operations as logical ones... a*b vs a&&b, or a+b vs a||b
+using logical operations as control flow... a&&b() vs if (a) { b(); }
+multiple assignments that could be expressed as one
+*b vs b[0]
+add intermediate variable
+replace value with it's calculation (32 == 'a' - 'A')
+using bitwise operations instead of logical ones: 
+replace constant-return function with its value;
+undistribute operator a>b?a|1:1|b -> 1|(a>b?a:b)
+
+Notes:
+fread(dest, size, count, stream), returns number bytes read
+in main(argc, argv), argc is guaranteed non-negative
+The first for-loop does: read the nth byte of stdin into the first character of X, where n is the number of arguments to the program (or 5, if there are more than 5 arguments). Store 1 into v* and t if stdin has atleast n bytes.
+argc is used to flag whether the function was called from the commandline or from code. The main invocation, or a programmatic one, there are several conditions later that check whether v is 0.
+At j>7&&j>13, the values of j are 9,10,12
+Values of s right after ^: 0 104 17 26 4 43 52 78 8 86 9
+X (ETIA...) stores a morse->ascii mapping assuming 0/1 in binary (of the array index) maps to dah/dit in morse. E=10,T=11,I=100,A=101
+c is the index of the current stdin character in the X lookup table
+
+Questions:
+Can removal transformations be valid even if their only valid given constraints, i.e. replacing abs(x) with x is valid only when x >= 0. Can that still be a valid transformation, or do atoms need to be valid regardless of the state or constraints of the system.
+GCC allows binary literals, is this valid in the transformation (my strong assumption is no) putting a comment expressing what would otherwise be very useful, might be useful. No?
+
+Play audio with sox-play (brew install sox):
+play -r 112000 -b 16 -c 1 -e signed-integer examples/test2.raw
+
+Transformations:
+010: add curly braces around first for-loop
+020: move for-loop assignment of i to outside the loop
+030: change for-loop with only condition to while
+040: add parens and indentation to second for-loop
+050: isolate for-loop initialization
+060: indent/paranthesize ternaries
+070: convert side-effect-only ternaries to if-else
+080: replace commas with semi-colons
+090: replace ^(xor) with !(not)
+100: remove unused variables
+110: convert ternary to if
+120: remove trivial else branch
+130: replace commas with semi-colons
+140: remove unused variable
+150: for to while
+160: arithmetic to logical
+170: clarifying parens
+180: ternary to if
+190: remove unused if branch
+200: logical to conditional
+210: parens and braces
+220: commas to semicolons
+230: ternary to if without irrelevance
+240: for to while
+250: ternary to if
+260: logical multiplication to if
+270: ternary to expanded if
+280: split pre-increment
+290: join sequential assignments
+300: for to while
+310: move initialization before usage
+320: add parentheses
+330: add type reminder
+340: add parentheses
+350: add intermediate variable
+360: logical multiplication to conditional
+370: for to while
+380: comma to semicolon
+390: ternaries to ifs
+400: ternary to if
+410: multiplication to condition
+420: pull constant condition from loop
+430: expand postcondition
+440: make global variables local and uniquely purposed
+450: swap array subscript
+460: replace ascii int with character
+470: replace arithmetic with logic
+480: replace constant with value
+490: replace int with char
+500: replace arithmetic with logic
+510: use variable instead of free array space
+520: replace bitshift with logic
+530: introduce intermediate variable
+540: multiplication to condition
+550: bitwise to arithmetic
+560: replace value with it's calculation
+570: split constant-returned function call and its assignment
+580: rescope global variable
+590: make condition explicit
+600: multiplication to condition
+610: multiplication by 0 allows movement inside if
+620: replace decimal with hex/binary, and multiplication with bitshift
+630: explicit truncation
+640: not-equal to less-than
+650: constant loop condition to if
+660: mathematical equivalence
+670: replace arithmetic with logic
+680: constant loop condition to if
+690: remove variable and reduce scope
+700: undistribute operator

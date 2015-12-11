@@ -1,0 +1,1 @@
+echo 'Want to hear me beep?' | ./prog  > audio_file.raw
