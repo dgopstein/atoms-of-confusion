@@ -12,3 +12,21 @@ collapse all lines, then gcc-indent
 expand: char*_ = "'""/*"; -> char* _ = "'" "/*";
 
 concatenate: "'" "/*" -> "'/*"
+
+remove dead code: 
+
+
+================
+
+
+Confusing techniques (most are taken directly from hints.html):
+-Storing state arcs as string text
+-Global variable automatic zero initialization
+-x + 1, is used multiple times to determine if a value is not -1. Similarly, expressions of the form x - y are used to determine if x != y
+-Several arrays store unrelated data in segments throughout the array to reduce named variables
+-x["str"] ~= "str"[x] (if the latter actually worked), since x["str"] == *(&x + &str)
+-spurious variables
+-There is functionally useless code -> char*_ = "'""/*";
+-Before macro replace
+-Macro replacement turns: n(4&&L)  ->  for (T = 0; T < 4 && L; T++) {
+-(i & 3) - 3 is used to identify i == {3, 7}
