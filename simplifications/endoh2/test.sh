@@ -20,7 +20,7 @@ cp orig_files/prog.c test/
 echo "-- Executed --"
 
 # Encode each txt example
-for f in `ls examples/*[0-9].c`; do
+for f in `ls examples/*[0-9].txt`; do
   f=`basename $f`
 
   test_a="test/$f.a.c"
