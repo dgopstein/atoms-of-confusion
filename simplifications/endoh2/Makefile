@@ -1,5 +1,5 @@
 test: build
-	bin/endoh2 < endoh2.c
+	./test.sh orig_files/prog.c endoh2.c
 
 build: FORCE
 	gcc endoh2.c -o bin/endoh2
