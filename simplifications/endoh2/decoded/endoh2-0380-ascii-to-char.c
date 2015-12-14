@@ -4,8 +4,7 @@
 
 #define Y(a3)                                                                  \
   v1;                                                                          \
-  a2++; \
-  if (a2 % 2) { \
+  if (a2++ % 2 < 1) { \
     v2 = v2 * 4 + a3; \
     if (v2 && a2 % 8 > 5) { \
       f1(1, v2); \
@@ -57,12 +56,11 @@ int main() {
     puts("#include \"prog.c\"\n\n     AT");
     for (; f2(), v4 || v2; a2 %= 16) {
       if (v4) {
-        int v7 = (v2 / v1) & 3;
-        f1(1, "ACGT"[v7]);
+        f1(1, "ACGT"[v2 / v1 & 3]);
         f1(v4, '~');
-        f1(1, "TGCA"[v7]);
+        f1(1, "TGCA"[v2 / v1 & 3]);
         v1 /= 4;
-        f1(1, '\n');
+        f1(001, '\n');
       } else {
         puts(a2 % 8 ? "CG" : "TA");
       }

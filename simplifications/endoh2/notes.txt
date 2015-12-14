@@ -6,6 +6,8 @@ atoms:
  - lots of code in a small space (many operations in a single expression) (0110)
  - redundant self-assignment (a = a;) (0150)
  - comma in assignment (a = 1, 2;) (0160)
+ - nested ifs that could be combined into a single predicate
+ - performing logical test against pre-updated value (a++ == 126) vs (a++, a == 127)
 
 transformations
 0010: normalize the code - remove comments and rename identifiers
@@ -33,3 +35,20 @@ transformations
 0230: replace repeated expression with variable
 0240: factor common elements from ternary operator
 0250: split separate macros
+0260: add parens
+0270: remove redundant assignment
+0280: ternary to if
+0290: replace comma with semicolon
+0300: ternary to if
+0310: ternary to if
+0320: replace comma with semicolon
+0330: remove redundant branch
+0340: combine conditions
+0350: split out pre-increment
+0360: ternary to if
+0370: replace comma with semicolon
+0380: replace ascii with character
+0390: post-increment to pre-increment
+0400: factor out expression to variable
+0410: parens
+0420: octal to decimal
