@@ -27,3 +27,9 @@ transformations
 0170: solve arithmetic
 0180: ternary to if
 0190: remove redundant branch
+0200: move assignment from predicate
+0210: replace macro with contents
+0220: simplify expression
+0230: replace repeated expression with variable
+0240: factor common elements from ternary operator
+0250: split separate macros

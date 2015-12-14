@@ -1,21 +1,17 @@
 #include <stdio.h>
 #define TA v4 =
 #define CG v5 =
-
 #define Y(a3)                                                                  \
   v1;                                                                          \
   v1 = a2++ % 2 < 1 ? v2 = v2 * 4 + a3, a2 % 8 > 5 ? v2 = v2 ? f1(1, v2),      \
   0 : v2 : 0 : 0;                                                              \
   v1 =
-
 #define C Y(1)
 #define G Y(2)
 #define A Y(0)
-
 #define AT                                                                     \
   int m(void) {                                                                \
   v1 =
-
 #define T Y(3)
 #define GC                                                                     \
   v1;                                                                          \
