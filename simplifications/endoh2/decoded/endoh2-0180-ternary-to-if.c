@@ -29,6 +29,8 @@ void f2() {
   if (!v1) {
     if ((v2 = getchar()) < 0) {
       v2 = 0;
+    } else {
+      v2 = v2;
     }
     v1 = 64;
   }

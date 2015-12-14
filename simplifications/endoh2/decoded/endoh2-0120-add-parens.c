@@ -26,15 +26,8 @@ void f1(int a1, int a2) {
 }
 int (*v3)(void), v1, a2, v2, v4, v5;
 void f2() {
-  if (!v1) {
-    if ((v2 = getchar()) < 0) {
-      v2 = 0;
-    }
-    v1 = 64;
-  }
-  TA++ a2 % 8;
-  TA(1 + 7 * v4 - v4 * v4) / 3;
-  v5 = a2 * 15 - a2 * a2 - 36;
+  v1 = (!v1 ? v2 = ((v2 = getchar()) < 0 ? 0 : v2), 8 * 8 : v1), TA++ a2 % 8,
+  TA(1 + 7 * v4 - v4 * v4) / 3, v5 = a2 * 15 - a2 * a2 - 36,
   f1(v5 < 0 ? !v4 + 4 : v5 / 6 + !v4 + 4, 32);
 }
 int main() {

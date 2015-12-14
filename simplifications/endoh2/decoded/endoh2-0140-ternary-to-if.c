@@ -27,10 +27,9 @@ void f1(int a1, int a2) {
 int (*v3)(void), v1, a2, v2, v4, v5;
 void f2() {
   if (!v1) {
-    if ((v2 = getchar()) < 0) {
-      v2 = 0;
-    }
-    v1 = 64;
+    v1 = (v2 = ((v2 = getchar()) < 0 ? 0 : v2), 8 * 8);
+  } else {
+    v1 = v1;
   }
   TA++ a2 % 8;
   TA(1 + 7 * v4 - v4 * v4) / 3;

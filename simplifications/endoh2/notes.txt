@@ -1,7 +1,29 @@
 atoms:
  - Order of preprocessor steps. Which happens first? Macro evaluation or comment stripping?
    - Is there a case where it matters? It matters because #define/*asfd*/ wouldn't compile if comments weren't removed first
- -
+ - Arithmetic on string literal: ("abc"+0) (0080)
+ - preprocessor directives inside statements(0050)
+ - lots of code in a small space (many operations in a single expression) (0110)
+ - redundant self-assignment (a = a;) (0150)
+ - comma in assignment (a = 1, 2;) (0160)
 
 transformations
 0010: normalize the code - remove comments and rename identifiers
+0020: run clang-format
+0030: add explicit curly braces
+0040: remove redundant semicolon
+0050: remove defines from inside other statements
+0060: replace for with while
+0070: merge concatenated strings
+0080: remove identity addition
+0090: replace ascii codes with characters
+0100: move irrelevant for initialization
+0110: move large compound expression to procedure so it can be broken up
+0120: add parens
+0130: replace commas with semicolons
+0140: ternary to if
+0150: remove redundant branch
+0160: factor comma out of assignment
+0170: solve arithmetic
+0180: ternary to if
+0190: remove redundant branch
