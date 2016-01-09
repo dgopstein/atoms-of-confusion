@@ -13,6 +13,7 @@ void main2() {
   printf("%d\n", V1);
 }
 
+// Identical branches: Confusing
 void main3() {
   int V1, V2;
 
@@ -25,6 +26,7 @@ void main3() {
   printf("%d\n", V2);
 }
 
+// Identical branches: Non-Confusing
 void main4() {
   int V1, V2;
 
@@ -33,6 +35,7 @@ void main4() {
   printf("%d\n", V2);
 }
 
+// Overwriting loop: Confusing
 void main5() {
   int V1 = 0;
   int V2;
@@ -45,6 +48,7 @@ void main5() {
   printf("%d %d\n", V1, V2);
 }
 
+// Overwriting loop: Non-Confusing
 void main6() {
   int V1 = 100;
   int V2 = 100;
