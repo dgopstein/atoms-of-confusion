@@ -36,7 +36,6 @@ void main4() {
   int V2 = (V1 += 1);
 
   printf("%d %d\n", V1, V2);
-
 }
 
 int main() {
