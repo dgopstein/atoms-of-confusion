@@ -13,7 +13,7 @@ prg_b="bin/${prg_b%.*}"
 $gcc $src_a -o $prg_a || exit 1
 $gcc $src_b -o $prg_b
 
-cmp $prg_a $prg_b
+cmp <($prg_a) <($prg_b)
 if [[ 0 -ne $? ]]; then
   echo "Failure"
 else
