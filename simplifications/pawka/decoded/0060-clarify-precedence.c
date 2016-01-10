@@ -11,18 +11,11 @@ int V3,V4;
 main(){
   V4=0;
   while(V1[V4]){
-    V2=V1[V4];
-    V4++;
+    V2=V1[V4++];
     while(*V2){
-      V3= (*V2)-0x59;
-      V2++;
-      while(V3) {
-        V3--;
-        putchar((*V2)-0x29);
-      }
+      V3= *(V2++)-0x59;
+      while(V3--)putchar(*V2-0x29);
       if(*V2==0x68)putchar('\n');
-      *V2;
-      V2++;
-    }
+      *(V2++);}
   }
 }

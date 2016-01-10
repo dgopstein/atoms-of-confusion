@@ -1,0 +1,12 @@
+Atoms:
+(old) Replace macros
+
+Transformations:
+001x: Normalizatoin
+0020: Replace macros
+0030: Break lines
+0040: Indent
+0050: Replace constant variables
+0060: Clarify precedence
+0070: Separate post-increments
+0080: Clarify precedence

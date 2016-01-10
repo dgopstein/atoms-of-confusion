@@ -6,23 +6,16 @@ char *V1 [] = {
   "]IZx\\IZx[IZk\\IZk[IZo_IZ~\\IZ~_IZ|[IZl_IZj\\IZj]IZ}]IZn_IZm\\IZm]IZh",
   "]I^x[I]k\\IZo_I^~[I^|[I^l[IZj\\IZj]IZ}]I^n[I]m^IZh",'\0'};
 char *V2;
-int V3,V4;
-    
+int V3,V4,V5=0x59,V6=0x29,
+    V7=0x68;
 main(){
   V4=0;
   while(V1[V4]){
-    V2=V1[V4];
-    V4++;
+    V2=V1[V4++];
     while(*V2){
-      V3= (*V2)-0x59;
-      V2++;
-      while(V3) {
-        V3--;
-        putchar((*V2)-0x29);
-      }
-      if(*V2==0x68)putchar('\n');
-      *V2;
-      V2++;
-    }
+      V3= *V2++-V5;
+      while(V3--)putchar(*V2-V6);
+      if(*V2==V7)putchar('\n');
+      *V2++;}
   }
 }
