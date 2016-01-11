@@ -1,5 +1,13 @@
 Atoms:
 (old) Replace macros
+(new) Break lines
+(old) Indent
+(old) Replace constant variables
+(old) Clarify precedence
+(old) Post-increment
+(old) Number to Character
+(new) Add braces
+(old) Clarify conditional
 
 Transformations:
 001x: Normalizatoin
@@ -10,3 +18,6 @@ Transformations:
 0060: Clarify precedence
 0070: Separate post-increments
 0080: Clarify precedence
+0090: Replace number with character
+0100: Break lines/Indent
+0110: Clarify conditional
