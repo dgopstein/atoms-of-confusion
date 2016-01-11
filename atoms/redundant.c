@@ -56,6 +56,28 @@ void main6() {
   printf("%d %d\n", V1, V2);
 }
 
+// Intermediate variables: Confusing
+void main7() {
+  int V1 = 3, V2 = 4, V3, V4, V5, V6;
+
+  V3 = V5;
+  V5 = V2;
+  V2 = V1;
+  V4 = V2;
+  V1 = V5;
+  V5 = V4;
+  V3 = V1;
+
+  printf("%d %d\n", V1, V5);
+}
+
+// Intermediate variables: Non-Confusing
+void main8() {
+  int V1 = 3, V2 = 4;
+
+  printf("%d %d\n", V2, V1);
+}
+
 int main() {
   main1();
   main2();
@@ -65,4 +87,7 @@ int main() {
 
   main5();
   main6();
+
+  main7();
+  main8();
 }
