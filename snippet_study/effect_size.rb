@@ -12,17 +12,26 @@ qid_regex = '(?:\s*<td><a[^>]*>(\d+)</a></td>)?'
 qids = compare_str.scan(%r|<tr>#{qid_regex*2}|m).drop(1)
 con_ids, noncon_ids = con_noncon_ids = qids.transpose.map(&:compact).deep_map_values(&:to_i)
 
-# Read from Results file the T/F values for each question
-res_regex = %r|<tr>\s*<td>(\d+)</td>(?:\s*<td>[^<]*</td>){2}\s*<td>([TF])|m
-id_val_pairs = results_str.scan(res_regex)
-id_vals = Hash[id_val_pairs.group_by(&:first).map{|k, v| [k.to_i, v.map(&:last).map{|v| v == 'T'}]}]
-#p id_vals
+# Capture UserID, Question ID, and T/F value from Results.html file
+res_regex = %r|(?:User ID: (.*?)<.*?)?<tr>\s*<td>(\d+)</td>(?:\s*<td>[^<]*</td>){2}\s*<td>([TF])|m
+partial_uid_qid_val = results_str.scan(res_regex)
+
+# Only the first question has an associated UserID, propogate it to all the others
+uid_qid_val = partial_uid_qid_val.inject(["", []]) do |(uid, list), elem|
+  [new_uid = elem[0] || uid, list + [[new_uid, elem[1], elem[2]]]]
+end.last
+
+# Question ID -> # of Correct Answers
+qid_val_pairs = uid_qid_val.map{|tup| tup.drop(1)}
+qid_vals = Hash[qid_val_pairs.group_by(&:first).map{|k, v| [k.to_i, v.map(&:last).map{|v| v == 'T'}]}]
+#p qid_vals
+
+class Array; def sum; self.inject(:+); end; end
 
 # Build contingency table
-class Array; def sum; self.inject(:+); end; end
 contingency_table = con_noncon_ids.map do |group|
   n_null, n_alt, n_total = group.map do |id|
-    vals = id_vals[id]
+    vals = qid_vals[id]
     n_t = vals.size # all questions
     n_n = vals.count(&:itself) # questions the participants got right
     n_a = n_t - n_n # questions the participants got wrong
