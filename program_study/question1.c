@@ -7,8 +7,7 @@
 #define M6 if
 #define M7 '\n'
 M1 *V1 [] = {
-"]kh",
-"]IZh",
+"[h",
 '\0'};
 M1 *V2; M4 V3,V4,V5=0x59,V6=0x29,
 V7=0x68;M5(){V4=0;M3(V1[V4]){V2=V1[V4++];
