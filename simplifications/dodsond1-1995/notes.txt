@@ -1,5 +1,14 @@
+atoms:
+arithmetic to logic: (a - 1)*(3 - a) >= 0  --->  1 < a && a < 3
+
 transformations
 0001: rename macros
 0002: rename variables
 0010: apply macros
 0020: indented and removed whitespace
+0030: replace constant with value
+0040: replace character with int
+0050: simplify expression
+0060: arithmetic to logic
+
+
