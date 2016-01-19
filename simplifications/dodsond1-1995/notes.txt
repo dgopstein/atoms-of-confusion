@@ -10,5 +10,7 @@ transformations
 0040: replace character with int
 0050: simplify expression
 0060: arithmetic to logic
+0070: join string literal
+0080: arithmetic to logic
 
 

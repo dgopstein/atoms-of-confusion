@@ -13,7 +13,7 @@ prg_b="bin/${prg_b%.*}"
 $gcc $src_a -o $prg_a || exit 1
 $gcc $src_b -o $prg_b
 
-cmp <(echo 'a be see. \n Get it ?' | $prg_a) <(echo 'a be see. \n Get it ?' | $prg_b)
+cmp <(echo 'a be see. \n Get it ? A Z a z [' | $prg_a) <(echo 'a be see. \n Get it ? A Z a z [' | $prg_b)
 if [[ 0 -ne $? ]]; then
   echo "Failure"
 else
