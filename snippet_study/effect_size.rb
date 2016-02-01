@@ -3,22 +3,30 @@ require 'deep_enumerable'
 
 compare_file = 'Compare.html' # http://www.ckxrchen.com/Atom/result/compare.php
 results_file = 'Results.html' # http://www.ckxrchen.com/Atom/result/admin.php
+questions_file = 'Questions.html' # http://www.ckxrchen.com/Atom/result/questions.php
 
 compare_str = File.read(compare_file)
 results_str = File.read(results_file)
+questions_str = File.read(questions_file)
 
 # Read from Compare file which question ids are confusing/non-confusing
 qid_regex = '(?:\s*<td><a[^>]*>(\d+)</a></td>)?'
 qids = compare_str.scan(%r|<tr>#{qid_regex*2}|m).drop(1)
 
+# Capture UserID, Question ID, and T/F value from Results.html file
+res_regex = %r|(?:User ID: (.*?)<.*?)?<tr>\s*<td>(\d+)</td>(?:\s*<td>[^<]*</td>){2}\s*<td>([TF])|m
+partial_uid_qid_val = results_str.scan(res_regex)
+
+# Capture Question ID and atom type from Questions.html file
+ques_regex = %r|Question ([0-9]+)<.*?Atom: ([^<]*)<|m
+
+# Question ID -> Atom type
+question_types = questions_str.scan(ques_regex).map{|qid, type| [qid.to_i, type]}.to_h
+
 # tuple of each confusing/non-confusing pair [[1, 2], [3, 4], ... [15, nil], ... [57, 58]]
 compair_pairs = qids.deep_map_values{|i| i && i.to_i}
 
 con_ids, noncon_ids = con_noncon_ids = qids.transpose.map(&:compact).deep_map_values(&:to_i)
-
-# Capture UserID, Question ID, and T/F value from Results.html file
-res_regex = %r|(?:User ID: (.*?)<.*?)?<tr>\s*<td>(\d+)</td>(?:\s*<td>[^<]*</td>){2}\s*<td>([TF])|m
-partial_uid_qid_val = results_str.scan(res_regex)
 
 # Only the first question has an associated UserID, propogate it to all the others
 uid_qid_val = partial_uid_qid_val.inject(["", []]) do |(uid, list), elem|
@@ -78,18 +86,19 @@ mss = ->do
   pdisc = (p10 + p01).to_f
   pdiff = (p10 - p01).to_f
   
-  p [p10, p01, pdisc, pdiff]
+  #p [p10, p01, pdisc, pdiff]
 
   r = RSRuby.instance
   # n=((qnorm(1-alpha/2)*sqrt(pdisc)+qnorm(1-beta)*sqrt(pdisc-pdiff^2))/pdiff)^2
   alpha = 0.05
   beta = 0.20
-  p pdisc
-  p pdisc-pdiff**2
+  #p pdisc
+  #p pdisc-pdiff**2
   n = ((r.qnorm(1-alpha/2)*Math.sqrt(pdisc)+r.qnorm(1-beta)*Math.sqrt(pdisc-pdiff**2))/pdiff)**2
   n.ceil
 end[]
 
+puts '--------------------'
 puts "mcnemars contingency table: #{mcnemars_contingency.inspect}"
 puts "mcnemars test statistic: #{mts}"
 puts "mcnemars sample size: #{mss}" # TODO this value seems unreasonable
@@ -106,6 +115,7 @@ chi2_contingency = con_noncon_ids.map do |group|
   [Rational(n_null, n_total), Rational(n_alt, n_total)]
 end.deep_map_values(&:numerator)
 
+puts '--------------------'
 puts "chi 2 contingency table: #{chi2_contingency.inspect}"
 
 # https://en.wikipedia.org/wiki/Pearson%27s_chi-squared_test#Test_of_independence

@@ -1,0 +1,593 @@
+<!DOCTYPE html>
+<!-- saved from url=(0051)http://www.ckxrchen.com/Atom/result/questions.php#1 -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+	<title>Questions</title>
+<style id="style-1-cropbar-clipper">/* Copyright 2014 Evernote Corporation. All rights reserved. */
+.en-markup-crop-options {
+    top: 18px !important;
+    left: 50% !important;
+    margin-left: -100px !important;
+    width: 200px !important;
+    border: 2px rgba(255,255,255,.38) solid !important;
+    border-radius: 4px !important;
+}
+
+.en-markup-crop-options div div:first-of-type {
+    margin-left: 0px !important;
+}
+</style></head>
+<body>
+<a href="http://www.ckxrchen.com/Atom/result/compare.php">Confusing and Non-confusing Comparison -&gt;</a> <br>
+<a href="http://www.ckxrchen.com/Atom/result/admin.php">Results -&gt;</a><br> 
+<a href="http://www.ckxrchen.com/Atom/result/surveyresult.php">Survey Results -&gt;</a><br>
+              <p id="1"><b>Question 1</b></p>
+              <div>
+              <pre style="border:0px">              <p>#define M1 64-1
+
+int main(){
+   int V1;
+   V1 = M1*2;
+   printf("%d\n", V1);
+   return 0;
+}<br><br>Correct Answer: 62<br>Question Type: Confusing<br>Correct Rate: 12.5%<br>Atom: replace_MACRO_atom</p>
+              </pre> 
+              </div>                            <p id="2"><b>Question 2</b></p>
+              <div>
+              <pre style="border:0px">              <p>int main(){
+   int V1;
+   V1 = 128-1*2;
+   printf("%d\n", V1);
+   return 0;
+}<br><br>Correct Answer: 126<br>Question Type: Non-confusing<br>Correct Rate: 87.5%<br>Atom: replace_MACRO_atom</p>
+              </pre> 
+              </div>                            <p id="3"><b>Question 3</b></p>
+              <div>
+              <pre style="border:0px">              <p>#define M1 int 
+#define M2 double
+
+int main(){
+   M2 V1=5, V2=2; 
+   M1 V3 = (M1) V1 / V2;
+   printf("%d\n",V3);
+   return 0;
+}<br><br>Correct Answer: 2<br>Question Type: Confusing<br>Correct Rate: 85.714285714286%<br>Atom: replace_MACRO_atom</p>
+              </pre> 
+              </div>                            <p id="4"><b>Question 4</b></p>
+              <div>
+              <pre style="border:0px">              <p>int main(){
+   double V1=5, V2=2;
+   int V3 = (int) V1 / V2;
+   printf("%d\n",V3);
+   return 0;
+}<br><br>Correct Answer: 2<br>Question Type: Non-confusing<br>Correct Rate: 87.5%<br>Atom: replace_MACRO_atom</p>
+              </pre> 
+              </div>                            <p id="5"><b>Question 5</b></p>
+              <div>
+              <pre style="border:0px">              <p>#define MULT(V1, V2) V1 * V2
+
+int main(){
+   int V3 = MULT(1+2, 3+4);
+   printf("%d\n", V3);
+   return 0;
+}<br><br>Correct Answer: 11<br>Question Type: Confusing<br>Correct Rate: 16.666666666667%<br>Atom: replace_MACRO_atom</p>
+              </pre> 
+              </div>                            <p id="6"><b>Question 6</b></p>
+              <div>
+              <pre style="border:0px">              <p>int main(){
+   int V1 = 2+1 * 4+3;
+   printf("%d\n", V1);
+   return 0;
+}<br><br>Correct Answer: 9<br>Question Type: Non-confusing<br>Correct Rate: 83.333333333333%<br>Atom: replace_MACRO_atom</p>
+              </pre> 
+              </div>                            <p id="7"><b>Question 7</b></p>
+              <div>
+              <pre style="border:0px">              <p>#define MULT(V1, V2) (V1) * (V2)
+
+int main(){
+   int V3 = MULT(1+2, 3+4);
+   printf("%d\n", V3);
+   return 0;
+}<br><br>Correct Answer: 21<br>Question Type: Confusing<br>Correct Rate: 85.714285714286%<br>Atom: replace_MACRO_atom</p>
+              </pre> 
+              </div>                            <p id="8"><b>Question 8</b></p>
+              <div>
+              <pre style="border:0px">              <p>int main(){
+   int V1 = (2+1) * (3+4);
+   printf("%d\n", V1);
+   return 0;
+}<br><br>Correct Answer: 21<br>Question Type: Non-confusing<br>Correct Rate: 75%<br>Atom: replace_MACRO_atom</p>
+              </pre> 
+              </div>                            <p id="9"><b>Question 9</b></p>
+              <div>
+              <pre style="border:0px">              <p>void main() {
+   int V1 = 6;
+   if (V1 == 1)
+   goto output1;
+   goto output1;
+   printf("%f\n", 6);
+output1:
+   printf("%f\n", 4);
+}<br><br>Correct Answer: 4<br>Question Type: Confusing<br>Correct Rate: 66.666666666667%<br>Atom: remove_INDENTATION_atom</p>
+              </pre> 
+              </div>                            <p id="10"><b>Question 10</b></p>
+              <div>
+              <pre style="border:0px">              <p>void main() {
+    int V1 = 3;
+    if (V1 &lt; 1)
+        goto END;
+    goto END;
+    printf("%d\n", 3);
+END:
+    printf("%d\n", 2);
+}<br><br>Correct Answer: 2<br>Question Type: Non-confusing<br>Correct Rate: 83.333333333333%<br>Atom: remove_INDENTATION_atom</p>
+              </pre> 
+              </div>                            <p id="11"><b>Question 11</b></p>
+              <div>
+              <pre style="border:0px">              <p>void main() {
+   int V1 = 5, V2=5;
+   while (V2 &gt; 0)
+      V2--;
+      V1++;
+   printf("%d\n",V1);
+}
+<br><br>Correct Answer: 6<br>Question Type: Confusing<br>Correct Rate: 55.555555555556%<br>Atom: remove_INDENTATION_atom</p>
+              </pre> 
+              </div>                            <p id="12"><b>Question 12</b></p>
+              <div>
+              <pre style="border:0px">              <p>void main() {
+   int V1 = 5, V2=5;
+   while (V2 &gt; 0)
+      V2--;
+   V1++;
+   printf("%d\n",V1);
+}<br><br>Correct Answer: 6<br>Question Type: Non-confusing<br>Correct Rate: 77.777777777778%<br>Atom: remove_INDENTATION_atom</p>
+              </pre> 
+              </div>                            <p id="13"><b>Question 13</b></p>
+              <div>
+              <pre style="border:0px">              <p>void main() {
+   int V1 = 1, V2=2;
+   if (V1 &gt; V2)
+   V2 = 1;
+   V1 = 2;
+   printf("%d %d\n",V1, V2);
+}<br><br>Correct Answer: 2 2<br>Question Type: Confusing<br>Correct Rate: 70%<br>Atom: remove_INDENTATION_atom</p>
+              </pre> 
+              </div>                            <p id="14"><b>Question 14</b></p>
+              <div>
+              <pre style="border:0px">              <p>void main() {
+   int V1 = 5, V2=2;
+   if (V1 &lt; V2)
+      V1 = 2;
+   V2 = 5;
+   printf("%d %d\n",V1, V2);
+}<br><br>Correct Answer: 5 5<br>Question Type: Non-confusing<br>Correct Rate: 85.714285714286%<br>Atom: remove_INDENTATION_atom</p>
+              </pre> 
+              </div>                            <p id="15"><b>Question 15</b></p>
+              <div>
+              <pre style="border:0px">              <p>void main() {
+   int V1 = 3, V2=2;
+   if (V1 &lt; V2)
+      V2 = 1;
+      V1 = 2;
+   printf("%d %d\n",V1, V2);
+}<br><br>Correct Answer: 2 2<br>Question Type: Confusing<br>Correct Rate: 71.428571428571%<br>Atom: remove_INDENTATION_atom</p>
+              </pre> 
+              </div>                            <p id="16"><b>Question 16</b></p>
+              <div>
+              <pre style="border:0px">              <p>void main() {
+   int V1 = 3;
+   int V2 = V1 + 2;
+   printf("%d\n", V2);
+}<br><br>Correct Answer: 5<br>Question Type: Confusing<br>Correct Rate: 88.888888888889%<br>Atom: replace_CONSTANTVARIABLE_atom</p>
+              </pre> 
+              </div>                            <p id="17"><b>Question 17</b></p>
+              <div>
+              <pre style="border:0px">              <p>void main() {
+   int V1 =  2 + 3;
+   printf("%d\n", V1);
+}<br><br>Correct Answer: 5<br>Question Type: Non-confusing<br>Correct Rate: 90%<br>Atom: replace_CONSTANTVARIABLE_atom</p>
+              </pre> 
+              </div>                            <p id="18"><b>Question 18</b></p>
+              <div>
+              <pre style="border:0px">              <p>void main() {
+   int V1 = 2;
+   int V2 = 2 * V1;
+   printf("%d\n", V2);
+}<br><br>Correct Answer: 4<br>Question Type: Confusing<br>Correct Rate: 90%<br>Atom: replace_CONSTANTVARIABLE_atom</p>
+              </pre> 
+              </div>                            <p id="19"><b>Question 19</b></p>
+              <div>
+              <pre style="border:0px">              <p>void main() {
+   int V1 = 3 * 2;
+   printf("%d\n", V1);
+}<br><br>Correct Answer: 6<br>Question Type: Non-confusing<br>Correct Rate: 100%<br>Atom: replace_CONSTANTVARIABLE_atom</p>
+              </pre> 
+              </div>                            <p id="20"><b>Question 20</b></p>
+              <div>
+              <pre style="border:0px">              <p>void main() {
+   int V1 = 2;
+   printf("%d\n", 2.5 * V1);
+}<br><br>Correct Answer: 5<br>Question Type: Confusing<br>Correct Rate: 100%<br>Atom: replace_CONSTANTVARIABLE_atom</p>
+              </pre> 
+              </div>                            <p id="21"><b>Question 21</b></p>
+              <div>
+              <pre style="border:0px">              <p>void main() {
+   printf("%d\n", 2 * 4.5);
+}<br><br>Correct Answer: 9<br>Question Type: Non-confusing<br>Correct Rate: 81.818181818182%<br>Atom: replace_CONSTANTVARIABLE_atom</p>
+              </pre> 
+              </div>                            <p id="22"><b>Question 22</b></p>
+              <div>
+              <pre style="border:0px">              <p>void main(){
+   int V1 = 10, V2=3;
+   if (! (V1 % V2)){
+      printf("%s\n", "true");
+   }
+   else{
+      printf("%s\n", "false");
+   }
+}<br><br>Correct Answer: false<br>Question Type: Confusing<br>Correct Rate: 88.888888888889%<br>Atom: add_CONDITION_atom</p>
+              </pre> 
+              </div>                            <p id="23"><b>Question 23</b></p>
+              <div>
+              <pre style="border:0px">              <p>void main(){
+   int V1 =1, V2=2;
+   if ( (V2 - V1) == 0){
+      printf("%s\n", "true");
+   }
+   else{
+      printf("%s\n", "false");
+   }
+}<br><br>Correct Answer: false<br>Question Type: Non-confusing<br>Correct Rate: 71.428571428571%<br>Atom: add_CONDITION_atom</p>
+              </pre> 
+              </div>                            <p id="24"><b>Question 24</b></p>
+              <div>
+              <pre style="border:0px">              <p>int main() { 
+   int v1 = 7; 
+   if (v1 = 8)
+      printf("true"); 
+   else 
+      printf("false"); 
+}<br><br>Correct Answer: true<br>Question Type: Confusing<br>Correct Rate: 71.428571428571%<br>Atom: add_CONDITION_atom</p>
+              </pre> 
+              </div>                            <p id="25"><b>Question 25</b></p>
+              <div>
+              <pre style="border:0px">              <p>void main()
+{
+   int v1 = 7;
+   if ((v1 = 8) != 0)
+      printf("true");
+   else
+      printf("false");
+}<br><br>Correct Answer: true<br>Question Type: Non-confusing<br>Correct Rate: 80%<br>Atom: add_CONDITION_atom</p>
+              </pre> 
+              </div>                            <p id="26"><b>Question 26</b></p>
+              <div>
+              <pre style="border:0px">              <p>void main() {
+   int V1 = -1;
+   if (V1)
+      printf("true"); 
+   else
+      printf("false"); 
+}<br><br>Correct Answer: true<br>Question Type: Confusing<br>Correct Rate: 50%<br>Atom: add_CONDITION_atom</p>
+              </pre> 
+              </div>                            <p id="27"><b>Question 27</b></p>
+              <div>
+              <pre style="border:0px">              <p>void main() {
+   if ("V1")
+      printf("true");
+   else
+      printf("false");
+}<br><br>Correct Answer: true<br>Question Type: Confusing<br>Correct Rate: 100%<br>Atom: add_CONDITION_atom</p>
+              </pre> 
+              </div>                            <p id="28"><b>Question 28</b></p>
+              <div>
+              <pre style="border:0px">              <p>void main() {
+   if ("V1" != '\0')
+      printf("true");
+   else
+      printf("false");
+}<br><br>Correct Answer: true<br>Question Type: Non-confusing<br>Correct Rate: 83.333333333333%<br>Atom: add_CONDITION_atom</p>
+              </pre> 
+              </div>                            <p id="29"><b>Question 29</b></p>
+              <div>
+              <pre style="border:0px">              <p>void main() { 
+   int V1 = 0;
+   if (++V1 == 0) {
+      printf("true ");
+   }
+   else {
+      printf("false ");
+   }
+   printf("%d", V1);
+}<br><br>Correct Answer: false 1<br>Question Type: Confusing<br>Correct Rate: 100%<br>Atom: move_PREINCREMENT_atom</p>
+              </pre> 
+              </div>                            <p id="30"><b>Question 30</b></p>
+              <div>
+              <pre style="border:0px">              <p>void main() { 
+   int V1 = 0;
+   V1 ++;
+   if (V1 == 0) {
+      printf("true ");
+   }
+   else {
+      printf("false ");
+   }
+   printf("%d", V1);
+}<br><br>Correct Answer: false 1<br>Question Type: Non-confusing<br>Correct Rate: 83.333333333333%<br>Atom: move_PREINCREMENT_atom</p>
+              </pre> 
+              </div>                            <p id="31"><b>Question 31</b></p>
+              <div>
+              <pre style="border:0px">              <p>void main() { 
+   int V1 = 2;
+   int V2 = ++V1 - 2;
+   printf("%d %d\n", V1, V2);
+}<br><br>Correct Answer: 3 1<br>Question Type: Confusing<br>Correct Rate: 60%<br>Atom: move_PREINCREMENT_atom</p>
+              </pre> 
+              </div>                            <p id="32"><b>Question 32</b></p>
+              <div>
+              <pre style="border:0px">              <p>void main() { 
+   int V1 = 5, V2;
+   ++V1;
+   V2 = 5 - V1;
+   printf("%d %d\n", V1, V2);
+}<br><br>Correct Answer: 6 -1<br>Question Type: Non-confusing<br>Correct Rate: 77.777777777778%<br>Atom: move_PREINCREMENT_atom</p>
+              </pre> 
+              </div>                            <p id="33"><b>Question 33</b></p>
+              <div>
+              <pre style="border:0px">              <p>void main() { 
+   int V1 = 2;
+   int V2 = 3 + V1++;
+   printf("%d %d\n", V1, V2);
+}<br><br>Correct Answer: 3 5<br>Question Type: Confusing<br>Correct Rate: 54.545454545455%<br>Atom: move_POSTINCREMENT_atom</p>
+              </pre> 
+              </div>                            <p id="34"><b>Question 34</b></p>
+              <div>
+              <pre style="border:0px">              <p>void main() { 
+   int V1 = 2, V2;
+   V2 = V1 + 3;
+   V1 ++;
+   printf("%d %d\n", V1, V2);
+}<br><br>Correct Answer: 3 5<br>Question Type: Non-confusing<br>Correct Rate: 91.666666666667%<br>Atom: move_POSTINCREMENT_atom</p>
+              </pre> 
+              </div>                            <p id="35"><b>Question 35</b></p>
+              <div>
+              <pre style="border:0px">              <p>void main() { 
+   int V1 = 0;
+   if (V1++ == 0) {
+      printf("true ");
+   }
+   else {
+      printf("false ");
+   }
+   printf("%d", V1);
+}<br><br>Correct Answer: true 1<br>Question Type: Confusing<br>Correct Rate: 55.555555555556%<br>Atom: move_POSTINCREMENT_atom</p>
+              </pre> 
+              </div>                            <p id="36"><b>Question 36</b></p>
+              <div>
+              <pre style="border:0px">              <p>void main() { 
+   int V1 = 0;
+   if (V1 == 0) {
+      printf("true ");
+   }
+   else {
+      printf("false ");
+   }
+   V1++;
+   printf("%d", V1);
+}<br><br>Correct Answer: true 1<br>Question Type: Non-confusing<br>Correct Rate: 90%<br>Atom: move_POSTINCREMENT_atom</p>
+              </pre> 
+              </div>                            <p id="37"><b>Question 37</b></p>
+              <div>
+              <pre style="border:0px">              <p>void main() { 
+   int V1 = 2;
+   int V2 = --V1 + 3;
+   printf("%d %d\n", V1, V2);
+}<br><br>Correct Answer: 1 4<br>Question Type: Confusing<br>Correct Rate: 72.727272727273%<br>Atom: move_PREDECREMENT_atom</p>
+              </pre> 
+              </div>                            <p id="38"><b>Question 38</b></p>
+              <div>
+              <pre style="border:0px">              <p>void main() { 
+   int V1 = 6, V2;
+   V2 = 9 - V1;
+   -- V1;
+   printf("%d %d\n", V1, V2);
+}<br><br>Correct Answer: 5 3<br>Question Type: Non-confusing<br>Correct Rate: 83.333333333333%<br>Atom: move_PREDECREMENT_atom</p>
+              </pre> 
+              </div>                            <p id="39"><b>Question 39</b></p>
+              <div>
+              <pre style="border:0px">              <p>void main() { 
+   int V1 = 2;
+   if (--V1 == 1){
+      printf("true ");
+   }
+   else {
+      printf("false ");
+   }
+   printf("%d", V1);
+}<br><br>Correct Answer: true 1<br>Question Type: Confusing<br>Correct Rate: 72.727272727273%<br>Atom: move_PREDECREMENT_atom</p>
+              </pre> 
+              </div>                            <p id="40"><b>Question 40</b></p>
+              <div>
+              <pre style="border:0px">              <p>void main() { 
+   int V1 = 2;
+   V1 --;
+   if (V1 == 1){
+      printf("true ");
+   }
+   else {
+      printf("false ");
+   }
+   printf("%d", V1);
+}<br><br>Correct Answer: true 1<br>Question Type: Non-confusing<br>Correct Rate: 88.888888888889%<br>Atom: move_PREDECREMENT_atom</p>
+              </pre> 
+              </div>                            <p id="41"><b>Question 41</b></p>
+              <div>
+              <pre style="border:0px">              <p>void main() { 
+   int V1 = 2, V2;
+   V2 = 4 + V1--;
+   printf("%d %d\n", V1, V2);
+}<br><br>Correct Answer: 1 6<br>Question Type: Confusing<br>Correct Rate: 66.666666666667%<br>Atom: move_POSTDECREMENT_atom</p>
+              </pre> 
+              </div>                            <p id="42"><b>Question 42</b></p>
+              <div>
+              <pre style="border:0px">              <p>void main() { 
+   int V1 = 2, V2;
+   V2 = V1 + 5;
+   V1 --;
+   printf("%d %d\n", V1, V2);
+}<br><br>Correct Answer: 1 7<br>Question Type: Non-confusing<br>Correct Rate: 75%<br>Atom: move_POSTDECREMENT_atom</p>
+              </pre> 
+              </div>                            <p id="43"><b>Question 43</b></p>
+              <div>
+              <pre style="border:0px">              <p>void main() { 
+   int V1 = 2;
+   if (V1-- == 1) {
+      printf("true ");
+   }
+   else {
+      printf("false ");
+   }
+   printf("%d", V1);
+}<br><br>Correct Answer: false 1<br>Question Type: Confusing<br>Correct Rate: 63.636363636364%<br>Atom: move_POSTDECREMENT_atom</p>
+              </pre> 
+              </div>                            <p id="44"><b>Question 44</b></p>
+              <div>
+              <pre style="border:0px">              <p>void main() { 
+   int V1 = 2;
+   if (V1 == 1) {
+      printf("true ");
+   }
+   else {
+      printf("false ");
+   }
+   V1 --;
+   printf("%d", V1);
+}<br><br>Correct Answer: false 1<br>Question Type: Non-confusing<br>Correct Rate: 75%<br>Atom: move_POSTDECREMENT_atom</p>
+              </pre> 
+              </div>                            <p id="45"><b>Question 45</b></p>
+              <div>
+              <pre style="border:0px">              <p>void main() { 
+   int V1;
+   V1 = 1 + 2 * 3;
+   printf("%d\n", V1);
+}<br><br>Correct Answer: 7<br>Question Type: Confusing<br>Correct Rate: 87.5%<br>Atom: add_PARENTHESIS_atom</p>
+              </pre> 
+              </div>                            <p id="46"><b>Question 46</b></p>
+              <div>
+              <pre style="border:0px">              <p>void main() { 
+   int V1;
+   V1 = 5 + (2 * 3);
+   printf("%d\n", V1);
+}<br><br>Correct Answer: 11<br>Question Type: Non-confusing<br>Correct Rate: 100%<br>Atom: add_PARENTHESIS_atom</p>
+              </pre> 
+              </div>                            <p id="47"><b>Question 47</b></p>
+              <div>
+              <pre style="border:0px">              <p>void main() { 
+   int V1;
+   V1 = 8 - 6 % 2;
+   printf("%d\n", V1);
+}<br><br>Correct Answer: 8<br>Question Type: Confusing<br>Correct Rate: 87.5%<br>Atom: add_PARENTHESIS_atom</p>
+              </pre> 
+              </div>                            <p id="48"><b>Question 48</b></p>
+              <div>
+              <pre style="border:0px">              <p>void main() { 
+   int V1;
+   V1 = 3 +  (6 % 3);
+   printf("%d\n", V1);
+}<br><br>Correct Answer: 3<br>Question Type: Non-confusing<br>Correct Rate: 87.5%<br>Atom: add_PARENTHESIS_atom</p>
+              </pre> 
+              </div>                            <p id="49"><b>Question 49</b></p>
+              <div>
+              <pre style="border:0px">              <p>void main() { 
+   int V1;
+   V1 = 2 - 4 / 2;
+   printf("%d\n", V1);
+}<br><br>Correct Answer: 0<br>Question Type: Confusing<br>Correct Rate: 80%<br>Atom: add_PARENTHESIS_atom</p>
+              </pre> 
+              </div>                            <p id="50"><b>Question 50</b></p>
+              <div>
+              <pre style="border:0px">              <p>void main() { 
+   int V1;
+   V1 = 3 + (9 / 3);
+   printf("%d\n", V1);
+}<br><br>Correct Answer: 6<br>Question Type: Non-confusing<br>Correct Rate: 90%<br>Atom: add_PARENTHESIS_atom</p>
+              </pre> 
+              </div>                            <p id="51"><b>Question 51</b></p>
+              <div>
+              <pre style="border:0px">              <p>void main() {
+   if (! 0 &amp;&amp; 2) {
+      printf("true");
+   } else {
+      printf("false");
+   }
+}<br><br>Correct Answer: true<br>Question Type: Confusing<br>Correct Rate: 75%<br>Atom: add_PARENTHESIS_atom</p>
+              </pre> 
+              </div>                            <p id="52"><b>Question 52</b></p>
+              <div>
+              <pre style="border:0px">              <p>void main() {
+   if ( 1 &amp;&amp; (!0) ) {
+      printf("true");
+   } else {
+      printf("false");
+   }
+}<br><br>Correct Answer: true<br>Question Type: Non-confusing<br>Correct Rate: 85.714285714286%<br>Atom: add_PARENTHESIS_atom</p>
+              </pre> 
+              </div>                            <p id="53"><b>Question 53</b></p>
+              <div>
+              <pre style="border:0px">              <p>void main() {
+   if (0 &amp;&amp; 1 || 2) {
+      printf("true");
+   } else {
+      printf("false");
+   }
+}<br><br>Correct Answer: true<br>Question Type: Confusing<br>Correct Rate: 37.5%<br>Atom: add_PARENTHESIS_atom</p>
+              </pre> 
+              </div>                            <p id="54"><b>Question 54</b></p>
+              <div>
+              <pre style="border:0px">              <p>void main() {
+   if ((2 &amp;&amp; 0) || 5) {
+      printf("true");
+   } else {
+      printf("false");
+   }
+}<br><br>Correct Answer: true<br>Question Type: Non-confusing<br>Correct Rate: 100%<br>Atom: add_PARENTHESIS_atom</p>
+              </pre> 
+              </div>                            <p id="55"><b>Question 55</b></p>
+              <div>
+              <pre style="border:0px">              <p>void main() {
+   int V1;
+   V1 = 4, 5;
+   printf("%d\n", V1);
+}<br><br>Correct Answer: 4<br>Question Type: Confusing<br>Correct Rate: 60%<br>Atom: add_PARENTHESIS_atom</p>
+              </pre> 
+              </div>                            <p id="56"><b>Question 56</b></p>
+              <div>
+              <pre style="border:0px">              <p>void main() {
+   int V1;
+   (V1 = 6), 3;
+   printf("%d\n", V1);
+}<br><br>Correct Answer: 6<br>Question Type: Non-confusing<br>Correct Rate: 80%<br>Atom: add_PARENTHESIS_atom</p>
+              </pre> 
+              </div>                            <p id="57"><b>Question 57</b></p>
+              <div>
+              <pre style="border:0px">              <p>void main() {
+   if (1 &amp; 3 == 1) {
+      printf("true");
+   } else {
+      printf("false");
+   }
+}<br><br>Correct Answer: false<br>Question Type: Confusing<br>Correct Rate: 0%<br>Atom: add_PARENTHESIS_atom</p>
+              </pre> 
+              </div>                            <p id="58"><b>Question 58</b></p>
+              <div>
+              <pre style="border:0px">              <p>void main() {
+   if ( (3 &amp; 7) == 3) {
+      printf("true");
+   } else {
+      printf("false");
+   }
+}<br><br>Correct Answer: true<br>Question Type: Non-confusing<br>Correct Rate: 0%<br>Atom: add_PARENTHESIS_atom</p>
+              </pre> 
+              </div>              
+
+</body><div></div><div></div></html>
