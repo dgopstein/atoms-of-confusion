@@ -1,6 +1,11 @@
 #!/usr/bin/env ruby
 require 'deep_enumerable'
 
+class Hash;  def safe_inverse; self.deep_dup.each_with_object({}){|(k,v),o|(o[v]||=[])<< k}; end; end
+class Array; def sum; self.inject(:+); end; end
+class FalseClass; def to_i; 0; end; end
+class TrueClass; def to_i; 1; end; end
+
 compare_file = 'Compare.html' # http://www.ckxrchen.com/Atom/result/compare.php
 results_file = 'Results.html' # http://www.ckxrchen.com/Atom/result/admin.php
 questions_file = 'Questions.html' # http://www.ckxrchen.com/Atom/result/questions.php
@@ -20,13 +25,18 @@ partial_uid_qid_val = results_str.scan(res_regex)
 # Capture Question ID and atom type from Questions.html file
 ques_regex = %r|Question ([0-9]+)<.*?Atom: ([^<]*)<|m
 
-# Question ID -> Atom type
+# Question ID -> Atom type 
 question_types = questions_str.scan(ques_regex).map{|qid, type| [qid.to_i, type]}.to_h
+
+# Atom type -> Question ID
+type_questions = question_types.safe_inverse
 
 # tuple of each confusing/non-confusing pair [[1, 2], [3, 4], ... [15, nil], ... [57, 58]]
 compair_pairs = qids.deep_map_values{|i| i && i.to_i}
 
 con_ids, noncon_ids = con_noncon_ids = qids.transpose.map(&:compact).deep_map_values(&:to_i)
+
+is_confusing = ->(qid){ con_ids.include?(qid) }
 
 # Only the first question has an associated UserID, propogate it to all the others
 uid_qid_val = partial_uid_qid_val.inject(["", []]) do |(uid, list), elem|
@@ -36,6 +46,9 @@ end.last
 # Hash of [UserID, QuestionId] -> T/F
 uid_qid_val_h = uid_qid_val.map{|u, q, v| [[u, q], v]}.to_h
 
+# QuestionId -> [[UserId, T/F] ... ]
+qid_uid_val_h = uid_qid_val.each_with_object(Hash.new{[]}){|(u, q, v), h|  h[q] <<= [u, v]}
+
 uids = uid_qid_val.map(&:first).uniq
 
 # Question ID -> # of Correct Answers
@@ -43,9 +56,42 @@ qid_val_pairs = uid_qid_val.map{|tup| tup.drop(1)}
 qid_vals = Hash[qid_val_pairs.group_by(&:first).map{|k, v| [k, v.map(&:last)]}]
 #p qid_vals
 
-class Array; def sum; self.inject(:+); end; end
-class FalseClass; def to_i; 0; end; end
-class TrueClass; def to_i; 1; end; end
+
+
+
+
+# Build signed rank table; {Type -> {UID -> [Rational(C-True, C-Total), Rational(NC-True, NC-Total)]}}
+type_scores = type_questions.map do |atom, qids|
+  uid_c_nc = Hash.new{[[0, 0], [0, 0]]} # Rationals, except with 0 denominator
+
+  #p [atom, qids]
+
+  qids.each do |qid|
+    uid_vals = qid_uid_val_h[qid]
+    #p [qid, uid_vals]
+    uid_vals.each do |uid, val|
+      c, nc = uid_c_nc[uid]
+      uid_c_nc[uid] =
+        if is_confusing.call(qid)
+          [[c.first + val.to_i, c.last + 1], nc]
+        else
+          [c, [nc.first + val.to_i, nc.last + 1]]
+        end
+    end
+  end
+
+  # Remove C/NC pairs where there are no answers in one (or both) of the categories
+  uid_c_nc_clean = uid_c_nc.reject{|_, (c, nc)| c[1] == 0 || nc[1] == 0}
+                           .shallow_map_values{|uid, (c, nc)| [Rational(*c), Rational(*nc)]}
+
+  [atom, uid_c_nc_clean]
+end
+
+signed_rank = type_scores.map{|atom, qid_scores| qid_scores.sort_by{|qid, (c, nc)| (c - nc).abs}}
+
+puts
+puts
+type_scores.each{|atom, signed_rank| p [atom, signed_rank]}
 
 # Build mcnemars contingency table
 mcnemars_contingency = [[0, 0], [0, 0]]
