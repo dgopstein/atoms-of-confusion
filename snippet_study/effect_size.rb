@@ -61,6 +61,20 @@ qid_vals = Hash[qid_val_pairs.group_by(&:first).map{|k, v| [k, v.map(&:last)]}]
 
 
 # Build signed rank table; {Type -> {UID -> [Rational(C-True, C-Total), Rational(NC-True, NC-Total)]}}
+
+def rank(a)
+  grouped = a.group_by(&:itself)
+
+  sorted = grouped.sort_by(&:first)
+
+  sorted.inject([[], 0]) do |(ranks, rank), (k, vals)|
+    next_rank = rank + vals.size
+    avg_rank =  (1 + rank + next_rank) / 2.0
+
+    [ranks + vals.map{ avg_rank }, next_rank]
+  end.first
+end
+
 type_scores = type_questions.map do |atom, qids|
   uid_c_nc = Hash.new{[[0, 0], [0, 0]]} # Rationals, except with 0 denominator
 
@@ -87,11 +101,34 @@ type_scores = type_questions.map do |atom, qids|
   [atom, uid_c_nc_clean]
 end
 
-signed_rank = type_scores.map{|atom, qid_scores| qid_scores.sort_by{|qid, (c, nc)| (c - nc).abs}}
+require 'rsruby'
+r = RSRuby.instance
+#r.library("coin")
+
+signed_rank =
+  type_scores.map do |atom, qid_scores|
+    sorted_diffs = qid_scores.map{|qid, (c, nc)| (c - nc)}.sort_by(&:abs)
+    p sorted_diffs
+    cs, ncs = qid_scores.map(&:last).transpose.deep_map_values(&:to_f)
+    p cs
+    p ncs
+    score = r.wilcox_test(cs, ncs, paired: true, conf_int: TRUE)
+    #score = r.coin_wilcoxsign_test(cs, ncs, paired: true, conf_int: TRUE)
+    p score
+    #ranks = rank(sorted_diffs)
+    #signs = sorted_diffs.map{|diff| diff <=> 0}
+    #sign_ranks = ranks.zip(signs)
+    #p sign_ranks
+    #score = sign_ranks.map{|a, b| a * b}.sum
+    
+
+    [atom, score]
+  end
 
 puts
 puts
-type_scores.each{|atom, signed_rank| p [atom, signed_rank]}
+signed_rank.each{|atom, signed_rank| p [atom, signed_rank]}
+
 
 # Build mcnemars contingency table
 mcnemars_contingency = [[0, 0], [0, 0]]
