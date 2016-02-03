@@ -2,25 +2,21 @@
 
 // Macro in assignment: Confusing
 void main1() {
-    char *V1 =
-      "qwertyuiop"
-   #define M1 // asdfghjkl; \\
-   char *V2 = 
-      "zxcvbnm,.";
+    char *V1 = "qwertyuiop"
+    #define M1
+    "zxcvbnm,.";
 
     printf("%s\n", V1);
 }
 
 // Macro in assignment: Non-Confusing
 void main2() {
-    char *V1 =
-      "qwertyuiop"
-      "zxcvbnm,.";
+    char *V1 = "qwertyuiop"
+    "zxcvbnm,.";
 
-  #define M1 // asdfghjkl; \\
-  char *V2 = 
+    #define M1
 
-  printf("%s\n", V1);
+    printf("%s\n", V1);
 }
 
 // Macro in expression: Confusing
@@ -32,7 +28,7 @@ void main3() {
   #define M2 2
   +
   #define M3 3
-  ++V1;
+  V1;
 
   printf("%d %d\n", V1, V2);
 }
@@ -45,9 +41,7 @@ void main4() {
   int V1;
   V1 = 4;
 
-  int V2 = 1
-  +
-  ++V1;
+  int V2 = 1 + V1;
 
   printf("%d %d\n", V1, V2);
 }
