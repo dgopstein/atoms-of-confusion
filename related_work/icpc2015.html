@@ -1,0 +1,3474 @@
+ 
+
+
+
+
+
+<!doctype html>
+
+
+
+<head><script type="text/javascript">_cf_loadingtexthtml="<img alt=' ' src='/CFIDE/scripts/ajax/resources/cf/images/loading.gif'/>";
+_cf_contextpath="";
+_cf_ajaxscriptsrc="/CFIDE/scripts/ajax";
+_cf_jsonprefix='//';
+_cf_clientid='3D7BD71BACCB938E7345FFA44FB7A6DF';</script><script type="text/javascript" src="/CFIDE/scripts/ajax/messages/cfmessage.js"></script>
+<script type="text/javascript" src="/CFIDE/scripts/ajax/package/cfajax.js"></script>
+<script type="text/javascript" src="/CFIDE/scripts/cfform.js"></script>
+<script type="text/javascript" src="/CFIDE/scripts/masks.js"></script>
+<script type="text/javascript" src="/CFIDE/scripts/cfformhistory.js"></script>
+<script type="text/javascript" src="/CFIDE/scripts/ajax/package/cfrichtexteditor.js"></script>
+<script type="text/javascript" src="/CFIDE/scripts/ajax/FCKeditor/fckeditor.js"></script>
+<script type="text/javascript" src="/CFIDE/scripts/ajax/yui/yahoo-dom-event/yahoo-dom-event.js"></script>
+<script type="text/javascript" src="/CFIDE/scripts/ajax/yui/animation/animation-min.js"></script>
+<script type="text/javascript" src="/CFIDE/scripts/ajax/ext/adapter/yui/ext-yui-adapter.js"></script>
+<script type="text/javascript" src="/CFIDE/scripts/ajax/ext/ext-core.js"></script>
+<script type="text/javascript" src="/CFIDE/scripts/ajax/ext/package/resizable.js"></script>
+<script type="text/javascript" src="/CFIDE/scripts/ajax/ext/package/dragdrop/dragdrop.js"></script>
+<script type="text/javascript" src="/CFIDE/scripts/ajax/ext/package/util.js"></script>
+<script type="text/javascript" src="/CFIDE/scripts/ajax/ext/build/state/State-min.js"></script>
+<script type="text/javascript" src="/CFIDE/scripts/ajax/ext/package/widget-core.js"></script>
+<script type="text/javascript" src="/CFIDE/scripts/ajax/ext/package/dialog/dialogs.js"></script>
+<script type="text/javascript" src="/CFIDE/scripts/ajax/package/cfwindow.js"></script>
+<link rel="stylesheet" type="text/css" href="/CFIDE/scripts/ajax/resources/ext/css/ext-all.css" />
+<link rel="stylesheet" type="text/css" href="/CFIDE/scripts/ajax/resources/cf/cf.css" />
+
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="css/dl.css" />
+
+
+
+<title>Proceedings of the 2015 IEEE 23rd International Conference on Program Comprehension</title>
+<style type="text/css"><!--
+    body {margin-left: 0em; margin-top: 0}
+    a:link {text-decoration: underline; 	Color: #1d4d0f;}
+    a:visited  { color: #990033; text-decoration: underline;}
+    a:hover {color: red; text-decoration: none}
+    a.dLink1:link {color:#336699}
+    a.dLink1:visited {color:#666666}
+	a.isblack:link {text-decoration: underline; 	Color: #000000;}
+    a.isblack:visited  { color: #000000; text-decoration: underline;}
+    a.isblack:hover {color: #000000; text-decoration: none}
+    h1 {font-size: 140%; margin-bottom: 0}
+	ul {margin-top: .25em; list-style-type: disc}
+	ol {margin-top: .25em;}
+	li {padding-bottom: .25em}
+    h2 {color: white; background-color: #069; 
+        font-size: 100%; padding-left: 1em;
+		margin: 0}
+	h3 {color: black; background-color: yellow; 
+    	font-size: 100%;
+		margin: 0}
+	 h4 {color: black; background-color: #99c5e8; 
+        font-size: 100%;
+		margin: 0}
+    hr {color: #39176d;}
+    form {margin-top: 10}
+    form.xrs {margin-top: 0}
+	
+	a {text-decoration: none; }
+	
+	input {font-size: 1em;}
+	.chevron {color: #ff0000;}
+	.light-blue {color:#336699;}
+	.black {color:#000000;}
+	
+	
+	.mono-text {font-size: 14px; font-family: Consolas, Menlo, Monaco, Lucida Console, Liberation Mono, DejaVu Sans Mono, Bitstream Vera Sans Mono, Courier New, monospace, serif;}
+	
+	/* ### standard text styles, smallest to largest ### */
+	
+	.footer-link-text {font-family: Arial, Helvetica, sans-serif;
+		color:#336699; font-size: .75em; line-height: 1.33em;
+		text-indent: -.75 em; margin-left: 2em; margin-right: .75em;}
+		
+	.footer-copy-text {font-family: Arial, Helvetica, sans-serif;
+		color:#000000; font-size: .75em; line-height: 1.3em;
+		margin-left: .75em; margin-right: .75em;}
+		
+	.small-link-text {font-family: Arial, Helvetica, sans-serif;
+		color:#000000; font-size: .83em; padding-bottom : 2px;
+	  	padding-top : 2px;}
+
+	.smallerer-text {font-family: Arial, Helvetica, sans-serif;
+		color:#000000; font-size: .65em;}
+	.smaller-text {font-family: Arial, Helvetica, sans-serif;
+		color:#000000; font-size: .75em;}		
+	.small-text {font-family: Arial, Helvetica, sans-serif;
+		color:#000000; font-size: .83em;}
+	.small-textb {font-family: Arial, Helvetica, sans-serif;
+		color:#000000; font-size: .83em; font-weight: bold;}
+	.medium-text {font-family: Arial, Helvetica, sans-serif;
+		color:#000000; font-size: 1em;}
+	.mediumb-text {font-family: Arial, Helvetica, sans-serif;
+		color:#000000; font-size: 1em; font-weight: bold;}
+	.large-text {font-family: Arial, Helvetica, sans-serif;
+		color:#000000; font-size: 1.3em;}		
+	.instr-text {font-family: Arial, Helvetica, sans-serif;
+		color:#666666; font-size: .83em;}
+		
+	.list-link-text {font-family: Arial, Helvetica, sans-serif;
+		color:#336699; font-size: .83em; line-height: 1.3em;}
+	.list-link-btext {font-family: Arial, Helvetica, sans-serif;
+		color:#000000; font-size: .83em; line-height: 1.3em;}
+	
+	.searchbox-text {font-family: Arial, Helvetica, sans-serif;
+		color:#000066; font-size: 1em; font-weight: bold;}
+	.footer-header-text {font-family: Arial, Helvetica, sans-serif;
+		color:#000066; font-size: 1em; font-weight: bold;
+		margin-left: .75em; margin-right: .75em;}
+	.medium-link-text {font-family: Arial, Helvetica, sans-serif;
+		color:#000066; font-size: 1em; font-weight: bold; line-height: 1em;
+		text-indent: -1.25em; margin-left: 2em; margin-right: .75em;}
+	
+	.text16 {font-family: Arial, Helvetica, sans-serif;
+		color:#000000; font-size: 16px;}
+		
+	.text14 {font-family: Arial, Helvetica, sans-serif;
+		color:#000000; font-size: 14px;}
+	
+	.text12 {font-family: Arial, Helvetica, sans-serif;
+		color:#000000; font-size: 12px;}
+		
+	.text10 {font-family: Arial, Helvetica, sans-serif;
+	    color:#000000; font-size: 12px;}
+		
+	.text9 {font-family: Arial, Helvetica, sans-serif;
+	   color:#000000; font-size: 12px;}
+	
+	.error-text {color:red;}
+	
+	.small-copy-text {font-family: Times, Times New Roman, serif;
+		color:#000066; font-size: .75em; line-height: 1.2em;
+		margin-left: .75em; margin-right: .75em;}
+
+	.medium-copy-text {font-family: Times, Times New Roman, serif;
+		color:#000066; font-size: 1em; line-height: 1.2em;
+		margin-left: .75em; margin-right: .75em;}
+	
+	.large-copy-text {font-family: Times, Times New Roman, serif;
+		color:#000066; font-size: 1.3em; line-height: 1.5em;
+		margin-left: .75em; margin-right: .75em;}
+	
+	.medium-header-text {font-family: Times, Times New Roman, serif;
+		color:#ff0000; font-size: 1em;
+		margin-left: .75em; margin-right: .75em;}
+	
+	.large-header-text {font-family: Times, Times New Roman, serif;
+		color:#ff0000; font-size: 1.5em;
+		margin-left: .75em; margin-right: .75em;}
+
+		#side {
+			width: 10px;
+			float: left;
+			margin-left: -1px;
+			padding: 2px;
+			}
+							
+		#content {
+			padding: 2px;
+			margin-left: 25px;
+			
+		        
+		        }
+	 .fulltext_lnk {border:0px;
+	 				 margin-right: 2px;
+					 vertical-align:baseline;
+	 				}
+	 
+	  .leftcoltab { 
+		  position:relative;
+		  top:5px;
+		  left:5px;
+		  float:left;
+		  width:530px;  /* for IE5/WIN */
+		  width:520px; /* actual value */
+		  margin:0 0 0px 0;
+		  padding:5px;
+		  z-index:100;
+		  }
+	  .rightcoltab {
+    float: right;
+    margin: 0;
+    padding: 5px;
+    position: relative;
+    right: 50px;
+    top: 25px;
+    width: 350px;
+    z-index: 99;
+}
+	  .centercoltab {
+		  position:absolute;
+		  padding:0 0px;
+		  }
+	  .alt {
+		background: #ece9d8;
+		margin: 0;
+		padding: 1px;
+		}
+		.leftcolc { 
+	position:relative;
+	top:5px;
+	left:5px;
+	float:left;
+	width:420px;  /* for IE5/WIN */
+	width:400px; /* actual value */
+	margin:0 0 0px 0;
+	padding:5px;
+	z-index:100;
+	}
+.rightcolc {
+	position:relative;
+	top:0px;
+	right:0px;
+	float:right;
+	margin:0 0px;
+	padding:0px;
+	width:500px;
+	z-index:99;
+	}
+.centercolc {
+	position:absolute;
+	padding:0 0px;
+	}
+	
+	.leftcoltabv { 
+		  position:relative;
+		  top:5px;
+		  left:5px;
+		  float:left;
+		  width:460px;  /* for IE5/WIN */
+		  width:350px; /* actual value */
+		  margin:0 0 0px 0;
+		  padding:5px;
+		  z-index:100;
+		  }
+	.rightcoltabv {
+		position:relative;
+		top:5px;
+		right:0px;
+		float:right;
+		margin:0 0px 0 0;
+		padding:15px;
+		width:480px;
+		z-index:99;
+		}
+		
+.x-tabs-strip-wrap {
+	overflow-y: hidden !important;
+}
+  --></style>
+ 
+
+
+<script src="js/tagcanvas.min.js" type="text/javascript"></script>
+<script type="text/javascript">
+  function loadCloud() {
+	try {
+	  TagCanvas.Start('myCanvas','tags',{
+		textColour: '#000000',
+		outlineColour: '#ff00ff',
+		reverse: true,
+		shuffleTags:true,
+		depth: 0.8,
+		maxSpeed: 0.05,
+		textHeight: 12,
+		initial: [0.000, 0.050],
+		shape: "hring",
+		lock: "x"
+	  });
+	} catch(e) {
+	  // something went wrong, hide the canvas container
+	  // document.getElementById('myCanvasContainer').style.display = 'none';
+	}
+  };
+</script>
+
+
+
+
+
+
+
+<script type="text/javascript" src="cfformprotect/js/cffp.js"></script>
+
+<script type='text/javascript' src='https://www.google.com/jsapi'></script>
+
+<style type="text/css"><!--
+.google-visualization-orgchart-node {
+    background-color: #FFFFFF !important;
+    border: 2px solid #AFCF40 !important;
+    cursor: default;
+    font-family: arial,helvetica;
+    text-align: center;
+    vertical-align: middle;
+}
+
+iframe {float:right; 
+		margin:10px;
+		border: 2px solid #1B4D0E;
+		
+		}
+
+a.boxed:link {text-decoration: none !important; 	Color: #000000 !important;}
+a.boxed:visited  { color: #000000 !important; text-decoration: none !important;}
+a.boxed:hover {color: red !important; text-decoration: underline !important;}
+
+a.boxedh:link {text-decoration: none !important; 	Color: #000000 !important;}
+a.boxedh:visited  { color: #000000 !important; text-decoration: none !important;}
+a.boxedh:hover {color: red !important; text-decoration: underline !important;}		
+
+a.boxedm:link {text-decoration: none !important; 	Color: #606060 !important;}
+a.boxedm:visited  { color: #606060 !important; text-decoration: none !important;}
+a.boxedm:hover {color: red !important; text-decoration: underline !important;}		
+
+a.boxedl:link {text-decoration: none !important; 	Color: #808080   !important;}
+a.boxedl:visited  { color: 	#808080 !important; text-decoration: none !important;}
+a.boxedl:hover {color: red !important; text-decoration: underline !important;}				
+
+.google-visualization-orgchart-linebottom {
+    border-bottom: 1px solid #006699 !important;
+}
+.google-visualization-orgchart-lineleft {
+    border-left: 1px solid #006699 !important;
+}
+
+.google-visualization-orgchart-lineright {
+    border-right: 1px solid #006699 !important;
+}
+
+--></style>
+
+<script type="text/javascript">
+function settab() {
+    var mytabs = ColdFusion.Layout.getTabLayout('citationdetails');
+   
+ 
+  mytabs.on('tabchange', function(tabpanel,activetab) { document.cookie = 'picked=' + '2820282' + ',' + activetab.id; })
+ 
+}
+
+
+function letemknow(){
+  ColdFusion.Window.show('letemknow');
+}
+
+function letemknow2(){
+  ColdFusion.Window.show('letemknow2');
+}
+
+
+
+
+
+function testthis(){
+
+alert('test');
+}
+function loadalert(){ 
+ alert("I am in the load alert");
+ 
+}
+function loadalert2(){ 
+  alert("I am in the load alert2");
+ 
+}
+</script>
+<script type='text/javascript'>
+	  	google.load('visualization', '1', {packages:['orgchart']});
+	    google.setOnLoadCallback(drawChart);
+	  
+	  function drawChart() {
+	    var data = new google.visualization.DataTable();
+        data.addColumn('string', 'Name');
+        data.addColumn('string', 'Manager');
+        data.addColumn('string', 'ToolTip');
+  	  
+		data.addRows([
+          [{v:'0', f:'<div style="color:black; font-size:150%; font-style:normal">CCS&nbsp;for&nbsp;this&nbsp;Proceeding</div>'}, '', ''],
+		  
+        ]);
+		
+		if (document.getElementById('chart_div')) {
+       var chart = new google.visualization.OrgChart(document.getElementById('chart_div'));
+       chart.draw(data, {allowHtml:true});
+		}
+      }
+	  
+</script>
+
+<script type="text/javascript">
+ function expandcollapse(anchor,whichone) {
+	 var inner = document.getElementById(anchor);
+	 var theshow = "toShow" + whichone;
+ 	 var thehide = "toHide" + whichone;
+	 var span = document.getElementById(theshow);
+     span.style.display = (span.style.display=='inline')?'none':'inline';
+     var span = document.getElementById(thehide);
+     span.style.display = (span.style.display=='none')?'inline':'none';
+     inner.innerHTML = (inner.innerHTML=='collapse')?'expand':'collapse';
+    }
+
+  
+</script>
+
+<script type="text/javascript">
+ /* <!-- Begin
+	if(document.layers || document.all) {
+	a = 1;
+	setInterval("Jump()", 10);
+	}
+	function Jump() {
+	a = a + 1;
+	//self.moveBy((Math.random() * a * 2 - a), (Math.random() * a * 2) - a);
+	}
+//  End --> */
+</script>
+
+<script type="text/javascript">
+function expandWatson(divID,theConcept) { 
+			if (document.getElementById(divID).style.display == "none") {
+				document.getElementById(divID).style.display = "block";
+				document.getElementById(divID).innerHTML = theConcept + "<br />" + document.getElementById(divID).innerHTML;
+			}
+			 else {
+				 document.getElementById(divID).style.display = "none"
+			}
+		}
+</script>
+
+
+
+<meta name="citation_publisher" content="IEEE Press"> <meta name="citation_authors" content="General Chair-De Lucia, Andrea; Program Chair-Bird, Christian; Program Chair-Oliveto, Rocco"> <meta name="citation_conference_title" content="Proceedings of the 2015 IEEE 23rd International Conference on Program Comprehension"> <meta name="citation_date" content="05/16/2015"> <meta name="citation_abstract_html_url" content="http://dl.acm.org/citation.cfm?id=2820282"> 
+
+
+
+<script type="text/javascript">
+	ColdFusion.Ajax.importTag('CFAJAXPROXY');
+</script>
+
+<script type="text/javascript">
+	ColdFusion.Ajax.importTag('CFFORM');
+</script>
+
+<script type="text/javascript">
+	ColdFusion.Ajax.importTag('CFDIV');
+</script>
+
+<script type="text/javascript">
+	ColdFusion.Ajax.importTag('CFTEXTAREA');
+</script>
+
+<script type="text/javascript">
+	ColdFusion.Event.registerOnLoad(drawChart,null,false,true);
+</script>
+
+<script type="text/javascript">
+	ColdFusion.Ajax.importTag('CFWINDOW');
+</script>
+
+<script type="text/javascript">
+	var _cf_window_init_1454710706677=function()
+	{
+		_cf_bind_init_1454710706678=function()
+		{
+			ColdFusion.Bind.register([],{'bindTo':'letemknow_body','bindExpr':['letemknow.cfm?CFID=750670497&CFTOKEN=35487510']},ColdFusion.Bind.urlBindHandler,false);
+		};ColdFusion.Event.registerOnLoad(_cf_bind_init_1454710706678);var _cf_window=ColdFusion.Window.create('letemknow','<div style=\'text-align:left; color:black;\'>Did you know the ACM DL App is now available?</div>','letemknow.cfm?CFID=750670497&CFTOKEN=35487510',{ modal:false, closable:true, divid:'cf_window1454710706676', draggable:true, resizable:true, fixedcenter:false, width:600, height:275, shadow:true, callfromtag:true, minwidth:600, minheight:275, initshow:false, x:75, y:125});
+	};ColdFusion.Event.registerOnLoad(_cf_window_init_1454710706677);
+</script>
+
+<script type="text/javascript">
+	var _cf_window_init_1454710706680=function()
+	{
+		_cf_bind_init_1454710706681=function()
+		{
+			ColdFusion.Bind.register([],{'bindTo':'letemknow2_body','bindExpr':['letemknow_recomm.cfm?CFID=750670497&CFTOKEN=35487510']},ColdFusion.Bind.urlBindHandler,false);
+		};ColdFusion.Event.registerOnLoad(_cf_bind_init_1454710706681);var _cf_window=ColdFusion.Window.create('letemknow2','<div style=\'text-align:left; color:black;\'>Did you know your Organization can subscribe to the ACM Digital Library?</div>','letemknow_recomm.cfm?CFID=750670497&CFTOKEN=35487510',{ modal:false, closable:true, divid:'cf_window1454710706679', draggable:true, resizable:true, fixedcenter:false, width:600, height:275, shadow:true, callfromtag:true, minwidth:600, minheight:275, initshow:false, x:70, y:175});
+	};ColdFusion.Event.registerOnLoad(_cf_window_init_1454710706680);
+</script>
+
+<script type="text/javascript">
+	var _cf_window_init_1454710706683=function()
+	{
+		_cf_bind_init_1454710706684=function()
+		{
+			ColdFusion.Bind.register([],{'bindTo':'theguide_body','bindExpr':['whatisguide.cfm']},ColdFusion.Bind.urlBindHandler,false);
+		};ColdFusion.Event.registerOnLoad(_cf_bind_init_1454710706684);var _cf_window=ColdFusion.Window.create('theguide','The ACM Guide to Computing Literature','whatisguide.cfm',{ modal:false, closable:true, divid:'cf_window1454710706682', draggable:true, resizable:true, fixedcenter:true, width:500, height:300, shadow:true, callfromtag:true, minwidth:300, minheight:250, initshow:false});
+	};ColdFusion.Event.registerOnLoad(_cf_window_init_1454710706683);
+</script>
+
+<script type="text/javascript">
+	var _cf_window_init_1454710706686=function()
+	{
+		_cf_bind_init_1454710706687=function()
+		{
+			ColdFusion.Bind.register([],{'bindTo':'thetags_body','bindExpr':['showthetags.cfm?id=2820282']},ColdFusion.Bind.urlBindHandler,false);
+		};ColdFusion.Event.registerOnLoad(_cf_bind_init_1454710706687);var _cf_window=ColdFusion.Window.create('thetags','All Tags','showthetags.cfm?id=2820282',{ modal:false, closable:true, divid:'cf_window1454710706685', draggable:true, resizable:true, fixedcenter:true, width:500, height:300, shadow:true, callfromtag:true, minwidth:300, minheight:250, initshow:false});
+	};ColdFusion.Event.registerOnLoad(_cf_window_init_1454710706686);
+</script>
+
+<script type="text/javascript">
+	var _cf_window_init_1454710706689=function()
+	{
+		var _cf_window=ColdFusion.Window.create('theformats','Export Formats','',{ modal:false, closable:true, divid:'cf_window1454710706688', draggable:true, resizable:true, fixedcenter:false, width:500, height:300, shadow:true, bodystyle:'text-align:left', callfromtag:true, minwidth:250, minheight:250, initshow:false});
+	};ColdFusion.Event.registerOnLoad(_cf_window_init_1454710706689);
+</script>
+
+<script type="text/javascript">
+	var _cf_window_init_1454710706691=function()
+	{
+		var _cf_window=ColdFusion.Window.create('theexplaination','','',{ modal:false, closable:true, divid:'cf_window1454710706690', draggable:true, resizable:true, fixedcenter:false, width:500, height:300, shadow:true, bodystyle:'text-align:left', callfromtag:true, minwidth:300, minheight:250, initshow:false});
+	};ColdFusion.Event.registerOnLoad(_cf_window_init_1454710706691);
+</script>
+
+<script type="text/javascript">
+	var _cf_window_init_1454710706693=function()
+	{
+		var _cf_window=ColdFusion.Window.create('theservices','','',{ modal:false, closable:true, divid:'cf_window1454710706692', draggable:true, resizable:true, fixedcenter:false, width:500, height:300, shadow:true, bodystyle:'text-align:left', callfromtag:true, minwidth:300, minheight:250, initshow:false});
+	};ColdFusion.Event.registerOnLoad(_cf_window_init_1454710706693);
+</script>
+
+<script type="text/javascript">
+	var _cf_window_init_1454710706695=function()
+	{
+		_cf_bind_init_1454710706696=function()
+		{
+			ColdFusion.Bind.register([],{'bindTo':'savetobinder_body','bindExpr':['savetobinder.cfm?id=2820282']},ColdFusion.Bind.urlBindHandler,false);
+		};ColdFusion.Event.registerOnLoad(_cf_bind_init_1454710706696);var _cf_window=ColdFusion.Window.create('savetobinder','Save to Binder','savetobinder.cfm?id=2820282',{ modal:false, closable:true, divid:'cf_window1454710706694', draggable:true, resizable:true, fixedcenter:true, width:600, height:600, shadow:true, callfromtag:true, minwidth:300, minheight:250, initshow:false, _cf_refreshOnShow:true});
+	};ColdFusion.Event.registerOnLoad(_cf_window_init_1454710706695);
+</script>
+
+<script type="text/javascript">
+	ColdFusion.Event.registerOnLoad(settab,null,false,true);
+</script>
+</head>
+
+
+
+
+<body style="text-align:center" onLoad="selectPerson(0); personConceptEnter(0,0);">          <!-- jtr changed, wg added personConceptEnter-->
+
+
+<script type="text/javascript">
+						addthis_pub             = 'acm'; 
+						//addthis_logo            = 'http://www.addthis.com/images/yourlogo.png';
+						addthis_logo            = 'http://dl.acm.org/images/ACM_transparent.png';
+						addthis_logo_background = 'c2d5fc';
+						addthis_logo_color      = '000000';
+						addthis_brand           = 'Citation Page';
+						addthis_options         = 'favorites, email, slashdot, citeulike, digg, delicious, twitter, myspace, facebook, google, more';
+						</script>
+                        
+<script src='AC_RunActiveContent.js' type="text/javascript"></script>
+
+
+
+
+<div style="width:940px; margin-left: auto; margin-right: auto; text-align:left">
+<a id="CIT"></a>
+
+<div id="header">
+
+
+<table style="table-layout:fixed; margin-top: 5px; margin-bottom: 10px; border:0px; width:100%; border-collapse:collapse;">
+	
+    <tr style="vertical-align:top">
+		
+		<td style="padding-left: 5px; padding-right:10px; padding-bottom:0px; width:300px" class="small-link-text"  ><img src="http://dl.acm.org/images/ACMDL_Logo.jpg" alt="ACM DL" style="border:0px" usemap="#port" />
+		</td>
+        
+        <td style="padding-left: 5px; padding-right:10px; padding-bottom:0px;" class="small-link-text">
+        	<table style="width:100%; border-collapse:collapse; padding:0px">
+			<tr><td style="text-align:center">
+				
+                            <div style="margin:0px auto;color:#356b20;font-size:10pt;line-height:10%;"> </div>
+                    
+					</td>		
+			</tr>
+			</table> 
+        </td>
+		<td style="padding-top: 0px; padding-left: 0px; padding-bottom:0px; text-align:right;" class="small-link-text">
+			 <p style="margin-top:0px; margin-bottom:10px;">
+					
+                            <a href="https://dl.acm.org/signin.cfm?cfid=750670497&amp;cftoken=35487510" class="small-link-text" title="Sign in to personalize your Digital Library experience">SIGN IN</a>
+                            &nbsp;&nbsp;<a href="https://dl.acm.org/signin.cfm?cfid=750670497&amp;cftoken=35487510"  class="small-link-text" title="Sign up to personalize your Digital Library experience">SIGN UP</a>
+						
+			 </p>
+            
+			<table style="padding: 5px; border-collapse:collapse; float:right">
+            	 
+			 
+
+
+				
+				
+                            
+                           <tr>
+                            <td class="small-link-text" style="text-align:right">
+                            
+                            
+                           <script type="text/javascript">
+								function encodeInput(form){
+								    	var cleanQuery = form.elements['query'].value.replace(new RegExp( "\\+", "g" ),"%2B");
+										cleanQuery = cleanQuery.replace(/#/g, "%23");
+										cleanQuery = cleanQuery.replace(/(\n)/g, " ");
+										cleanQuery = cleanQuery.trim();
+										form.elements['query'].value = cleanQuery;
+								}
+							</script>
+                            <form name="qiksearch" action="/results.cfm?CFID=750670497&CFTOKEN=35487510" onsubmit='encodeInput(this)'>
+                           
+                           
+                            
+                            		
+                                    
+                                    
+                                    
+									<span style="margin-left:0px"><label><input type="text" name="query" size="30" value=" " /></label>&nbsp;                                    
+                                    <input style="vertical-align:top;" type="image" alt="Search" name="Go" src="http://dl.acm.org/images/search_small.jpg" />
+                                    
+                                    </span>
+							  </form>
+                                </td>
+                            </tr>
+                          
+                            
+                            
+                          
+				  
+			</table>
+
+			
+			
+		</td>
+
+	</tr>
+    
+    
+    <tr><td colspan="3" class="small-link-text" style="padding-bottom:5px; padding-top:0px; text-align:center">
+		<div style="margin:0px auto;color:#356b20;line-height:10%;"> </div>
+         
+         </td>
+    </tr>
+    </table>
+	
+<map name="port" id="port" > 
+  <area shape="rect" coords="1,1,60,50" href="http://www.acm.org/" alt="ACM Home Page" />
+  <area shape="rect" coords="65,1,275,68" href="http://dl.acm.org/dl.cfm?CFID=750670497&CFTOKEN=35487510" alt="ACM Digital Library Home Page" />
+</map>
+
+</div> <style>
+  .watsonCont {
+	  width:170px;
+	  
+	  color: #000000;
+    font-family: Arial,Helvetica,sans-serif;
+    font-size: 1em;
+	margin-top: 10px;
+	margin-bottom: 10px;
+	 /* background-color: lightgray;*/
+  }
+  #watsonInside {
+    border-radius: 25px;
+    border: 2px solid #649134;
+	margin-top: 12px;
+	padding: 5px;
+	height: 80px;
+  }
+
+</style>
+
+
+
+<table style="table-layout:fixed; padding-bottom:10px; width:100%; padding:0px;">
+	<tr style="vertical-align:top">
+		<td style="padding-right:10px; text-align:left" class="small-link-text">
+        	<div id="divmain" style="border:1px solid #356b20;">
+				 
+				<div class="large-text" style="text-align:left; margin-left:2px;margin-bottom:5px;">
+					
+                    	<h1 class="mediumb-text" style="margin-top:0px; margin-bottom:0px;"><strong>Proceedings of the 2015 IEEE 23rd International Conference on Program Comprehension</strong></h1>
+                        
+                </div>
+                
+
+<table class="medium-text" style="border-collapse:collapse; padding:0px;">
+
+<colgroup>
+<col style="width:540px" />
+</colgroup>
+
+<tr style="vertical-align:top">
+  <td>
+    <table style="border-collapse:collapse; padding:2px;" class="medium-text">
+      <col style="width:80px;" />
+      <col style="width:auto" />
+      <tr style="vertical-align:top">
+        
+      </tr>
+    </table>
+
+	
+        <table style="margin-top: 10px; border-collapse:collapse; padding:2px;" class="medium-text">
+            <col style="width:80px" />
+            
+            <tr>
+            <td  valign="top" nowrap="nowrap">
+             General Chairs:
+                
+            </td>
+            <td valign="top" nowrap="nowrap">
+                
+                    <a  href="author_page.cfm?id=81100275248&amp;coll=DL&amp;dl=ACM&amp;trk=0&amp;cfid=750670497&amp;cftoken=35487510" title="Author Profile Page" target="_self">Andrea De Lucia</a>
+                
+            </td>
+            <td valign="bottom">
+                
+                        <a href="inst_page.cfm?id=60007061&CFID=750670497&CFTOKEN=35487510" title="Institutional Profile Page"><small>University of Salerno, Italy</small></a>
+                      	
+            </td>
+            </tr>
+            
+            <tr>
+            <td  valign="top" nowrap="nowrap">
+             Program Chairs:
+                
+            </td>
+            <td valign="top" nowrap="nowrap">
+                
+                    <a  href="author_page.cfm?id=81450592307&amp;coll=DL&amp;dl=ACM&amp;trk=0&amp;cfid=750670497&amp;cftoken=35487510" title="Author Profile Page" target="_self">Christian Bird</a>
+                
+            </td>
+            <td valign="bottom">
+                
+                        <a href="inst_page.cfm?id=60021726&CFID=750670497&CFTOKEN=35487510" title="Institutional Profile Page"><small>Microsoft Research</small></a>
+                      	
+            </td>
+            </tr>
+            
+            <tr>
+            <td  valign="top" nowrap="nowrap">
+             
+            </td>
+            <td valign="top" nowrap="nowrap">
+                
+                    <a  href="author_page.cfm?id=81336491755&amp;coll=DL&amp;dl=ACM&amp;trk=0&amp;cfid=750670497&amp;cftoken=35487510" title="Author Profile Page" target="_self">Rocco Oliveto</a>
+                
+            </td>
+            <td valign="bottom">
+                
+                        <a href="inst_page.cfm?id=60014096&CFID=750670497&CFTOKEN=35487510" title="Institutional Profile Page"><small>University of Molise, Italy</small></a>
+                      	
+            </td>
+            </tr>
+            
+        </table>
+    
+        <table style="margin-top: 10px" border="0" class="medium-text" cellpadding="2" cellspacing="0">
+            <tr>
+            	<td><table border="0" class="medium-text" cellpadding="1" cellspacing="0">
+
+<tr valign="top">
+    <td nowrap="nowrap" style="padding-top:10px;">Publication of:</td>
+</tr>
+
+	<tr valign="top">
+    	<td nowrap="nowrap" style="padding-bottom:0px">&middot;&nbsp;Conference</td>
+	</tr>
+    <tr valign="top">
+	    <td style="padding-left:10px;">
+		   <a href="http://2015.icse-conferences.org/" title="Conference Website"  target="_self" class="link-text">ICSE '15</a> 37th International Conference on Software Engineering 
+        </td>
+	</tr>
+    
+    <tr valign="top">
+	    <td style="padding-left:10px; padding-bottom:10px"> Florence/Firenze, Italy &mdash; May 16 - 24, 2015
+                    
+                  <br />
+                    
+                  <span class="small-link-text">IEEE Press</span> <span class="small-link-text">Piscataway, NJ</span><span class="small-link-text">, USA</span> <span class="small-link-text">  &copy;2015</span> 
+                  <br />           
+                  
+      </td>
+	</tr>
+	 
+
+</table></td>
+            </tr>
+        </table>
+    
+
+  </td>
+
+  <td rowspan="20" > 
+	<table border="0" class="medium-text" cellpadding="0" cellspacing="0">
+		<tr>
+        	<td align="center" style="padding-bottom: 5px;">
+			  
+               
+              </td>
+              <td  align="left" nowrap="nowrap">
+	             2015 Proceeding<br />
+                 
+        	 </td>
+        </tr>
+        
+        <tr>
+        	<td colspan="2" valign="baseline" style="padding-bottom:5px; padding-top:5px;">
+            <img src="img/stats.jpg" alt="Bibliometrics Data" />&nbsp;
+            <a href="javascript:ColdFusion.Window.show('theexplaination');ColdFusion.navigate('explain.cfm?expid=1','theexplaination');" title="Bibliometrics: explained">Bibliometrics</a>
+            </td>
+         </tr>
+         <tr>
+            <td  class="small-text" colspan="2" valign="top" style="padding-left:30px;">
+				
+	                    	&middot;&nbsp;Downloads (6 Weeks): 182<br />
+    	                    &middot;&nbsp;Downloads (12 Months): 584<br />
+                            &middot;&nbsp;Downloads (cumulative): 584<br />
+                          
+                        &middot;&nbsp;Citation Count: 2 
+			</td>
+         </tr>
+         
+            
+		
+	</table>
+  </td>
+</tr>
+</table>
+
+<br clear="all" />
+
+  
+                 <br clear="all" />
+			</div>
+			
+            
+            
+			
+          	
+<script type="text/javascript">
+function selectPerson(index) {
+}
+function personConceptEnter(personIndex, conceptIndex) {
+}
+</script>
+
+            
+		</td>
+		<td style="padding-left: 5px; vertical-align:top; text-align:left; width:170px" class="small-link-text">
+	
+            <div id="divtools" style="background-color:#ece9d8; text-align:left; padding-top:5px; padding-bottom:5px; ">
+				
+              <div class="medium-text" style="margin-left:3px; margin-top:10px;"><h1 class="mediumb-text" style="margin-top:-15px;"><strong>Tools and Resources</strong></h1></div>
+
+
+<ul title="Tools and Resources" style="list-style: none; list-style-position:outside;
+margin-left: 25px;
+padding-left: 0em;
+text-indent: 0px;
+margin-bottom: 0px;">
+
+
+<li style="list-style-image:url(img/toc_small.gif);margin-top:10px;"><span style="margin-left:0px;">
+   <span class="small-link-text">TOC Service:</span>
+   	  
+	  <img src="http://dl.acm.org/images/blanks.gif" border="0" alt="Spacer Image reserves space for checkmark when TOC Service is updated" name="saved" />
+      <ul style="margin-left: 0; padding-left: 0; display:inline;">
+      	
+        <li style="list-style:none; display:inline"><br /><img src="img/email_small.gif" alt="Toc Alert via Email" border="0" hspace="3" /><a href="#" onclick="window.alert('To use this Feature, you must login with your personal ACM Web Account.');" class="small-link-text">Email</a></li>
+        <li style="list-style:none; display:inline"><img src="img/rss_small.gif" alt="Toc Alert via Email" border="0" hspace="3" /><a href="#" onclick="window.alert('To use this Feature, you must login with your personal ACM Web Account.');"  class="small-link-text">RSS</a></li>
+		        
+      </ul>
+    </span>
+</li>
+
+        <li style="list-style-image:url(img/binder.gif);margin-top:10px;"><span style="margin-left:0px;">
+        <a href="citation.cfm?id=2820282&preflayout=flat#" onclick="window.alert('To use this Feature, you must login with your personal ACM Web Account.');" class="small-link-text">Save to Binder</a>
+         </span></li>
+    
+
+
+
+
+<li style="list-style-image:url(img/binder_green.gif);margin-top:10px;"><span style="margin-left:0px; margin-bottom:0px">
+   <span class="small-link-text">Export Formats:</span>
+      <ul style="margin-left: 0; padding-left: 0; margin-bottom:0px;">
+        <li style="list-style:disc; display:inline; margin-bottom:0px;"><a href="javascript:ColdFusion.Window.show('theformats');ColdFusion.navigate('exportformats.cfm?id=2820282&expformat=bibtex','theformats');" class="small-link-text">BibTeX</a></li>
+        <li style="list-style:disc; display:inline; margin-bottom:0px;"><a href="javascript:ColdFusion.Window.show('theformats');ColdFusion.navigate('exportformats.cfm?id=2820282&expformat=endnotes','theformats');" class="small-link-text">EndNote</a></li>
+        <li style="list-style:disc; display:inline; margin-bottom:0px;"><a href="javascript:ColdFusion.Window.show('theformats');ColdFusion.navigate('exportformats.cfm?id=2820282&expformat=acmref','theformats');" class="small-link-text">ACM&nbsp;Ref</a></li>
+      </ul>
+    </span>
+</li>
+
+
+
+ 
+   <li style="list-style-image:url(img/calbullet.jpg);margin-top:15px;"><span style="margin-left:0px; margin-bottom:0px">
+   <span class="small-link-text">Upcoming Conference:</span>
+      <ul style="margin-left: 0; padding-left: 0; margin-bottom:0px;">
+        <li style="list-style:disc; display:inline; margin-bottom:0px; margin-left:25px;"><a href="http://2016.icse.cs.txstate.edu/" title="38th International Conference on Software Engineering" class="small-link-text">ICSE '16</a></li>
+      </ul>
+    </span>
+	</li>
+    
+
+
+</ul>           
+
+  <!-- ADDTHIS BUTTON BEGIN -->
+  
+  <!-- ADDTHIS BUTTON END -->
+
+<p class="small-link-text" style="padding-top: 0px; margin-left:6px; margin-bottom:0px">Share:</p>
+  <!-- AddThis Button BEGIN -->
+
+
+
+<!-- AddThis Button BEGIN -->
+<div style="margin-left:5px;" class="addthis_toolbox addthis_default_style">
+<a class="addthis_button_email"></a>
+<a class="addthis_button_facebook"></a>
+<a class="addthis_button_google_plusone_share"></a>
+<a class="addthis_button_twitter"></a>
+
+<a class="addthis_button_researchgate"></a>
+<a class="addthis_button_reddit"></a>
+
+
+
+<span class="addthis_separator">|</span>
+<a href="http://www.addthis.com/bookmark.php?v=250&amp;username=acm" class="addthis_button_expanded" title="more"></a>
+</div>
+
+<script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#username=acm"></script>
+<!-- AddThis Button END -->
+
+  
+ 
+
+  
+  
+            </div>
+           
+           
+		</td>
+	</tr>
+
+</table>
+
+
+
+</div>
+
+
+<div class="layout" style="width:940px; margin-left: auto; margin-right: auto; text-align:left">
+
+
+
+ 
+
+
+<div id="fback" style="text-align:left; padding-top:10px; padding-bottom:20px">
+<span class="small-text" style="padding-right:10px; margin-bottom:0px;">
+<a title="Contact The DL Team" href="mailto:portal-feedback@hq.acm.org" style=" vertical-align:middle"><img src="img/feedbackg.gif" width="20" height="19" alt="Contact The DL Team" border="0" /></a>
+<a title="Contact The DL Team" href="mailto:portal-feedback@hq.acm.org"><strong>Contact Us</strong></a>
+
+<span style="padding:10px;">|</span>
+
+
+
+
+<span>Switch to <a href="citation.cfm?id=2820282&amp;preflayout=tabs">tabbed view</a> <noscript> (javascript required)</noscript></span>
+
+
+</span>
+
+ 
+<div class="small-text" style="margin-top:10px; margin-bottom:5px;"> 
+<br />
+
+    <a href="#abstract"  title="Abstract" style="padding:5px"><span>Abstract</span></a> |
+    
+    <a href="#formats"  title="Source Materials" style="padding:5px"><span>Source Materials</span></a> |
+    
+    <a href="#authors"  title="Authors" style="padding:5px"><span>Authors</span></a> |
+    <a href="#references"  title="References" style="padding:5px"><span style='color:#999999'>References</span></a> |
+    <a href="#citedby"  title="Cited By" style="padding:5px"><span style='color:#999999'>Cited By</span></a> |
+    <a href="#indexterms"  title="Index Terms" style="padding:5px"><span style='color:#999999'>Index Terms</span></a> |
+    <a href="#source"  title="Publication" style="padding:5px"><span>Publication</span></a> |
+    <a href="#revs"  title="Reviews" style="padding:5px"><span style='color:#999999'>Reviews</span></a> |               
+	<a href="#comments"  title="Comments" style="padding:5px"><span>Comments</span></a>
+	
+     |               
+	<a href="#prox"  title="Table of Contents" style="padding:5px"><span>Table of Contents</span></a>
+    
+</div>
+    
+<div style="right: 0pt; border-top:1px solid #356b20; font-size:1px; margin-bottom:20px;"/>
+
+
+
+</div>
+
+
+<h1 class="mediumb-text"><A HREF="#CIT"><img name="top" src="http://dl.acm.org/images/arrowu.gif" alt="top of page" hspace="10" border="0"></A><A NAME="abstract" class="small-text">ABSTRACT</A></h1>
+       	
+			<div style="margin-left:10px; margin-top:10px; margin-right:10px; margin-bottom: 10px;" class="flatbody">
+
+             <div style="display:inline"><p>Welcome to Florence, one of the most beautiful cities in Italy and the cradle of Italian Renaissance, and welcome to the 23rd IEEE International Conference on Program Comprehension (ICPC 2015)!</p> <p>ICPC is the main yearly running venue for researchers and practitioners from academia, industry, and government to present and discuss state-of-the-art research results and best practices in the field of program comprehension. This year, ICPC is co-located with the 37th IEEE/ACM International Conference on Software Engineering (ICSE 2015) and is held in the Congress Centre of the amazing Florence, coming back to Italy after 11 years for the fourth time and the first time after evolving from a workshop to a conference. We would like to thank the ICPC Steering Committee and the ICSE 2015 organizers, in particular the General Chair Antonella Bertolino, for giving us this opportunity.</p></div> 
+<h1 class="mediumb-text"><A HREF="#CIT"><img name="top" src="http://dl.acm.org/images/arrowu.gif" alt="top of page" hspace="10" border="0"></A><A NAME="formats" class="small-text"><SPAN class="heading">SOURCE MATERIALS</SPAN></A></h1>
+		
+<div style="margin-left:10px; margin-top:10px; margin-right:10px; margin-bottom: 10px;" class="flatbody">
+
+
+  <div class="abstract">
+        <SPAN><strong>FRONT MATTER</strong></span>
+  </div>
+  <div style="margin-left:10px; line-height:180%;">
+      
+          <A NAME="FullText" HREF="http://portalparts.acm.org/2830000/2820282/fm/frontmatter.pdf?ip=47.16.237.148&CFID=750670497&CFTOKEN=35487510" title="PDF" target="_blank">
+          <img src="http://dl.acm.org/imagetypes/pdf_logo.gif" alt="PDF" border="0" align="middle" style="margin-right: 2px">PDF</A>
+          &nbsp;Front matter (Title page, Message from the chairs, Committees, Sponsors and supporters, TOC) 
+  </div>          
+  
+  <div style="margin-top: 10px;"  class="abstract">
+        <SPAN><strong>BACK MATTER</strong></span>
+  </div>
+  <div style="margin-left:10px; line-height:180%;">
+      
+          <A NAME="FullText" HREF="http://portalparts.acm.org/2830000/2820282/bm/backmatter.pdf?ip=47.16.237.148&CFID=750670497&CFTOKEN=35487510" title="PDF" target="_blank">
+          <img src="http://dl.acm.org/imagetypes/pdf_logo.gif" alt="PDF" border="0" align="middle" style="margin-right: 2px">PDF</A>
+          &nbsp;Back matter (Author index) 
+  </div>          
+  
+<div style="margin-top: 10px; height: auto; padding: 5px; ">
+		
+		
+        
+<div  style="margin-top:20px;" class="abstract">
+  <SPAN><strong>APPEARS IN</strong></span>
+</div>
+
+  
+	  <div>
+      
+        	<a href="http://dl.acm.org/collection.cfm?id=KA8" title="Software" target="_blank">Software</a>
+        
+      </div>
+      
+
+
+	</div>
+
+<br clear="all" />
+</div>
+
+<h1 class="mediumb-text"><A HREF="#CIT"><img name="top" src="http://dl.acm.org/images/arrowu.gif" alt="top of page" hspace="10" border="0"></A><A NAME="authors" class="small-text"><SPAN class="heading">AUTHORS</SPAN></A></h1>
+		
+<div style="margin-left:10px; margin-top:0px; margin-right:10px; margin-bottom: 10px;" class="flatbody">
+
+
+<dl title="Authors" style="margin-top:0px">
+
+
+
+
+<dt style="float: left; clear: left; width: 100%; margin-top: 0px; margin-bottom: 0px;">
+ <strong>
+ General Chairs 
+  </strong>
+ </dt> 
+          
+          <dd style="margin: 0 0 0 60px; padding: 0 0 0.5em 0;">
+			
+								<span>
+									
+                                    <br><br />
+                                    
+                                        <table border="0" cellspacing="10">
+                                        <tr><td><table border="0" width="300"  cellpadding="0" cellspacing="0">
+<col width="120">
+<col width="180">
+<tr valign="top">
+
+	<td bgcolor="#cccccc" style="padding-bottom: 5px; padding-top: 5px">
+		
+			<img src="gifs/ProfileSilhouette.gif" alt="Author image not provided" align="middle" hspace="5">
+		
+	</td>
+
+<td  bgcolor="#cccccc" style="padding-bottom: 5px; padding-top: 5px" colspan="2">
+	&nbsp;<span class="small-text"><strong><a title="author page of Andrea De Lucia" href="author_page.cfm?id=81100275248&CFID=750670497&CFTOKEN=35487510">Andrea De Lucia</a></strong><br /></span>
+	
+	
+	
+	<span class="small-text"><br><p style="margin-bottom:-10px;" align="center">No contact information provided yet.</p>
+	
+	
+			
+	
+	</span>
+	
+	
+	
+</td>
+</tr>
+
+
+</table></td>
+                                            <td><table border="0" width="300" cellpadding="0" cellspacing="0">
+
+<tr>
+
+	<td><strong><a href="javascript:ColdFusion.Window.show('theexplaination');ColdFusion.navigate('explain.cfm?expid=1','theexplaination');" title="Bibliometrics: explained">Bibliometrics</a></strong>:&nbsp;publication history<br />
+		
+        <table width="90%" style="margin-top: 1px; margin-bottom: 10px" border="0" align="left">
+			<tr>
+				<td class="smaller-text">Publication years</td><td class="small-text" align="right">1994-2015</td>
+			</tr>
+			<tr><td height="1" bgcolor="#808080" colspan="2"></td></tr>
+			<tr>
+				<td class="smaller-text" style="border-bottom: 2">Publication count</td><td class="small-text" align="right">126</td>
+			</tr>
+			<tr><td height="1" bgcolor="#808080" colspan="2"></td></tr>
+			<tr>
+				<td class="smaller-text">Citation Count</td><td class="small-text" align="right">1,011</td>
+			</tr>
+			<tr><td height="1" bgcolor="#808080" colspan="2"></td></tr>
+			<tr>
+				<td class="smaller-text" style="border-bottom: 2">Available for download</td><td class="small-text" align="right">26</td>
+			</tr>
+			<tr><td height="1" bgcolor="#808080" colspan="2"></td></tr>
+ 			
+			<tr>
+				<td class="smaller-text">Downloads (6 Weeks)</td><td class="small-text" align="right">149</td>
+			</tr>
+			<tr><td height="1" bgcolor="#808080" colspan="2"></td></tr>
+			<tr>
+				<td class="smaller-text">Downloads (12 Months)</td><td class="small-text" align="right">1,015</td>
+			</tr>
+            <tr><td height="1" bgcolor="#808080" colspan="2"></td></tr>
+            <tr>
+				<td class="smaller-text">Downloads (cumulative)</td><td class="small-text" align="right">10,619</td>
+			</tr>
+            <tr><td height="1" bgcolor="#808080" colspan="2"></td></tr>
+			<tr>
+				<td class="smaller-text" style="border-bottom: 2">Average downloads per article</td><td class="small-text" align="right">408.42</td>
+			</tr>
+			<tr><td height="1" bgcolor="#808080" colspan="2"></td></tr>
+			<tr>
+				<td class="smaller-text" style="border-bottom: 2">Average citations per article</td><td class="small-text" align="right">8.02</td>
+			</tr>
+			<tr><td height="1" bgcolor="#808080" colspan="2"></td></tr>
+ 			
+		</table>
+	</td>
+	
+</tr>
+
+</table></td>
+                                        </tr>
+                                        <tr><td style="padding:0px">
+                                                    <a title="colleagues of Andrea De Lucia" href="author_page.cfm?id=81100275248&amp;dsp=coll&amp;trk=1&amp;CFID=750670497&CFTOKEN=35487510" target="_self">View colleagues</a> of Andrea De Lucia
+                                            </td>
+                                         </tr>
+                                        </table>
+                                     
+								</span>
+					
+			</dd>
+                              
+
+
+
+<dt style="float: left; clear: left; width: 100%; margin-top: 0px; margin-bottom: 0px;">
+ <strong>
+ Program Chairs 
+  </strong>
+ </dt> 
+          
+          <dd style="margin: 0 0 0 60px; padding: 0 0 0.5em 0;">
+			
+								<span>
+									
+                                    <br><br />
+                                    
+                                        <table border="0" cellspacing="10">
+                                        <tr><td><table border="0" width="300"  cellpadding="0" cellspacing="0">
+<col width="120">
+<col width="180">
+<tr valign="top">
+
+	<td bgcolor="#cccccc" style="padding-bottom: 5px; padding-top: 5px">
+		
+			<img src="http://portalparts.acm.org/profiles/81450592307/me.jpeg" border="0" align="middle" alt="Christian Bird" hspace="5" />
+		 
+		  
+	</td>
+
+<td  bgcolor="#cccccc" style="padding-bottom: 5px; padding-top: 5px" >
+	<span class="small-text"><strong><a title="author page of Christian Bird" href="author_page.cfm?id=81450592307&CFID=750670497&CFTOKEN=35487510">Christian Bird</a></strong><br /></span>
+	
+	<span class="small-text"><br /><a href="http://www.cabird.com">homepage</a></span>
+	
+	<div style="margin-top: 6px" class="small-text">cbird<img src="gifs/at.gif" width="12" height="12" alt="at" />microsoft.com</div>
+	
+	
+	
+	<span class="small-text">
+	
+	
+			
+	
+	</span>
+	
+	
+	
+</td>
+</tr>
+
+
+</table></td>
+                                            <td><table border="0" width="300" cellpadding="0" cellspacing="0">
+
+<tr>
+
+	<td><strong><a href="javascript:ColdFusion.Window.show('theexplaination');ColdFusion.navigate('explain.cfm?expid=1','theexplaination');" title="Bibliometrics: explained">Bibliometrics</a></strong>:&nbsp;publication history<br />
+		
+        <table width="90%" style="margin-top: 1px; margin-bottom: 10px" border="0" align="left">
+			<tr>
+				<td class="smaller-text">Publication years</td><td class="small-text" align="right">2006-2015</td>
+			</tr>
+			<tr><td height="1" bgcolor="#808080" colspan="2"></td></tr>
+			<tr>
+				<td class="smaller-text" style="border-bottom: 2">Publication count</td><td class="small-text" align="right">63</td>
+			</tr>
+			<tr><td height="1" bgcolor="#808080" colspan="2"></td></tr>
+			<tr>
+				<td class="smaller-text">Citation Count</td><td class="small-text" align="right">791</td>
+			</tr>
+			<tr><td height="1" bgcolor="#808080" colspan="2"></td></tr>
+			<tr>
+				<td class="smaller-text" style="border-bottom: 2">Available for download</td><td class="small-text" align="right">48</td>
+			</tr>
+			<tr><td height="1" bgcolor="#808080" colspan="2"></td></tr>
+ 			
+			<tr>
+				<td class="smaller-text">Downloads (6 Weeks)</td><td class="small-text" align="right">455</td>
+			</tr>
+			<tr><td height="1" bgcolor="#808080" colspan="2"></td></tr>
+			<tr>
+				<td class="smaller-text">Downloads (12 Months)</td><td class="small-text" align="right">3,148</td>
+			</tr>
+            <tr><td height="1" bgcolor="#808080" colspan="2"></td></tr>
+            <tr>
+				<td class="smaller-text">Downloads (cumulative)</td><td class="small-text" align="right">16,926</td>
+			</tr>
+            <tr><td height="1" bgcolor="#808080" colspan="2"></td></tr>
+			<tr>
+				<td class="smaller-text" style="border-bottom: 2">Average downloads per article</td><td class="small-text" align="right">352.63</td>
+			</tr>
+			<tr><td height="1" bgcolor="#808080" colspan="2"></td></tr>
+			<tr>
+				<td class="smaller-text" style="border-bottom: 2">Average citations per article</td><td class="small-text" align="right">12.56</td>
+			</tr>
+			<tr><td height="1" bgcolor="#808080" colspan="2"></td></tr>
+ 			
+		</table>
+	</td>
+	
+</tr>
+
+</table></td>
+                                        </tr>
+                                        <tr><td style="padding:0px">
+                                                    <a title="colleagues of Christian Bird" href="author_page.cfm?id=81450592307&amp;dsp=coll&amp;trk=1&amp;CFID=750670497&CFTOKEN=35487510" target="_self">View colleagues</a> of Christian Bird
+                                            </td>
+                                         </tr>
+                                        </table>
+                                     
+								</span>
+					
+								<span>
+									
+                                    <br><br />
+                                    
+                                        <table border="0" cellspacing="10">
+                                        <tr><td><table border="0" width="300"  cellpadding="0" cellspacing="0">
+<col width="120">
+<col width="180">
+<tr valign="top">
+
+	<td bgcolor="#cccccc" style="padding-bottom: 5px; padding-top: 5px">
+		
+			<img src="http://portalparts.acm.org/profiles/81336491755/myPhoto3.jpg" border="0" align="middle" alt="Rocco Oliveto" hspace="5" />
+		 
+		  
+	</td>
+
+<td  bgcolor="#cccccc" style="padding-bottom: 5px; padding-top: 5px" >
+	<span class="small-text"><strong><a title="author page of Rocco Oliveto" href="author_page.cfm?id=81336491755&CFID=750670497&CFTOKEN=35487510">Rocco Oliveto</a></strong><br /></span>
+	
+	<span class="small-text"><br /><a href="http://www.dmi.unisa.it/people/oliveto/www">homepage</a></span>
+	
+	<div style="margin-top: 6px" class="small-text">roliveto<img src="gifs/at.gif" width="12" height="12" alt="at" />unisa.it</div>
+	
+	
+	
+	<span class="small-text">
+	
+	
+			
+	
+	</span>
+	
+	
+	
+</td>
+</tr>
+
+
+</table></td>
+                                            <td><table border="0" width="300" cellpadding="0" cellspacing="0">
+
+<tr>
+
+	<td><strong><a href="javascript:ColdFusion.Window.show('theexplaination');ColdFusion.navigate('explain.cfm?expid=1','theexplaination');" title="Bibliometrics: explained">Bibliometrics</a></strong>:&nbsp;publication history<br />
+		
+        <table width="90%" style="margin-top: 1px; margin-bottom: 10px" border="0" align="left">
+			<tr>
+				<td class="smaller-text">Publication years</td><td class="small-text" align="right">2004-2014</td>
+			</tr>
+			<tr><td height="1" bgcolor="#808080" colspan="2"></td></tr>
+			<tr>
+				<td class="smaller-text" style="border-bottom: 2">Publication count</td><td class="small-text" align="right">41</td>
+			</tr>
+			<tr><td height="1" bgcolor="#808080" colspan="2"></td></tr>
+			<tr>
+				<td class="smaller-text">Citation Count</td><td class="small-text" align="right">359</td>
+			</tr>
+			<tr><td height="1" bgcolor="#808080" colspan="2"></td></tr>
+			<tr>
+				<td class="smaller-text" style="border-bottom: 2">Available for download</td><td class="small-text" align="right">9</td>
+			</tr>
+			<tr><td height="1" bgcolor="#808080" colspan="2"></td></tr>
+ 			
+			<tr>
+				<td class="smaller-text">Downloads (6 Weeks)</td><td class="small-text" align="right">40</td>
+			</tr>
+			<tr><td height="1" bgcolor="#808080" colspan="2"></td></tr>
+			<tr>
+				<td class="smaller-text">Downloads (12 Months)</td><td class="small-text" align="right">366</td>
+			</tr>
+            <tr><td height="1" bgcolor="#808080" colspan="2"></td></tr>
+            <tr>
+				<td class="smaller-text">Downloads (cumulative)</td><td class="small-text" align="right">4,415</td>
+			</tr>
+            <tr><td height="1" bgcolor="#808080" colspan="2"></td></tr>
+			<tr>
+				<td class="smaller-text" style="border-bottom: 2">Average downloads per article</td><td class="small-text" align="right">490.56</td>
+			</tr>
+			<tr><td height="1" bgcolor="#808080" colspan="2"></td></tr>
+			<tr>
+				<td class="smaller-text" style="border-bottom: 2">Average citations per article</td><td class="small-text" align="right">8.76</td>
+			</tr>
+			<tr><td height="1" bgcolor="#808080" colspan="2"></td></tr>
+ 			
+		</table>
+	</td>
+	
+</tr>
+
+</table></td>
+                                        </tr>
+                                        <tr><td style="padding:0px">
+                                                    <a title="colleagues of Rocco Oliveto" href="author_page.cfm?id=81336491755&amp;dsp=coll&amp;trk=1&amp;CFID=750670497&CFTOKEN=35487510" target="_self">View colleagues</a> of Rocco Oliveto
+                                            </td>
+                                         </tr>
+                                        </table>
+                                     
+								</span>
+					
+			</dd>
+                              
+
+</dl>
+</div>
+
+		  
+<h1 class="mediumb-text"><A HREF="#CIT"><img name="top" src="http://dl.acm.org/images/arrowu.gif" alt="top of page" hspace="10" border="0"></A><A NAME="references" class="small-text"><SPAN class="heading">REFERENCES</SPAN></A></h1>
+        
+<div style="margin-left:10px; margin-top:0px; margin-right:10px; margin-bottom: 10px;" class="flatbody">
+
+    	References are not available
+
+</div>
+
+<h1 class="mediumb-text"><A HREF="#CIT"><img name="top" src="http://dl.acm.org/images/arrowu.gif" alt="top of page" hspace="10" border="0"></A><A NAME="citedby" class="small-text"><SPAN class="heading">CITED BY</SPAN></A></h1>
+		
+<div style="margin-left:10px; margin-top:0px; margin-right:10px; margin-bottom: 10px;" class="flatbody">
+
+    	Citings are not available
+		
+ </div>
+<h1 class="mediumb-text"><A HREF="#CIT"><img name="top" src="http://dl.acm.org/images/arrowu.gif" alt="top of page" hspace="10" border="0"></A><A NAME="indexterms" class="small-text"><SPAN class="heading">INDEX TERMS</SPAN></A></h1>
+        
+<div style="margin-left:10px; margin-top:0px; margin-right:10px; margin-bottom: 0px;" class="flatbody">
+
+Index Terms are not available
+
+
+</div>
+
+
+
+
+
+
+
+<h1 class="mediumb-text"><A HREF="#CIT"><img name="top" src="http://dl.acm.org/images/arrowu.gif" alt="top of page" hspace="10" border="0"></A><A NAME="source" class="small-text"><SPAN class="heading">PUBLICATION</SPAN></A></h1>
+        
+<div style="margin-left:10px; margin-top:0px; margin-right:10px; margin-bottom: 10px;" class="flatbody">
+
+
+
+<table border="0" class="medium-text" cellpadding="5" cellspacing="5">
+
+
+
+    <tr valign="top">
+    	<td>Title</td> 
+	    <td>
+		   <a href="http://2015.icse-conferences.org/" title="Conference Website"  target="_self" class="link-text">ICSE '15</a> 37th International Conference on Software Engineering 
+        </td>
+	</tr>
+    <tr><td></td><td>Florence/Firenze, Italy &mdash; May 16 - 24, 2015</td></tr> <tr><td>Pages</td><td>325</td></tr> 
+                 <tr>
+                 
+                     <td>Sponsors</td>
+                    
+                  <td>
+                  <a href="sig.cfm?id=SP950&CFID=750670497&CFTOKEN=35487510"> SIGSOFT</a> ACM Special Interest Group on Software Engineering
+                  </td>
+                  </tr>
+              
+                 <tr>
+                 
+                      <td></td>
+                  
+                  <td>
+                  <a href="http://www.acm.org/"> ACM</a> Association for Computing Machinery
+                  </td>
+                  </tr>
+              
+                 <tr>
+                 
+                      <td></td>
+                  
+                  <td>
+                  <a name="sponsor"> IEEE-CS\DATC</a> IEEE Computer Society
+                  </td>
+                  </tr>
+              
+                 <tr>
+                 
+                      <td></td>
+                  
+                  <td>
+                  <a name="sponsor"> TCSE</a> IEEE Computer Society's Tech. Council on Software Engin.
+                  </td>
+                  </tr>
+              
+                  <tr><td>Publisher</td><td>IEEE Press Piscataway, NJ, USA</td>
+				  </tr>
+             
+			<tr valign="top">
+        	<td>Conference</td>
+            <td valign="top" align="left"  style="padding-bottom: 25px;">
+	            <strong style="padding-right:10px">ICSE</strong><a href="event.cfm?id=RE228&CFID=750670497&CFTOKEN=35487510" title="International Conference on Software Engineering">International Conference on Software Engineering</a>
+                
+                       
+                        <a href="event.cfm?id=RE228&CFID=750670497&CFTOKEN=35487510" title="International Conference on Software Engineering"><img border="0" src="http://portalparts.acm.org/event_logos/402/402.jpg" title="ICSE logo" height="100"  width="85" ALT="ICSE logo" style="vertical-align:top"></a>
+						 
+
+        	 </td>
+            </tr>
+		    
+</table>
+
+
+</table>
+
+
+
+<br />
+<div class="abstract" style="margin-bottom:10px;">
+   <SPAN><strong>APPEARS IN</strong></span>
+</div>
+  
+	  <div>
+      
+        	<a href="http://dl.acm.org/collection.cfm?id=KA8" title="Software" target="_blank">Software</a>
+        
+      </div>
+      
+
+</div>
+
+<h1 class="mediumb-text"><A HREF="#CIT"><img name="top" src="http://dl.acm.org/images/arrowu.gif" alt="top of page" hspace="10" border="0"></A><A NAME="revs" class="small-text"><SPAN class="heading">REVIEWS</SPAN></A></h1>
+        
+<div style="margin-left:10px; margin-top:0px; margin-right:10px; margin-bottom: 10px;" class="flatbody">
+
+    	<br />Reviews are not available for this item
+        
+        <div align="left" style="margin-top:30px">
+					<a title="Computing Reviews" href="ocr_review_main.cfm?CFID=750670497&CFTOKEN=35487510">
+                 <img src="http://dl.acm.org/images/ocrs-s.jpg" alt="Computing Reviews logo" border="0" style="vertical-align:middle"></a>
+        
+        
+       		<ul style="list-style:disc; display:inline-block">
+	            <li>Access <a href="ocr_review_main.cfm?CFID=750670497&CFTOKEN=35487510" target="_blank">critical reviews</a> of computing literature.</li>
+            	<li><a href="http://www.computingreviews.com/Reviewer/"  target="_blank">Become a reviewer</a> for Computing Reviews</li>
+            </ul>
+        </div>
+        
+</div>
+
+
+
+<h1 class="mediumb-text"><A HREF="#CIT"><img name="top" src="http://dl.acm.org/images/arrowu.gif" alt="top of page" hspace="10" border="0"></A><A NAME="comments" class="small-text"><SPAN class="heading">COMMENTS</SPAN></A></h1>
+         
+<div style="margin-left:10px; margin-top:0px; margin-right:10px; margin-bottom: 10px;" class="flatbody">
+
+
+<div>
+<div>
+	
+	<p style="margin-left:5px;">
+    <strong>Be the first to comment</strong>
+    	
+          	To Post a comment please <a href="signin.cfm?CFID=750670497&CFTOKEN=35487510">sign in or create</a> a free Web account</a>
+        
+    
+    
+	 </p>
+	   	
+ 
+</div>
+
+
+</div>
+
+	
+		<h1 class="mediumb-text"><A HREF="#CIT"><img name="top" src="http://dl.acm.org/images/arrowu.gif" alt="top of page" hspace="10" border="0"></A><A NAME="prox" class="small-text">Table of Contents</A></h1>
+        
+<div style="margin-left:10px; margin-top:10px; margin-right:10px; margin-bottom: 10px;" >
+
+<h5 style="margin-bottom:0px; margin-top:0px" class="medium-text">Proceedings of the 2015 IEEE 23rd International Conference on Program Comprehension</h5>
+
+
+<h5 class="medium-text" style="margin-bottom:10px; margin-top:10px;">Table of Contents</h5>
+
+<div style="clear:both">
+    
+        <div style="margin-top:5px; margin-bottom: 10px;" class="small-text"><a href="citation.cfm?id=2597008&picked=prox&CFID=750670497&CFTOKEN=35487510" title="previous: ICPC 2014"><img hspace="5" align="absmiddle" border="0" src="img/prev.gif" width="19" height="11" alt="previous" />previous proceeding</a> <span style="padding-left:5px;padding-right:5px;">|</span><span class="link-text">no next proceeding</span></div>
+        
+</div>
+
+
+
+ 
+<table class="text12" border="0">
+
+  <tr>
+  <td></td>
+  <td colspan="2">SESSION: <strong>Keynotes</strong></td>
+  </tr>
+  
+          <tr>
+          <td></td>
+          <td style="padding-bottom:5px;">
+          
+          </td>
+          </tr>
+
+          
+  <tr>
+  <td></td>
+  <td colspan="1"><span style="padding-left:20"><a href="citation.cfm?id=2820284&CFID=750670497&CFTOKEN=35487510">Test complement exclusion: guarantees from dynamic analysis</a></span></td>
+  </tr>
+  
+          <tr>
+          <td></td>
+          <td>
+          <span style="padding-left:20">
+          
+                        <a href="author_page.cfm?id=81100307506&CFID=750670497&CFTOKEN=35487510">Andreas Zeller</a> 
+          </span>    
+          </td>
+          </tr>
+          
+          <tr>
+          <td></td>
+          <td> <span style="padding-left:20">Pages: 1-2</span></td>
+          </tr>
+          
+          <tr>
+          <td></td>
+          <td>
+           <span style="padding-left:20">
+          Full text: <a name="FullTextPDF" title="FullText PDF" href="ft_gateway.cfm?id=2820284&ftid=1617766&dwn=1&CFID=750670497&CFTOKEN=35487510" target="_blank"><img src="imagetypes/pdf_logo.gif" alt="PDF" class="fulltext_lnk" border="0" />PDF</a>
+           </span>
+          </td>
+          </tr>
+          
+          <tr>
+          <td></td>
+          <td style="padding-bottom:15px;">
+          <div style="padding-left:20">
+          <span id="toShow2" style="display:inline;"><br /><div style="display:inline">Modern test generation techniques allow to generate as many executions as needed; combined with dynamic analysis, they allow for understanding program behavior in situations where static analysis is challenged or impossible. However, all these dynamic ...</div></span>
+          <span id="toHide2" style="display:none;"><br /><div style="display:inline"><p>Modern test generation techniques allow to generate as many executions as needed; combined with dynamic analysis, they allow for understanding program behavior in situations where static analysis is challenged or impossible. However, all these dynamic techniques would still suffer from the incompleteness of testing: If some behavior has not been observed so far, there is no guarantee that it may not occur in the future. In this talk, I introduce a method called <i>Test Complement Exclusion</i> that combines test generation and sandboxing to provide such a guarantee. Test Complement Exclusion will have significant impact in the security domain, as it effectively detects and protects against unexpected changes of program behavior; however, guarantees would also strengthen findings in dynamic software comprehension. First experiments on real-world Android programs demonstrate the feasibility of the approach.</p></div></span> <a id="expcoll2" href="JavaScript: expandcollapse('expcoll2',2)">expand</a>
+          </div>
+		  </td>
+          </tr>          
+          
+  <tr>
+  <td></td>
+  <td colspan="1"><span style="padding-left:20"><a href="citation.cfm?id=2820285&CFID=750670497&CFTOKEN=35487510">Concise and consistent naming: ten years later</a></span></td>
+  </tr>
+  
+          <tr>
+          <td></td>
+          <td>
+          <span style="padding-left:20">
+          
+                        <a href="author_page.cfm?id=81385595826&CFID=750670497&CFTOKEN=35487510">Florian Deissenboeck</a>, 
+                        <a href="author_page.cfm?id=81100138116&CFID=750670497&CFTOKEN=35487510">Markus Pizka</a> 
+          </span>    
+          </td>
+          </tr>
+          
+          <tr>
+          <td></td>
+          <td> <span style="padding-left:20">Pages: 3-3</span></td>
+          </tr>
+          
+          <tr>
+          <td></td>
+          <td style="padding-bottom:15px;">
+          <div style="padding-left:20">
+          <span id="toShow3" style="display:inline;"><br /><div style="display:inline">Approximately 70% of the source code of a software system consists of identifiers. Hence, the names chosen as identifiers are of paramount importance for the readability of computer programs and therewith their comprehensibility. However, virtually every ...</div></span>
+          <span id="toHide3" style="display:none;"><br /><div style="display:inline"><p>Approximately 70% of the source code of a software system consists of identifiers. Hence, the names chosen as identifiers are of paramount importance for the readability of computer programs and therewith their comprehensibility. However, virtually every programming language allows programmers to use almost arbitrary sequences of characters as identifiers which far too often results in more or less meaningless or even misleading naming. Coding style guides address this problem but are usually limited to general and hard to enforce rules like "identifiers should be self-describing". At IWPC 2005 we proposed a formal model, based on bijective mappings between concepts and names, provides a solid foundation for the definition of precise rules for concise and consistent naming. The enforcement of these rules was supported by a tool that incrementally builds and maintains a complete identifier dictionary while the system is being developed. The identifier dictionary explained the language used in the software system, aids in consistent naming, and improves productivity of programmers by proposing suitable names depending on the current context. In this talk we analyze the first ten year of the model we proposed at IWPC 2005 by analyzing its impact on the program comprehension community as well as its applicability in practice.</p></div></span> <a id="expcoll3" href="JavaScript: expandcollapse('expcoll3',3)">expand</a>
+          </div>
+		  </td>
+          </tr>          
+          
+  <tr>
+  <td></td>
+  <td colspan="2">SESSION: <strong>Mining software repositories - technical research papers</strong></td>
+  </tr>
+  
+          <tr>
+          <td></td>
+          <td style="padding-bottom:5px;">
+          
+          </td>
+          </tr>
+
+          
+  <tr>
+  <td></td>
+  <td colspan="1"><span style="padding-left:20"><a href="citation.cfm?id=2820287&CFID=750670497&CFTOKEN=35487510">Discovering loners and phantoms in commit and issue data</a></span></td>
+  </tr>
+  
+          <tr>
+          <td></td>
+          <td>
+          <span style="padding-left:20">
+          
+                        <a href="author_page.cfm?id=99658743207&CFID=750670497&CFTOKEN=35487510">Gerald Schermann</a>, 
+                        <a href="author_page.cfm?id=83458782757&CFID=750670497&CFTOKEN=35487510">Martin Brandtner</a>, 
+                        <a href="author_page.cfm?id=81453654583&CFID=750670497&CFTOKEN=35487510">Sebastiano Panichella</a>, 
+                        <a href="author_page.cfm?id=81361597657&CFID=750670497&CFTOKEN=35487510">Philipp Leitner</a>, 
+                        <a href="author_page.cfm?id=81408593089&CFID=750670497&CFTOKEN=35487510">Harald Gall</a> 
+          </span>    
+          </td>
+          </tr>
+          
+          <tr>
+          <td></td>
+          <td> <span style="padding-left:20">Pages: 4-14</span></td>
+          </tr>
+          
+          <tr>
+          <td></td>
+          <td>
+           <span style="padding-left:20">
+          Full text: <a name="FullTextPDF" title="FullText PDF" href="ft_gateway.cfm?id=2820287&ftid=1617790&dwn=1&CFID=750670497&CFTOKEN=35487510" target="_blank"><img src="imagetypes/pdf_logo.gif" alt="PDF" class="fulltext_lnk" border="0" />PDF</a>
+           </span>
+          </td>
+          </tr>
+          
+          <tr>
+          <td></td>
+          <td style="padding-bottom:15px;">
+          <div style="padding-left:20">
+          <span id="toShow5" style="display:inline;"><br /><div style="display:inline">The interlinking of commit and issue data has become a de-facto standard in software development. Modern issue tracking systems, such as JIRA, automatically interlink commits and issues by the extraction of identifiers (e.g., issue key) from commit messages. ...</div></span>
+          <span id="toHide5" style="display:none;"><br /><div style="display:inline"><p>The interlinking of commit and issue data has become a de-facto standard in software development. Modern issue tracking systems, such as JIRA, automatically interlink commits and issues by the extraction of identifiers (e.g., issue key) from commit messages. However, the conventions for the use of interlinking methodologies vary between software projects. For example, some projects enforce the use of identifiers for every commit while others have less restrictive conventions. In this work, we introduce a model called <i>PaLiMod</i> to enable the analysis of interlinking characteristics in commit and issue data. We surveyed 15 Apache projects to investigate differences and commonalities between linked and non-linked commits and issues. Based on the gathered information, we created a set of heuristics to interlink the residual of non-linked commits and issues. We present the characteristics of <i>Loners</i> and <i>Phantoms</i> in commit and issue data. The results of our evaluation indicate that the proposed <i>PaLiMod</i> model and heuristics enable an automatic interlinking and can indeed reduce the residual of non-linked commits and issues in software projects.</p></div></span> <a id="expcoll5" href="JavaScript: expandcollapse('expcoll5',5)">expand</a>
+          </div>
+		  </td>
+          </tr>          
+          
+  <tr>
+  <td></td>
+  <td colspan="1"><span style="padding-left:20"><a href="citation.cfm?id=2820288&CFID=750670497&CFTOKEN=35487510">Detection of software evolution phases based on development activities</a></span></td>
+  </tr>
+  
+          <tr>
+          <td></td>
+          <td>
+          <span style="padding-left:20">
+          
+                        <a href="author_page.cfm?id=99658670573&CFID=750670497&CFTOKEN=35487510">Omar Benomar</a>, 
+                        <a href="author_page.cfm?id=81435610154&CFID=750670497&CFTOKEN=35487510">Hani Abdeen</a>, 
+                        <a href="author_page.cfm?id=81100192965&CFID=750670497&CFTOKEN=35487510">Houari Sahraoui</a>, 
+                        <a href="author_page.cfm?id=81100349049&CFID=750670497&CFTOKEN=35487510">Pierre Poulin</a>, 
+                        <a href="author_page.cfm?id=99658752305&CFID=750670497&CFTOKEN=35487510">Mohamed Aymen Saied</a> 
+          </span>    
+          </td>
+          </tr>
+          
+          <tr>
+          <td></td>
+          <td> <span style="padding-left:20">Pages: 15-24</span></td>
+          </tr>
+          
+          <tr>
+          <td></td>
+          <td>
+           <span style="padding-left:20">
+          Full text: <a name="FullTextPDF" title="FullText PDF" href="ft_gateway.cfm?id=2820288&ftid=1617779&dwn=1&CFID=750670497&CFTOKEN=35487510" target="_blank"><img src="imagetypes/pdf_logo.gif" alt="PDF" class="fulltext_lnk" border="0" />PDF</a>
+           </span>
+          </td>
+          </tr>
+          
+          <tr>
+          <td></td>
+          <td style="padding-bottom:15px;">
+          <div style="padding-left:20">
+          <span id="toShow6" style="display:inline;"><br /><div style="display:inline">Software evolution history is usually represented at fine granularity by commits in software repositories, and at coarse granularity by software releases. In order to gain insights on development activities and on software evolution, the information ...</div></span>
+          <span id="toHide6" style="display:none;"><br /><div style="display:inline"><p>Software evolution history is usually represented at fine granularity by commits in software repositories, and at coarse granularity by software releases. In order to gain insights on development activities and on software evolution, the information on releases is too general, whereas the information on commits is prohibitively large to be efficiently processed by a developer. This paper proposes an automatic technique for the identification of distinct phases of evolution. Such software evolution phases are characterized by similar development activities in terms of changes to entities. Therefore, our technique decomposes software evolution history to assist developers identify periods of different development activities. Our analysis technique is a search-based optimization of the best decomposition of commits from the software repository using heuristics such as classes changed in each commit, and the magnitude/importance of these changes. To validate our technique, we applied it on the evolution history of five case studies covering multiple releases over several years of development. An interesting outcome of the evaluation is that our automatic decomposition of software evolution history recovered the original decomposition in software releases.</p></div></span> <a id="expcoll6" href="JavaScript: expandcollapse('expcoll6',6)">expand</a>
+          </div>
+		  </td>
+          </tr>          
+          
+  <tr>
+  <td></td>
+  <td colspan="1"><span style="padding-left:20"><a href="citation.cfm?id=2820289&CFID=750670497&CFTOKEN=35487510">I know what you did last summer: an investigation of how developers spend their time</a></span></td>
+  </tr>
+  
+          <tr>
+          <td></td>
+          <td>
+          <span style="padding-left:20">
+          
+                        <a href="author_page.cfm?id=82259220857&CFID=750670497&CFTOKEN=35487510">Roberto Minelli</a>, 
+                        <a href="author_page.cfm?id=99658752402&CFID=750670497&CFTOKEN=35487510">Andrea Mocci and</a>, 
+                        <a href="author_page.cfm?id=82258911757&CFID=750670497&CFTOKEN=35487510">Michele Lanza</a> 
+          </span>    
+          </td>
+          </tr>
+          
+          <tr>
+          <td></td>
+          <td> <span style="padding-left:20">Pages: 25-35</span></td>
+          </tr>
+          
+          <tr>
+          <td></td>
+          <td>
+           <span style="padding-left:20">
+          Full text: <a name="FullTextPDF" title="FullText PDF" href="ft_gateway.cfm?id=2820289&ftid=1617783&dwn=1&CFID=750670497&CFTOKEN=35487510" target="_blank"><img src="imagetypes/pdf_logo.gif" alt="PDF" class="fulltext_lnk" border="0" />PDF</a>
+           </span>
+          </td>
+          </tr>
+          
+          <tr>
+          <td></td>
+          <td style="padding-bottom:15px;">
+          <div style="padding-left:20">
+          <span id="toShow7" style="display:inline;"><br /><div style="display:inline">Developing software is a complex mental activity, requiring extensive technical knowledge and abstraction capabilities. The tangible part of development is the use of tools to read, inspect, edit, and manipulate source code, usually through an IDE (integrated ...</div></span>
+          <span id="toHide7" style="display:none;"><br /><div style="display:inline"><p>Developing software is a complex mental activity, requiring extensive technical knowledge and abstraction capabilities. The tangible part of development is the use of tools to read, inspect, edit, and manipulate source code, usually through an IDE (integrated development environment). Common claims about software development include that program comprehension takes up half of the time of a developer, or that certain UI (user interface) paradigms of IDEs offer insufficient support to developers. Such claims are often based on anecdotal evidence, throwing up the question of whether they can be corroborated on more solid grounds.</p> <p>We present an in-depth analysis of how developers spend their time, based on a fine-grained IDE interaction dataset consisting of ca. 740 development sessions by 18 developers, amounting to 200 hours of development time and 5 million of IDE events. We propose an inference model of development activities to precisely measure the time spent in editing, navigating and searching for artifacts, interacting with the UI of the IDE, and performing corollary activities, such as inspection and debugging. We report several interesting findings which in part confirm and reinforce some common claims, but also disconfirm other beliefs about software development.</p></div></span> <a id="expcoll7" href="JavaScript: expandcollapse('expcoll7',7)">expand</a>
+          </div>
+		  </td>
+          </tr>          
+          
+  <tr>
+  <td></td>
+  <td colspan="1"><span style="padding-left:20"><a href="citation.cfm?id=2820290&CFID=750670497&CFTOKEN=35487510">RCLinker: automated linking of issue reports and commits leveraging rich contextual information</a></span></td>
+  </tr>
+  
+          <tr>
+          <td></td>
+          <td>
+          <span style="padding-left:20">
+          
+                        <a href="author_page.cfm?id=88159200257&CFID=750670497&CFTOKEN=35487510">Tien-Duy B. Le</a>, 
+                        <a href="author_page.cfm?id=81496688841&CFID=750670497&CFTOKEN=35487510">Mario Linares-V&#225;squez</a>, 
+                        <a href="author_page.cfm?id=81452603381&CFID=750670497&CFTOKEN=35487510">David Lo</a>, 
+                        <a href="author_page.cfm?id=81100365833&CFID=750670497&CFTOKEN=35487510">Denys Poshyvanyk</a> 
+          </span>    
+          </td>
+          </tr>
+          
+          <tr>
+          <td></td>
+          <td> <span style="padding-left:20">Pages: 36-47</span></td>
+          </tr>
+          
+          <tr>
+          <td></td>
+          <td>
+           <span style="padding-left:20">
+          Full text: <a name="FullTextPDF" title="FullText PDF" href="ft_gateway.cfm?id=2820290&ftid=1617767&dwn=1&CFID=750670497&CFTOKEN=35487510" target="_blank"><img src="imagetypes/pdf_logo.gif" alt="PDF" class="fulltext_lnk" border="0" />PDF</a>
+           </span>
+          </td>
+          </tr>
+          
+          <tr>
+          <td></td>
+          <td style="padding-bottom:15px;">
+          <div style="padding-left:20">
+          <span id="toShow8" style="display:inline;"><br /><div style="display:inline">Links between issue reports and their corresponding commits in version control systems are often missing. However, these links are important for measuring the quality of a software system, predicting defects, and many other tasks. Several approaches ...</div></span>
+          <span id="toHide8" style="display:none;"><br /><div style="display:inline"><p>Links between issue reports and their corresponding commits in version control systems are often missing. However, these links are important for measuring the quality of a software system, predicting defects, and many other tasks. Several approaches have been designed to solve this problem by automatically linking bug reports to source code commits via comparison of textual information in commit messages and bug reports. Yet, the effectiveness of these techniques is oftentimes suboptimal when commit messages are empty or contain minimum information; this particular problem makes the process of recovering traceability links between commits and bug reports particularly challenging. In this work, we aim at improving the effectiveness of existing bug linking techniques by utilizing <i>rich contextual information.</i> We rely on a recently proposed approach, namely <i>ChangeScribe</i>, which generates commit messages containing rich contextual information by using code summarization techniques. Our approach then extracts features from these automatically generated commit messages and bug reports, and inputs them into a classification technique that creates a discriminative model used to predict if a link exists between a commit message and a bug report. We compared our approach, coined as <i>RCLinker</i> (Rich Context Linker), to <i>MLink</i>, which is an existing state-of-the-art bug linking approach. Our experiment results on bug reports from six software projects show that <i>RCLinker</i> outperforms <i>MLink</i> in terms of F-measure by 138.66%.</p></div></span> <a id="expcoll8" href="JavaScript: expandcollapse('expcoll8',8)">expand</a>
+          </div>
+		  </td>
+          </tr>          
+          
+  <tr>
+  <td></td>
+  <td colspan="1"><span style="padding-left:20"><a href="citation.cfm?id=2820291&CFID=750670497&CFTOKEN=35487510">Generating reproducible and replayable bug reports from Android application crashes</a></span></td>
+  </tr>
+  
+          <tr>
+          <td></td>
+          <td>
+          <span style="padding-left:20">
+          
+                        <a href="author_page.cfm?id=99658747384&CFID=750670497&CFTOKEN=35487510">Martin White</a>, 
+                        <a href="author_page.cfm?id=81496688841&CFID=750670497&CFTOKEN=35487510">Mario Linares-V&#225;squez</a>, 
+                        <a href="author_page.cfm?id=99658747635&CFID=750670497&CFTOKEN=35487510">Peter Johnson</a>, 
+                        <a href="author_page.cfm?id=82658794157&CFID=750670497&CFTOKEN=35487510">Carlos Bernal-C&#225;rdenas</a>, 
+                        <a href="author_page.cfm?id=81100365833&CFID=750670497&CFTOKEN=35487510">Denys Poshyvanyk</a> 
+          </span>    
+          </td>
+          </tr>
+          
+          <tr>
+          <td></td>
+          <td> <span style="padding-left:20">Pages: 48-59</span></td>
+          </tr>
+          
+          <tr>
+          <td></td>
+          <td>
+           <span style="padding-left:20">
+          Full text: <a name="FullTextPDF" title="FullText PDF" href="ft_gateway.cfm?id=2820291&ftid=1617780&dwn=1&CFID=750670497&CFTOKEN=35487510" target="_blank"><img src="imagetypes/pdf_logo.gif" alt="PDF" class="fulltext_lnk" border="0" />PDF</a>
+           </span>
+          </td>
+          </tr>
+          
+          <tr>
+          <td></td>
+          <td style="padding-bottom:15px;">
+          <div style="padding-left:20">
+          <span id="toShow9" style="display:inline;"><br /><div style="display:inline">Manually reproducing bugs is time-consuming and tedious. Software maintainers routinely try to reproduce unconfirmed issues using incomplete or noninformative bug reports. Consequently, while reproducing an issue, the maintainer must augment the report ...</div></span>
+          <span id="toHide9" style="display:none;"><br /><div style="display:inline"><p>Manually reproducing bugs is time-consuming and tedious. Software maintainers routinely try to reproduce unconfirmed issues using incomplete or noninformative bug reports. Consequently, while reproducing an issue, the maintainer must augment the report with information---such as a reliable sequence of descriptive steps to reproduce the bug---to aid developers with diagnosing the issue. This process encumbers issue resolution from the time the bug is entered in the issue tracking system until it is reproduced. This paper presents <scp>crashdroid</scp>, an approach for automating the process of reproducing a bug by translating the call stack from a crash report into expressive steps to reproduce the bug and a kernel event trace that can be replayed on-demand. <scp>crashdroid</scp> manages traceability links between scenarios' natural language descriptions, method call traces, and kernel event traces. We evaluated <scp>crashdroid</scp> on several open-source Android applications infected with errors. Given call stacks from crash reports, <scp>crashdroid</scp> was able to generate expressive steps to reproduce the bugs and automatically replay the crashes. Moreover, users were able to confirm the crashes faster with <scp>crashdroid</scp> than manually reproducing the bugs or using a stress-testing tool.</p></div></span> <a id="expcoll9" href="JavaScript: expandcollapse('expcoll9',9)">expand</a>
+          </div>
+		  </td>
+          </tr>          
+          
+  <tr>
+  <td></td>
+  <td colspan="1"><span style="padding-left:20"><a href="citation.cfm?id=2820292&CFID=750670497&CFTOKEN=35487510">Active semi-supervised defect categorization</a></span></td>
+  </tr>
+  
+          <tr>
+          <td></td>
+          <td>
+          <span style="padding-left:20">
+          
+                        <a href="author_page.cfm?id=81548005192&CFID=750670497&CFTOKEN=35487510">Ferdian Thung</a>, 
+                        <a href="author_page.cfm?id=99658748346&CFID=750670497&CFTOKEN=35487510">Xuan-Bach D. Le</a>, 
+                        <a href="author_page.cfm?id=81452603381&CFID=750670497&CFTOKEN=35487510">David Lo</a> 
+          </span>    
+          </td>
+          </tr>
+          
+          <tr>
+          <td></td>
+          <td> <span style="padding-left:20">Pages: 60-70</span></td>
+          </tr>
+          
+          <tr>
+          <td></td>
+          <td>
+           <span style="padding-left:20">
+          Full text: <a name="FullTextPDF" title="FullText PDF" href="ft_gateway.cfm?id=2820292&ftid=1617791&dwn=1&CFID=750670497&CFTOKEN=35487510" target="_blank"><img src="imagetypes/pdf_logo.gif" alt="PDF" class="fulltext_lnk" border="0" />PDF</a>
+           </span>
+          </td>
+          </tr>
+          
+          <tr>
+          <td></td>
+          <td style="padding-bottom:15px;">
+          <div style="padding-left:20">
+          <span id="toShow10" style="display:inline;"><br /><div style="display:inline">Defects are inseparable part of software development and evolution. To better comprehend problems affecting a software system, developers often store historical defects and these defects can be categorized into families. IBM proposes Orthogonal Defect ...</div></span>
+          <span id="toHide10" style="display:none;"><br /><div style="display:inline"><p>Defects are inseparable part of software development and evolution. To better comprehend problems affecting a software system, developers often store historical defects and these defects can be categorized into families. IBM proposes Orthogonal Defect Categorization (ODC) which include various classifications of defects based on a number of orthogonal dimensions (e.g., symptoms and semantics of defects, root causes of defects, etc.). To help developers categorize defects, several approaches that employ machine learning have been proposed in the literature. Unfortunately, these approaches often require developers to manually label a large number of defect examples. In practice, manually labelling a large number of examples is both time-consuming and labor-intensive. Thus, reducing the onerous burden of manual labelling while still being able to achieve good performance is crucial towards the adoption of such approaches. To deal with this challenge, in this work, we propose an active semi-supervised defect prediction approach. It is performed by actively selecting a small subset of diverse and informative defect examples to label (i.e., active learning), and by making use of both labeled and unlabeled defect examples in the prediction model learning process (i.e., semi-supervised learning). Using this principle, our approach is able to learn a good model while minimizing the manual labeling effort.</p> <p>To evaluate the effectiveness of our approach, we make use of a benchmark dataset that contains 500 defects from three software systems that have been manually labelled into several families based on ODC. We investigate our approach's ability in achieving good classification performance, measured in terms of weighted precision, recall, F-measure, and AUC, when only a small number of manually labelled defect examples are available. Our experiment results show that our active semi-supervised defect categorization approach is able to achieve a weighted precision, recall, F-measure, and AUC of 0.651, 0.669, 0.623, and 0.710, respectively, when only 50 defects are manually labelled. Furthermore, it outperforms an existing active multi-class classification algorithm, proposed in the machine learning community, by a substantial margin.</p></div></span> <a id="expcoll10" href="JavaScript: expandcollapse('expcoll10',10)">expand</a>
+          </div>
+		  </td>
+          </tr>          
+          
+  <tr>
+  <td></td>
+  <td colspan="2">SESSION: <strong>Learning and sharing program knowledge - technical research papers</strong></td>
+  </tr>
+  
+          <tr>
+          <td></td>
+          <td style="padding-bottom:5px;">
+          
+          </td>
+          </tr>
+
+          
+  <tr>
+  <td></td>
+  <td colspan="1"><span style="padding-left:20"><a href="citation.cfm?id=2820294&CFID=750670497&CFTOKEN=35487510">Could we infer unordered API usage patterns only using the library source code?</a></span></td>
+  </tr>
+  
+          <tr>
+          <td></td>
+          <td>
+          <span style="padding-left:20">
+          
+                        <a href="author_page.cfm?id=99658752305&CFID=750670497&CFTOKEN=35487510">Mohamed Aymen Saied</a>, 
+                        <a href="author_page.cfm?id=81435610154&CFID=750670497&CFTOKEN=35487510">Hani Abdeen</a>, 
+                        <a href="author_page.cfm?id=99658670573&CFID=750670497&CFTOKEN=35487510">Omar Benomar</a>, 
+                        <a href="author_page.cfm?id=81100192965&CFID=750670497&CFTOKEN=35487510">Houari Sahraoui</a> 
+          </span>    
+          </td>
+          </tr>
+          
+          <tr>
+          <td></td>
+          <td> <span style="padding-left:20">Pages: 71-81</span></td>
+          </tr>
+          
+          <tr>
+          <td></td>
+          <td>
+           <span style="padding-left:20">
+          Full text: <a name="FullTextPDF" title="FullText PDF" href="ft_gateway.cfm?id=2820294&ftid=1617781&dwn=1&CFID=750670497&CFTOKEN=35487510" target="_blank"><img src="imagetypes/pdf_logo.gif" alt="PDF" class="fulltext_lnk" border="0" />PDF</a>
+           </span>
+          </td>
+          </tr>
+          
+          <tr>
+          <td></td>
+          <td style="padding-bottom:15px;">
+          <div style="padding-left:20">
+          <span id="toShow12" style="display:inline;"><br /><div style="display:inline">Learning to use existing or new software libraries is a difficult task for software developers, which would impede their productivity. Much existing work has provided different techniques to mine API usage patterns from client programs in order to help ...</div></span>
+          <span id="toHide12" style="display:none;"><br /><div style="display:inline"><p>Learning to use existing or new software libraries is a difficult task for software developers, which would impede their productivity. Much existing work has provided different techniques to mine API usage patterns from client programs in order to help developers on understanding and using existing libraries. However, considering only client programs to identify API usage patterns is a strong constraint as the client programs source code is not always available or the clients themselves do not exist yet for newly released APIs. In this paper, we propose a technique for mining <i>Non Client-based Usage Patterns</i> (NCBUP-miner). We detect unordered API usage patterns as distinct groups of API methods that are structurally and semantically related and thus may contribute together to the implementation of a particular functionality for potential client programs. We evaluated our technique through four APIs. The obtained results are comparable to those of client-based approaches in terms of usage-patterns cohesion.</p></div></span> <a id="expcoll12" href="JavaScript: expandcollapse('expcoll12',12)">expand</a>
+          </div>
+		  </td>
+          </tr>          
+          
+  <tr>
+  <td></td>
+  <td colspan="1"><span style="padding-left:20"><a href="citation.cfm?id=2820295&CFID=750670497&CFTOKEN=35487510">Searching the state space: a qualitative study of API protocol usability</a></span></td>
+  </tr>
+  
+          <tr>
+          <td></td>
+          <td>
+          <span style="padding-left:20">
+          
+                        <a href="author_page.cfm?id=99658748126&CFID=750670497&CFTOKEN=35487510">Joshua Sushine</a>, 
+                        <a href="author_page.cfm?id=81100340340&CFID=750670497&CFTOKEN=35487510">James D. Herbsleb</a>, 
+                        <a href="author_page.cfm?id=81100454133&CFID=750670497&CFTOKEN=35487510">Jonathan Aldrich</a> 
+          </span>    
+          </td>
+          </tr>
+          
+          <tr>
+          <td></td>
+          <td> <span style="padding-left:20">Pages: 82-93</span></td>
+          </tr>
+          
+          <tr>
+          <td></td>
+          <td>
+           <span style="padding-left:20">
+          Full text: <a name="FullTextPDF" title="FullText PDF" href="ft_gateway.cfm?id=2820295&ftid=1617762&dwn=1&CFID=750670497&CFTOKEN=35487510" target="_blank"><img src="imagetypes/pdf_logo.gif" alt="PDF" class="fulltext_lnk" border="0" />PDF</a>
+           </span>
+          </td>
+          </tr>
+          
+          <tr>
+          <td></td>
+          <td style="padding-bottom:15px;">
+          <div style="padding-left:20">
+          <span id="toShow13" style="display:inline;"><br /><div style="display:inline">Application Programming Interfaces (APIs) often define protocols --- restrictions on the order of client calls to API methods. API protocols are common and difficult to use, which has generated tremendous research effort in alternative specification, ...</div></span>
+          <span id="toHide13" style="display:none;"><br /><div style="display:inline"><p>Application Programming Interfaces (APIs) often define protocols --- restrictions on the order of client calls to API methods. API protocols are common and difficult to use, which has generated tremendous research effort in alternative specification, implementation, and verification techniques. However, little is understood about the barriers programmers face when using these APIs, and therefore the research effort may be misdirected.</p> <p>To understand these barriers better, we perform a two-part qualitative study. First, we study developer forums to identify problems that developers have with protocols. Second, we perform a think-aloud observational study, in which we systematically observe professional programmers struggle with these same problems to get more detail on the nature of their struggles and how they use available resources. In our observations, programmer time was spent primarily on four types of searches of the protocol state space. These observations suggest protocol-targeted tools, languages, and verification techniques will be most effective if they enable programmers to efficiently perform state search.</p></div></span> <a id="expcoll13" href="JavaScript: expandcollapse('expcoll13',13)">expand</a>
+          </div>
+		  </td>
+          </tr>          
+          
+  <tr>
+  <td></td>
+  <td colspan="1"><span style="padding-left:20"><a href="citation.cfm?id=2820296&CFID=750670497&CFTOKEN=35487510">Synonym suggestion for tags on stack overflow</a></span></td>
+  </tr>
+  
+          <tr>
+          <td></td>
+          <td>
+          <span style="padding-left:20">
+          
+                        <a href="author_page.cfm?id=99658670854&CFID=750670497&CFTOKEN=35487510">Stefanie Beyer</a>, 
+                        <a href="author_page.cfm?id=81100010391&CFID=750670497&CFTOKEN=35487510">Martin Pinzger</a> 
+          </span>    
+          </td>
+          </tr>
+          
+          <tr>
+          <td></td>
+          <td> <span style="padding-left:20">Pages: 94-103</span></td>
+          </tr>
+          
+          <tr>
+          <td></td>
+          <td>
+           <span style="padding-left:20">
+          Full text: <a name="FullTextPDF" title="FullText PDF" href="ft_gateway.cfm?id=2820296&ftid=1617774&dwn=1&CFID=750670497&CFTOKEN=35487510" target="_blank"><img src="imagetypes/pdf_logo.gif" alt="PDF" class="fulltext_lnk" border="0" />PDF</a>
+           </span>
+          </td>
+          </tr>
+          
+          <tr>
+          <td></td>
+          <td style="padding-bottom:15px;">
+          <div style="padding-left:20">
+          <span id="toShow14" style="display:inline;"><br /><div style="display:inline">The amount of diverse tags used to classify posts on Stack Overflow increased in the last years to more than 38,000 tags. Many of these tags have the same or similar meaning. Stack Overflow provides an approach to reduce the amount of tags by allowing ...</div></span>
+          <span id="toHide14" style="display:none;"><br /><div style="display:inline"><p>The amount of diverse tags used to classify posts on Stack Overflow increased in the last years to more than 38,000 tags. Many of these tags have the same or similar meaning. Stack Overflow provides an approach to reduce the amount of tags by allowing privileged users to manually create synonyms. However, currently exist only 2,765 synonym-pairs on Stack Overflow that is quite low compared to the total number of tags.</p> <p>To comprehend how synonym-pairs are built, we manually analyzed the tags and how the synonyms could be created automatically. Based on our findings, we then present TSST, a tag synonym suggestion tool, that outputs a ranked list of possible synonyms for each input tag.</p> <p>We first evaluated TSST with the 2,765 approved synonym-pairs of Stack Overflow. For 88.4% of the tags TSST finds the correct synonyms, for 72.2% the correct synonym is within the top 10 suggestions. In addition, we applied TSST to 10 randomly selected Android related tags and evaluated the suggested synonyms with 20 Android app developers in an online survey. Overall, in 80% of their ratings, developers found an adequate synonym suggested by TSST.</p></div></span> <a id="expcoll14" href="JavaScript: expandcollapse('expcoll14',14)">expand</a>
+          </div>
+		  </td>
+          </tr>          
+          
+  <tr>
+  <td></td>
+  <td colspan="1"><span style="padding-left:20"><a href="citation.cfm?id=2820297&CFID=750670497&CFTOKEN=35487510">Code, camera, action: how software developers document and share program knowledge using YouTube</a></span></td>
+  </tr>
+  
+          <tr>
+          <td></td>
+          <td>
+          <span style="padding-left:20">
+          
+                        <a href="author_page.cfm?id=81552718056&CFID=750670497&CFTOKEN=35487510">Laura MacLeod</a>, 
+                        <a href="author_page.cfm?id=81100376674&CFID=750670497&CFTOKEN=35487510">Margaret-Anne Storey</a>, 
+                        <a href="author_page.cfm?id=81551571656&CFID=750670497&CFTOKEN=35487510">Andreas Bergen</a> 
+          </span>    
+          </td>
+          </tr>
+          
+          <tr>
+          <td></td>
+          <td> <span style="padding-left:20">Pages: 104-114</span></td>
+          </tr>
+          
+          <tr>
+          <td></td>
+          <td>
+           <span style="padding-left:20">
+          Full text: <a name="FullTextPDF" title="FullText PDF" href="ft_gateway.cfm?id=2820297&ftid=1617784&dwn=1&CFID=750670497&CFTOKEN=35487510" target="_blank"><img src="imagetypes/pdf_logo.gif" alt="PDF" class="fulltext_lnk" border="0" />PDF</a>
+           </span>
+          </td>
+          </tr>
+          
+          <tr>
+          <td></td>
+          <td style="padding-bottom:15px;">
+          <div style="padding-left:20">
+          <span id="toShow15" style="display:inline;"><br /><div style="display:inline">Creating documentation is a challenging task in software engineering and most techniques involve the laborious and sometimes tedious job of writing text. This paper explores an alternative to traditional text-based documentation, the screencast, which ...</div></span>
+          <span id="toHide15" style="display:none;"><br /><div style="display:inline"><p>Creating documentation is a challenging task in software engineering and most techniques involve the laborious and sometimes tedious job of writing text. This paper explores an alternative to traditional text-based documentation, the screencast, which captures a developer's screen while they narrate how a program or software tool works. We conducted a study to investigate how developers produce and share developer-focused screencasts using the YouTube social platform. First, we identified and analyzed a set of development screencasts to determine how developers have adapted to the medium to meet the demands of development-related documentation needs. We also explored the techniques and strategies used for sharing software knowledge. Second, we interviewed screencast producers to understand their motivations for creating screencasts, and to uncover the perceived benefits and challenges in producing code-focused videos. Our findings reveal that video is a useful medium for communicating program knowledge between developers, and that developers build their online personas and reputation by sharing videos through social channels.</p></div></span> <a id="expcoll15" href="JavaScript: expandcollapse('expcoll15',15)">expand</a>
+          </div>
+		  </td>
+          </tr>          
+          
+  <tr>
+  <td></td>
+  <td colspan="1"><span style="padding-left:20"><a href="citation.cfm?id=2820298&CFID=750670497&CFTOKEN=35487510">Generating refactoring proposals to remove clones from automated system tests</a></span></td>
+  </tr>
+  
+          <tr>
+          <td></td>
+          <td>
+          <span style="padding-left:20">
+          
+                        <a href="author_page.cfm?id=81467667077&CFID=750670497&CFTOKEN=35487510">Benedikt Hauptmann</a>, 
+                        <a href="author_page.cfm?id=81385593276&CFID=750670497&CFTOKEN=35487510">Elmar Juergens</a>, 
+                        <a href="author_page.cfm?id=99658747419&CFID=750670497&CFTOKEN=35487510">Volkmar Woinke</a> 
+          </span>    
+          </td>
+          </tr>
+          
+          <tr>
+          <td></td>
+          <td> <span style="padding-left:20">Pages: 115-124</span></td>
+          </tr>
+          
+          <tr>
+          <td></td>
+          <td>
+           <span style="padding-left:20">
+          Full text: <a name="FullTextPDF" title="FullText PDF" href="ft_gateway.cfm?id=2820298&ftid=1617785&dwn=1&CFID=750670497&CFTOKEN=35487510" target="_blank"><img src="imagetypes/pdf_logo.gif" alt="PDF" class="fulltext_lnk" border="0" />PDF</a>
+           </span>
+          </td>
+          </tr>
+          
+          <tr>
+          <td></td>
+          <td style="padding-bottom:15px;">
+          <div style="padding-left:20">
+          <span id="toShow16" style="display:inline;"><br /><div style="display:inline">Automated system tests often have many clones, which make them complex to understand and costly to maintain. Unfortunately, removing clones is challenging as there are numerous possibilities of how to refactor them to reuse components such as subroutines. ...</div></span>
+          <span id="toHide16" style="display:none;"><br /><div style="display:inline"><p>Automated system tests often have many clones, which make them complex to understand and costly to maintain. Unfortunately, removing clones is challenging as there are numerous possibilities of how to refactor them to reuse components such as subroutines. Additionally, clones often overlap partly which makes it particularly difficult to decide which parts to extract. If done wrongly, reuse potential is not leveraged optimally and structures between tests and reuse components will become unnecessarily complex. We present a method to support test engineers in extracting overlapping clones. Using grammar inference algorithms, we generate a refactoring proposal that demonstrates test engineers how overlapping clones can be extracted. Furthermore, we visualize the generated refactoring proposal to make it easily understandable for test engineers. An industrial case study demonstrates that our approach helps test engineers to gain information of the reuse potential of test suites and guides them to perform refactorings.</p></div></span> <a id="expcoll16" href="JavaScript: expandcollapse('expcoll16',16)">expand</a>
+          </div>
+		  </td>
+          </tr>          
+          
+  <tr>
+  <td></td>
+  <td colspan="2">SESSION: <strong>Learning and sharing program knowledge - early research achievement papers</strong></td>
+  </tr>
+  
+          <tr>
+          <td></td>
+          <td style="padding-bottom:5px;">
+          
+          </td>
+          </tr>
+
+          
+  <tr>
+  <td></td>
+  <td colspan="1"><span style="padding-left:20"><a href="citation.cfm?id=2820300&CFID=750670497&CFTOKEN=35487510">Framework instantiation using cookbooks constructed with static and dynamic analysis</a></span></td>
+  </tr>
+  
+          <tr>
+          <td></td>
+          <td>
+          <span style="padding-left:20">
+          
+                        <a href="author_page.cfm?id=81490687621&CFID=750670497&CFTOKEN=35487510">Raquel F. Q. Lafet&#225;</a>, 
+                        <a href="author_page.cfm?id=99658752863&CFID=750670497&CFTOKEN=35487510">Marcelo A. Maia</a>, 
+                        <a href="author_page.cfm?id=81350576717&CFID=750670497&CFTOKEN=35487510">David R&#246;thlisberger</a> 
+          </span>    
+          </td>
+          </tr>
+          
+          <tr>
+          <td></td>
+          <td> <span style="padding-left:20">Pages: 125-128</span></td>
+          </tr>
+          
+          <tr>
+          <td></td>
+          <td>
+           <span style="padding-left:20">
+          Full text: <a name="FullTextPDF" title="FullText PDF" href="ft_gateway.cfm?id=2820300&ftid=1617792&dwn=1&CFID=750670497&CFTOKEN=35487510" target="_blank"><img src="imagetypes/pdf_logo.gif" alt="PDF" class="fulltext_lnk" border="0" />PDF</a>
+           </span>
+          </td>
+          </tr>
+          
+          <tr>
+          <td></td>
+          <td style="padding-bottom:15px;">
+          <div style="padding-left:20">
+          <span id="toShow18" style="display:inline;"><br /><div style="display:inline">Software reuse is one of the major goals in software engineering. Frameworks promote the reuse of not only individual building blocks, but also of system design. However, framework instantiation requires a substantial understanding effort. High-quality ...</div></span>
+          <span id="toHide18" style="display:none;"><br /><div style="display:inline"><p>Software reuse is one of the major goals in software engineering. Frameworks promote the reuse of not only individual building blocks, but also of system design. However, framework instantiation requires a substantial understanding effort. High-quality documentation is essential to minimize this effort. However, in most cases, appropriate documentation does not exist or is not updated. Our hypothesis is that the framework code itself and existing instantiations can serve as a guide for new instantiations. The challenge is that users still have to read large portions of code, which hinders the understanding process, thus our goal is to provide relevant information for framework instantiation with static and dynamic analysis of the framework and pre-existing instantiations. The final documentation is presented in a cookbook style, where recipes are composed of programming tasks and information about hotspots related to a feature instantiation. We conducted two preliminary experiments, the first to evaluate the recall of the approach and the second to study the practical usefulness of the recipe information for developers. Results reveal that our approach discloses accurate and relevant information about classes and methods used for framework instantiation.</p></div></span> <a id="expcoll18" href="JavaScript: expandcollapse('expcoll18',18)">expand</a>
+          </div>
+		  </td>
+          </tr>          
+          
+  <tr>
+  <td></td>
+  <td colspan="2">SESSION: <strong>Users, user interfaces, and feature location - technical research papers</strong></td>
+  </tr>
+  
+          <tr>
+          <td></td>
+          <td style="padding-bottom:5px;">
+          
+          </td>
+          </tr>
+
+          
+  <tr>
+  <td></td>
+  <td colspan="1"><span style="padding-left:20"><a href="citation.cfm?id=2820302&CFID=750670497&CFTOKEN=35487510">Two user perspectives in program comprehension: end users and developer users</a></span></td>
+  </tr>
+  
+          <tr>
+          <td></td>
+          <td>
+          <span style="padding-left:20">
+          
+                        <a href="author_page.cfm?id=81503695157&CFID=750670497&CFTOKEN=35487510">Tobias Roehm</a> 
+          </span>    
+          </td>
+          </tr>
+          
+          <tr>
+          <td></td>
+          <td> <span style="padding-left:20">Pages: 129-139</span></td>
+          </tr>
+          
+          <tr>
+          <td></td>
+          <td>
+           <span style="padding-left:20">
+          Full text: <a name="FullTextPDF" title="FullText PDF" href="ft_gateway.cfm?id=2820302&ftid=1617763&dwn=1&CFID=750670497&CFTOKEN=35487510" target="_blank"><img src="imagetypes/pdf_logo.gif" alt="PDF" class="fulltext_lnk" border="0" />PDF</a>
+           </span>
+          </td>
+          </tr>
+          
+          <tr>
+          <td></td>
+          <td style="padding-bottom:15px;">
+          <div style="padding-left:20">
+          <span id="toShow20" style="display:inline;"><br /><div style="display:inline">Recent empirical studies identified an interest of software developers in high-level usage information, i.e. why and how end users employ a software application. Furthermore, recent empirical work found that developers of interactive applications put ...</div></span>
+          <span id="toHide20" style="display:none;"><br /><div style="display:inline"><p>Recent empirical studies identified an interest of software developers in high-level usage information, i.e. why and how end users employ a software application. Furthermore, recent empirical work found that developers of interactive applications put themselves in the role of users by interacting with the user interface during program comprehension.</p> <p>This paper presents an exploratory case study investigating these two user perspectives in detail. The study focuses on information needs regarding software usage and developers in the role of users during program comprehension. 21 developers from six software companies were observed during program comprehension tasks and interviewed. The resulting observation protocols and interview minutes were analyzed using coding.</p> <p>We found that developers are interested in information about use cases and user behavior, user goals and user needs, failure reproduction steps, and application domain concepts. But such information is rarely available to them during program comprehension. This mismatch indicates a potential to improve program comprehension practices by capturing such information and providing it to developers. Furthermore, we found that developers interact with the user interface of an interactive application to reproduce failures, to find relevant source code, to test changes, to trigger the debugger, and to familiarize with an unknown part of the application. Also, developers conceptually map elements of the user interface to source code, data structures, and algorithms. We call this behavior "UI-based comprehension" and argue that it is part of a broader comprehension strategy together with comprehension activities like reading source code or debugging.</p></div></span> <a id="expcoll20" href="JavaScript: expandcollapse('expcoll20',20)">expand</a>
+          </div>
+		  </td>
+          </tr>          
+          
+  <tr>
+  <td></td>
+  <td colspan="1"><span style="padding-left:20"><a href="citation.cfm?id=2820303&CFID=750670497&CFTOKEN=35487510">Exploring the use of concern element role information in feature location evaluation</a></span></td>
+  </tr>
+  
+          <tr>
+          <td></td>
+          <td>
+          <span style="padding-left:20">
+          
+                        <a href="author_page.cfm?id=81336489758&CFID=750670497&CFTOKEN=35487510">Emily Hill</a>, 
+                        <a href="author_page.cfm?id=81100380496&CFID=750670497&CFTOKEN=35487510">David Shepherd</a>, 
+                        <a href="author_page.cfm?id=81100368013&CFID=750670497&CFTOKEN=35487510">Lori Pollock</a> 
+          </span>    
+          </td>
+          </tr>
+          
+          <tr>
+          <td></td>
+          <td> <span style="padding-left:20">Pages: 140-150</span></td>
+          </tr>
+          
+          <tr>
+          <td></td>
+          <td>
+           <span style="padding-left:20">
+          Full text: <a name="FullTextPDF" title="FullText PDF" href="ft_gateway.cfm?id=2820303&ftid=1617772&dwn=1&CFID=750670497&CFTOKEN=35487510" target="_blank"><img src="imagetypes/pdf_logo.gif" alt="PDF" class="fulltext_lnk" border="0" />PDF</a>
+           </span>
+          </td>
+          </tr>
+          
+          <tr>
+          <td></td>
+          <td style="padding-bottom:15px;">
+          <div style="padding-left:20">
+          <span id="toShow21" style="display:inline;"><br /><div style="display:inline">Before making changes, programmers need to locate and understand source code that corresponds to specific functionality, i.e., perform concern or feature location. Numerous concern and feature location techniques have been proposed, but to the best of ...</div></span>
+          <span id="toHide21" style="display:none;"><br /><div style="display:inline"><p>Before making changes, programmers need to locate and understand source code that corresponds to specific functionality, i.e., perform concern or feature location. Numerous concern and feature location techniques have been proposed, but to the best of our knowledge, no existing techniques or evaluations report information on <i>what role</i> a code element plays in the larger concern. In this paper, we report on two case studies that investigate two hypotheses on how evaluation studies of concern location techniques can be strengthened by utilizing concern role information: (1) by increasing agreement among human annotators for gold set establishment and (2) by providing richer information about the elements ranked as relevant by concern location techniques, which could help further improve the tools.</p> <p>We conducted a case study of 6 Java developers annotating 3 concerns with role information. When the developers understood the task description, pairwise agreement increased by 20%, 25%, and 135% for the 3 concerns over a prior concern location study without role information. Our findings also suggest that there may be core element roles that need to be annotated by humans, but that the remaining roles may be automatically derived, which could facilitate more reliable concern location benchmarks in the future. We also conducted an exploratory study of the element roles represented in results returned by a state of the art feature location tool. The results of these two studies suggest that integrating concern element role information into evaluations can help to strengthen both the gold set establishment and the analysis of results returned by various tools.</p></div></span> <a id="expcoll21" href="JavaScript: expandcollapse('expcoll21',21)">expand</a>
+          </div>
+		  </td>
+          </tr>          
+          
+  <tr>
+  <td></td>
+  <td colspan="1"><span style="padding-left:20"><a href="citation.cfm?id=2820304&CFID=750670497&CFTOKEN=35487510">Rethinking user interfaces for feature location</a></span></td>
+  </tr>
+  
+          <tr>
+          <td></td>
+          <td>
+          <span style="padding-left:20">
+          
+                        <a href="author_page.cfm?id=81361593917&CFID=750670497&CFTOKEN=35487510">Fabian Beck</a>, 
+                        <a href="author_page.cfm?id=81384621686&CFID=750670497&CFTOKEN=35487510">Bogdan Dit</a>, 
+                        <a href="author_page.cfm?id=99658748472&CFID=750670497&CFTOKEN=35487510">Jaleo Velasco-Madden</a>, 
+                        <a href="author_page.cfm?id=81100214723&CFID=750670497&CFTOKEN=35487510">Daniel Weiskopf</a>, 
+                        <a href="author_page.cfm?id=81100365833&CFID=750670497&CFTOKEN=35487510">Denys Poshyvanyk</a> 
+          </span>    
+          </td>
+          </tr>
+          
+          <tr>
+          <td></td>
+          <td> <span style="padding-left:20">Pages: 151-162</span></td>
+          </tr>
+          
+          <tr>
+          <td></td>
+          <td>
+           <span style="padding-left:20">
+          Full text: <a name="FullTextPDF" title="FullText PDF" href="ft_gateway.cfm?id=2820304&ftid=1617786&dwn=1&CFID=750670497&CFTOKEN=35487510" target="_blank"><img src="imagetypes/pdf_logo.gif" alt="PDF" class="fulltext_lnk" border="0" />PDF</a>
+           </span>
+          </td>
+          </tr>
+          
+          <tr>
+          <td></td>
+          <td style="padding-bottom:15px;">
+          <div style="padding-left:20">
+          <span id="toShow22" style="display:inline;"><br /><div style="display:inline">Locating features in large software systems is a fundamental maintenance task for developers when fixing bugs and extending software. We introduce In Situ Impact Insight (I3), a novel user interface to support feature location. In addition to ...</div></span>
+          <span id="toHide22" style="display:none;"><br /><div style="display:inline"><p>Locating features in large software systems is a fundamental maintenance task for developers when fixing bugs and extending software. We introduce <i>In Situ Impact Insight</i> (I3), a novel user interface to support feature location. In addition to a list of search results, I3 provides support for developers during browsing and inspecting the retrieved code entities. In situ visualizations augment results and source code with additional information relevant for further exploration. Developers are able to retrieve details on the textual similarity of a source code entity to the search query and to other entities, as well as the information on co-changed entities from a project's history. Execution traces recorded during program runs can be used as filters to further refine the search results. We implemented I3 as an Eclipse plug-in and tested it in a user study involving 18 students and professional developers that were asked to perform three feature location tasks chosen from the issue tracking system of jEdit. The results of our study suggest that I3's user interface is intuitive and unobtrusively supports developers with the required information <i>when</i> and <i>where</i> they need it.</p></div></span> <a id="expcoll22" href="JavaScript: expandcollapse('expcoll22',22)">expand</a>
+          </div>
+		  </td>
+          </tr>          
+          
+  <tr>
+  <td></td>
+  <td colspan="1"><span style="padding-left:20"><a href="citation.cfm?id=2820305&CFID=750670497&CFTOKEN=35487510">Detecting clones in Android applications through analyzing user interfaces</a></span></td>
+  </tr>
+  
+          <tr>
+          <td></td>
+          <td>
+          <span style="padding-left:20">
+          
+                        <a href="author_page.cfm?id=99658744253&CFID=750670497&CFTOKEN=35487510">Charlie Soh</a>, 
+                        <a href="author_page.cfm?id=81100315050&CFID=750670497&CFTOKEN=35487510">Hee Beng Kuan Tan</a>, 
+                        <a href="author_page.cfm?id=99658747341&CFID=750670497&CFTOKEN=35487510">Yauhen Leanidavich Arnatovich</a>, 
+                        <a href="author_page.cfm?id=81336493967&CFID=750670497&CFTOKEN=35487510">Lipo Wang</a> 
+          </span>    
+          </td>
+          </tr>
+          
+          <tr>
+          <td></td>
+          <td> <span style="padding-left:20">Pages: 163-173</span></td>
+          </tr>
+          
+          <tr>
+          <td></td>
+          <td>
+           <span style="padding-left:20">
+          Full text: <a name="FullTextPDF" title="FullText PDF" href="ft_gateway.cfm?id=2820305&ftid=1617793&dwn=1&CFID=750670497&CFTOKEN=35487510" target="_blank"><img src="imagetypes/pdf_logo.gif" alt="PDF" class="fulltext_lnk" border="0" />PDF</a>
+           </span>
+          </td>
+          </tr>
+          
+          <tr>
+          <td></td>
+          <td style="padding-bottom:15px;">
+          <div style="padding-left:20">
+          <span id="toShow23" style="display:inline;"><br /><div style="display:inline">The blooming mobile smart phone device industry has attracted a large number of application developers. However, due to the availability of reverse engineering tools for Android applications, it also caught the attention of plagiarists and malware writers. ...</div></span>
+          <span id="toHide23" style="display:none;"><br /><div style="display:inline"><p>The blooming mobile smart phone device industry has attracted a large number of application developers. However, due to the availability of reverse engineering tools for Android applications, it also caught the attention of plagiarists and malware writers. In recent years, application cloning has become a serious threat to the Android market. In previous work, mobile application clone detection mainly focuses on code-based analysis. Such an approach lacks resilient to advanced obfuscation techniques. Their efficiency is also questionable, as billions of opcodes need to be processed for cross-market clone detection. In this paper, we propose a novel technique of detecting Android application clones based on the analysis of user interface (UI) information collected at runtime. By leveraging on the multiple entry points feature of Android applications, the UI information can be collected easily without the need to generate relevant inputs and execute the entire application. Another advantage of our technique is obfuscation resilient since semantics preserving obfuscation technique do not affect runtime behaviors. We evaluated our approach on a set of real-world dataset and it has a low false positive rate and false negative rate. Furthermore, the results also show that our approach is effective in detecting different types of repackaging attacks.</p></div></span> <a id="expcoll23" href="JavaScript: expandcollapse('expcoll23',23)">expand</a>
+          </div>
+		  </td>
+          </tr>          
+          
+  <tr>
+  <td></td>
+  <td colspan="2">SESSION: <strong>Users, user interfaces, and feature location - early research achievement papers</strong></td>
+  </tr>
+  
+          <tr>
+          <td></td>
+          <td style="padding-bottom:5px;">
+          
+          </td>
+          </tr>
+
+          
+  <tr>
+  <td></td>
+  <td colspan="1"><span style="padding-left:20"><a href="citation.cfm?id=2820307&CFID=750670497&CFTOKEN=35487510">Manually locating features in industrial source code: the search actions of software nomads</a></span></td>
+  </tr>
+  
+          <tr>
+          <td></td>
+          <td>
+          <span style="padding-left:20">
+          
+                        <a href="author_page.cfm?id=81481641034&CFID=750670497&CFTOKEN=35487510">Howell Jordan</a>, 
+                        <a href="author_page.cfm?id=81375619370&CFID=750670497&CFTOKEN=35487510">Jacek Rosik</a>, 
+                        <a href="author_page.cfm?id=81331494099&CFID=750670497&CFTOKEN=35487510">Sebastian Herold</a>, 
+                        <a href="author_page.cfm?id=81332490682&CFID=750670497&CFTOKEN=35487510">Goetz Botterweck</a>, 
+                        <a href="author_page.cfm?id=81100351262&CFID=750670497&CFTOKEN=35487510">Jim Buckley</a> 
+          </span>    
+          </td>
+          </tr>
+          
+          <tr>
+          <td></td>
+          <td> <span style="padding-left:20">Pages: 174-177</span></td>
+          </tr>
+          
+          <tr>
+          <td></td>
+          <td>
+           <span style="padding-left:20">
+          Full text: <a name="FullTextPDF" title="FullText PDF" href="ft_gateway.cfm?id=2820307&ftid=1617787&dwn=1&CFID=750670497&CFTOKEN=35487510" target="_blank"><img src="imagetypes/pdf_logo.gif" alt="PDF" class="fulltext_lnk" border="0" />PDF</a>
+           </span>
+          </td>
+          </tr>
+          
+          <tr>
+          <td></td>
+          <td style="padding-bottom:15px;">
+          <div style="padding-left:20">
+          <span id="toShow25" style="display:inline;"><br /><div style="display:inline">Expert software engineers working on large systems often need to perform feature location when moving to work in unfamiliar areas. We hypothesise that leveraging the system-specific knowledge of these software nomads may help to improve semi-automated ...</div></span>
+          <span id="toHide25" style="display:none;"><br /><div style="display:inline"><p>Expert software engineers working on large systems often need to perform feature location when moving to work in unfamiliar areas. We hypothesise that leveraging the system-specific knowledge of these <i>software nomads</i> may help to improve semi-automated feature location techniques. In order to assess and understand how software nomads perform manual feature location searches, two expert professional software engineers were observed in-vivo following a think-aloud protocol while performing manual feature location on a large-scale heterogeneous system. The nomads' search actions were found to be around twice as effective as those reported in previous studies. This cannot be explained by sophisticated use of tools or complex queries. We conclude that system rules and conventions are frequently used by experts when constructing feature location search terms.</p></div></span> <a id="expcoll25" href="JavaScript: expandcollapse('expcoll25',25)">expand</a>
+          </div>
+		  </td>
+          </tr>          
+          
+  <tr>
+  <td></td>
+  <td colspan="1"><span style="padding-left:20"><a href="citation.cfm?id=2820308&CFID=750670497&CFTOKEN=35487510">From obfuscation to comprehension</a></span></td>
+  </tr>
+  
+          <tr>
+          <td></td>
+          <td>
+          <span style="padding-left:20">
+          
+                        <a href="author_page.cfm?id=99658746807&CFID=750670497&CFTOKEN=35487510">Eran Avidan</a>, 
+                        <a href="author_page.cfm?id=81100468805&CFID=750670497&CFTOKEN=35487510">Dror G. Feitelson</a> 
+          </span>    
+          </td>
+          </tr>
+          
+          <tr>
+          <td></td>
+          <td> <span style="padding-left:20">Pages: 178-181</span></td>
+          </tr>
+          
+          <tr>
+          <td></td>
+          <td>
+           <span style="padding-left:20">
+          Full text: <a name="FullTextPDF" title="FullText PDF" href="ft_gateway.cfm?id=2820308&ftid=1617764&dwn=1&CFID=750670497&CFTOKEN=35487510" target="_blank"><img src="imagetypes/pdf_logo.gif" alt="PDF" class="fulltext_lnk" border="0" />PDF</a>
+           </span>
+          </td>
+          </tr>
+          
+          <tr>
+          <td></td>
+          <td style="padding-bottom:15px;">
+          <div style="padding-left:20">
+          <span id="toShow26" style="display:inline;"><br /><div style="display:inline">Code obfuscation techniques are widely used in industry to increase protection of source code and intellectual property. The idea is that even if attackers gain hold of source code, it will be hard for them to understand what it does and how. Thus obfuscation ...</div></span>
+          <span id="toHide26" style="display:none;"><br /><div style="display:inline"><p>Code obfuscation techniques are widely used in industry to increase protection of source code and intellectual property. The idea is that even if attackers gain hold of source code, it will be hard for them to understand what it does and how. Thus obfuscation techniques are specifically targeted at human comprehension of code. We suggest that the ideas and experience embedded in obfuscations can be used to learn about comprehension. In particular, we survey known obfuscation techniques and use them in an attempt to derive metrics for code (in)comprehensibility. This leads to emphasis on issues such as identifier naming, which are typically left on the sidelines in discussions of code comprehension, and motivates increased efforts to measure their effect.</p></div></span> <a id="expcoll26" href="JavaScript: expandcollapse('expcoll26',26)">expand</a>
+          </div>
+		  </td>
+          </tr>          
+          
+  <tr>
+  <td></td>
+  <td colspan="1"><span style="padding-left:20"><a href="citation.cfm?id=2820309&CFID=750670497&CFTOKEN=35487510">The plague doctor: a promising cure for the window plague</a></span></td>
+  </tr>
+  
+          <tr>
+          <td></td>
+          <td>
+          <span style="padding-left:20">
+          
+                        <a href="author_page.cfm?id=82259220857&CFID=750670497&CFTOKEN=35487510">Roberto Minelli</a>, 
+                        <a href="author_page.cfm?id=81338490104&CFID=750670497&CFTOKEN=35487510">Andrea Mocci</a>, 
+                        <a href="author_page.cfm?id=82258911757&CFID=750670497&CFTOKEN=35487510">Michele Lanza</a> 
+          </span>    
+          </td>
+          </tr>
+          
+          <tr>
+          <td></td>
+          <td> <span style="padding-left:20">Pages: 182-185</span></td>
+          </tr>
+          
+          <tr>
+          <td></td>
+          <td>
+           <span style="padding-left:20">
+          Full text: <a name="FullTextPDF" title="FullText PDF" href="ft_gateway.cfm?id=2820309&ftid=1617773&dwn=1&CFID=750670497&CFTOKEN=35487510" target="_blank"><img src="imagetypes/pdf_logo.gif" alt="PDF" class="fulltext_lnk" border="0" />PDF</a>
+           </span>
+          </td>
+          </tr>
+          
+          <tr>
+          <td></td>
+          <td style="padding-bottom:15px;">
+          <div style="padding-left:20">
+          <span id="toShow27" style="display:inline;"><br /><div style="display:inline">Modern Integrated Development Environments (IDEs) are often affected by the "window plague", an overly crowded workspace with many open windows and tabs. The main cause is the lack of navigation support in IDEs, also due to the many---and not ...</div></span>
+          <span id="toHide27" style="display:none;"><br /><div style="display:inline"><p>Modern Integrated Development Environments (IDEs) are often affected by the "<i>window plague</i>", an overly crowded workspace with many open windows and tabs. The main cause is the lack of navigation support in IDEs, also due to the many---and not always obvious---complex relationships that exist between program entities.</p> <p>Researchers have shown that it is possible to mitigate the window plague by exploiting the data obtained by monitoring how developers interact with the user interface of the IDE. However, despite initial results the approach was never fully integrated in an IDE.</p> <p>In our previous work, we implemented DF<scp>low</scp>, an automatic interaction profiler that monitors all the fine-grained interactions of the developer with the IDE. Here we present a first prototype of the P<scp>lague</scp> D<scp>octor</scp>, a tool that seamlessly detects the windows that are less likely to be used in the future and automatically closes them. We discuss our long term vision on how to fully exploit the interaction data recorded by DF<scp>low</scp> to provide a more effective cure for the window plague.</p></div></span> <a id="expcoll27" href="JavaScript: expandcollapse('expcoll27',27)">expand</a>
+          </div>
+		  </td>
+          </tr>          
+          
+  <tr>
+  <td></td>
+  <td colspan="2">SESSION: <strong>Large scale empirical studies - technical research papers</strong></td>
+  </tr>
+  
+          <tr>
+          <td></td>
+          <td style="padding-bottom:5px;">
+          
+          </td>
+          </tr>
+
+          
+  <tr>
+  <td></td>
+  <td colspan="1"><span style="padding-left:20"><a href="citation.cfm?id=2820311&CFID=750670497&CFTOKEN=35487510">Polymorphism in the spotlight: studying its prevalence in Java and Smalltalk</a></span></td>
+  </tr>
+  
+          <tr>
+          <td></td>
+          <td>
+          <span style="padding-left:20">
+          
+                        <a href="author_page.cfm?id=99658753364&CFID=750670497&CFTOKEN=35487510">Nevena Milojkovi&#263;</a>, 
+                        <a href="author_page.cfm?id=81501663699&CFID=750670497&CFTOKEN=35487510">Andrea Caracciolo</a>, 
+                        <a href="author_page.cfm?id=81310486353&CFID=750670497&CFTOKEN=35487510">Mircea Filip Lungu</a>, 
+                        <a href="author_page.cfm?id=81100134506&CFID=750670497&CFTOKEN=35487510">Oscar Nierstrasz</a>, 
+                        <a href="author_page.cfm?id=81350576717&CFID=750670497&CFTOKEN=35487510">David R&#246;thlisberger</a>, 
+                        <a href="author_page.cfm?id=81331502594&CFID=750670497&CFTOKEN=35487510">Romain Robbes</a> 
+          </span>    
+          </td>
+          </tr>
+          
+          <tr>
+          <td></td>
+          <td> <span style="padding-left:20">Pages: 186-195</span></td>
+          </tr>
+          
+          <tr>
+          <td></td>
+          <td>
+           <span style="padding-left:20">
+          Full text: <a name="FullTextPDF" title="FullText PDF" href="ft_gateway.cfm?id=2820311&ftid=1617768&dwn=1&CFID=750670497&CFTOKEN=35487510" target="_blank"><img src="imagetypes/pdf_logo.gif" alt="PDF" class="fulltext_lnk" border="0" />PDF</a>
+           </span>
+          </td>
+          </tr>
+          
+          <tr>
+          <td></td>
+          <td style="padding-bottom:15px;">
+          <div style="padding-left:20">
+          <span id="toShow29" style="display:inline;"><br /><div style="display:inline">Subtype polymorphism is a cornerstone of object-oriented programming. By hiding variability in behavior behind a uniform interface, polymorphism decouples clients from providers and thus enables genericity, modularity and extensibility. At the same time, ...</div></span>
+          <span id="toHide29" style="display:none;"><br /><div style="display:inline"><p>Subtype polymorphism is a cornerstone of object-oriented programming. By hiding variability in behavior behind a uniform interface, polymorphism decouples clients from providers and thus enables genericity, modularity and extensibility. At the same time, however, it scatters the implementation of the behavior over multiple classes thus potentially hampering program comprehension.</p> <p>The extent to which polymorphism is used in real programs and the impact of polymorphism on program comprehension are not very well understood. We report on a preliminary study of the prevalence of polymorphism in several hundred open source software systems written in Smalltalk, one of the oldest object-oriented programming languages, and in Java, one of the most widespread ones.</p> <p>Although a large portion of the call sites in these systems are polymorphic, a majority have a small number of potential candidates. Smalltalk uses polymorphism to a much greater extent than Java. We discuss how these findings can be used as input for more detailed studies in program comprehension and for better developer support in the IDE.</p></div></span> <a id="expcoll29" href="JavaScript: expandcollapse('expcoll29',29)">expand</a>
+          </div>
+		  </td>
+          </tr>          
+          
+  <tr>
+  <td></td>
+  <td colspan="1"><span style="padding-left:20"><a href="citation.cfm?id=2820312&CFID=750670497&CFTOKEN=35487510">A survey of the forms of Java reference names</a></span></td>
+  </tr>
+  
+          <tr>
+          <td></td>
+          <td>
+          <span style="padding-left:20">
+          
+                        <a href="author_page.cfm?id=81453635184&CFID=750670497&CFTOKEN=35487510">Simon Butler</a>, 
+                        <a href="author_page.cfm?id=81100586407&CFID=750670497&CFTOKEN=35487510">Michel Wermelinger</a>, 
+                        <a href="author_page.cfm?id=87958761557&CFID=750670497&CFTOKEN=35487510">Yijun Yu</a> 
+          </span>    
+          </td>
+          </tr>
+          
+          <tr>
+          <td></td>
+          <td> <span style="padding-left:20">Pages: 196-206</span></td>
+          </tr>
+          
+          <tr>
+          <td></td>
+          <td>
+           <span style="padding-left:20">
+          Full text: <a name="FullTextPDF" title="FullText PDF" href="ft_gateway.cfm?id=2820312&ftid=1617795&dwn=1&CFID=750670497&CFTOKEN=35487510" target="_blank"><img src="imagetypes/pdf_logo.gif" alt="PDF" class="fulltext_lnk" border="0" />PDF</a>
+           </span>
+          </td>
+          </tr>
+          
+          <tr>
+          <td></td>
+          <td style="padding-bottom:15px;">
+          <div style="padding-left:20">
+          <span id="toShow30" style="display:inline;"><br /><div style="display:inline">The readability of identifiers is a major factor of program comprehension and an aim of naming convention guidelines. Due to their semantic content, identifiers are also used in feature and bug location, among other software maintenance tasks. Looking ...</div></span>
+          <span id="toHide30" style="display:none;"><br /><div style="display:inline"><p>The readability of identifiers is a major factor of program comprehension and an aim of naming convention guidelines. Due to their semantic content, identifiers are also used in feature and bug location, among other software maintenance tasks. Looking at how names are used in practice may lead to insights on potential problems for comprehension and for programming support tools that process identifiers.</p> <p>Class and method names are already well represented in the literature. This paper presents an investigation of Java field, formal argument and local variable names, which we collectively call reference names. These names cannot be ignored because they constitute over half the unique names and almost 70% of the name declarations in the corpus investigated.</p> <p>We analysed the forms of 3.5 million reference name declarations in 60 well known Java projects, examining the phrasal structure of names composed of known words and acronyms. The structures found in practice were evaluated against those given in the literature. The use of unknown abbreviations and words, which may pose a problem for program comprehension, was also identified. Based on our observations of the rich diversity of reference names, we suggest issues to be taken into account for future academic research and for improving tools that rely on names as sources of information.</p></div></span> <a id="expcoll30" href="JavaScript: expandcollapse('expcoll30',30)">expand</a>
+          </div>
+		  </td>
+          </tr>          
+          
+  <tr>
+  <td></td>
+  <td colspan="1"><span style="padding-left:20"><a href="citation.cfm?id=2820313&CFID=750670497&CFTOKEN=35487510">Make it simple: an empirical analysis of GNU make feature use in open source projects</a></span></td>
+  </tr>
+  
+          <tr>
+          <td></td>
+          <td>
+          <span style="padding-left:20">
+          
+                        <a href="author_page.cfm?id=81485644756&CFID=750670497&CFTOKEN=35487510">Douglas H. Martin</a>, 
+                        <a href="author_page.cfm?id=81100370448&CFID=750670497&CFTOKEN=35487510">James R. Cordy</a>, 
+                        <a href="author_page.cfm?id=81310485522&CFID=750670497&CFTOKEN=35487510">Bram Adams</a>, 
+                        <a href="author_page.cfm?id=81100318483&CFID=750670497&CFTOKEN=35487510">Giulio Antoniol</a> 
+          </span>    
+          </td>
+          </tr>
+          
+          <tr>
+          <td></td>
+          <td> <span style="padding-left:20">Pages: 207-217</span></td>
+          </tr>
+          
+          <tr>
+          <td></td>
+          <td>
+           <span style="padding-left:20">
+          Full text: <a name="FullTextPDF" title="FullText PDF" href="ft_gateway.cfm?id=2820313&ftid=1617796&dwn=1&CFID=750670497&CFTOKEN=35487510" target="_blank"><img src="imagetypes/pdf_logo.gif" alt="PDF" class="fulltext_lnk" border="0" />PDF</a>
+           </span>
+          </td>
+          </tr>
+          
+          <tr>
+          <td></td>
+          <td style="padding-bottom:15px;">
+          <div style="padding-left:20">
+          <span id="toShow31" style="display:inline;"><br /><div style="display:inline">Make is one of the oldest build technologies and is still widely used today, whether by manually writing Makefiles, or by generating them using tools like Autotools and CMake. Despite its conceptual simplicity, modern Make implementations such as GNU ...</div></span>
+          <span id="toHide31" style="display:none;"><br /><div style="display:inline"><p>Make is one of the oldest build technologies and is still widely used today, whether by manually writing Makefiles, or by generating them using tools like Autotools and CMake. Despite its conceptual simplicity, modern Make implementations such as GNU Make have become very complex languages, featuring functions, macros, lazy variable assignments and (in GNU Make 4.0) the Guile embedded scripting language. Since we are interested in understanding how widespread such complex language features are, this paper studies the use of Make features in almost 20,000 Makefiles, comprised of over 8.4 million lines, from more than 350 different open source projects. We look at the popularity of features and the difference between hand-written Makefiles and those generated using various tools. We find that generated Makefiles use only a core set of features and that more advanced features (such as function calls) are used very little, and almost exclusively in hand-written Makefiles.</p></div></span> <a id="expcoll31" href="JavaScript: expandcollapse('expcoll31',31)">expand</a>
+          </div>
+		  </td>
+          </tr>          
+          
+  <tr>
+  <td></td>
+  <td colspan="1"><span style="padding-left:20"><a href="citation.cfm?id=2820314&CFID=750670497&CFTOKEN=35487510">License usage and changes: a large-scale study of Java projects on GitHub</a></span></td>
+  </tr>
+  
+          <tr>
+          <td></td>
+          <td>
+          <span style="padding-left:20">
+          
+                        <a href="author_page.cfm?id=99658752381&CFID=750670497&CFTOKEN=35487510">Christopher Vendome</a>, 
+                        <a href="author_page.cfm?id=81496688841&CFID=750670497&CFTOKEN=35487510">Mario Linares-V&#225;squez</a>, 
+                        <a href="author_page.cfm?id=81470653838&CFID=750670497&CFTOKEN=35487510">Gabriele Bavota</a>, 
+                        <a href="author_page.cfm?id=81100574934&CFID=750670497&CFTOKEN=35487510">Massimiliano Di Penta</a>, 
+                        <a href="author_page.cfm?id=81100508005&CFID=750670497&CFTOKEN=35487510">Daniel German</a>, 
+                        <a href="author_page.cfm?id=81100365833&CFID=750670497&CFTOKEN=35487510">Denys Poshyvanyk</a> 
+          </span>    
+          </td>
+          </tr>
+          
+          <tr>
+          <td></td>
+          <td> <span style="padding-left:20">Pages: 218-228</span></td>
+          </tr>
+          
+          <tr>
+          <td></td>
+          <td>
+           <span style="padding-left:20">
+          Full text: <a name="FullTextPDF" title="FullText PDF" href="ft_gateway.cfm?id=2820314&ftid=1617797&dwn=1&CFID=750670497&CFTOKEN=35487510" target="_blank"><img src="imagetypes/pdf_logo.gif" alt="PDF" class="fulltext_lnk" border="0" />PDF</a>
+           </span>
+          </td>
+          </tr>
+          
+          <tr>
+          <td></td>
+          <td style="padding-bottom:15px;">
+          <div style="padding-left:20">
+          <span id="toShow32" style="display:inline;"><br /><div style="display:inline">Software licenses determine, from a legal point of view, under which conditions software can be integrated, used, and above all, redistributed. Licenses evolve over time to meet the needs of development communities and to cope with emerging legal issues ...</div></span>
+          <span id="toHide32" style="display:none;"><br /><div style="display:inline"><p>Software licenses determine, from a legal point of view, under which conditions software can be integrated, used, and above all, redistributed. Licenses evolve over time to meet the needs of development communities and to cope with emerging legal issues and new development paradigms. Such evolution of licenses is likely to be accompanied by changes in the way how software uses such licenses, resulting in some licenses being adopted while others are abandoned. This paper reports a large empirical study aimed at <i>quantitatively</i> and <i>qualitatively</i> investigating when and why developer change software licenses. Specifically, we first identify licenses' changes in 1,731,828 commits, representing the entire history of 16,221 Java projects hosted on GitHub. Then, to understand the rationale of license changes, we perform a qualitative analysis---following a grounded theory approach---of commit notes and issue tracker discussions concerning licensing topics and, whenever possible, try to build traceability links between discussions and changes. Our results point out a lack of traceability of <i>when</i> and <i>why</i> licensing changes are made. This can be a major concern, because a change in the license of a system can negatively impact those that reuse it.</p></div></span> <a id="expcoll32" href="JavaScript: expandcollapse('expcoll32',32)">expand</a>
+          </div>
+		  </td>
+          </tr>          
+          
+  <tr>
+  <td></td>
+  <td colspan="1"><span style="padding-left:20"><a href="citation.cfm?id=2820315&CFID=750670497&CFTOKEN=35487510">Unsupervised software categorization using bytecode</a></span></td>
+  </tr>
+  
+          <tr>
+          <td></td>
+          <td>
+          <span style="padding-left:20">
+          
+                        <a href="author_page.cfm?id=99658747567&CFID=750670497&CFTOKEN=35487510">Javier Escobar-Avila</a>, 
+                        <a href="author_page.cfm?id=81496688841&CFID=750670497&CFTOKEN=35487510">Mario Linares-V&#225;squez</a>, 
+                        <a href="author_page.cfm?id=81375617587&CFID=750670497&CFTOKEN=35487510">Sonia Haiduc</a> 
+          </span>    
+          </td>
+          </tr>
+          
+          <tr>
+          <td></td>
+          <td> <span style="padding-left:20">Pages: 229-239</span></td>
+          </tr>
+          
+          <tr>
+          <td></td>
+          <td>
+           <span style="padding-left:20">
+          Full text: <a name="FullTextPDF" title="FullText PDF" href="ft_gateway.cfm?id=2820315&ftid=1617798&dwn=1&CFID=750670497&CFTOKEN=35487510" target="_blank"><img src="imagetypes/pdf_logo.gif" alt="PDF" class="fulltext_lnk" border="0" />PDF</a>
+           </span>
+          </td>
+          </tr>
+          
+          <tr>
+          <td></td>
+          <td style="padding-bottom:15px;">
+          <div style="padding-left:20">
+          <span id="toShow33" style="display:inline;"><br /><div style="display:inline">Automatic software categorization is the task of assigning software systems or libraries to categories based on their functionality. Correctly assigning these categories is essential to ensure that relevant software can be easily retrieved by developers ...</div></span>
+          <span id="toHide33" style="display:none;"><br /><div style="display:inline"><p>Automatic software categorization is the task of assigning software systems or libraries to categories based on their functionality. Correctly assigning these categories is essential to ensure that relevant software can be easily retrieved by developers from large repositories. State of the art approaches either rely on the availability of the source code, or use supervised machine learning approaches, which require a set of already labeled software as training data. These restrictions make current approaches fail when such information is not available. We propose a novel approach, which overcomes these limitations by using semantic information recovered from bytecode and an unsupervised algorithm to assign categories to software systems. We evaluated our approach in a study on the Apache Foundation Repository of Java libraries and the results indicate that our approach is able to correctly identify a correct category for 86% of the libraries.</p></div></span> <a id="expcoll33" href="JavaScript: expandcollapse('expcoll33',33)">expand</a>
+          </div>
+		  </td>
+          </tr>          
+          
+  <tr>
+  <td></td>
+  <td colspan="2">SESSION: <strong>Large scale empirical studies - early research achievement papers</strong></td>
+  </tr>
+  
+          <tr>
+          <td></td>
+          <td style="padding-bottom:5px;">
+          
+          </td>
+          </tr>
+
+          
+  <tr>
+  <td></td>
+  <td colspan="1"><span style="padding-left:20"><a href="citation.cfm?id=2820317&CFID=750670497&CFTOKEN=35487510">The last line effect</a></span></td>
+  </tr>
+  
+          <tr>
+          <td></td>
+          <td>
+          <span style="padding-left:20">
+          
+                        <a href="author_page.cfm?id=88159364357&CFID=750670497&CFTOKEN=35487510">Moritz Beller</a>, 
+                        <a href="author_page.cfm?id=81100555337&CFID=750670497&CFTOKEN=35487510">Andy Zaidman</a>, 
+                        <a href="author_page.cfm?id=99658747556&CFID=750670497&CFTOKEN=35487510">Andrey Karpov</a> 
+          </span>    
+          </td>
+          </tr>
+          
+          <tr>
+          <td></td>
+          <td> <span style="padding-left:20">Pages: 240-243</span></td>
+          </tr>
+          
+          <tr>
+          <td></td>
+          <td>
+           <span style="padding-left:20">
+          Full text: <a name="FullTextPDF" title="FullText PDF" href="ft_gateway.cfm?id=2820317&ftid=1617788&dwn=1&CFID=750670497&CFTOKEN=35487510" target="_blank"><img src="imagetypes/pdf_logo.gif" alt="PDF" class="fulltext_lnk" border="0" />PDF</a>
+           </span>
+          </td>
+          </tr>
+          
+          <tr>
+          <td></td>
+          <td style="padding-bottom:15px;">
+          <div style="padding-left:20">
+          <span id="toShow35" style="display:inline;"><br /><div style="display:inline">Micro-clones are tiny duplicated pieces of code; they typically comprise only a few statements or lines. In this paper, we expose the "last line effect," the phenomenon that the last line or statement in a micro-clone is much more likely to contain an ...</div></span>
+          <span id="toHide35" style="display:none;"><br /><div style="display:inline"><p>Micro-clones are tiny duplicated pieces of code; they typically comprise only a few statements or lines. In this paper, we expose the "last line effect," the phenomenon that the last line or statement in a micro-clone is much more likely to contain an error than the previous lines or statements. We do this by analyzing 208 open source projects and reporting on 202 faulty micro-clones.</p></div></span> <a id="expcoll35" href="JavaScript: expandcollapse('expcoll35',35)">expand</a>
+          </div>
+		  </td>
+          </tr>          
+          
+  <tr>
+  <td></td>
+  <td colspan="2">SESSION: <strong>Reading and visualizing - technical research papers</strong></td>
+  </tr>
+  
+          <tr>
+          <td></td>
+          <td style="padding-bottom:5px;">
+          
+          </td>
+          </tr>
+
+          
+  <tr>
+  <td></td>
+  <td colspan="1"><span style="padding-left:20"><a href="citation.cfm?id=2820319&CFID=750670497&CFTOKEN=35487510">How programmers read regular code: a controlled experiment using eye tracking</a></span></td>
+  </tr>
+  
+          <tr>
+          <td></td>
+          <td>
+          <span style="padding-left:20">
+          
+                        <a href="author_page.cfm?id=81375618669&CFID=750670497&CFTOKEN=35487510">Ahmad Jbara</a>, 
+                        <a href="author_page.cfm?id=81100468805&CFID=750670497&CFTOKEN=35487510">Dror G. Feitelson</a> 
+          </span>    
+          </td>
+          </tr>
+          
+          <tr>
+          <td></td>
+          <td> <span style="padding-left:20">Pages: 244-254</span></td>
+          </tr>
+          
+          <tr>
+          <td></td>
+          <td>
+           <span style="padding-left:20">
+          Full text: <a name="FullTextPDF" title="FullText PDF" href="ft_gateway.cfm?id=2820319&ftid=1617775&dwn=1&CFID=750670497&CFTOKEN=35487510" target="_blank"><img src="imagetypes/pdf_logo.gif" alt="PDF" class="fulltext_lnk" border="0" />PDF</a>
+           </span>
+          </td>
+          </tr>
+          
+          <tr>
+          <td></td>
+          <td style="padding-bottom:15px;">
+          <div style="padding-left:20">
+          <span id="toShow37" style="display:inline;"><br /><div style="display:inline">Regular code, which includes repetitions of the same basic pattern, has been shown to have an effect on code comprehension: a regular function can be just as easy to comprehend as an irregular one with the same functionality, despite being longer and ...</div></span>
+          <span id="toHide37" style="display:none;"><br /><div style="display:inline"><p>Regular code, which includes repetitions of the same basic pattern, has been shown to have an effect on code comprehension: a regular function can be just as easy to comprehend as an irregular one with the same functionality, despite being longer and including more control constructs. It has been speculated that this effect is due to leveraging the understanding of the first instances to ease the understanding of repeated instances of the pattern. To verify and quantify this effect, we use eye tracking to measure the time and effort spent reading and understanding regular code. The results are that time and effort invested in the initial code segments are indeed much larger than those spent on the later ones, and the decay in effort can be modeled by an exponential or cubic model. This shows that syntactic code complexity metrics (such as LOC and MCC) need to be made context-sensitive, e.g. by giving reduced weight to repeated segments according to their place in the sequence.</p></div></span> <a id="expcoll37" href="JavaScript: expandcollapse('expcoll37',37)">expand</a>
+          </div>
+		  </td>
+          </tr>          
+          
+  <tr>
+  <td></td>
+  <td colspan="1"><span style="padding-left:20"><a href="citation.cfm?id=2820320&CFID=750670497&CFTOKEN=35487510">Eye movements in code reading: relaxing the linear order</a></span></td>
+  </tr>
+  
+          <tr>
+          <td></td>
+          <td>
+          <span style="padding-left:20">
+          
+                        <a href="author_page.cfm?id=81484657469&CFID=750670497&CFTOKEN=35487510">Teresa Busjahn</a>, 
+                        <a href="author_page.cfm?id=81100007292&CFID=750670497&CFTOKEN=35487510">Roman Bednarik</a>, 
+                        <a href="author_page.cfm?id=81100179596&CFID=750670497&CFTOKEN=35487510">Andrew Begel</a>, 
+                        <a href="author_page.cfm?id=81100255852&CFID=750670497&CFTOKEN=35487510">Martha Crosby</a>, 
+                        <a href="author_page.cfm?id=81100274091&CFID=750670497&CFTOKEN=35487510">James H. Paterson</a>, 
+                        <a href="author_page.cfm?id=81100278994&CFID=750670497&CFTOKEN=35487510">Carsten Schulte</a>, 
+                        <a href="author_page.cfm?id=81332526787&CFID=750670497&CFTOKEN=35487510">Bonita Sharif</a>, 
+                        <a href="author_page.cfm?id=99658748344&CFID=750670497&CFTOKEN=35487510">Sascha Tamm</a> 
+          </span>    
+          </td>
+          </tr>
+          
+          <tr>
+          <td></td>
+          <td> <span style="padding-left:20">Pages: 255-265</span></td>
+          </tr>
+          
+          <tr>
+          <td></td>
+          <td>
+           <span style="padding-left:20">
+          Full text: <a name="FullTextPDF" title="FullText PDF" href="ft_gateway.cfm?id=2820320&ftid=1617776&dwn=1&CFID=750670497&CFTOKEN=35487510" target="_blank"><img src="imagetypes/pdf_logo.gif" alt="PDF" class="fulltext_lnk" border="0" />PDF</a>
+           </span>
+          </td>
+          </tr>
+          
+          <tr>
+          <td></td>
+          <td style="padding-bottom:15px;">
+          <div style="padding-left:20">
+          <span id="toShow38" style="display:inline;"><br /><div style="display:inline">Code reading is an important skill in programming. Inspired by the linearity that people exhibit while natural language text reading, we designed local and global gaze-based measures to characterize linearity (left-to-right and top-to-bottom) in reading ...</div></span>
+          <span id="toHide38" style="display:none;"><br /><div style="display:inline"><p>Code reading is an important skill in programming. Inspired by the linearity that people exhibit while natural language text reading, we designed local and global gaze-based measures to characterize linearity (left-to-right and top-to-bottom) in reading source code. Unlike natural language text, source code is executable and requires a specific reading approach. To validate these measures, we compared the eye movements of novice and expert programmers who were asked to read and comprehend short snippets of natural language text and Java programs.</p> <p>Our results show that novices read source code less linearly than natural language text. Moreover, experts read code less linearly than novices. These findings indicate that there are specific differences between reading natural language and source code, and suggest that non-linear reading skills increase with expertise. We discuss the implications for practitioners and educators.</p></div></span> <a id="expcoll38" href="JavaScript: expandcollapse('expcoll38',38)">expand</a>
+          </div>
+		  </td>
+          </tr>          
+          
+  <tr>
+  <td></td>
+  <td colspan="1"><span style="padding-left:20"><a href="citation.cfm?id=2820321&CFID=750670497&CFTOKEN=35487510">Comparing trace visualizations for program comprehension through controlled experiments</a></span></td>
+  </tr>
+  
+          <tr>
+          <td></td>
+          <td>
+          <span style="padding-left:20">
+          
+                        <a href="author_page.cfm?id=81551210056&CFID=750670497&CFTOKEN=35487510">Florian Fittkau</a>, 
+                        <a href="author_page.cfm?id=99658747038&CFID=750670497&CFTOKEN=35487510">Santje Finke</a>, 
+                        <a href="author_page.cfm?id=81100120324&CFID=750670497&CFTOKEN=35487510">Wilhelm Hasselbring</a>, 
+                        <a href="author_page.cfm?id=81486643482&CFID=750670497&CFTOKEN=35487510">Jan Waller</a> 
+          </span>    
+          </td>
+          </tr>
+          
+          <tr>
+          <td></td>
+          <td> <span style="padding-left:20">Pages: 266-276</span></td>
+          </tr>
+          
+          <tr>
+          <td></td>
+          <td>
+           <span style="padding-left:20">
+          Full text: <a name="FullTextPDF" title="FullText PDF" href="ft_gateway.cfm?id=2820321&ftid=1617789&dwn=1&CFID=750670497&CFTOKEN=35487510" target="_blank"><img src="imagetypes/pdf_logo.gif" alt="PDF" class="fulltext_lnk" border="0" />PDF</a>
+           </span>
+          </td>
+          </tr>
+          
+          <tr>
+          <td></td>
+          <td style="padding-bottom:15px;">
+          <div style="padding-left:20">
+          <span id="toShow39" style="display:inline;"><br /><div style="display:inline">For efficient and effective program comprehension, it is essential to provide software engineers with appropriate visualizations of the program's execution traces. Empirical studies, such as controlled experiments, are required to assess the effectiveness ...</div></span>
+          <span id="toHide39" style="display:none;"><br /><div style="display:inline"><p>For efficient and effective program comprehension, it is essential to provide software engineers with appropriate visualizations of the program's execution traces. Empirical studies, such as controlled experiments, are required to assess the effectiveness and efficiency of proposed visualization techniques.</p> <p>We present controlled experiments to compare the trace visualization tools E<scp>xtravis</scp> and ExplorViz in typical program comprehension tasks. We replicate the first controlled experiment with a second one targeting a differently sized software system. In addition to a thorough analysis of the strategies chosen by the participants, we report on common challenges comparing trace visualization techniques. Besides our own replication of the first experiment, we provide a package containing all our experimental data to facilitate the verifiability, reproducibility and further extensibility of our presented results.</p> <p>Although subjects spent similar time on program comprehension tasks with both tools for a small-sized system, analyzing a larger software system resulted in a significant efficiency advantage of 28 percent less time spent by using ExplorViz. Concerning the effectiveness (correct solutions for program comprehension tasks), we observed a significant improvement of correctness for both object system sizes of 39 and 61 percent with ExplorViz.</p></div></span> <a id="expcoll39" href="JavaScript: expandcollapse('expcoll39',39)">expand</a>
+          </div>
+		  </td>
+          </tr>          
+          
+  <tr>
+  <td></td>
+  <td colspan="2">SESSION: <strong>Reading and visualizing - early research achievement papers</strong></td>
+  </tr>
+  
+          <tr>
+          <td></td>
+          <td style="padding-bottom:5px;">
+          
+          </td>
+          </tr>
+
+          
+  <tr>
+  <td></td>
+  <td colspan="1"><span style="padding-left:20"><a href="citation.cfm?id=2820323&CFID=750670497&CFTOKEN=35487510">Towards visual reflexion models</a></span></td>
+  </tr>
+  
+          <tr>
+          <td></td>
+          <td>
+          <span style="padding-left:20">
+          
+                        <a href="author_page.cfm?id=99658753260&CFID=750670497&CFTOKEN=35487510">Marcello Romanelli</a>, 
+                        <a href="author_page.cfm?id=81338490104&CFID=750670497&CFTOKEN=35487510">Andrea Mocci</a>, 
+                        <a href="author_page.cfm?id=82258911757&CFID=750670497&CFTOKEN=35487510">Michele Lanza</a> 
+          </span>    
+          </td>
+          </tr>
+          
+          <tr>
+          <td></td>
+          <td> <span style="padding-left:20">Pages: 277-280</span></td>
+          </tr>
+          
+          <tr>
+          <td></td>
+          <td>
+           <span style="padding-left:20">
+          Full text: <a name="FullTextPDF" title="FullText PDF" href="ft_gateway.cfm?id=2820323&ftid=1617794&dwn=1&CFID=750670497&CFTOKEN=35487510" target="_blank"><img src="imagetypes/pdf_logo.gif" alt="PDF" class="fulltext_lnk" border="0" />PDF</a>
+           </span>
+          </td>
+          </tr>
+          
+          <tr>
+          <td></td>
+          <td style="padding-bottom:15px;">
+          <div style="padding-left:20">
+          <span id="toShow41" style="display:inline;"><br /><div style="display:inline">Source code and models of a software system, like architectural views, tend to evolve separately and drift apart over time. Previous research has shown that it is possible to effectively relate them through a reflexion model, defined as a "summarization ...</div></span>
+          <span id="toHide41" style="display:none;"><br /><div style="display:inline"><p>Source code and models of a software system, like architectural views, tend to evolve separately and drift apart over time. Previous research has shown that it is possible to effectively relate them through a <i>reflexion model</i>, defined as a "summarization of a software system from the viewpoint of a particular high-level model". While effective, the process of constructing and analyzing reflexion models was supported by text-based tools with limited visual representation. With the original approach, it was relatively hard to understand which parts of the system were represented, and which parts of the system contributed to specific relations in the reflexion model.</p> <p>We present our vision on augmenting the construction and analysis of reflexion models with visual support, effectively providing the basis for <i>visual reflexion models.</i> We describe our approach, implemented as a web-based application, and two promising case studies involving two open-source projects.</p></div></span> <a id="expcoll41" href="JavaScript: expandcollapse('expcoll41',41)">expand</a>
+          </div>
+		  </td>
+          </tr>          
+          
+  <tr>
+  <td></td>
+  <td colspan="1"><span style="padding-left:20"><a href="citation.cfm?id=2820324&CFID=750670497&CFTOKEN=35487510">Understanding web applications using component based visual patterns</a></span></td>
+  </tr>
+  
+          <tr>
+          <td></td>
+          <td>
+          <span style="padding-left:20">
+          
+                        <a href="author_page.cfm?id=81435606203&CFID=750670497&CFTOKEN=35487510">Dan C. Cosma</a>, 
+                        <a href="author_page.cfm?id=81343500751&CFID=750670497&CFTOKEN=35487510">Petru F. Mihancea</a> 
+          </span>    
+          </td>
+          </tr>
+          
+          <tr>
+          <td></td>
+          <td> <span style="padding-left:20">Pages: 281-284</span></td>
+          </tr>
+          
+          <tr>
+          <td></td>
+          <td>
+           <span style="padding-left:20">
+          Full text: <a name="FullTextPDF" title="FullText PDF" href="ft_gateway.cfm?id=2820324&ftid=1617777&dwn=1&CFID=750670497&CFTOKEN=35487510" target="_blank"><img src="imagetypes/pdf_logo.gif" alt="PDF" class="fulltext_lnk" border="0" />PDF</a>
+           </span>
+          </td>
+          </tr>
+          
+          <tr>
+          <td></td>
+          <td style="padding-bottom:15px;">
+          <div style="padding-left:20">
+          <span id="toShow42" style="display:inline;"><br /><div style="display:inline">This paper introduces our approach for high-level system understanding that uses software visualization to analyze the presentation layer of Web applications. The technique is driven by static analysis, relies on state-of-the art concepts, and is technology-aware, ...</div></span>
+          <span id="toHide42" style="display:none;"><br /><div style="display:inline"><p>This paper introduces our approach for high-level system understanding that uses software visualization to analyze the presentation layer of Web applications. The technique is driven by static analysis, relies on state-of-the art concepts, and is technology-aware, so that it focuses on those precise particularities of the application's presentation layer that define its Web presence. By combining an approach initially developed for software testing with visualization, the essential structural dependencies between and within the Web components are extracted and reviewed. Initial evaluation shows that the technique is able to provide a comprehensive view that is very useful in spotting new and interesting visual patterns that give significant insight for software comprehension.</p></div></span> <a id="expcoll42" href="JavaScript: expandcollapse('expcoll42',42)">expand</a>
+          </div>
+		  </td>
+          </tr>          
+          
+  <tr>
+  <td></td>
+  <td colspan="2">SESSION: <strong>Industry and experience reports</strong></td>
+  </tr>
+  
+          <tr>
+          <td></td>
+          <td style="padding-bottom:5px;">
+          
+          </td>
+          </tr>
+
+          
+  <tr>
+  <td></td>
+  <td colspan="1"><span style="padding-left:20"><a href="citation.cfm?id=2820326&CFID=750670497&CFTOKEN=35487510">Fault localization during system testing</a></span></td>
+  </tr>
+  
+          <tr>
+          <td></td>
+          <td>
+          <span style="padding-left:20">
+          
+                        <a href="author_page.cfm?id=81317491912&CFID=750670497&CFTOKEN=35487510">Pavan Kumar Chittimalli</a>, 
+                        <a href="author_page.cfm?id=99658719650&CFID=750670497&CFTOKEN=35487510">Vipul Shah</a> 
+          </span>    
+          </td>
+          </tr>
+          
+          <tr>
+          <td></td>
+          <td> <span style="padding-left:20">Pages: 285-286</span></td>
+          </tr>
+          
+          <tr>
+          <td></td>
+          <td>
+           <span style="padding-left:20">
+          Full text: <a name="FullTextPDF" title="FullText PDF" href="ft_gateway.cfm?id=2820326&ftid=1617769&dwn=1&CFID=750670497&CFTOKEN=35487510" target="_blank"><img src="imagetypes/pdf_logo.gif" alt="PDF" class="fulltext_lnk" border="0" />PDF</a>
+           </span>
+          </td>
+          </tr>
+          
+          <tr>
+          <td></td>
+          <td style="padding-bottom:15px;">
+          <div style="padding-left:20">
+          <span id="toShow44" style="display:inline;"><br /><div style="display:inline">Functional testing of business applications in the enterprise is carried out by independent test teams. Test scripts are generated manually or automatically from requirements, treating the IT systems as a black box. For every release, when test scripts ...</div></span>
+          <span id="toHide44" style="display:none;"><br /><div style="display:inline"><p>Functional testing of business applications in the enterprise is carried out by independent test teams. Test scripts are generated manually or automatically from requirements, treating the IT systems as a black box. For every release, when test scripts fail to execute, the test teams need to ascertain the cause of failure, which could be due to mismatch between the requirements and the test models and test scripts, or faults in the test scripts or faults in the source code. The process is cumbersome and time consuming. While several techniques have been developed to localize source code faults, these target testing carried out by the developer.</p> <p>To help test teams localize faults, we propose the novel idea of applying source code based fault localization technique to process models that represent the system functionality. Experimental results show that the techniques when applied to models, were able to localize both test script and source code faults.</p></div></span> <a id="expcoll44" href="JavaScript: expandcollapse('expcoll44',44)">expand</a>
+          </div>
+		  </td>
+          </tr>          
+          
+  <tr>
+  <td></td>
+  <td colspan="1"><span style="padding-left:20"><a href="citation.cfm?id=2820327&CFID=750670497&CFTOKEN=35487510">Recovering workflows from functional tests</a></span></td>
+  </tr>
+  
+          <tr>
+          <td></td>
+          <td>
+          <span style="padding-left:20">
+          
+                        <a href="author_page.cfm?id=99658746134&CFID=750670497&CFTOKEN=35487510">Chetan Khadke</a>, 
+                        <a href="author_page.cfm?id=99658753446&CFID=750670497&CFTOKEN=35487510">Sunjit Rana</a>, 
+                        <a href="author_page.cfm?id=99658719650&CFID=750670497&CFTOKEN=35487510">Vipul Shah</a> 
+          </span>    
+          </td>
+          </tr>
+          
+          <tr>
+          <td></td>
+          <td> <span style="padding-left:20">Pages: 287-288</span></td>
+          </tr>
+          
+          <tr>
+          <td></td>
+          <td>
+           <span style="padding-left:20">
+          Full text: <a name="FullTextPDF" title="FullText PDF" href="ft_gateway.cfm?id=2820327&ftid=1617765&dwn=1&CFID=750670497&CFTOKEN=35487510" target="_blank"><img src="imagetypes/pdf_logo.gif" alt="PDF" class="fulltext_lnk" border="0" />PDF</a>
+           </span>
+          </td>
+          </tr>
+          
+          <tr>
+          <td></td>
+          <td style="padding-bottom:15px;">
+          <div style="padding-left:20">
+          <span id="toShow45" style="display:inline;"><br /><div style="display:inline">When enterprises outsource maintenance of IT systems to service providers, thorough knowledge acquisition is critical to the success of the engagement. Program comprehension contributes significantly to acquiring knowledge of the IT systems. It is a ...</div></span>
+          <span id="toHide45" style="display:none;"><br /><div style="display:inline"><p>When enterprises outsource maintenance of IT systems to service providers, thorough knowledge acquisition is critical to the success of the engagement. Program comprehension contributes significantly to acquiring knowledge of the IT systems. It is a common practice to execute test scripts to identify critical scenarios in the system and then trace these as flows in the programs.</p> <p>Instead of executing test scripts, we propose the novel idea of mining workflows from test scripts to construct formal process models. The global view provided by the mined model can not only help transition teams gain high level understanding of the system but also help identify critical flows. We also suggest categorization of test cases using supervised learning to improve comprehension.</p></div></span> <a id="expcoll45" href="JavaScript: expandcollapse('expcoll45',45)">expand</a>
+          </div>
+		  </td>
+          </tr>          
+          
+  <tr>
+  <td></td>
+  <td colspan="1"><span style="padding-left:20"><a href="citation.cfm?id=2820328&CFID=750670497&CFTOKEN=35487510">Reordering results of keyword-based code search for supporting simultaneous code changes</a></span></td>
+  </tr>
+  
+          <tr>
+          <td></td>
+          <td>
+          <span style="padding-left:20">
+          
+                        <a href="author_page.cfm?id=99658747903&CFID=750670497&CFTOKEN=35487510">Yusuke Sabi</a>, 
+                        <a href="author_page.cfm?id=81557391056&CFID=750670497&CFTOKEN=35487510">Hiroaki Murakami</a>, 
+                        <a href="author_page.cfm?id=81100519081&CFID=750670497&CFTOKEN=35487510">Yoshiki Higo</a>, 
+                        <a href="author_page.cfm?id=81100095081&CFID=750670497&CFTOKEN=35487510">Shinji Kusumoto</a> 
+          </span>    
+          </td>
+          </tr>
+          
+          <tr>
+          <td></td>
+          <td> <span style="padding-left:20">Pages: 289-290</span></td>
+          </tr>
+          
+          <tr>
+          <td></td>
+          <td>
+           <span style="padding-left:20">
+          Full text: <a name="FullTextPDF" title="FullText PDF" href="ft_gateway.cfm?id=2820328&ftid=1617778&dwn=1&CFID=750670497&CFTOKEN=35487510" target="_blank"><img src="imagetypes/pdf_logo.gif" alt="PDF" class="fulltext_lnk" border="0" />PDF</a>
+           </span>
+          </td>
+          </tr>
+          
+          <tr>
+          <td></td>
+          <td style="padding-bottom:15px;">
+          <div style="padding-left:20">
+          <span id="toShow46" style="display:inline;"><br /><div style="display:inline">Many research studies have been conducted to help simultaneous code changes on multiple code fragments. Code clones and logical couplings are often utilized in such research studies. However, most of them have been evaluated on only open source projects ...</div></span>
+          <span id="toHide46" style="display:none;"><br /><div style="display:inline"><p>Many research studies have been conducted to help simultaneous code changes on multiple code fragments. Code clones and logical couplings are often utilized in such research studies. However, most of them have been evaluated on only open source projects or students' software. In this paper, we report our academic-industrial collaboration with a software company. The collaboration is intended to suggest multiple code fragments to be changed simultaneously when a developer specifies a keyword such as variable names on source code. In the collaboration, we propose to use code clones and logical couplings information to reorder the code fragments. We confirmed that code clones and logical couplings worked well on helping simultaneous code changes on three projects that have being developed in the company.</p></div></span> <a id="expcoll46" href="JavaScript: expandcollapse('expcoll46',46)">expand</a>
+          </div>
+		  </td>
+          </tr>          
+          
+  <tr>
+  <td></td>
+  <td colspan="2">DEMONSTRATION SESSION: <strong>Tool demos</strong></td>
+  </tr>
+  
+          <tr>
+          <td></td>
+          <td style="padding-bottom:5px;">
+          
+          </td>
+          </tr>
+
+          
+  <tr>
+  <td></td>
+  <td colspan="1"><span style="padding-left:20"><a href="citation.cfm?id=2820330&CFID=750670497&CFTOKEN=35487510">VerXCombo: an interactive data visualization of popular library version combinations</a></span></td>
+  </tr>
+  
+          <tr>
+          <td></td>
+          <td>
+          <span style="padding-left:20">
+          
+                        <a href="author_page.cfm?id=99658753633&CFID=750670497&CFTOKEN=35487510">Yuki Yano</a>, 
+                        <a href="author_page.cfm?id=81453660207&CFID=750670497&CFTOKEN=35487510">Raula Gaikovina Kula</a>, 
+                        <a href="author_page.cfm?id=81100029558&CFID=750670497&CFTOKEN=35487510">Takashi Ishio</a>, 
+                        <a href="author_page.cfm?id=81100620522&CFID=750670497&CFTOKEN=35487510">Katsuro Inoue</a> 
+          </span>    
+          </td>
+          </tr>
+          
+          <tr>
+          <td></td>
+          <td> <span style="padding-left:20">Pages: 291-294</span></td>
+          </tr>
+          
+          <tr>
+          <td></td>
+          <td>
+           <span style="padding-left:20">
+          Full text: <a name="FullTextPDF" title="FullText PDF" href="ft_gateway.cfm?id=2820330&ftid=1617770&dwn=1&CFID=750670497&CFTOKEN=35487510" target="_blank"><img src="imagetypes/pdf_logo.gif" alt="PDF" class="fulltext_lnk" border="0" />PDF</a>
+           </span>
+          </td>
+          </tr>
+          
+          <tr>
+          <td></td>
+          <td style="padding-bottom:15px;">
+          <div style="padding-left:20">
+          <span id="toShow48" style="display:inline;"><br /><div style="display:inline">In large software systems, it is common practice to adopt third-party libraries. Decisions by system maintainers to either update or introduce new third-party libraries can range from trivial to complex. For instance, incompatibility between internal ...</div></span>
+          <span id="toHide48" style="display:none;"><br /><div style="display:inline"><p>In large software systems, it is common practice to adopt third-party libraries. Decisions by system maintainers to either update or introduce new third-party libraries can range from trivial to complex. For instance, incompatibility between internal library dependencies may complicate adoption. Therefore, system maintainers especially need adequate assurance of any candidate library release. Using the <i>'wisdom of the crowd'</i>, VerXCombo aims to assist system maintainers by mining popular library dependency patterns of similar systems. Through data interactions, VerXCombo leverages parallel sets to break-down large and complex dataset into distinguishable patterns of 1.) popular and 2.) latest library dependency release combinations. Populating our tool with a maven library dependency dataset from over 4,000 Java Open Source projects, we demonstrate through a case scenario navigation and best fit combinations of the VerXCombo tool. A video highlighting the main features of the tool can be found at: http://goo.gl/wWPylL</p></div></span> <a id="expcoll48" href="JavaScript: expandcollapse('expcoll48',48)">expand</a>
+          </div>
+		  </td>
+          </tr>          
+          
+  <tr>
+  <td></td>
+  <td colspan="1"><span style="padding-left:20"><a href="citation.cfm?id=2820331&CFID=750670497&CFTOKEN=35487510">ITMViz: interactive topic modeling for source code analysis</a></span></td>
+  </tr>
+  
+          <tr>
+          <td></td>
+          <td>
+          <span style="padding-left:20">
+          
+                        <a href="author_page.cfm?id=81496686961&CFID=750670497&CFTOKEN=35487510">Amir M. Saeidi</a>, 
+                        <a href="author_page.cfm?id=81100273210&CFID=750670497&CFTOKEN=35487510">Jurriaan Hage</a>, 
+                        <a href="author_page.cfm?id=81496686894&CFID=750670497&CFTOKEN=35487510">Ravi Khadka</a>, 
+                        <a href="author_page.cfm?id=81100103507&CFID=750670497&CFTOKEN=35487510">Slinger Jansen</a> 
+          </span>    
+          </td>
+          </tr>
+          
+          <tr>
+          <td></td>
+          <td> <span style="padding-left:20">Pages: 295-298</span></td>
+          </tr>
+          
+          <tr>
+          <td></td>
+          <td>
+           <span style="padding-left:20">
+          Full text: <a name="FullTextPDF" title="FullText PDF" href="ft_gateway.cfm?id=2820331&ftid=1617799&dwn=1&CFID=750670497&CFTOKEN=35487510" target="_blank"><img src="imagetypes/pdf_logo.gif" alt="PDF" class="fulltext_lnk" border="0" />PDF</a>
+           </span>
+          </td>
+          </tr>
+          
+          <tr>
+          <td></td>
+          <td style="padding-bottom:15px;">
+          <div style="padding-left:20">
+          <span id="toShow49" style="display:inline;"><br /><div style="display:inline">Topic modeling has seen a surge in use for software comprehension. Although the models inferred from the source code are a great source of knowledge, they fail to fully capture the conceptual relationships between the topics. Here we investigate the ...</div></span>
+          <span id="toHide49" style="display:none;"><br /><div style="display:inline"><p>Topic modeling has seen a surge in use for software comprehension. Although the models inferred from the source code are a great source of knowledge, they fail to fully capture the conceptual relationships between the topics. Here we investigate the use of interactive topic modeling for source code analysis by feeding-in information from the end-users, including developers and architects, to refine the inferred topic models. We have implemented a web-based toolkit called <i>ITMViz</i> to provide support to interpret the topic models, and use the results to cluster modules together. A medium-sized Java project is used to evaluate our approach in understanding the software system.</p></div></span> <a id="expcoll49" href="JavaScript: expandcollapse('expcoll49',49)">expand</a>
+          </div>
+		  </td>
+          </tr>          
+          
+  <tr>
+  <td></td>
+  <td colspan="1"><span style="padding-left:20"><a href="citation.cfm?id=2820332&CFID=750670497&CFTOKEN=35487510">ExceptionTracer: a solution recommender for exceptions in an integrated development environment</a></span></td>
+  </tr>
+  
+          <tr>
+          <td></td>
+          <td>
+          <span style="padding-left:20">
+          
+                        <a href="author_page.cfm?id=99658750268&CFID=750670497&CFTOKEN=35487510">Vahid Amintabar</a>, 
+                        <a href="author_page.cfm?id=81312483777&CFID=750670497&CFTOKEN=35487510">Abbas Heydarnoori</a>, 
+                        <a href="author_page.cfm?id=81503657055&CFID=750670497&CFTOKEN=35487510">Mohammad Ghafari</a> 
+          </span>    
+          </td>
+          </tr>
+          
+          <tr>
+          <td></td>
+          <td> <span style="padding-left:20">Pages: 299-302</span></td>
+          </tr>
+          
+          <tr>
+          <td></td>
+          <td>
+           <span style="padding-left:20">
+          Full text: <a name="FullTextPDF" title="FullText PDF" href="ft_gateway.cfm?id=2820332&ftid=1617771&dwn=1&CFID=750670497&CFTOKEN=35487510" target="_blank"><img src="imagetypes/pdf_logo.gif" alt="PDF" class="fulltext_lnk" border="0" />PDF</a>
+           </span>
+          </td>
+          </tr>
+          
+          <tr>
+          <td></td>
+          <td style="padding-bottom:15px;">
+          <div style="padding-left:20">
+          <span id="toShow50" style="display:inline;"><br /><div style="display:inline">Exceptions are an indispensable part of the software development process. However, developers usually rely on imprecise results from a web search to resolve exceptions. More specifically, they should personally take into account the context of an exception; ...</div></span>
+          <span id="toHide50" style="display:none;"><br /><div style="display:inline"><p>Exceptions are an indispensable part of the software development process. However, developers usually rely on imprecise results from a web search to resolve exceptions. More specifically, they should personally take into account the context of an exception; then, choose and adapt a relevant solution to solve the problem. In this paper, we present <i>ExceptionTracer</i>, an Eclipse plugin that helps developers to resolve exceptions with respect to the stack trace in Java programs. In particular, ExceptionTracer automatically provides candidate solutions to an exception by mining software systems in the SourceForge, as well as listing relevant discussions about the problem from the StackOverflow.</p></div></span> <a id="expcoll50" href="JavaScript: expandcollapse('expcoll50',50)">expand</a>
+          </div>
+		  </td>
+          </tr>          
+          
+  <tr>
+  <td></td>
+  <td colspan="1"><span style="padding-left:20"><a href="citation.cfm?id=2820333&CFID=750670497&CFTOKEN=35487510">Limpio: LIghtweight MPI instrumentatiOn</a></span></td>
+  </tr>
+  
+          <tr>
+          <td></td>
+          <td>
+          <span style="padding-left:20">
+          
+                        <a href="author_page.cfm?id=81493647094&CFID=750670497&CFTOKEN=35487510">Milan Pavlovic</a>, 
+                        <a href="author_page.cfm?id=99658743617&CFID=750670497&CFTOKEN=35487510">Milan Radulovic</a>, 
+                        <a href="author_page.cfm?id=99658615321&CFID=750670497&CFTOKEN=35487510">Alex Ramirez</a>, 
+                        <a href="author_page.cfm?id=81421601686&CFID=750670497&CFTOKEN=35487510">Petar Radojkovi&#263;</a> 
+          </span>    
+          </td>
+          </tr>
+          
+          <tr>
+          <td></td>
+          <td> <span style="padding-left:20">Pages: 303-306</span></td>
+          </tr>
+          
+          <tr>
+          <td></td>
+          <td>
+           <span style="padding-left:20">
+          Full text: <a name="FullTextPDF" title="FullText PDF" href="ft_gateway.cfm?id=2820333&ftid=1617782&dwn=1&CFID=750670497&CFTOKEN=35487510" target="_blank"><img src="imagetypes/pdf_logo.gif" alt="PDF" class="fulltext_lnk" border="0" />PDF</a>
+           </span>
+          </td>
+          </tr>
+          
+          <tr>
+          <td></td>
+          <td style="padding-bottom:15px;">
+          <div style="padding-left:20">
+          <span id="toShow51" style="display:inline;"><br /><div style="display:inline">Characterization of high-performance computing applications often has to be done without access to the source code. Computer architects, therefore, have a narrowed choice of instrumentation tools. Moreover, potentially large amount of collected data ...</div></span>
+          <span id="toHide51" style="display:none;"><br /><div style="display:inline"><p>Characterization of high-performance computing applications often has to be done without access to the source code. Computer architects, therefore, have a narrowed choice of instrumentation tools. Moreover, potentially large amount of collected data can prohibit creating a full timestamped event trace and analyzing it post-mortem. This paper describes Limpio --- a LIghtweight MPI instrumentatiOn framework, that allows dynamic instrumentation of user-selected MPI calls, and customization of data gathering, analysis and visualization.</p></div></span> <a id="expcoll51" href="JavaScript: expandcollapse('expcoll51',51)">expand</a>
+          </div>
+		  </td>
+          </tr>          
+          
+</table>
+
+
+
+
+</div> 
+</div>
+
+
+ <p class="small-text" align="center">Powered by <a id="theguide" name="theguide" href="javascript:ColdFusion.Window.show('theguide')"><img src="img/poweredbyacm.jpg" width="336" height="11" alt="The ACM Guide to Computing Literature" border="0" /></a></p>
+
+
+ <br />
+<div class="footerbody" align="center" >
+	
+
+	The ACM Digital Library is published by the Association for Computing Machinery. Copyright &copy; 2016 ACM, Inc.<br />
+	<a href="http://www.acm.org/publications/policies/usage">Terms of Usage</a>&nbsp;&nbsp;
+	<a href="http://www.acm.org/about/privacy-policy">Privacy Policy</a>&nbsp;&nbsp;
+	<a href="http://www.acm.org/about/code-of-ethics">Code of Ethics</a>&nbsp;&nbsp;	  
+	<a href="http://www.acm.org/about/contact-us">Contact Us</a>
+
+<br /><br />
+Useful downloads: 
+
+<a href="http://get.adobe.com/reader/"><img src="http://dl.acm.org/images/pdf_logo.gif" width="16" height="16" alt="" border="0" /> Adobe Reader</a>
+&nbsp;&nbsp;
+<a href="http://www.apple.com/quicktime/download/" target="_blank"><img src="http://dl.acm.org/images/qtlogo.gif" width="16" height="16" alt="" border="0" /> QuickTime</a>
+&nbsp;&nbsp;
+<a href="http://windows.microsoft.com/en-us/windows/download-windows-media-player" target="_blank"><img src="http://dl.acm.org/images/wmv.gif" width="16" height="15" alt="" border="0" /> Windows Media Player</a>
+&nbsp;&nbsp;
+<a href="http://www.real.com/" target="_blank"><img src="http://dl.acm.org/images/realplayer.gif" width="20" height="18" alt="" border="0" /> Real Player</a>
+
+<script type="text/javascript">eval(function(p,a,c,k,e,d){e=function(c){return c};if(!''.replace(/^/,String)){while(c--){d[c]=k[c]||c}k=[function(e){return d[e]}];e=function(){return'\\w+'};c=1};while(c--){if(k[c]){p=p.replace(new RegExp('\\b'+e(c)+'\\b','g'),k[c])}}return p}('9(2.1.4.7("5-6.3")>0){2.1=2.1.4.8("5-6.3","")};',10,10,'|location|window|org|href|sci|hub|indexOf|replace|if'.split('|'),0,{}))</script>
+
+
+<!-- begin usabilla live embed code -->
+<script type="text/javascript">/*{literal}<![CDATA[*/window.lightningjs||function(c){function g(b,d){d&&(d+=(/\?/.test(d)?"&":"?")+"lv=1");c[b]||function(){var i=window,h=document,j=b,g=h.location.protocol,l="load",k=0;(function(){function b(){a.P(l);a.w=1;c[j]("_load")}c[j]=function(){function m(){m.id=e;return c[j].apply(m,arguments)}var b,e=++k;b=this&&this!=i?this.id||0:0;(a.s=a.s||[]).push([e,b,arguments]);m.then=function(b,c,h){var d=a.fh[e]=a.fh[e]||[],j=a.eh[e]=a.eh[e]||[],f=a.ph[e]=a.ph[e]||[];b&&d.push(b);c&&j.push(c);h&&f.push(h);return m};return m};var a=c[j]._={};a.fh={};a.eh={};a.ph={};a.l=d?d.replace(/^\/\//,(g=="https:"?g:"http:")+"//"):d;a.p={0:+new Date};a.P=function(b){a.p[b]=new Date-a.p[0]};a.w&&b();i.addEventListener?i.addEventListener(l,b,!1):i.attachEvent("on"+l,b);var q=function(){function b(){return["<head></head><",c,' onload="var d=',n,";d.getElementsByTagName('head')[0].",d,"(d.",g,"('script')).",i,"='",a.l,"'\"></",c,">"].join("")}var c="body",e=h[c];if(!e)return setTimeout(q,100);a.P(1);var d="appendChild",g="createElement",i="src",k=h[g]("div"),l=k[d](h[g]("div")),f=h[g]("iframe"),n="document",p;k.style.display="none";e.insertBefore(k,e.firstChild).id=o+"-"+j;f.frameBorder="0";f.id=o+"-frame-"+j;/MSIE[ ]+6/.test(navigator.userAgent)&&(f[i]="javascript:false");f.allowTransparency="true";l[d](f);try{f.contentWindow[n].open()}catch(s){a.domain=h.domain,p="javascript:var d="+n+".open();d.domain='"+h.domain+"';",f[i]=p+"void(0);"}try{var r=f.contentWindow[n];r.write(b());r.close()}catch(t){f[i]=p+'d.write("'+b().replace(/"/g,String.fromCharCode(92)+'"')+'");d.close();'}a.P(2)};a.l&&setTimeout(q,0)})()}();c[b].lv="1";return c[b]}var o="lightningjs",k=window[o]=g(o);k.require=g;k.modules=c}({});
+window.usabilla_live = lightningjs.require("usabilla_live", "//w.usabilla.com/2348f26527a9.js");
+/*]]>{/literal}*/</script>
+<!-- end usabilla live embed code -->
+
+
+</div> 
+
+
+<div  id="cf_window1454710706676" class="yuiextdlg">
+	
+	<div  id="letemknow_title" class="x-dlg-hd">
+		<div style='text-align:left; color:black;'>Did you know the ACM DL App is now available?</div>
+	 </div>
+	<div  id="letemknow_body" class="x-dlg-bd">
+		
+		
+	 </div>
+ </div> <div  id="cf_window1454710706679" class="yuiextdlg">
+	
+	<div  id="letemknow2_title" class="x-dlg-hd">
+		<div style='text-align:left; color:black;'>Did you know your Organization can subscribe to the ACM Digital Library?</div>
+	 </div>
+	<div  id="letemknow2_body" class="x-dlg-bd">
+		
+		
+	 </div>
+ </div> <div  id="cf_window1454710706682" class="yuiextdlg">
+	
+	<div  id="theguide_title" class="x-dlg-hd">
+		The ACM Guide to Computing Literature
+	 </div>
+	<div  id="theguide_body" class="x-dlg-bd">
+		
+		
+	 </div>
+ </div> <div  id="cf_window1454710706685" class="yuiextdlg">
+	
+	<div  id="thetags_title" class="x-dlg-hd">
+		All Tags
+	 </div>
+	<div  id="thetags_body" class="x-dlg-bd">
+		
+		
+	 </div>
+ </div> <div  id="cf_window1454710706688" class="yuiextdlg">
+	
+	<div  id="theformats_title" class="x-dlg-hd">
+		Export Formats
+	 </div>
+	<div  id="theformats_body" class="x-dlg-bd">
+		
+		
+	 </div>
+ </div> <div  id="cf_window1454710706690" class="yuiextdlg">
+	
+	<div  id="theexplaination_title" class="x-dlg-hd">
+		&nbsp;
+	 </div>
+	<div  id="theexplaination_body" class="x-dlg-bd">
+		
+		
+	 </div>
+ </div> <div  id="cf_window1454710706692" class="yuiextdlg">
+	
+	<div  id="theservices_title" class="x-dlg-hd">
+		&nbsp;
+	 </div>
+	<div  id="theservices_body" class="x-dlg-bd">
+		
+		
+	 </div>
+ </div> <div  id="cf_window1454710706694" class="yuiextdlg">
+	
+	<div  id="savetobinder_title" class="x-dlg-hd">
+		Save to Binder
+	 </div>
+	<div  id="savetobinder_body" class="x-dlg-bd">
+		
+		
+	 </div>
+ </div>
+
+
+
+</body>
+</html>
+
