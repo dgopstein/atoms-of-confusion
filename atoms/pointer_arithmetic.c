@@ -32,10 +32,25 @@ void main4() {
   printf("%d\n", *V2);
 }
 
+void main5() {
+  char *V1 = "abcdef" + 2;
+  char *V2 = V1 - 1;
+  printf("%s\n", V2);
+}
+
+void main6() {
+  char *V1 = &("abcdef"[2]);
+  char *V2 = V1;
+  printf("%s\n", V1);
+}
+
 int main() {
   main1();
   main2();
 
   main3();
   main4();
+
+  main5();
+  main6();
 }

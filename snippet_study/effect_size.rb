@@ -112,7 +112,7 @@ signed_rank =
     cs, ncs = qid_scores.map(&:last).transpose.deep_map_values(&:to_f)
     p cs
     p ncs
-    score = r.wilcox_test(cs, ncs, paired: true, conf_int: TRUE)
+    score = r.wilcox_test(cs, ncs, paired: true, conf_int: true)
     #score = r.coin_wilcoxsign_test(cs, ncs, paired: true, conf_int: TRUE)
     p score
     #ranks = rank(sorted_diffs)

@@ -4,7 +4,7 @@
 void main1() {
     char *V1 = "qwertyuiop"
     #define M1
-    "zxcvbnm,.";
+    +"zxcvbnm,.";
 
     printf("%s\n", V1);
 }
