@@ -25,24 +25,44 @@ XPATHS_COMPORG = {
   #abstract: '',
 }
 
-XPATHS = XPATHS_COMPORG
+XPATHS_DBLP = {
+  title: '//li[@class="entry inproceedings"]//span[@class="title"]',
+  author: ['//li[@class="entry inproceedings"]//div[@class="data"]',
+    ->(x){x.text.split(':').first}],
+  link: ['//li[@class="entry inproceedings"]//li[@class="drop-down"]/div/img | //li[@class="drop-down"]/div/a[contains(@href, ".org/10.1109")]/@href', ->(x){ x.text.empty? ? "no link" : 'http://ieeexplore.ieee.org/xpl/articleDetails.jsp?arnumber='+x.text.split('.').last}]
+  #abstract: '',
+}
 
-comporg_years.each do |year|
-  # Read the proceedings webpage
-  toc_url = "icpc#{year}.html"
-  toc = Nokogiri::HTML(open(toc_url))
+years = {acm: acm_years, XPATHS_COMPORG => comporg_years, XPATHS_DBLP => dblp_years}
 
-  data = XPATHS.shallow_map_values do |col, (xpath, cleanup)| 
-    res = toc.xpath(xpath)
-    if cleanup then res.map(&cleanup) else res end
-  end
+year_lookup = years.flat_map{|fmt, ys| ys.map{|year| [year, fmt]}}.to_h
 
-  csv = CSV.generate do |csv|
-    data.values.transpose.each do |row|
-      csv << [year] + row
+dblp_years.each do |year|
+  begin
+    STDERR.puts "Processing #{year}"
+
+    # Parse the proceedings webpage
+    toc_url = "html/icpc#{year}.html"
+    toc = Nokogiri::HTML(open(toc_url))
+
+    # Extract data from the doc
+    xpaths = year_lookup[year]
+    data = xpaths.shallow_map_values do |col, (xpath, cleanup)| 
+      res = toc.xpath(xpath)
+      if cleanup then res.map(&cleanup) else res end
     end
-  end
 
-  File.write("icpc#{year}.csv", csv)
+    # Generate CSV
+    csv = CSV.generate do |csv|
+      data.values.transpose.each do |row|
+        csv << [year] + row
+      end
+    end
+
+    # Write to disk
+    File.write("csv/icpc#{year}.csv", csv)
+  rescue Exception => e
+    puts e
+  end
 end
 
