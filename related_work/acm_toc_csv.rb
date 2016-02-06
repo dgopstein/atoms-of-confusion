@@ -5,12 +5,10 @@ require 'open-uri'
 require 'nokogiri'
 require 'csv'
 
-toc_url = 'icpc2013.html'
-toc = Nokogiri::HTML(open(toc_url))
 
 acm_years = [2014, 2015]
-comporg_years = [1996, 1997, 2003, 2006..2008, 2010..2013].map(&:to_a).flatten
-dblp_years = [1998..2002, 2004..2005, 2009].map(&:to_a).flatten
+comporg_years = [1996, 1997, 2003, 2006..2008, 2010..2013].map{|x| x.to_a rescue x }.flatten
+dblp_years = [1998..2002, 2004..2005, 2009].map{|x| x.to_a rescue x }.flatten
 
 XPATHS_ACM = {
   title: '//td/span/a[starts-with(@href, "citation")]/text()',
@@ -29,20 +27,22 @@ XPATHS_COMPORG = {
 
 XPATHS = XPATHS_COMPORG
 
-length = 43
+comporg_years.each do |year|
+  # Read the proceedings webpage
+  toc_url = "icpc#{year}.html"
+  toc = Nokogiri::HTML(open(toc_url))
 
-data = XPATHS.shallow_map_values do |col, (xpath, cleanup)| 
-  res = toc.xpath(xpath)
-  if cleanup then res.map(&cleanup) else res end
-end
-
-#p data.values.all?{|row| row.size == length}
-#p data.values.map(&:last)
-
-csv = CSV.generate do |csv|
-  data.values.transpose.each do |row|
-    csv << row
+  data = XPATHS.shallow_map_values do |col, (xpath, cleanup)| 
+    res = toc.xpath(xpath)
+    if cleanup then res.map(&cleanup) else res end
   end
+
+  csv = CSV.generate do |csv|
+    data.values.transpose.each do |row|
+      csv << [year] + row
+    end
+  end
+
+  File.write("icpc#{year}.csv", csv)
 end
 
-puts csv
