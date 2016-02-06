@@ -8,6 +8,10 @@ require 'csv'
 toc_url = 'icpc2013.html'
 toc = Nokogiri::HTML(open(toc_url))
 
+acm_years = [2014, 2015]
+comporg_years = [1996, 1997, 2003, 2006..2008, 2010..2013].map(&:to_a).flatten
+dblp_years = [1998..2002, 2004..2005, 2009].map(&:to_a).flatten
+
 XPATHS_ACM = {
   title: '//td/span/a[starts-with(@href, "citation")]/text()',
   author: ['//ancestor::span[a[starts-with(@href, "author_page")]]/text()', ->(s){s.gsub(/\s+/, ' ').gsub(/^ | $/, '')}],
