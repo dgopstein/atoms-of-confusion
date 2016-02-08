@@ -15,5 +15,15 @@ int main() {
   a = ++b;
   printf("%d, %d\n", a, b);
 
+  char *c = "cvz";
+  printf("%c, %c, %c\n", *c, *c++, *c);
+
+  char *d = "cvz\n";
+  for (int i = 0; *d; putchar(*d++)) ;
+
+  char *e = "cvz\n";
+  for (int i = 0; *e; putchar(*e)) e+=1;
+
+
   return 0;
 }
