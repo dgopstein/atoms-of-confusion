@@ -48,50 +48,50 @@ void main4() {
 
 // Macro conditional assignment: Confusing
 void main5() {
-  int A = 1, B = 2;
+  int V1 = 1, V2 = 2;
 
-  if (A > B) {
-    #define A 3
+  if (V1 < V2) {
+    #define M1 1
+    #define M2 2
   } else {
-    #define B 4
+    #define M1 2
+    #define M2 1
   }
   
-  printf("%d %d\n", A, B);
+  printf("%d %d\n", M1, M2);
 }
 
 // Macro conditional assignment: Non-Confusing
 void main6() {
-  int C = 1, D = 2;
+  #define M1 2
+  #define M2 1
 
-  #define C 3
-  #define D 4
-
-  printf("%d %d\n", C, D);
+  printf("%d %d\n", M1, M2);
 }
 
 // Macro reassignment: Confusing
 void main7() {
-  int V1, E = 1;
+  int V1 = 0;
 
-  for (int V2 = 0; V2 < 3; V2++) {
-    #define E E+1
-    V1 = E;
+  for (int V2 = 0; V2 < 2; V2++) {
+    #define M1(x) x+1
+    V1 = M1(0);
   }
 
-  printf("%d %d\n", V1, E);
+  printf("%d\n", V1);
 }
 
 // Macro reassignment: Non-Confusing
 void main8() {
-  int V1, F = 1;
+  int V1 = 0;
 
-  #define F F+1
+  #define M1(x) x+1
 
   for (int V2 = 0; V2 < 3; V2++) {
-    V1 = F;
+    V1 = M1(0);
   }
 
-  printf("%d %d\n", V1, F);
+  printf("%d\n", V1);
 }
 
 int main() {

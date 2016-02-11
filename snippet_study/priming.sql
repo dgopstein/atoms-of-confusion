@@ -23,3 +23,8 @@ where c.type = 'Confusing'
 group by uc2.timestamp < uc.timestamp, uc.correct
 -- ,ct.tagid -- By Atom
 ;
+
+select userid, codeid, timestamp, (
+ SELECT count(*)
+ FROM usercode t WHERE t.timestamp < uc.timestamp 
+) as rank from usercode uc where userid = 1 order by rank;
