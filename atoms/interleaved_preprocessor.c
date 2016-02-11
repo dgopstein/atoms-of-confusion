@@ -4,7 +4,7 @@
 void main1() {
     char *V1 = "qwertyuiop"
     #define M1
-    +"zxcvbnm,.";
+    "zxcvbnm,.";
 
     printf("%s\n", V1);
 }
@@ -46,6 +46,54 @@ void main4() {
   printf("%d %d\n", V1, V2);
 }
 
+// Macro conditional assignment: Confusing
+void main5() {
+  int A = 1, B = 2;
+
+  if (A > B) {
+    #define A 3
+  } else {
+    #define B 4
+  }
+  
+  printf("%d %d\n", A, B);
+}
+
+// Macro conditional assignment: Non-Confusing
+void main6() {
+  int C = 1, D = 2;
+
+  #define C 3
+  #define D 4
+
+  printf("%d %d\n", C, D);
+}
+
+// Macro reassignment: Confusing
+void main7() {
+  int V1, E = 1;
+
+  for (int V2 = 0; V2 < 3; V2++) {
+    #define E E+1
+    V1 = E;
+  }
+
+  printf("%d %d\n", V1, E);
+}
+
+// Macro reassignment: Non-Confusing
+void main8() {
+  int V1, F = 1;
+
+  #define F F+1
+
+  for (int V2 = 0; V2 < 3; V2++) {
+    V1 = F;
+  }
+
+  printf("%d %d\n", V1, F);
+}
+
 int main() {
   main1();
   main2();
@@ -53,8 +101,11 @@ int main() {
   main3();
   main4();
 
-  //main5();
-  //main6();
+  main5();
+  main6();
+
+  main7();
+  main8();
 }
 
 // trigraphs: Confusing

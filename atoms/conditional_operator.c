@@ -61,10 +61,35 @@ void main4() {
   printf("%d\n", V4);
 }
 
+// Double Assignment: Confusing
+void main5() {
+  int V1 = 8, V2 = 3, V3 = 9;
+
+  V1 = V2 > V1 ? V2 = V3 : (V3 = V2);
+
+  printf("%d %d %d\n", V1, V2, V3);
+}
+
+// Double Assignment: Non-Confusing
+void main6() {
+  int V1 = 8, V2 = 3, V3 = 9;
+
+  if (V2 > V1) {
+    V1 = V2 = V3;
+  } else {
+    V1 = V3 = V2;
+  }
+
+  printf("%d %d %d\n", V1, V2, V3);
+}
+
 int main() {
   main1();
   main2();
 
   main3();
   main4();
+
+  main5();
+  main6();
 }
