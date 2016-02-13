@@ -24,7 +24,18 @@ group by uc2.timestamp < uc.timestamp, uc.correct
 -- ,ct.tagid -- By Atom
 ;
 
-select userid, codeid, timestamp, (
- SELECT count(*)
- FROM usercode t WHERE t.timestamp < uc.timestamp 
-) as rank from usercode uc where userid = 1 order by rank;
+
+.mode csv
+select count(*), correct, (s.r2 - s.r1) / 5 as distance from (
+  select uc.userid, uc.codeid, uc.correct --, uc.timestamp
+  , (SELECT count(*) r FROM usercode t WHERE t.timestamp < uc.timestamp) r1
+  , (SELECT count(*) r FROM usercode t WHERE t.timestamp < uc2.timestamp) r2
+  from usercode uc
+  join code c on uc.codeid = c.id
+  join usercode uc2 on uc.userid = uc2.userid and uc2.codeid = c.pair
+  join codetags ct on c.id = ct.codeid join tag t on ct.tagid = t.id
+  where c.type = 'Confusing' order by r1
+) s
+GROUP BY correct, distance
+order by distance
+;
