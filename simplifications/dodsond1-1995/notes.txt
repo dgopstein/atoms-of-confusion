@@ -12,5 +12,7 @@ transformations
 0060: arithmetic to logic
 0070: join string literal
 0080: arithmetic to logic
+0090: remove commas from afterthoughts
+0100: remove commas from for-initializations
 
 
