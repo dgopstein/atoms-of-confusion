@@ -32,9 +32,19 @@ int main() {
   char *e = "cvz\n";
   for (int i = 0; *e; putchar(*e)) e+=1;
 
+  printf("\n--------------\n");
   for (int i = 0; (i % 2 ? i * 3 : i * 2) < 10; i++) printf("%d\n", i);
-
   for (int i = 0; f(i) < 10; i++) printf("%d\n", i);
+  printf("--------------\n\n");
+
+  int f = 1;
+  int g = f++ + f++;
+  printf("%d %d\n", g, f);
+
+  f = 1;
+  g = f + f + 1;
+  f += 2;
+  printf("%d %d\n", g, f);
 
   return 0;
 }

@@ -14,5 +14,9 @@ transformations
 0080: arithmetic to logic
 0090: remove commas from afterthoughts
 0100: remove commas from for-initializations
+0110: remove ternary from for-initialization
+0120: remove ternary
+0130: remove post-increment
+0140: remove ternary
 
 
