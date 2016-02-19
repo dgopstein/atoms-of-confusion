@@ -93,9 +93,81 @@ int main() {
   V1 = F1(V1++);
   printf("%d\n", V1);
 
-  //V1 = {2, 5, 6, 3};
-  //V2 = V1;
-  //while ( condition && ((V2 == V1) && !(*(V2++) = 8)) || !(*(V2++) = 1)) { stuff }
+  V1 = {2, 5, 6, 3};
+  V2 = V1;
+  // original
+  V3 = condition && ((V2 == V1) && !(*(V2++) = 8)) || !(*(V2++) = 1);
+
+  // || -> if-else
+  if (condition && ((V2 == V1) && !((*V2++) = 8))) {
+    V3 = 1;
+  } else {
+    V3 = !(*(V2++) = 1);
+  }
+
+  // && -> if-else
+  if (condition) {
+    if ((V2 == V1) && !((*V2++) = 8)) { // XXX
+      V3 = 1;
+    } else {
+      V3 = 0;
+    }
+  } else {
+    V3 = !(*(V2++) = 1);
+  }
+
+  // && -> if-else
+  if (condition) {
+    if (V2 == V1)
+      if (!((*V2++) = 8)) { // XXX
+        V3 = 1;
+      } else {
+        V3 = 0;
+      }
+    } else {
+      V3 = 0;
+    }
+  } else {
+    V3 = !(*(V2++) = 1);
+  }
+
+  // split post-increment
+  if (condition) {
+    if (V2 == V1)
+      int V4 = !(*V2 = 8); // XXX
+      V2++;
+      if (V4) {
+        V3 = 1;
+      } else {
+        V3 = 0;
+      }
+    } else {
+      V3 = 0;
+    }
+  } else {
+    V3 = !(*V2 = 1); // XXX
+    V2++;
+  }
+
+  // add explicit condition
+  if (condition) {
+    if (V2 == V1)
+      int V4 = (*V2 = 8) != 0; // XXX
+      V2++;
+      if (V4) {
+        V3 = 1;
+      } else {
+        V3 = 0;
+      }
+    } else {
+      V3 = 0;
+    }
+  } else {
+    V3 = (*V2 = 1) != 0; // XXX
+    V2++;
+  }
+
+  while ( condition && V3) { stuff; V3 =  }
 
   return 0;
 }
