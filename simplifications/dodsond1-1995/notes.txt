@@ -18,5 +18,6 @@ transformations
 0120: remove ternary
 0130: remove post-increment
 0140: remove ternary
+0150: move ternary to function
 
 
