@@ -53,7 +53,7 @@ void main4() {
   printf("%d %d\n", V1, V2);
 }
 
-// Confusing:
+// Confusing: loop
 void main5() {
   int V1 = 3;
   int V2 = 5;
@@ -66,7 +66,7 @@ void main5() {
   printf("%d %d %d\n", V1, V2, V3);
 }
 
-// Non-Confusing:
+// Non-Confusing: loop
 void main6() {
   int V1 = 3;
   int V2 = 5;

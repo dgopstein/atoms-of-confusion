@@ -19,5 +19,6 @@ transformations
 0130: remove post-increment
 0140: remove ternary
 0150: move ternary to function
+0160: logic as control flow
 
 
