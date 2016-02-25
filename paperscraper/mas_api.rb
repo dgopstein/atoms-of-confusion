@@ -15,32 +15,38 @@ class MasJsonApi
   end
 
   def url
-    BASE_URL + "?AppId=#@key&ResultObjects=publication&PublicationContent=title,author" + "&StartIdx=1&EndIdx=2"
+    BASE_URL + "?AppId=#@key&StartIdx=1&EndIdx=2"
   end
 
   def query_by_title(title)
-    query_url = "#{url}&FullTextQuery=#{title}"
-    parse_json(open(query_url).read)
+    query_url = "#{url}&ResultObjects=publication&PublicationContent=title&FullTextQuery=#{title}"
+    #p query_url
+    json = parse_json(open(query_url).read)
+    #p json
+    json
   end
 
   def dg(h, a)
     h.deep_get(DeepEnumerable.deep_key_from_array(a))
   end
 
-  def title_to_id(title)
+  def title_to_ids(title)
     response = query_by_title(title)
     results = dg(response, ['d', 'Publication', 'Result'])
-    results.map{|r| r['ID']}
+    results.map{|r| r['ID']} if results
   end
 
   def get_citations(pub_id)
-    query_url = "http://academic.research.microsoft.com/json.svc/search?AppId=Your_AppID&PublicationID=#{pub_id}&ResultObjects=Publication&ReferenceType=Citation&StartIdx=1&EndIdx=10&OrderBy=Year"
-    open(query_url.read)
+    query_url = "#{url}&ResultObjects=Publication&ReferenceType=Citation&PublicationID=#{pub_id}"
+    p query_url
+    json = parse_json(open(query_url).read)
+    json
   end
 end
 
 if __FILE__ == $PROGRAM_NAME
   key = open('MAS_API_KEY.txt').each_line.first.strip
   mja = MasJsonApi.new(key)
-  p mja.title_to_id('The effectiveness of source code obfuscation: An experimental assessment.')
+  p mja.title_to_ids('The effectiveness of source code obfuscation: An experimental assessment.')
+  p mja.get_citations(2460494)
 end
