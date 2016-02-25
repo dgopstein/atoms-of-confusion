@@ -1,4 +1,7 @@
 .*.swp
+.*.swo
+
+MAS_API_KEY.txt
 
 bin/
 
