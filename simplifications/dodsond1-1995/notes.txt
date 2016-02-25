@@ -20,5 +20,6 @@ transformations
 0140: remove ternary
 0150: move ternary to function
 0160: logic as control flow
+0170: constant assignment
 
 
