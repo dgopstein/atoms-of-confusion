@@ -1,0 +1,34 @@
+indentation: 4
+replace macro: 3
+replace constant: 3
+simplify expression: 6
+join string literal: 2
+remove commas: 11
+remove ternary: 17
+post-increment: 3
+pre-increment: 1
+logic control flow: 2
+constant assignment: 1
+add curly braces: 3
+interleaved preprocessor: 2
+change literal (ascii/char, oct/dec): 7
+add parens: 12
+remove redundant code (self-assignment, empty if/else): 7
+predicate assignment: 1
+combine nested predicates: 1
+factor expression to variable: 2
+explicit predicate: 2
+computation as logic: 13
+dead code: 2
+merge sequential assignment: 1
+type reminder: 1
+long expression: 5
+global variables: 3
+reused variables: 1
+swap array subscript: 1
+array as independent variables: 1
+un-simplify expression: 2
+split value and side-effect: 1
+int truncation: 1
+loop to if: 2
+
