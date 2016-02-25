@@ -1,0 +1,23 @@
+year	title	authors
+2009	The effectiveness of source code obfuscation: An experimental assessment.	Mariano Ceccato, Massimiliano Di Penta, Jasvir Nagra, Paolo Falcarin, Filippo Ricca, Marco Torchiano, Paolo Tonella
+1997	Building a Research Infrastructure for Program Comprehension Observations	Steve Lang, Anneliese von Mayrhauser
+1997	Towards Standard for Experiments in Program Comprehension	Vaclav Rajlich, George S. Cowan
+2012	Supporting comprehension experiments with human subjects	Feigenspan, J. ; Siegmund, N.
+2007	Designing your Next Empirical Study on Program Comprehension	Massimiliano Di Penta, R.E.K. Stirewalt, Eileen Kraemer
+2015	From obfuscation to comprehension	Eran Avidan, Dror G. Feitelson
+2006	Experimental Settings in Program Comprehension: Challenges and Open Issues	Giuseppe A. Di Lucca, Massimiliano Di Penta
+2006	Understanding Obfuscated Code	Matias Madou, Ludo Van Put, Koen De Bosschere
+2012	Program complexity metrics and programmer opinions	Katzmarski, B. ; Koschke, R.
+2005	Presenting Micro-Theories of Program Comprehension in Pattern Form.	Adam Murray, Timothy C. Lethbridge
+2003	Identifying Comprehension Bottlenecks Using Program Slicing and Cognitive Complexity Metrics	Juergen Rilling, Tuomas Klemola
+2003	Blooms' Taxonomy: A Framework for Assessing Programmers' Knowledge of Software Systems	Jim Buckley, Chris Exton
+2003	Observing and Measuring Cognitive Support: Steps Toward Systematic Tool Evaluation and Engineering	Andrew Walenstein
+2002	An Empirical Study of the Effect of Semantic Differences on Programmer Comprehension.	David Binkley
+2001	Side-Effect Removal Transformation.	Mark Harman, Malcolm Munro, Lin Hu, Xingyuan Zhang
+1999	Program Simplification as a Means of Approximating Undecidable Propositions.	Mark Harman, Chris Fox, Robert M. Hierons, David Binkley, Sebastian Danicic
+1997	Code Understanding through Program Transformation for Reusable Component Identification	Hongji Yang, Paul Luker, William C. Chu
+2014	On the effect of code regularity on comprehension	Ahmad Jbara, Dror G. Feitelson
+2011	Toward Intuitive Programming Languages	Andreas Stefik, Susanna Siebert, Kim Slattery, Melissa Stefik
+2008	Impact of Limited Memory Resources	Dave Binkley, Dawn Lawrie, Steve Maex, Christopher Morrell
+2005	Theories, Methods and Tools in Program Comprehension: Past, Present and Future.	Margaret-Anne D. Storey
+2000	Understanding Program Understanding.	Francoise Balmas, Harald Wertz, Janice Singer
