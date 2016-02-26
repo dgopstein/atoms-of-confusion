@@ -6,6 +6,15 @@ require 'pp'
 
 SLEEP_DURATION = 5
 
+if !ARGV[0]
+  puts
+  puts "Usage: ./scholarscraper.rb icpc.csv"
+  puts
+  puts "Your csv must be tab-delimited (??) and have the following headers: Year, Title, Authors"
+  puts "Any column can be left blank for convenience"
+  exit 1
+end
+
 papers = CSV.table(ARGV[0], col_sep: "\t").map(&:to_h)
 
 def paper_cache_name(paper)
