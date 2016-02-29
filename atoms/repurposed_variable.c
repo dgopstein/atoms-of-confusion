@@ -28,21 +28,29 @@ void main2() {
 
 // Confusing: reusing incrementer
 void main3() {
+  int V3 = 0;
+
   for (int V1 = 0; V1 < 2; V1++) {
     for (int V2 = 0; V1 < 2; V1++) {
-      printf("%d %d\n", V1, V2);
+      V3 = 4*V1 + V2;
     }
   }
+
+  printf("%d\n", V3);
 }
 
 // Non-Confusing: reusing incrementer
 void main4() {
+  int V3 = 0;
+
   for (int V1 = 0; V1 < 2; V1++) {
     for (int V2 = 0; V2 < 2; V2++) {
-      printf("%d %d\n", V1, V2);
+      V3 = 4*V1 + V2;
       V1 = V2;
     }
   }
+
+  printf("%d\n", V3);
 }
 
 // Confusing: mixing conditional and ordinal
