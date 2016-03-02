@@ -4,9 +4,7 @@
 void main1() {
   int V1 = 2;
 
-  if (0)
-    V1++;
-  V1++;
+  if (0) V1++; V1++;
 
   printf("%d\n", V1);
 }
@@ -15,10 +13,7 @@ void main1() {
 void main2() {
   int V1 = 2;
 
-  if (0) {
-    V1++;
-  }
-  V1++;
+  if (0) { V1++; } V1++;
 
   printf("%d\n", V1);
 }
@@ -28,9 +23,7 @@ void main3() {
   int V1 = 4;
 
   int V2 = 0;
-  while (V2 < 3)
-    V2++;
-  V1++;
+  while (V2 < 3) V2++; V1++;
 
   printf("%d %d\n", V1, V2);
 }
@@ -40,10 +33,7 @@ void main4() {
   int V1 = 4;
 
   int V2 = 0;
-  while (V2 < 3) {
-    V2++;
-  }
-  V1++;
+  while (V2 < 3) { V2++; } V1++;
 
   printf("%d %d\n", V1, V2);
 }
@@ -52,9 +42,7 @@ void main4() {
 void main5() {
   int V1 = 3;
 
-  for (int V2 = 0; V2 < 3; V2++)
-    V1++;
-  V1++;
+  for (int V2 = 0; V2 < 3; V2++) V1++; V1++;
 
   printf("%d\n", V1);
 }
@@ -63,15 +51,10 @@ void main5() {
 void main6() {
   int V1 = 3;
 
-  for (int V2 = 0; V2 < 3; V2++) {
-    V1++;
-  }
-  V1++;
+  for (int V2 = 0; V2 < 3; V2++) { V1++; } V1++;
 
   printf("%d\n", V1);
 }
-
-// Confusing: function declaration
 
 int main() {
   main1();
