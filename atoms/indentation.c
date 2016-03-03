@@ -48,28 +48,38 @@ void main4() {
   printf("%d\n", V2);
 }
 
-// Confusing: while
+//Confusing: Dangling Else
 void main5() {
-  int V1 = 0;
+  int V1 = 2;
+  int V2 = 0;
+  int V3 = 3;
 
-  for (int V2 = 0; V2 < 3; V2++) {
-    V1 = V1 + 2;
+  if (V1) {
+    if (V2) {
+      V3 = V3 + 2;
+  } else {
+    V3 = V3 + 4;
   }
-    V1 = V1 + 1;
+  }
 
-  printf("%d\n", V1);
+  printf("%d\n", V3);
 }
 
-// Non-Confusing: while
+// Non-Confusing: Dangling Else
 void main6() {
-  int V1 = 0;
+  int V1 = 2;
+  int V2 = 0;
+  int V3 = 3;
 
-  for (int V2 = 0; V2 < 3; V2++) {
-    V1 = V1 + 2;
+  if (V1) {
+    if (V2) {
+      V3 = V3 + 2;
+    } else {
+      V3 = V3 + 4;
+    }
   }
-  V1 = V1 + 1;
 
-  printf("%d\n", V1);
+  printf("%d\n", V3);
 }
 
 int main() {
