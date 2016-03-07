@@ -44,7 +44,7 @@ void main4() {
   if (V1 >= 0) {
     V2 = V1;
   } else {
-    V2 = UINT_MAX - V1;
+    V2 = UINT_MAX + (V1 + 1);
   }
 
   int V3;
