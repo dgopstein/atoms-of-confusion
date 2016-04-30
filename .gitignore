@@ -6,3 +6,4 @@ MAS_API_KEY.txt
 bin/
 
 .DS_Store
+.Rproj.user
