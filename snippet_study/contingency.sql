@@ -18,7 +18,7 @@
 --group by t.id, c_id;
 
 
-select t.tag, uc.codeid as c_id, uc2.codeid as nc_id,
+select t.tag as atom, t.tag||'_'||uc.codeid as question, uc.codeid as c_id, uc2.codeid as nc_id,
 SUM(CASE WHEN uc.correct||uc2.correct = 'TT' THEN 1 ELSE 0 END) as TT,
 SUM(CASE WHEN uc.correct||uc2.correct = 'TF' THEN 1 ELSE 0 END) as TF,
 SUM(CASE WHEN uc.correct||uc2.correct = 'FT' THEN 1 ELSE 0 END) as FT,
