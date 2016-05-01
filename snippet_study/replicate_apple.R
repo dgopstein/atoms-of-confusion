@@ -11,19 +11,24 @@ contingencyQuery <- paste(readLines('contingency.sql'), collapse = "\n")
 
 contingencies <- dbGetQuery( con, contingencyQuery )
 
+printContingency <- function(name, alpha, res, contingency) {
+    writeLines(sprintf("%-35s: %d - %f  (%s)", name, res['p.value'] < alpha, res['p.value'], paste(format(contingency, width=3), collapse=" ")))
+}
+
 mcnemars <- function(contingencies) {
-  # question <- 'add_CONDITION_question_1'
   for (question in contingencies$question) {
     questionCont <- contingencies[contingencies$question == question,]
     
     # https://stat.ethz.ch/R-manual/R-devel/library/stats/html/mcnemar.test.html
-    contingency <- matrix(c(questionCont$TT, questionCont$FT, questionCont$TF, questionCont$FF),
-             nrow = 2,
-             dimnames = list("Confusing" = c("C T", "C F"),
-                             "Non-Confusing" = c("NC T", "NC F")))
-    
-    res <- mcnemar.test(contingency)
-    writeLines(sprintf("%-35s: %d - %f", question, res['p.value'] < 0.05, res['p.value']))
+    #contingency <- matrix(c(questionCont$TT, questionCont$FT, questionCont$TF, questionCont$FF),
+    #         nrow = 2,
+    #         dimnames = list("Confusing" = c("C T", "C F"),
+    #                         "Non-Confusing" = c("NC T", "NC F")))
+
+    contingency <- matrix(c(questionCont$TT,  questionCont$TF, questionCont$FT,questionCont$FF), 2, 2)
+    res <- mcnemar.test(contingency, correct=FALSE)
+
+    printContingency(question, alpha = 0.05, res, contingency)
   }
 }
 
@@ -43,7 +48,7 @@ signtest <- function(contingencies) {
     alpha <- 0.05
     res <- binom.test(successes, total, p = 0.5, alternative = "greater", conf.level = 1 - alpha)
     
-    writeLines(sprintf("%-35s: %d - %f  (%s)", atom, res['p.value'] < alpha, res['p.value'], paste(format(contingency, width=3), collapse=" ")))
+    printContingency(atom, alpha, res, contingency)
   }
 }
 
