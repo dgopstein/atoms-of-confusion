@@ -23,14 +23,14 @@ mcnemars <- function(contingencies) {
                              "Non-Confusing" = c("NC T", "NC F")))
     
     res <- mcnemar.test(contingency)
-    print(sprintf("%-35s: %d - %f", question, res['p.value'] < 0.05, res['p.value']))
+    writeLines(sprintf("%-35s: %d - %f", question, res['p.value'] < 0.05, res['p.value']))
   }
 }
 
 mcnemars(contingencies)
 
 signtest <- function(contingencies) {
-  print(sprintf("%-35s: %s - %s  (%s)", "atom", 'sgnfct', 'pvalue', "(TT TF FT FF)"))
+  writeLines(sprintf("%-35s: %s - %s  (%s)", "atom", 'sgnfct', 'pvalue', "(TT TF FT FF)"))
   
   # There are 3 questions for each atom
   for (atom in unique(contingencies$atom)) {
@@ -49,7 +49,7 @@ signtest <- function(contingencies) {
     successes <- sum(sign$FT)
     res <- binom.test(successes, total, p = probabilityOfSuccess, alternative = "greater", conf.level = 0.95)
     
-    print(sprintf("%-35s: %d - %f  (%s)", atom, res['p.value'] < 0.05, res['p.value'], paste(format(contingency, width=3), collapse=" ")))
+    writeLines(sprintf("%-35s: %d - %f  (%s)", atom, res['p.value'] < 0.05, res['p.value'], paste(format(contingency, width=3), collapse=" ")))
   }
 }
 
