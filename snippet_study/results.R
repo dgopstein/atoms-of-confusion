@@ -4,6 +4,30 @@ library(DBI)
 library("data.table")
 library('plyr')
 
+
+#     counts <- list()
+#     lst <- list(1, 4, 6, 10)
+#     
+#     for (i in lst) {
+#       arbitraryKey <- toString(i %% 3)
+#       arbitraryCondition <- i %% 2 == 0
+#       
+#       if (arbitraryCondition) {
+#         if (!(arbitraryKey %in% names(counts))) {
+#           counts[[arbitraryKey]] <- 0
+#         }
+#         
+#         counts[[arbitraryKey]] <- counts[[arbitraryKey]] + 1
+#       }
+#     }
+# 
+# print(counts)
+
+
+# add += operator
+# http://stackoverflow.com/questions/5738831/r-plus-equals-and-plus-plus-equivalent-from-c-c-java-etc
+`%+=%` = function(e1,e2) eval.parent(substitute(e1 <- e1 + e2))
+
 con <- dbConnect(drv=RSQLite::SQLite(), dbname="confusion.db")
 alltables <- dbListTables(con)
 
@@ -11,31 +35,63 @@ contingencyQuery <- paste(readLines('contingency.sql'), collapse = "\n")
 
 contingencies <- dbGetQuery( con, contingencyQuery )
 
-printContingency <- function(name, alpha, res, contingency) {
-    writeLines(sprintf("%-35s: %d - %f  (%s)", name, res['p.value'] < alpha, res['p.value'], paste(format(contingency, width=3), collapse=" ")))
+phi <- function(chi2, n) {
+  sqrt(chi2/n)
 }
 
-mcnemars <- function(contingencies) {
+printContingency <- function(name, alpha, res, contingency) {
+  sig <- is.significant(res, alpha)
+  es <- phi(res$statistic, sum(contingency))
+  contStr <- paste(format(contingency, width=3), collapse=" ")
+  
+  writeLines(sprintf("%-35s: %d - (p:%f, es:%0.2f)  (%s)", name, sig, res$p.value, es, contStr))
+}
+
+is.significant <- function(res, alpha) {
+  #ret <- sapply(res['p.value'], is.finite) && res['p.value'] < alpha
+  ret <- is.finite(res$p.value) && res$p.value < alpha
+  #writeLines(paste(ret))
+  return(ret)
+}
+
+
+byQuestion <- function(contingencies) {
+  sigCounts <- list()
   for (question in contingencies$question) {
     questionCont <- contingencies[contingencies$question == question,]
     
     contingency <- matrix(c(questionCont$TT,  questionCont$TF, questionCont$FT,questionCont$FF), 2, 2)
     res <- mcnemar.test(contingency, correct=FALSE)
 
-    printContingency(question, alpha = 0.05, res, contingency)
+    #es <- assocstats(contingency)
+
+    alpha <- 0.05
+
+    #printContingency(question, alpha, res, contingency)
+
+    if (!(questionCont$atom %in% names(sigCounts))) {
+      sigCounts[[questionCont$atom]] <- 0
+    }
+    if (is.significant(res, alpha)) {
+      sigCounts[[questionCont$atom]] %+=% 1
+    }
+  }
+
+  for (atom in names(sigCounts)) {
+    writeLines(sprintf("counts %d - %s", sigCounts[[atom]], atom))
   }
 }
 
-mcnemars(contingencies)
-
-signtest <- function(contingencies) {
+byAtom <- function(contingencies) {
   writeLines(sprintf("%-35s: %s - %s  (%s)", "atom", 'sgnfct', 'pvalue', "(TT TF FT FF)"))
   
   # There are 3 questions for each atom
   for (atom in unique(contingencies$atom)) {
     sign <- contingencies[contingencies$atom == atom,]
     
-    contingency <- c(sum(sign$TT), sum(sign$TF), sum(sign$FT), sum(sign$FF))
+    contingency <- matrix(c(sum(sign$TT), sum(sign$TF), sum(sign$FT), sum(sign$FF)), 2, 2)
+    
+    mcnemarsRes <- mcnemar.test(contingency, correct=FALSE)
     
     zeros <- floor(sum(sign$TT, sign$FF) / 2)
     successes <- sum(sign$FT)#, zeros)
@@ -44,8 +100,17 @@ signtest <- function(contingencies) {
     alpha <- 0.05
     res <- binom.test(successes, total, p = 0.5, alternative = "greater", conf.level = 1 - alpha)
     
-    printContingency(atom, alpha, res, contingency)
+    cat("mcnemars: ")
+    
+    printContingency(atom, alpha, mcnemarsRes, contingency)
+    effectSize <- assocstats(contingency)
+    
+    # cat("signtest: ")
+    # printContingency(atom, alpha, res, contingency)
   }
 }
 
-signtest(contingencies)
+
+byQuestion(contingencies)
+
+byAtom(contingencies)
