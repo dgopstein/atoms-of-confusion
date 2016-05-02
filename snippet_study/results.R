@@ -5,25 +5,6 @@ library("data.table")
 library('plyr')
 
 
-#     counts <- list()
-#     lst <- list(1, 4, 6, 10)
-#     
-#     for (i in lst) {
-#       arbitraryKey <- toString(i %% 3)
-#       arbitraryCondition <- i %% 2 == 0
-#       
-#       if (arbitraryCondition) {
-#         if (!(arbitraryKey %in% names(counts))) {
-#           counts[[arbitraryKey]] <- 0
-#         }
-#         
-#         counts[[arbitraryKey]] <- counts[[arbitraryKey]] + 1
-#       }
-#     }
-# 
-# print(counts)
-
-
 # add += operator
 # http://stackoverflow.com/questions/5738831/r-plus-equals-and-plus-plus-equivalent-from-c-c-java-etc
 `%+=%` = function(e1,e2) eval.parent(substitute(e1 <- e1 + e2))
@@ -51,7 +32,7 @@ is.significant <- function(res, alpha) {
   #ret <- sapply(res['p.value'], is.finite) && res['p.value'] < alpha
   ret <- is.finite(res$p.value) && res$p.value < alpha
   #writeLines(paste(ret))
-  return(ret)
+  ret
 }
 
 
@@ -82,32 +63,41 @@ byQuestion <- function(contingencies) {
   }
 }
 
+processAtom <- function(atomName) {
+    sign <- contingencies[contingencies$atom == atomName,]
+    
+    contingency <- matrix(c(sum(sign$TT), sum(sign$TF), sum(sign$FT), sum(sign$FF)), 2, 2)
+    mcnemarsRes <- mcnemar.test(contingency, correct=FALSE)
+    
+    # zeros <- floor(sum(sign$TT, sign$FF) / 2)
+    # successes <- sum(sign$FT)#, zeros)
+    # failures <- sum(sign$TF)#, zeros)
+    #total <- sum(successes, failures)
+    # res <- binom.test(successes, total, p = 0.5, alternative = "greater", conf.level = 1 - alpha)
+    
+    # cat("mcnemars: ")
+    
+    # effectSize <- assocstats(contingency)
+    
+    # cat("signtest: ")
+    # printContingency(atom, alpha, res, contingency)
+
+    list('atomName' = atomName, 'contingency' = contingency, 'mcnemarsRes' = mcnemarsRes)
+}
+
 byAtom <- function(contingencies) {
   writeLines(sprintf("%-35s: sig. - (pvalue, effectSize)  (TT TF FT FF)", "atom"))
   
   # There are 3 questions for each atom
-  for (atom in unique(contingencies$atom)) {
-    sign <- contingencies[contingencies$atom == atom,]
-    
-    contingency <- matrix(c(sum(sign$TT), sum(sign$TF), sum(sign$FT), sum(sign$FF)), 2, 2)
-    
-    mcnemarsRes <- mcnemar.test(contingency, correct=FALSE)
-    
-    zeros <- floor(sum(sign$TT, sign$FF) / 2)
-    successes <- sum(sign$FT)#, zeros)
-    failures <- sum(sign$TF)#, zeros)
-    total <- sum(successes, failures)
-    alpha <- 0.05
-    res <- binom.test(successes, total, p = 0.5, alternative = "greater", conf.level = 1 - alpha)
-    
-    # cat("mcnemars: ")
-    
-    printContingency(atom, alpha, mcnemarsRes, contingency)
-    effectSize <- assocstats(contingency)
-    
-    # cat("signtest: ")
-    # printContingency(atom, alpha, res, contingency)
-  }
+  alpha <- 0.05
+  # for (atom in unique(contingencies$atom)) {
+  #   processRes <- processAtom(atom)
+
+  atomRes <- lapply(unique(contingencies$atom), processAtom)
+
+  lapply(atomRes, function (r) printContingency(r$atomName, alpha, r$mcnemarsRes, r$contingency))
+
+  NULL
 }
 
 
