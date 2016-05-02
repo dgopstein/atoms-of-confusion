@@ -83,7 +83,7 @@ byQuestion <- function(contingencies) {
 }
 
 byAtom <- function(contingencies) {
-  writeLines(sprintf("%-35s: %s - %s  (%s)", "atom", 'sgnfct', 'pvalue', "(TT TF FT FF)"))
+  writeLines(sprintf("%-35s: sig. - (pvalue, effectSize)  (TT TF FT FF)", "atom"))
   
   # There are 3 questions for each atom
   for (atom in unique(contingencies$atom)) {
@@ -100,7 +100,7 @@ byAtom <- function(contingencies) {
     alpha <- 0.05
     res <- binom.test(successes, total, p = 0.5, alternative = "greater", conf.level = 1 - alpha)
     
-    cat("mcnemars: ")
+    # cat("mcnemars: ")
     
     printContingency(atom, alpha, mcnemarsRes, contingency)
     effectSize <- assocstats(contingency)
