@@ -25,7 +25,7 @@ printContingency <- function(name, alpha, res, contingency) {
   es <- phi(res$statistic, sum(contingency))
   contStr <- paste(format(contingency, width=3), collapse=" ")
   
-  writeLines(sprintf("%-35s: %d - (p:%f, es:%0.2f)  (%s)", name, sig, res$p.value, es, contStr))
+  writeLines(sprintf("%-35s: %d - (p:%.2e, es:%0.2f)  (%s)", name, sig, res$p.value, es, contStr))
 }
 
 is.significant <- function(res, alpha) {
