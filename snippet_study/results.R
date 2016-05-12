@@ -48,7 +48,7 @@ byQuestion <- function(contingencies) {
 
     alpha <- 0.05
 
-    #printContingency(question, alpha, res, contingency)
+    printContingency(question, alpha, res, contingency)
 
     if (!(questionCont$atom %in% names(sigCounts))) {
       sigCounts[[questionCont$atom]] <- 0
