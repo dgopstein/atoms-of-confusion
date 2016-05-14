@@ -47,7 +47,7 @@ byQuestion <- function(queryRes) {
   mcnemarsFrame$atomName <- queryRes$atom
   
   dt <- data.table(mcnemarsFrame)
-  dt[, length(questionName[as.numeric(as.character(p.value)) < 0.005]), by = atomName]
+  dt[, length(questionName[as.numeric(as.character(p.value)) < alpha]), by = atomName]
 }
 
 processAtom <- function(atomName) {
