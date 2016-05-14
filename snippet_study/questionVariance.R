@@ -29,58 +29,33 @@ printContingency <- function(name, alpha, res, contingency) {
 }
 
 is.significant <- function(res, alpha) {
-  #ret <- sapply(res['p.value'], is.finite) && res['p.value'] < alpha
-  ret <- is.finite(res$p.value) && res$p.value < alpha
-  #writeLines(paste(ret))
-  ret
+  is.finite(res$p.value) && res$p.value < alpha
 }
 
 
-byQuestion <- function(contingencies) {
-  sigCounts <- list()
-  for (question in contingencies$question) {
-    questionCont <- contingencies[contingencies$question == question,]
-    
-    contingency <- matrix(c(questionCont$TT,  questionCont$TF, questionCont$FT,questionCont$FF), 2, 2)
-    res <- mcnemar.test(contingency, correct=FALSE)
-
-    #es <- assocstats(contingency)
-
-    alpha <- 0.05
-
-    printContingency(question, alpha, res, contingency)
-
-    if (!(questionCont$atom %in% names(sigCounts))) {
-      sigCounts[[questionCont$atom]] <- 0
-    }
-    if (is.significant(res, alpha)) {
-      sigCounts[[questionCont$atom]] %+=% 1
-    }
-  }
-
-  for (atom in names(sigCounts)) {
-    writeLines(sprintf("counts %d - %s", sigCounts[[atom]], atom))
-  }
+byQuestion <- function(queryRes) {
+  # print p-value and effect size for each question
+  contingencyTables <- mapply(function(a,b,c,d) matrix(c(a,b,c,d), 2, 2), queryRes$TT,  queryRes$TF, queryRes$FT,queryRes$FF, SIMPLIFY = FALSE)
+  mcnemarsRes <- lapply(contingencyTables, function(x) mcnemar.test(x, correct=FALSE))
+  ignore <- mapply(printContingency, queryRes$question, alpha, mcnemarsRes, contingencyTables)
+  
+  # how many questions were significant for each atom type
+  mcnemarsFrame <- as.data.frame(matrix(unlist(mcnemarsRes), ncol=length(unlist(mcnemarsRes[1])), byrow=T))
+  colnames(mcnemarsFrame) <- attributes(mcnemarsRes[[1]])$names
+  
+  mcnemarsFrame$questionName <- queryRes$question
+  mcnemarsFrame$atomName <- queryRes$atom
+  
+  dt <- data.table(mcnemarsFrame)
+  dt[, length(atomName[p.value < alpha]), by = atomName]
+  dt[, length(questionName[as.numeric(as.character(p.value)) < 0.005]), by = atomName]
 }
 
 processAtom <- function(atomName) {
-    sign <- contingencies[contingencies$atom == atomName,]
+    sign <- queryRes[queryRes$atom == atomName,]
     
     contingency <- matrix(c(sum(sign$TT), sum(sign$TF), sum(sign$FT), sum(sign$FF)), 2, 2)
     mcnemarsRes <- mcnemar.test(contingency, correct=FALSE)
-    
-    # zeros <- floor(sum(sign$TT, sign$FF) / 2)
-    # successes <- sum(sign$FT)#, zeros)
-    # failures <- sum(sign$TF)#, zeros)
-    #total <- sum(successes, failures)
-    # res <- binom.test(successes, total, p = 0.5, alternative = "greater", conf.level = 1 - alpha)
-    
-    # cat("mcnemars: ")
-    
-    # effectSize <- assocstats(contingency)
-    
-    # cat("signtest: ")
-    # printContingency(atom, alpha, res, contingency)
 
     list('atomName' = atomName, 'contingency' = contingency, 'mcnemarsRes' = mcnemarsRes)
 }
@@ -88,10 +63,7 @@ processAtom <- function(atomName) {
 byAtom <- function(contingencies) {
   writeLines(sprintf("%-35s: sig. - (pvalue, effectSize)  (TT TF FT FF)", "atom"))
   
-  # There are 3 questions for each atom
   alpha <- 0.05
-  # for (atom in unique(contingencies$atom)) {
-  #   processRes <- processAtom(atom)
 
   atomRes <- lapply(unique(contingencies$atom), processAtom)
 
@@ -100,38 +72,6 @@ byAtom <- function(contingencies) {
   NULL
 }
 
-#contingencyTables <- matrix(c(queryRes$TT,  queryRes$TF, queryRes$FT,queryRes$FF), 2, 2)
-#contingencyTables <- mapply(queryRes, function(a) matrix(c(a$TT,  a$TF, a$FT,a$FF), 2, 2))
-contingencyTables <- mapply(function(a,b,c,d) matrix(c(a,b,c,d), 2, 2), queryRes$TT,  queryRes$TF, queryRes$FT,queryRes$FF, SIMPLIFY = FALSE)
-mcnemarsRes <- lapply(contingencyTables, function(x) mcnemar.test(x, correct=FALSE))
-nulls <- mapply(printContingency, queryRes$question, alpha, mcnemarsRes, contingencyTables)
+byQuestion(queryRes)
 
-#qNameFrame <- data.frame(queryRes$question)
-#mcnemarsFrame <- data.frame(unlist(mcnemarsRes))
-#merge(mcnemarsFrame, qNameFrame)
-#dt <- data.table(mcnemarsRes)
-#dt <- do.call(rbind, lapply(mcnemarsRes, data.frame, stringsAsFactors=FALSE))
-#dt$id  <- 1:nrow(dt)
-#d2 <- data.table(queryRes$atom)
-#d2$id  <- 1:nrow(d2)
-#d3 <- merge(dt, d2, by="id")
-#colnames(d3)<-c("id","mcnemars", "atom")
-#d3[, length(atom[mcnemarsRes$p.value < mcnemars$alpha]), by = atom]
-#d3[, length(mcnemars[mcnemars$p.value < 1]), by=atom]
-
-#dt$mcnemarsRes[mcnemarsRes$p.value < 0.05]
-mcnemarsFrame <- as.data.frame(matrix(unlist(mcnemarsRes), ncol=length(unlist(mcnemarsRes[1])), byrow=T))
-colnames(mcnemarsFrame) <- attributes(mcnemarsRes[[1]])$names
-
-mcnemarsFrame$questionName <- queryRes$question
-mcnemarsFrame$atomName <- queryRes$atom
-
-dt <- data.table(mcnemarsFrame)
-dt[, length(atomName[p.value < alpha]), by = atomName]
-dt[, length(questionName[as.numeric(as.character(p.value)) < 0.005]), by = atomName]
-
-
-
-byQuestion(contingencies)
-
-byAtom(contingencies)
+byAtom(queryRes)
