@@ -1,3 +1,8 @@
+-- Several subjects submitted answers that are quite obviously typos, like spelling 'false' as 'flase'
+-- here we change the classification of those answers from F to T.
+
+
+
 -- UPDATE usercode SET correct='T' WHERE codeid = 3 AND answer = ;
 
 --UPDATE usercode SET correct='T' WHERE (codeid, answer) in 
