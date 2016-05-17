@@ -1,0 +1,210 @@
++counts 0 - replace_Arithmetic_As_Logic
++counts 0 - replace_CONSTANTVARIABLE_atom
+ counts 1 - Curly braces
++counts 1 - Dead, unreachable, repeated
++counts 1 - Indentation
+ counts 1 - Re-purposed variables
+ counts 1 - move_PRE_INC_DEC_atom
++counts 1 - replace_Mixed_Pointer_Integer_Arithmetic
+
+counts 2 - Logic as Control Flow
+counts 2 - Type conversion
+counts 2 - add_CONDITION_atom
+counts 2 - add_PARENTHESIS_atom
+counts 2 - move_Preprocessor_Directives_Inside_Statements
+counts 2 - remove_INDENTATION_atom
+counts 2 - replace_Comma_Operator
+counts 2 - replace_MACRO_atom
+counts 3 - Constant Assignment
+counts 3 - Literal encoding
+counts 3 - Swapped subscripts
+counts 3 - move_POST_INC_DEC_atom
+counts 3 - replace_Ternary_Operator
+> 
+> signtest(contingencies)
+atom                               : sgnfct - pvalue  ((TT TF FT FF))
+
++replace_CONSTANTVARIABLE_atom      : 0 - 0.687500  (138   2   2   0)
++replace_Arithmetic_As_Logic        : 0 - 0.193848  (129   4   8   1)
++Dead, unreachable, repeated        : 0 - 0.062500  (134   1   6   1)
++Indentation                        : 0 - 0.188543  ( 99  13  19  11)
++replace_Mixed_Pointer_Integer_Arithmetic: 0 - 0.438807  ( 66  20  22  34)
+
+add_CONDITION_atom                 : 1 - 0.002962  (103   6  21  12)
+add_PARENTHESIS_atom               : 1 - 0.000030  (100   4  26  11)
+move_POST_INC_DEC_atom             : 1 - 0.000000  ( 73   3  52  14)
+move_PRE_INC_DEC_atom              : 1 - 0.000544  ( 77  12  35  18)
+remove_INDENTATION_atom            : 1 - 0.000001  ( 68  13  51  10)
+replace_MACRO_atom                 : 1 - 0.000000  ( 55   2  74  11)
+replace_Comma_Operator             : 1 - 0.000051  ( 49  17  49  27)
+move_Preprocessor_Directives_Inside_Statements: 1 - 0.000000  ( 38   6  69  28)
+Constant Assignment                : 1 - 0.000000  ( 59   5  66  12)
+Logic as Control Flow              : 1 - 0.000000  ( 32  12  68  30)
+Re-purposed variables              : 1 - 0.005676  ( 52  14  32  44)
+Swapped subscripts                 : 1 - 0.000000  ( 66   6  40  30)
+Literal encoding                   : 1 - 0.000000  ( 34   2  84  22)
+Curly braces                       : 1 - 0.000821  ( 73  12  34  23)
+Type conversion                    : 1 - 0.000000  ( 74   9  50   9)
+replace_Ternary_Operator           : 1 - 0.000000  (105   1  34   1)
+
+
+
+
+
+
+
+
+
+
+replace_Ternary_Operator                      : 1 - 0.000000  (105   1  34   1)
+move_POST_INC_DEC_atom                        : 1 - 0.000000  ( 73   3  52  14)
+Swapped subscripts                            : 1 - 0.000000  ( 66   6  40  30)
+Constant Assignment                           : 1 - 0.000000  ( 59   5  66  12)
+Literal encoding                              : 1 - 0.000000  ( 34   2  84  22)
+
+replace_MACRO_atom                            : 1 - 0.000000  ( 55   2  74  11)
+replace_Comma_Operator                        : 1 - 0.000051  ( 49  17  49  27)
+move_Preprocessor_Directives_Inside_Statements: 1 - 0.000000  ( 38   6  69  28)
+add_PARENTHESIS_atom                          : 1 - 0.000030  (100   4  26  11)
+add_CONDITION_atom                            : 1 - 0.002962  (103   6  21  12)
+Type conversion                               : 1 - 0.000000  ( 74   9  50   9)
+Logic as Control Flow                         : 1 - 0.000000  ( 32  12  68  30)
+
+move_PRE_INC_DEC_atom                         : 1 - 0.000544  ( 77  12  35  18)
+Curly braces                                  : 1 - 0.000821  ( 73  12  34  23)
+Re-purposed variables                         : 1 - 0.005676  ( 52  14  32  44)
+
+replace_Mixed_Pointer_Integer_Arithmetic      : 0 - 0.438807  ( 66  20  22  34)
+Dead, unreachable, repeated                   : 0 - 0.062500  (134   1   6   1)
+
+replace_Arithmetic_As_Logic                   : 0 - 0.193848  (129   4   8   1)
+replace_CONSTANTVARIABLE_atom                 : 0 - 0.687500  (138   2   2   0)
+
+
+
+
+      Change of Literal Encoding  & yes & 3 & yes & 0.74 \\ \hline
+                            &         & \textbf{Sig.}      & \textbf{Sig.} & \textbf{Effect} \\
+      \textbf{Atom} & \textbf{Accept} & \textbf{Questions} & \textbf{Atom} & \textbf{Size} \\ \hline
+
+      Change of Literal Encoding  & yes & 3 & yes & 0.75 \\ \hline
+      Assignment Used as Value    & yes & 3 & yes & 0.60 \\ \hline
+      Post-Increment/Decrement    & yes & 3 & yes & 0.55 \\ \hline
+      Conditional Operator        & yes & 3 & yes & 0.47 \\ \hline
+      Reversed subscripts         & yes & 3 & yes & 0.42 \\ \hline
+
+      Macro                       & yes & 2 & yes & 0.69 \\ \hline
+      Preprocessor in Expr.       & yes & 2 & yes & 0.62 \\ \hline
+      Logic as Control Flow       & yes & 2 & yes & 0.54 \\ \hline
+      Type Conversion             & yes & 2 & yes & 0.44 \\ \hline
+      Comma Operator              & yes & 2 & yes & 0.33 \\ \hline
+      Infix Operator Precedence   & yes & 2 & yes & 0.33 \\ \hline
+      Implicit Predicate          & yes & 2 & yes & 0.24 \\ \hline
+
+      Pre-Increment/Decrement     & no & 1 & yes & - \\ \hline
+      Omitted Curly Braces        & no & 1 & yes & - \\ \hline
+      Re-purposed Variables       & no & 1 & yes & - \\ \hline
+
+      Pointer arithmetic          & no  & 1 & no  & - \\ \hline
+      Dead, Unreachable, Repeated & no  & 1 & no  & - \\ \hline
+
+      Arithmetic as Logic         & no  & 0 & no  & - \\ \hline
+      Constant Variables          & no  & 0 & no  & - \\ \hline
+
+
+counts 0 - replace_Arithmetic_As_Logic
+counts 0 - replace_CONSTANTVARIABLE_atom
+counts 1 - Curly braces
+counts 1 - Dead, unreachable, repeated
+counts 1 - Indentation
+counts 1 - Re-purposed variables
+counts 1 - move_PRE_INC_DEC_atom
+counts 1 - replace_Mixed_Pointer_Integer_Arithmetic
+counts 2 - Logic as Control Flow
+counts 2 - Type conversion
+counts 2 - add_CONDITION_atom
+counts 2 - add_PARENTHESIS_atom
+counts 2 - move_Preprocessor_Directives_Inside_Statements
+counts 2 - remove_INDENTATION_atom
+counts 2 - replace_Comma_Operator
+counts 2 - replace_MACRO_atom
+counts 3 - Constant Assignment
+counts 3 - Literal encoding
+counts 3 - Swapped subscripts
+counts 3 - move_POST_INC_DEC_atom
+counts 3 - replace_Ternary_Operator
+
+
+      Change of Literal Encoding  & yes & 3 & yes & \num{2.06e-19} & 0.75 \\ \hline
+      Assignment Used as Value    & yes & 3 & yes & \num{5.70e-13} & 0.60 \\ \hline
+      Post-Increment/Decrement    & yes & 3 & yes & \num{2.36e-11} & 0.55 \\ \hline
+      Conditional Operator        & yes & 3 & yes & \num{1.46e-08} & 0.47 \\ \hline
+      Reversed subscripts         & yes & 3 & yes & \num{3.30e-07} & 0.42 \\ \hline
+
+      Macro                       & yes & 2 & yes & \num{5.34e-17} & 0.69 \\ \hline
+      Preprocessor in Expr.       & yes & 2 & yes & \num{7.84e-14} & 0.62 \\ \hline
+      Logic as Control Flow       & yes & 2 & yes & \num{5.89e-11} & 0.54 \\ \hline
+      Type Conversion             & yes & 2 & yes & \num{9.61e-08} & 0.44 \\ \hline
+      Comma Operator              & yes & 2 & yes & \num{5.54e-05} & 0.33 \\ \hline
+      Infix Operator Precedence   & yes & 2 & yes & \num{5.90e-05} & 0.33 \\ \hline
+      Implicit Predicate          & yes & 2 & yes & \num{3.89e-03} & 0.24 \\ \hline
+
+      Pre-Increment/Decrement     & no  & 1 & yes & \num{7.94e-04} & - \\ \hline
+      Omitted Curly Braces        & no  & 1 & yes & \num{2.19e-03} & - \\ \hline
+      Re-purposed Variables       & no  & 1 & yes & \num{9.37e-03} & - \\ \hline
+
+      Pointer arithmetic          & no  & 1 & no  & \num{7.63e-01} & - \\ \hline
+      Dead, Unreachable, Repeated & no  & 1 & no  & \num{0.0588} & - \\ \hline
+
+      Arithmetic as Logic         & no  & 0 & no  & \num{2.48e-01} & - \\ \hline
+      Constant Variables          & no  & 0 & no  & \num{1} & - \\ \hline
+
+
+Change of Literal Encoding  
+Assignment Used as Value    
+Post-Increment/Decrement    
+Conditional Operator        
+Reversed subscripts         
+                            
+Macro                       
+Preprocessor in Expr.       
+Logic as Control Flow       
+Type Conversion             
+Comma Operator              
+Infix Operator Precedence   
+Implicit Predicate          
+                            
+Pre-Increment/Decrement     
+Omitted Curly Braces        
+Re-purposed Variables       
+                            
+Pointer arithmetic          
+Dead, Unreachable, Repeated 
+                            
+Arithmetic as Logic         
+Constant Variables          
+
+
+      Change of Literal Encoding   & 3 & yes & 2.06e-19 & 0.75 
+      Assignment Used as Value     & 3 & yes & 5.70e-13 & 0.60 
+      Post-Increment/Decrement     & 3 & yes & 2.36e-11 & 0.55 
+      Conditional Operator         & 3 & yes & 1.46e-08 & 0.47 
+      Reversed subscripts          & 3 & yes & 3.30e-07 & 0.42 
+
+      Macro                        & 2 & yes & 5.34e-17 & 0.69 
+      Preprocessor in Expr.        & 2 & yes & 7.84e-14 & 0.62 
+      Logic as Control Flow        & 2 & yes & 5.89e-11 & 0.54 
+      Type Conversion              & 2 & yes & 9.61e-08 & 0.44 
+      Comma Operator               & 2 & yes & 5.54e-05 & 0.33 
+      Infix Operator Precedence    & 2 & yes & 5.90e-05 & 0.33 
+      Implicit Predicate           & 2 & yes & 3.89e-03 & 0.24 
+
+      Pre-Increment/Decrement      & 1 & yes & 7.94e-04 & -
+      Omitted Curly Braces         & 1 & yes & 2.19e-03 & -
+      Re-purposed Variables        & 1 & yes & 9.37e-03 & -
+
+      Dead, Unreachable, Repeated  & 1 & no  & 5.88e-02 & -
+      Pointer arithmetic           & 1 & no  & 7.63e-01 & -
+
+      Arithmetic as Logic          & 0 & no  & 2.48e-01 & -
+      Constant Variables           & 0 & no  & 1.00e+00 & -

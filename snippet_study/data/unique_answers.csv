@@ -1,0 +1,64 @@
+atom,question,c_id,nc_id,C_unique,NC_unique,C_correct,NC_correct
+add_CONDITION_atom,add_CONDITION_atom_1,1,2,2,1,43,48
+add_CONDITION_atom,add_CONDITION_atom_3,3,4,5,3,34,44
+add_CONDITION_atom,add_CONDITION_atom_5,5,6,3,3,36,36
+add_PARENTHESIS_atom,add_PARENTHESIS_atom_7,7,8,3,1,40,47
+add_PARENTHESIS_atom,add_PARENTHESIS_atom_9,9,10,3,2,36,44
+add_PARENTHESIS_atom,add_PARENTHESIS_atom_11,11,12,2,3,32,39
+move_POST_INC_DEC_atom,move_POST_INC_DEC_atom_13,13,14,6,4,27,44
+move_POST_INC_DEC_atom,move_POST_INC_DEC_atom_15,15,16,6,4,26,45
+move_POST_INC_DEC_atom,move_POST_INC_DEC_atom_17,17,18,6,6,25,39
+move_PRE_INC_DEC_atom,move_PRE_INC_DEC_atom_19,19,20,5,8,29,36
+move_PRE_INC_DEC_atom,move_PRE_INC_DEC_atom_21,21,22,5,3,37,41
+move_PRE_INC_DEC_atom,move_PRE_INC_DEC_atom_23,23,24,6,9,27,39
+replace_CONSTANTVARIABLE_atom,replace_CONSTANTVARIABLE_atom_25,25,26,2,1,47,48
+replace_CONSTANTVARIABLE_atom,replace_CONSTANTVARIABLE_atom_27,27,28,1,1,49,49
+replace_CONSTANTVARIABLE_atom,replace_CONSTANTVARIABLE_atom_29,29,30,4,5,48,47
+remove_INDENTATION_atom,remove_INDENTATION_atom_31,31,32,4,4,28,36
+remove_INDENTATION_atom,remove_INDENTATION_atom_33,33,34,8,6,22,44
+remove_INDENTATION_atom,remove_INDENTATION_atom_35,35,36,4,4,33,43
+replace_MACRO_atom,replace_MACRO_atom_37,37,38,3,4,10,43
+replace_MACRO_atom,replace_MACRO_atom_39,39,40,10,5,4,43
+replace_MACRO_atom,replace_MACRO_atom_41,41,42,5,3,45,47
+replace_Mixed_Pointer_Integer_Arithmetic,replace_Mixed_Pointer_Integer_Arithmetic_43,43,44,16,10,22,20
+replace_Mixed_Pointer_Integer_Arithmetic,replace_Mixed_Pointer_Integer_Arithmetic_45,45,46,10,3,36,45
+replace_Mixed_Pointer_Integer_Arithmetic,replace_Mixed_Pointer_Integer_Arithmetic_47,47,48,11,6,30,25
+replace_Ternary_Operator,replace_Ternary_Operator_49,49,50,4,1,37,48
+replace_Ternary_Operator,replace_Ternary_Operator_51,51,52,8,3,35,46
+replace_Ternary_Operator,replace_Ternary_Operator_53,53,54,6,1,37,49
+replace_Arithmetic_As_Logic,replace_Arithmetic_As_Logic_55,55,56,2,2,43,46
+replace_Arithmetic_As_Logic,replace_Arithmetic_As_Logic_57,57,58,2,2,47,48
+replace_Arithmetic_As_Logic,replace_Arithmetic_As_Logic_59,59,60,2,2,47,47
+replace_Comma_Operator,replace_Comma_Operator_61,61,62,11,3,23,46
+replace_Comma_Operator,replace_Comma_Operator_63,63,64,21,7,22,32
+replace_Comma_Operator,replace_Comma_Operator_65,65,66,19,5,24,24
+move_Preprocessor_Directives_Inside_Statements,move_Preprocessor_Directives_Inside_Statements_67,67,68,7,9,10,12
+move_Preprocessor_Directives_Inside_Statements,move_Preprocessor_Directives_Inside_Statements_69,69,70,9,1,24,49
+move_Preprocessor_Directives_Inside_Statements,move_Preprocessor_Directives_Inside_Statements_71,71,72,2,1,10,49
+"Constant Assignment","Constant Assignment_73",73,74,3,1,31,48
+"Constant Assignment","Constant Assignment_75",75,76,3,2,18,44
+"Constant Assignment","Constant Assignment_77",77,78,6,7,16,35
+"Logic as Control Flow","Logic as Control Flow_79",79,80,6,6,13,33
+"Logic as Control Flow","Logic as Control Flow_81",81,82,10,3,6,46
+"Logic as Control Flow","Logic as Control Flow_83",83,84,10,10,25,25
+"Re-purposed variables","Re-purposed variables_85",85,86,19,16,25,32
+"Re-purposed variables","Re-purposed variables_87",87,88,9,12,20,18
+"Re-purposed variables","Re-purposed variables_89",89,90,11,9,24,37
+"Swapped subscripts","Swapped subscripts_91",91,92,10,5,27,36
+"Swapped subscripts","Swapped subscripts_93",93,94,11,9,20,33
+"Swapped subscripts","Swapped subscripts_95",95,96,16,6,28,41
+"Dead, unreachable, repeated","Dead, unreachable, repeated_97",97,98,3,2,45,46
+"Dead, unreachable, repeated","Dead, unreachable, repeated_99",99,100,2,1,45,49
+"Dead, unreachable, repeated","Dead, unreachable, repeated_101",101,102,1,1,49,49
+"Literal encoding","Literal encoding_103",103,104,16,2,7,47
+"Literal encoding","Literal encoding_105",105,106,3,8,7,40
+"Literal encoding","Literal encoding_107",107,108,15,12,23,35
+"Curly braces","Curly braces_109",109,110,4,4,33,38
+"Curly braces","Curly braces_111",111,112,10,11,25,31
+"Curly braces","Curly braces_113",113,114,7,6,31,41
+"Type conversion","Type conversion_115",115,116,4,4,40,39
+"Type conversion","Type conversion_117",117,118,3,4,33,42
+"Type conversion","Type conversion_119",119,120,8,4,12,46
+Indentation,Indentation_121,121,122,3,2,34,43
+Indentation,Indentation_123,123,124,2,3,42,39
+Indentation,Indentation_125,125,126,3,4,39,40

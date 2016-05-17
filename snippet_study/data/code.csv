@@ -1,0 +1,1049 @@
+ID^Code^Answer^Type^Pair
+1^"void main(){
+   int V1 = 10, V2 = 3;
+   if (! (V1 % V2)){
+      printf(""%s\n"", ""true"");
+   }
+   else{
+      printf(""%s\n"", ""false"");
+   }
+}
+
+"^false^Confusing^2
+2^"void main(){
+   int V1 = 1, V2 = 2;
+   if ( (V2 - V1) == 0){
+      printf(""%s\n"", ""true"");
+   }
+   else{
+      printf(""%s\n"", ""false"");
+   }
+}"^false^Non-confusing^1
+3^"void main() { 
+   int V1 = 7; 
+   if (V1 = 8) 
+      printf(""true\n""); 
+   else
+      printf(""false\n""); 
+}"^true^Confusing^4
+4^"void main()
+{
+   int V1 = 7;
+   if ((V1 = 8) != 0)
+      printf(""true"");
+   else
+      printf(""false"");
+}"^true^Non-confusing^3
+7^"void main() { 
+   int V1;
+   V1 = 2 - 4 / 2;
+   printf(""%d\n"", V1);
+}"^0^Confusing^8
+8^"void main() { 
+   int V1;
+   V1 = 3 + (9 / 3);
+   printf(""%d\n"", V1);
+}"^6^Non-confusing^7
+9^"void main() {
+   if (! 0 && 2) {
+      printf(""true"");
+   } else {
+      printf(""false"");
+   }
+}"^true^Confusing^10
+10^"void main() {
+   if ( 1 && (! 0) ) {
+      printf(""true"");
+   } else {
+      printf(""false"");
+   }
+}"^true^Non-confusing^9
+11^"void main() {
+   if (0 && 1 || 2) {
+      printf(""true"");
+   } else {
+      printf(""false"");
+   }
+}"^true^Confusing^12
+12^"void main() {
+   if ((2 && 0) || 5) {
+      printf(""true"");
+   } else {
+      printf(""false"");
+   }
+}"^true^Non-confusing^11
+13^"void main() { 
+   int V1 = 2;
+   int V2 = 3 + V1++;
+   printf(""%d %d\n"", V1, V2);
+}"^"3 5"^Confusing^14
+14^"void main() { 
+   int V1 =  2, V2;
+   V2 = V1 + 3;
+   V1++;
+   printf(""%d %d\n"", V1, V2);
+}"^"3 5"^Non-confusing^13
+15^"void main() { 
+   int V1 = 0;
+   if (V1++ == 0) {
+      printf(""true "");
+   }
+   else {
+      printf(""false "");
+   }
+   printf(""%d"", V1);
+}"^"true 1"^Confusing^16
+16^"void main() { 
+   int V1 = 0;
+   if (V1 == 0) {
+      printf(""true "");
+   }
+   else {
+      printf(""false "");
+   }
+   V1++;
+   printf(""%d"", V1);
+}"^"true 1"^Non-confusing^15
+17^"void main() { 
+   int V1 = 2;
+   if (V1-- == 1) {
+      printf(""true "");
+   }
+   else {
+      printf(""false "");
+   }
+   printf(""%d"", V1);
+}"^"false 1"^Confusing^18
+18^"void main() { 
+   int V1 = 2;
+   if (V1 == 1) {
+      printf(""true "");
+   }
+   else {
+      printf(""false "");
+   }
+   V1--;
+   printf(""%d"", V1);
+}"^"false 1"^Non-confusing^17
+19^"void main() { 
+   int V1 = 2;
+   int V2 = ++V1 - 2;
+   printf(""%d %d\n"", V1, V2);
+}"^"3 1"^Confusing^20
+20^"void main() { 
+   int V1 = 5, V2;
+   ++V1;
+   V2 = 5 - V1;
+   printf(""%d %d\n"", V1, V2);
+}"^"6 -1"^Non-confusing^19
+21^"void main() { 
+   int V1 = 2;
+   if (--V1 == 1) {
+      printf(""true "");
+   }
+   else {
+      printf(""false "");
+   }
+   printf(""%d"", V1);
+}"^"true 1"^Confusing^22
+22^"void main() { 
+   int V1 = 2;
+   V1--;
+   if (V1 == 1) {
+      printf(""true "");
+   }
+   else {
+      printf(""false "");
+   }
+   printf(""%d"", V1);
+}"^"true 1"^Non-confusing^21
+23^"void main() { 
+   int V1 = 2;
+   int V2 = --V1 + 3;
+   printf(""%d %d\n"", V1, V2);
+}"^"1 4"^Confusing^24
+24^"void main() { 
+   int V1 = 6, V2;
+   V2 = 9 - V1;
+   --V1;
+   printf(""%d %d\n"", V1, V2);
+}"^"5 3"^Non-confusing^23
+31^"void main() {
+   int V1 = 2;
+   int V2 = 0;
+   int V3 = 3;
+
+   if (V1)
+      if (V2)
+         V3 = V3 + 2;
+   else
+      V3 = V3 + 4;
+
+   printf(""%d\n"", V3);
+}"^7^Confusing^32
+32^"void main() {
+   int V1 = 2;
+   int V2 = 0;
+   int V3 = 5;
+
+   if (V1)
+      if (V2)
+         V3 = V3 + 2;
+      else
+         V3 = V3 + 4;
+
+   printf(""%d\n"", V3);
+}"^9^Non-confusing^31
+33^"void main() {
+   int V1 = 5, V2 = 5;
+   while (V2 > 0)
+      V2--;
+      V1++;
+   printf(""%d\n"",V1);
+}
+
+"^6^Confusing^34
+34^"void main() {
+   int V1 = 5, V2 = 5;
+   while (V2 > 0)
+      V2--;
+   V1++;
+   printf(""%d\n"",V1);
+}"^6^Non-confusing^33
+35^"void main() {
+   int V1 = 1, V2 = 2;
+   if (V1 > V2)
+   V2 = 1;
+   V1 = 2;
+   printf(""%d %d\n"",V1, V2);
+}"^"2 2"^Confusing^36
+36^"void main() {
+   int V1 = 5, V2 = 2;
+   if (V1 < V2)
+      V1 = 2;
+   V2 = 5;
+   printf(""%d %d\n"",V1, V2);
+}"^"5 5"^Non-confusing^35
+37^"#define M1 64 - 1
+
+void main(){
+   int V1;
+   V1 = M1 * 2;
+   printf(""%d\n"", V1);
+}"^62^Confusing^38
+38^"void main(){
+   int V1;
+   V1 = 128 - 1 * 2;
+   printf(""%d\n"", V1);
+}"^126^Non-confusing^37
+39^"#define M1(V1, V2) V1 * V2
+
+void main(){
+   int V3 = M1(1 + 2, 3 + 4);
+   printf(""%d\n"", V3);
+}
+
+"^11^Confusing^40
+40^"void main(){
+   int V1 = 2 + 1 * 4 + 3;
+   printf(""%d\n"", V1);
+}"^9^Non-confusing^39
+41^"#define M1(V1, V2) (V1) * (V2)
+
+void main(){
+   int V3 = M1(1 + 2, 3 + 4);
+   printf(""%d\n"", V3);
+}
+
+"^21^Confusing^42
+42^"void main(){
+   int V1 = (2 + 1) * (3 + 4);
+   printf(""%d\n"", V1);
+}"^21^Non-confusing^41
+43^"void main() {
+   char *V1 = ""abcdef"" + 3;
+   printf(""%s\n"", V1);
+}"^def^Confusing^44
+44^"void main() {
+   char *V1 = &(""abcdef""[2]);
+   printf(""%s\n"", V1);
+}"^cdef^Non-confusing^43
+45^"void main() {
+   int V1[] = {4, 2, 7, 5};
+   int *V2 = V1 + 1;
+   printf(""%d\n"", *V2);
+}"^2^Confusing^46
+46^"void main() {
+   int V1[] = {3, 1, 4, 6};
+   int *V2 = &V1[1];
+   printf(""%d\n"", *V2);
+}"^1^Non-confusing^45
+47^"void main() {
+   int V1[] = {4, 7, 2, 3};
+   int *V2 = V1 + 1;
+   V2 = V2 + 2;
+   printf(""%d\n"", *V2);
+}"^3^Confusing^48
+48^"void main() {
+   int V1[] = {3, 2, 9, 4};
+   int *V2 = &V1[1];
+   V2 = &V2[2];
+   printf(""%d\n"", *V2);
+}"^4^Non-confusing^47
+49^"void main() {
+   int V1 = 4;
+
+   int V2 = V1 == 3 ? 2 : 1;
+
+   printf(""%d\n"", V2);
+}"^1^Confusing^50
+50^"void main() {
+   int V1 = 4;
+   int V2 = 3;
+   int V3;
+  
+   if (V1 == 3) {
+      V3 = 2;
+   } else {
+      V3 = 1;
+   }
+
+   printf(""%d\n"", V3);
+}"^1^Non-confusing^49
+51^"void main() {
+   int V1 = 2;
+   int V2 = 3;
+   int V3 = 1;
+
+   int V4 = (V1 == 2 ? (V3 == 2 ? 1 : 2) : (V2 == 2 ? 3 : 4));
+
+   printf(""%d\n"", V4);
+}"^2^Confusing^52
+52^"void main() {
+   int V1 = 2;
+   int V2 = 3;
+   int V3 = 1;
+
+   int V4;
+   if (V1 == 2) {
+      if (V3 == 2) {
+         V4 = 1;
+      } else {
+         V4 = 2;
+      }
+   } else {
+      if (V2 == 2) {
+         V4 = 3;
+      } else {
+         V4 = 4;
+      }
+   }
+
+   printf(""%d\n"", V4);
+}"^2^Non-confusing^51
+53^"void main() {
+   int V1 = 2;
+   int V2 = 3;
+   int V3 = 1;
+
+   int V4 = V1 == 3 ? V2 : V3;
+
+   printf(""%d\n"", V4);
+}"^1^Confusing^54
+54^"void main() {
+   int V1 = 2;
+   int V2 = 3;
+   int V3 = 1;
+
+   int V4;
+   if (V1 == 3){
+      V4 = V2;
+   }
+   else{
+      V4 = V3;
+   }
+
+   printf(""%d\n"", V4);
+}"^1^Non-confusing^53
+55^"void main() {
+   int V1 = 8;
+
+   if ((V1 - 3) * (7 - V1) <= 0) {
+      printf(""true\n"");
+   } else {
+      printf(""false\n"");
+   }
+}"^true^Confusing^56
+56^"void main() {
+   int V1 = 8;
+
+   if (3 <= V1 || V1 >= 7) {
+      printf(""true\n"");
+   } else {
+      printf(""false\n"");
+   }
+}"^true^Non-confusing^55
+57^"void main() {
+   int V1 = 2;
+
+   if ((V1 - 2) * (6 - V1) > 0) {
+      printf(""true\n"");
+   } else {
+      printf(""false\n"");
+   }
+}"^false^Confusing^58
+58^"void main() {
+   int V1 = 2;
+
+   if (V1 < 2 || 6 < V1) {
+      printf(""true\n"");
+   } else {
+      printf(""false\n"");
+   }
+}"^false^Non-confusing^57
+59^"void main() {
+   int V1 = 5;
+
+   if (V1 + 5 != 0) {
+      printf(""true\n"");
+   } else {
+      printf(""false\n"");
+   }
+}"^true^Confusing^60
+60^"void main() {
+   int V1 = 5;
+
+   if (V1 != -5) {
+      printf(""true\n"");
+   } else {
+      printf(""false\n"");
+   }
+}"^true^Non-confusing^59
+61^"void main() {
+   int V1, V2;
+
+   V1 = (V2 = 1, 2);
+
+   printf(""%d %d\n"", V1, V2);
+}"^"2 1"^Confusing^62
+62^"void main() {
+   int V1, V2;
+
+   V1 = 2;
+   V2 = 1;
+
+   printf(""%d %d\n"", V1, V2);
+}"^"2 1"^Non-confusing^61
+63^"void main() {
+   int V1 = 3;
+   int V2 = (V1 *= 2, V1 += 1);
+
+   printf(""%d %d\n"", V1, V2);
+}"^"7 7"^Confusing^64
+64^"void main() {
+   int V1 = 3;
+  
+   V1 *= 2;
+
+   int V2 = (V1 += 1);
+
+   printf(""%d %d\n"", V1, V2);
+}"^"7 7"^Non-confusing^63
+65^"void main() {
+   int V1 = 3;
+   int V2 = (V1 += 1, V1 *= 2);
+
+   printf(""%d %d\n"", V1, V2);
+}
+
+"^"8 8"^Confusing^66
+66^"void main() {
+   int V1 = 3;
+  
+   V1 += 1;
+
+   int V2 = (V1 *= 2);
+
+   printf(""%d %d\n"", V1, V2);
+}"^"8 8"^Non-confusing^65
+67^"void main() {
+   char *V1 = ""abcdef""
+   #define M1
+   ""abcdef"";
+
+   printf(""%s\n"", V1);
+}
+
+"^abcdefabcdef^Confusing^68
+68^"void main() {
+   char *V1 = ""abcdef""
+   ""abcdef"";
+
+   #define M1
+
+   printf(""%s\n"", V1);
+}"^abcdefabcdef^Non-confusing^67
+69^"void main() {
+   int V1;
+   V1 = 4;
+
+   int V2 = 1
+   #define M1 1
+   +
+   #define M2 2
+   V1;
+
+   printf(""%d %d\n"", V1, V2);
+}"^"4 5"^Confusing^70
+70^"void main() {
+   #define M1 1
+   #define M2 2
+
+   int V1;
+   V1 = 4;
+
+   int V2 = 1 + V1;
+
+   printf(""%d %d\n"", V1, V2);
+}"^"4 5"^Non-confusing^69
+71^"void main() {
+   int V1 = 1, V2 = 2;
+
+   if (V1 < V2) {
+      #define M1 1
+      #define M2 2
+   } else {
+      #define M1 2
+      #define M2 1
+   }
+
+   printf(""%d %d\n"", M1, M2);
+}"^"2 1"^Confusing^72
+72^"void main() {
+   int V1 = 1, V2 = 2;
+   #define M1 2
+   #define M2 1
+
+   printf(""%d %d\n"", M1, M2);
+}"^"2 1"^Non-confusing^71
+5^"void main() {
+   if (""V1"")
+      printf(""true"");
+   else
+      printf(""false"");
+}"^true^Confusing^6
+6^"void main() {
+   if (""V1"" != '\0')
+      printf(""true\n"");
+   else
+      printf(""false\n"");
+}"^true^Non-confusing^5
+25^"void main() {
+   int V1 = 3;
+   int V2 = V1 + 2;
+   printf(""%d\n"", V2);
+}"^5^Confusing^26
+26^"void main() {
+   int V1 =  2 + 3;
+   printf(""%d\n"", V1);
+}"^5^Non-confusing^25
+27^"void main() {
+   int V1 = 2;
+   int V2 = 2 * V1;
+   printf(""%d\n"", V2);
+}"^4^Confusing^28
+28^"void main() {
+   int V1 = 3 * 2;
+   printf(""%d\n"", V1);
+}"^6^Non-confusing^27
+29^"void main() {
+   int V1 = 2;
+   printf(""%f\n"", 2.5 * V1);
+}"^5^Confusing^30
+30^"void main() {
+   printf(""%f\n"", 2 * 4.5);
+}"^9^Non-confusing^29
+73^"void main() {
+   int V1 = 2;
+
+   if (V1 = 1) {
+      printf(""true\n"");
+   } else {
+      printf(""false\n"");
+   }
+}"^true^Confusing^74
+74^"void main() {
+   int V1 = 7;
+   V1 = 1;
+   if (1) {
+      printf(""true\n"");
+   } else {
+      printf(""false\n"");
+   }
+}"^true^Non-confusing^73
+75^"void main() {
+   int V1 = 0;
+
+   if (V1 = 0) {
+      printf(""true\n"");
+   } else {
+      printf(""false\n"");
+   }
+}"^false^Confusing^76
+76^"void main() {
+   int V1 = 0;
+
+   V1 = 0;
+
+   if (V1) {
+      printf(""true\n"");
+   } else {
+      printf(""false\n"");
+   }
+}"^false^Non-confusing^75
+77^"void main() {
+   int V1 = 0;
+   int V2 = 9;
+
+   while (!(V1 = 3)) {
+      V2--;
+      V1++;
+   }
+
+   printf(""%d %d\n"", V1, V2);
+}"^"3 9"^Confusing^78
+78^"void main() {
+   int V1 = 0;
+   int V2 = 7;
+
+   V1 = 4;
+
+   while (!4) {
+      V2--;
+      V1++;
+   }
+
+   printf(""%d %d\n"", V1, V2);
+}"^"4 7"^Non-confusing^77
+79^"void main() {
+   int V1 = 1;
+   int V2 = 5;
+
+   if (++V1 || ++V2) {
+      V1 = V1 * 2;
+      V2 = V2 * 2;
+   }
+
+   printf(""%d %d\n"", V1, V2);
+}"^"4 10"^Confusing^80
+80^"void main() {
+   int V1 = 2;
+   int V2 = 4;
+
+   if (++V1) {
+        V1 = V1 * 2;
+        V2 = V2 * 2;
+   } else if (++V2) {
+        V1 = V1 * 2;
+        V2 = V2 * 2;
+   }
+
+   printf(""%d %d\n"", V1, V2);
+}"^"6 8"^Non-confusing^79
+81^"void main() {
+   int V1 = 1;
+   int V2 = 5;
+
+   V1 == V2 && ++V1 || ++V2;
+
+   printf(""%d %d\n"", V1, V2);
+}"^"1 6"^Confusing^82
+82^"void main() {
+   int V1 = 2;
+   int V2 = 6;
+
+   if (V1 == V2) {
+      ++V1;
+   } else {
+      ++V2;
+   }
+
+   printf(""%d %d\n"", V1, V2);
+}"^"2 7"^Non-confusing^81
+83^"void main() {
+   int V1 = 3;
+   int V2 = 5;
+   int V3 = 0;
+
+   while (V1 != V2 && ++V1) {
+      V3++;
+   }
+
+   printf(""%d %d %d\n"", V1, V2, V3);
+}"^"5 5 2"^Confusing^84
+84^"void main() {
+   int V1 = 1;
+   int V2 = 11;
+   int V3 = 0;
+
+   while (V1 != V2) {
+      ++V1;
+      if (!V1) break;
+
+      V3++;
+   }
+
+   printf(""%d %d %d\n"", V1, V2, V3);
+}"^"11 11 10"^Non-confusing^83
+85^"void main() {
+   int V1[5];
+   V1[4] = 3;
+
+   while (V1[4]) {
+      V1[3 - V1[4]] = V1[4];
+      V1[4] = V1[4] - 1;
+   }
+
+   printf(""%d %d\n"", V1[1], V1[4]);
+}"^"2 0"^Confusing^86
+86^"void main() {
+   int V1[6];
+   int V2 = 5;
+
+   while (V2) {
+      V1[5 - V2] = V2;
+      V2 = V2 - 1;
+   }
+
+   printf(""%d %d\n"", V1[1], V2);
+}"^"4 0"^Non-confusing^85
+87^"void main() {
+   int V3 = 0;
+
+   for (int V1 = 0; V1 < 2; V1++) {
+      for (int V2 = 0; V1 < 2; V1++) {
+        V3 = 4 * V1 + V2;
+      }
+   }
+
+   printf(""%d\n"", V3);
+}"^4^Confusing^88
+88^"void main() {
+   int V3 = 0;
+
+   for (int V1 = 0; V1 < 2; V1++) {
+      for (int V2 = 0; V2 < 2; V2++) {
+         V3 = 4 * V1 + V2;
+         V1 = V2;
+      }
+   }
+
+   printf(""%d\n"", V3);
+}"^1^Non-confusing^87
+89^"void main() {
+   int V1;
+   for (int V2 = 0; V2 < 2; V2++) {
+      V1 = (V2 < 1);
+      if (V1) {
+         V1 = V2 + 5;
+      } else {
+         V1 = V1 + 2;
+      }
+   }
+   printf(""%d\n"", V1);
+}"^2^Confusing^90
+90^"void main() {
+   int V1;
+   for (int V2 = 0; V2 < 2; V2++) {
+      int V3 = (V2 < 1);
+      if (V3) {
+         V1 = V2 + 4;
+      } else {
+         V1 = V3 + 4;
+      }
+   }
+   printf(""%d\n"", V1);
+}"^4^Non-confusing^89
+91^"void main() {
+   char V1 = 2[""qwert""];
+
+   printf(""%c\n"", V1);
+}"^e^Confusing^92
+92^"void main() {
+   char V1 = ""zxcvb""[4];
+
+   printf(""%c\n"", V1);
+}"^b^Non-confusing^91
+93^"void main() {
+   char V1 = 3;
+   char V2 = V1[""zxcvb""];
+
+   printf(""%c\n"", V2);
+}"^v^Confusing^94
+94^"void main() {
+   char V1 = 2;
+   char V2 = ""asdfg""[V1];
+
+   printf(""%c\n"", V2);
+}"^d^Non-confusing^93
+95^"void main() {
+   char V1 = 4;
+   char* V2 = ""qazwsx"";
+   char V3 = V1[V2];
+
+   printf(""%c\n"", V3);
+}"^s^Confusing^96
+96^"void main() {
+   char V1 = 4;
+   char* V2 = ""abcdef"";
+   char V3 = V2[V1];
+
+   printf(""%c\n"", V3);
+}"^e^Non-confusing^95
+97^"void main() {
+   int V1 = 1;
+
+   V1 = 3;
+   V1 = 2;
+
+   printf(""%d\n"", V1);
+}"^2^Confusing^98
+98^"void main() {
+  int V1 = 1;
+
+  V1 = 2;
+
+  printf(""%d\n"", V1);
+}"^2^Non-confusing^97
+99^"void main() {
+   int V1 = 1;
+
+   if (0) {
+      V1 = 3;
+   }
+
+   printf(""%d\n"", V1);
+}"^1^Confusing^100
+100^"void main() {
+   int V1 = 1;
+
+   printf(""%d\n"", V1);
+}"^1^Non-confusing^99
+101^"void main() {
+   int V1 = 0;
+
+   V1 = V1;
+
+   printf(""%d\n"", V1);
+}"^0^Confusing^102
+102^"void main() {
+   int V1 = 0;
+
+   printf(""%d\n"", V1);
+}"^0^Non-confusing^101
+103^"void main() {
+   char V1 = 104;
+   printf(""%c\n"", V1);
+}"^h^Confusing^104
+104^"void main() {
+   char V1 = 'g';
+
+   printf(""%c\n"", V1);
+}"^g^Non-confusing^103
+105^"void main() {
+   int V1 = 013;
+
+   printf(""%d\n"", V1);
+}"^11^Confusing^106
+106^"void main() {
+   char V1 = 23;
+ 
+   printf(""%d\n"", V1);
+}"^23^Non-confusing^105
+107^"void main() {
+   int V1 = 208 & 13;
+
+   printf(""%d\n"", V1);
+}"^0^Confusing^108
+108^"void main() {
+   char V1 = 0xD0 & 0x0D;
+
+   printf(""%d\n"", V1);
+}"^0^Non-confusing^107
+109^"void main() {
+   int V1 = 2;
+
+   if (0) V1++; V1++;
+
+   printf(""%d\n"", V1);
+}"^3^Confusing^110
+110^"void main() {
+   int V1 = 2;
+
+   if (0) { V1++; } V1++;
+
+   printf(""%d\n"", V1);
+}"^3^Non-confusing^109
+111^"void main() {
+   int V1 = 4;
+
+   int V2 = 0;
+   while (V2 < 3) V2++; V1++;
+
+   printf(""%d %d\n"", V1, V2);
+}"^"5 3"^Confusing^112
+112^"void main() {
+   int V1 = 7;
+
+   int V2 = 1;
+   while (V2 < 3) { V2++; } V1++;
+ 
+   printf(""%d %d\n"", V1, V2);
+}"^"8 3"^Non-confusing^111
+113^"void main() {
+   int V1 = 3;
+
+   for (int V2 = 0; V2 < 3; V2++) V1++; V1++;
+
+   printf(""%d\n"", V1);
+}"^7^Confusing^114
+114^"void main() {
+   int V1 = 4;
+
+   for (int V2 = 0; V2 < 3; V2++) { V1++; } V1++;
+
+   printf(""%d\n"", V1);
+}"^8^Non-confusing^113
+115^"void main() {
+   float V1 = 1.99;
+
+   int V2 = V1;
+ 
+   printf(""%d\n"", V2);
+}"^1^Confusing^116
+116^"#include &lt;math.h&gt;
+void main() {
+   float V1 = 2.87;
+
+   int V2 = trunc(V1);
+
+   printf(""%d\n"", V2);
+}"^2^Non-confusing^115
+117^"void main() {
+   int V1 = -1;
+
+   unsigned int V2 = V1;
+
+   int V3;
+   if (V2 > 0) {
+      V3 = 4;
+   } else {
+      V3 = 5;
+   }
+
+   printf(""%d\n"", V3);
+}"^4^Confusing^118
+118^"#include  &lt;limits.h&gt;
+void main() {
+   int V1 = -1;
+
+   unsigned int V2;
+   if (V1 >= 0) {
+      V2 = V1;
+   } else {
+      V2 = UINT_MAX + (V1 + 1);
+   }
+
+   int V3;
+   if (V2 >= 0) {
+      V3 = 4;
+   } else {
+      V3 = 5;
+   }  
+
+   printf(""%d\n"", V3);
+}"^4^Non-confusing^117
+119^"void main() {
+   int V1 = 261;
+
+   char V2 = V1;
+
+   printf(""%d\n"", V2);
+}"^5^Confusing^120
+120^"void main() {
+   int V1 = 288;
+
+   char V2 = V1 % 256;
+
+   printf(""%d\n"", V2);
+}"^32^Non-confusing^119
+121^"void main() {
+   int V1 = 0;
+   int V2 = 2;
+
+   if (V1) {}
+      V2 = 4;
+
+   printf(""%d\n"", V2);
+}"^4^Confusing^122
+122^"void main() {
+   int V1 = 0;
+   int V2 = 2;
+
+   if (V1) {}
+   V2 = 4;
+
+   printf(""%d\n"", V2);
+}"^4^Non-confusing^121
+123^"void main() {
+   int V1 = 0;
+   int V2 = 1;
+
+   if (V1) {
+      V2 = 2;
+   }
+      V2 = V2 * 3;
+
+   printf(""%d\n"", V2);
+}"^3^Confusing^124
+124^"void main() {
+   int V1 = 0;
+   int V2 = 5;
+
+   if (V1) {
+      V2 = 2;
+   }
+   V2 = V2 * 2;
+
+   printf(""%d\n"", V2);
+}"^10^Non-confusing^123
+125^"void main() {
+   int V1 = 2;
+   int V2 = 0;
+   int V3 = 3;
+
+   if (V1) {
+      if (V2) {
+         V3 = V3 +2;
+   } else {
+      V3 = V3 + 4;
+   }
+   }
+
+   printf(""%d\n"", V3);
+}"^7^Confusing^126
+126^"void main() {
+  int V1 = 2;
+  int V2 = 0;
+  int V3 = 5;
+
+  if (V1) {
+     if (V2) {
+        V3 = V3 + 2;
+     } else {
+        V3 = V3 + 4;
+     }
+  }
+
+  printf(""%d\n"", V3);
+}"^9^Non-confusing^125

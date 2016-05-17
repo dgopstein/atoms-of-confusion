@@ -1,0 +1,128 @@
+p-value effect  TT  TF  FT  FF
+
+add_CONDITION_atom_1, 2.53E-02, 0.32, 43, 0, 5, 0
+
+add_CONDITION_atom_3, 3.89E-03, 0.41, 33, 1, 11, 4
+
+add_CONDITION_atom_5, 1.00E+00, 0, 31, 5, 5, 8
+
+add_PARENTHESIS_atom_7, 8.15E-03, 0.39, 40, 0, 7, 0
+
+add_PARENTHESIS_atom_9, 4.68E-03, 0.4, 36, 0, 8, 5
+
+add_PARENTHESIS_atom_11, 7.07E-02, 0.26, 28, 4, 11, 6
+
+move_POST_INC_DEC_atom_13, 3.74E-05, 0.6, 27, 0, 17, 4
+
+move_POST_INC_DEC_atom_15, 3.38E-05, 0.59, 25, 1, 20, 3
+
+move_POST_INC_DEC_atom_17, 9.67E-04, 0.47, 23, 2, 16, 8
+
+move_PRE_INC_DEC_atom_19, 5.22E-02, 0.28, 26, 3, 10, 9
+
+move_PRE_INC_DEC_atom_21, 2.48E-01, 0.16, 33, 4, 8, 4
+
+move_PRE_INC_DEC_atom_23, 1.05E-02, 0.37, 22, 5, 17, 5
+
+replace_CONSTANTVARIABLE_atom_25, 3.17E-01, 0.14, 47, 0, 1, 0
+
+replace_CONSTANTVARIABLE_atom_27  NaN NaN, 49, 0, 0, 0
+
+replace_CONSTANTVARIABLE_atom_29, 5.64E-01, 0.08, 46, 2, 1, 0
+
+remove_INDENTATION_atom_31, 7.36E-02, 0.26, 22, 6, 14, 6
+
+remove_INDENTATION_atom_33, 3.22E-05, 0.59, 19, 3, 25, 2
+
+remove_INDENTATION_atom_35, 1.84E-02, 0.34, 29, 4, 14, 2
+
+replace_MACRO_atom_37, 9.22E-09, 0.83, 10, 0, 33, 5
+
+replace_MACRO_atom_39, 4.24E-10, 0.89, 4, 0, 39, 6
+
+replace_MACRO_atom_41, 4.14E-01, 0.12, 43, 2, 4, 0
+
+replace_Mixed_Pointer_Integer_Arithmetic_43, 5.64E-01, 0.08, 15, 7, 5, 21
+
+replace_Mixed_Pointer_Integer_Arithmetic_45, 1.26E-02, 0.36, 34, 2, 11, 2
+
+replace_Mixed_Pointer_Integer_Arithmetic_47, 2.51E-01, 0.16, 18, 12, 7, 12
+
+replace_Ternary_Operator_49, 9.11E-04, 0.48, 37, 0, 11, 0
+
+replace_Ternary_Operator_51, 2.28E-03, 0.44, 34, 1, 12, 1
+
+replace_Ternary_Operator_53, 5.32E-04, 0.49, 37, 0, 12, 0
+
+replace_Arithmetic_As_Logic_55, 1.80E-01, 0.19, 42, 1, 4, 1
+
+replace_Arithmetic_As_Logic_57, 5.64E-01, 0.08, 46, 1, 2, 0
+
+replace_Arithmetic_As_Logic_59, 1.00E+00, 0, 45, 2, 2, 0
+
+replace_Comma_Operator_61, 4.22E-06, 0.66, 22, 1, 24, 1
+
+replace_Comma_Operator_63, 2.53E-02, 0.32, 17, 5, 15, 12
+
+replace_Comma_Operator_65, 1.00E+00, 0, 13, 11, 11, 14
+
+move_Preprocessor_Directives_Inside_Statements_67, 5.93E-01, 0.08, 4, 6, 8, 29
+
+move_Preprocessor_Directives_Inside_Statements_69, 5.73E-07, 0.71, 24, 0, 25, 0
+
+move_Preprocessor_Directives_Inside_Statements_71, 4.24E-10, 0.89, 10, 0, 39, 0
+
+Constant Assignment_73, 3.74E-05, 0.6, 31, 0, 17, 0
+
+Constant Assignment_75, 2.07E-06, 0.68, 16, 2, 28, 3
+
+Constant Assignment_77, 2.56E-04, 0.52, 12, 4, 23, 10
+
+Logic as Control Flow_79, 4.46E-05, 0.59, 11, 2, 22, 13
+
+Logic as Control Flow_81, 2.54E-10, 0.9, 6, 0, 40, 3
+
+Logic as Control Flow_83, 1.00E+00, 0, 15, 10, 10, 14
+
+Re-purposed variables_85, 5.22E-02, 0.28, 22, 3, 10, 13
+
+Re-purposed variables_87, 6.37E-01, 0.07, 10, 10, 8, 21
+
+Re-purposed variables_89, 1.62E-03, 0.45, 22, 2, 15, 10
+
+Swapped subscripts_91, 1.26E-02, 0.36, 25, 2, 11, 10
+
+Swapped subscripts_93, 7.89E-04, 0.48, 19, 1, 14, 15
+
+Swapped subscripts_95, 2.86E-03, 0.43, 25, 3, 16, 5
+
+Dead unreachable repeated_97, 5.64E-01, 0.08, 44, 1, 2, 1
+
+Dead unreachable repeated_99, 4.55E-02, 0.29, 45, 0, 4, 0
+
+Dead unreachable repeated_101 NaN NaN, 49, 0, 0, 0
+
+Literal encoding_103, 2.54E-10, 0.91, 7, 0, 40, 1
+
+Literal encoding_105, 2.43E-08, 0.8, 6, 1, 34, 8
+
+Literal encoding_107, 1.34E-03, 0.46, 22, 1, 13, 13
+
+Curly braces_109, 1.66E-01, 0.2, 29, 4, 9, 6
+
+Curly braces_111, 1.80E-01, 0.19, 18, 7, 13, 11
+
+Curly braces_113, 7.53E-03, 0.38, 29, 2, 12, 6
+
+Type conversion_115, 7.39E-01, 0.05, 35, 5, 4, 4
+
+Type conversion_117, 2.90E-02, 0.31, 29, 4, 13, 3
+
+Type conversion_119, 1.46E-08, 0.81, 11, 1, 35, 2
+
+Indentation_121, 2.01E-02, 0.34, 31, 3, 12, 2
+
+Indentation_123, 3.17E-01, 0.14, 36, 6, 3, 4
+
+Indentation_125, 7.39E-01, 0.05, 35, 4, 5, 5
+
