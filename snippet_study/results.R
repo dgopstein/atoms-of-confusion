@@ -32,6 +32,11 @@ is.significant <- function(res, alpha) {
   is.finite(res$p.value) && res$p.value < alpha
 }
 
+toDF <- function (mcnemarsRes) {
+  mcnemarsFrame <- as.data.frame(matrix(unlist(mcnemarsRes), ncol=length(unlist(mcnemarsRes[1])), byrow=T))
+  #colnames(mcnemarsFrame) <- attributes(mcnemarsRes[[1]])$names
+  mcnemarsFrame
+}
 
 byQuestion <- function(queryRes) {
   # print p-value and effect size for each question
@@ -40,14 +45,23 @@ byQuestion <- function(queryRes) {
   ignore <- mapply(printContingency, queryRes$question, alpha, mcnemarsRes, contingencyTables)
   
   # how many questions were significant for each atom type
-  mcnemarsFrame <- as.data.frame(matrix(unlist(mcnemarsRes), ncol=length(unlist(mcnemarsRes[1])), byrow=T))
+  mcnemarsFrame <-toDF(mcnemarsRes)
   colnames(mcnemarsFrame) <- attributes(mcnemarsRes[[1]])$names
   
   mcnemarsFrame$questionName <- queryRes$question
   mcnemarsFrame$atomName <- queryRes$atom
+  mcnemarsFrame$contingencies <- contingencyTables
+  mcnemarsFrame$effectSize <- apply(mcnemarsFrame, 1, function(x) phi(as.numeric(x$statistic), sum(x$contingencies)))
   
   dt <- data.table(mcnemarsFrame)
-  dt[, length(questionName[as.numeric(as.character(p.value)) < alpha]), by = atomName]
+  print("# significant questions")
+  print(dt[, length(questionName[as.numeric(as.character(p.value)) < alpha]), by = atomName])
+  
+  # variance of question triplets
+  print("Effect size std.dev. amoung questions")
+  effectSdByAtom <- dt[, sd(effectSize), by = atomName]
+  effectVarByAtom <- dt[, var(effectSize), by = atomName]
+  print(effectSdByAtom)
 }
 
 processAtom <- function(atomName) {
@@ -55,8 +69,9 @@ processAtom <- function(atomName) {
     
     contingency <- matrix(c(sum(sign$TT), sum(sign$TF), sum(sign$FT), sum(sign$FF)), 2, 2)
     mcnemarsRes <- mcnemar.test(contingency, correct=FALSE)
+    es <- phi(mcnemarsRes$statistic, sum(contingency))
 
-    list('atomName' = atomName, 'contingency' = contingency, 'mcnemarsRes' = mcnemarsRes)
+    list('atomName' = atomName, 'contingency' = contingency, 'mcnemarsRes' = mcnemarsRes, 'effectSize' = es)
 }
 
 byAtom <- function(contingencies) {
@@ -68,9 +83,18 @@ byAtom <- function(contingencies) {
 
   lapply(atomRes, function (r) printContingency(r$atomName, alpha, r$mcnemarsRes, r$contingency))
 
-  NULL
+  atomFrame <- toDF(atomRes)
+  
+  atomFrame
 }
 
 byQuestion(queryRes)
 
-byAtom(queryRes)
+atomFrame <- byAtom(queryRes)
+
+x <- atomFrame$V11
+y <- effectSdByAtom$V1
+plot(x, y, xlab="effect size", ylab="sd of effect size")
+text(x,y,labels=atomFrame$V1, srt = -25)
+
+
