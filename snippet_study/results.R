@@ -4,6 +4,11 @@ library(DBI)
 library("data.table")
 library('plyr')
 
+is.nan.data.frame <- function(x) do.call(cbind, lapply(x, is.nan))
+
+# Coefficient of Variability, measure of dispersion/relative variability:
+# http://alstatr.blogspot.com/2013/06/measure-of-relative-variability.html
+CV <- function(vec) sd(vec)/mean(vec)
 
 con <- dbConnect(drv=RSQLite::SQLite(), dbname="confusion.db")
 alltables <- dbListTables(con)
@@ -38,7 +43,7 @@ toDF <- function (mcnemarsRes) {
   mcnemarsFrame
 }
 
-byQuestion <- function(queryRes) {
+#byQuestion <- function(queryRes) {
   # print p-value and effect size for each question
   contingencyTables <- mapply(function(a,b,c,d) matrix(c(a,b,c,d), 2, 2), queryRes$TT,  queryRes$TF, queryRes$FT,queryRes$FF, SIMPLIFY = FALSE)
   mcnemarsRes <- lapply(contingencyTables, function(x) mcnemar.test(x, correct=FALSE))
@@ -52,6 +57,7 @@ byQuestion <- function(queryRes) {
   mcnemarsFrame$atomName <- queryRes$atom
   mcnemarsFrame$contingencies <- contingencyTables
   mcnemarsFrame$effectSize <- apply(mcnemarsFrame, 1, function(x) phi(as.numeric(x$statistic), sum(x$contingencies)))
+  mcnemarsFrame$effectSize[is.nan(mcnemarsFrame$effectSize)] <- 0
   
   dt <- data.table(mcnemarsFrame)
   print("# significant questions")
@@ -61,8 +67,9 @@ byQuestion <- function(queryRes) {
   print("Effect size std.dev. amoung questions")
   effectSdByAtom <- dt[, sd(effectSize), by = atomName]
   effectVarByAtom <- dt[, var(effectSize), by = atomName]
+  effectCoeffVarByAtom <- dt[, CV(effectSize), by = atomName]
   print(effectSdByAtom)
-}
+#}
 
 processAtom <- function(atomName) {
     sign <- queryRes[queryRes$atom == atomName,]
@@ -74,27 +81,33 @@ processAtom <- function(atomName) {
     list('atomName' = atomName, 'contingency' = contingency, 'mcnemarsRes' = mcnemarsRes, 'effectSize' = es)
 }
 
-byAtom <- function(contingencies) {
+#byAtom <- function(queryRes) {
   writeLines(sprintf("%-35s: sig. - (pvalue, effectSize)  (TT TF FT FF)", "atom"))
   
   alpha <- 0.05
 
-  atomRes <- lapply(unique(contingencies$atom), processAtom)
+  atomRes <- lapply(unique(queryRes$atom), processAtom)
 
-  lapply(atomRes, function (r) printContingency(r$atomName, alpha, r$mcnemarsRes, r$contingency))
+  invisible(lapply(atomRes, function (r) printContingency(r$atomName, alpha, r$mcnemarsRes, r$contingency)))
 
   atomFrame <- toDF(atomRes)
   
-  atomFrame
-}
+  #atomFrame
+#}
 
-byQuestion(queryRes)
+#byQuestion(queryRes)
 
-atomFrame <- byAtom(queryRes)
+#atomFrame <- byAtom(queryRes)
 
-x <- atomFrame$V11
-y <- effectSdByAtom$V1
-plot(x, y, xlab="effect size", ylab="sd of effect size")
-text(x,y,labels=atomFrame$V1, srt = -25)
+#x <- atomFrame$V11
+#y <- effectSdByAtom$V1
+x <- effectCoeffVarByAtom$atomName
+y <- effectCoeffVarByAtom$V1
+
+l <- atomFrame$V1
+#plot(x, y, xlab="effect size", ylab="sd of effect size")
+#text(x,y,labels=l, srt = -25)
+
+stripchart(y, at=-1); #text(y, 1.01, labels=l, srt=90, cex=1.5, adj=c(0,0))
 
 
