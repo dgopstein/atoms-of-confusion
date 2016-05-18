@@ -1,10 +1,12 @@
 library("RSQLite")
-library("fitdistrplus")
+#library("fitdistrplus")
 library(DBI)
 library("data.table")
-library('plyr')
+#library('plyr')
+library('manipulate')
+library('animation')
 
-is.nan.data.frame <- function(x) do.call(cbind, lapply(x, is.nan))
+pis.nan.data.frame <- function(x) do.call(cbind, lapply(x, is.nan))
 
 # Coefficient of Variability, measure of dispersion/relative variability:
 # http://alstatr.blogspot.com/2013/06/measure-of-relative-variability.html
@@ -13,7 +15,7 @@ CV <- function(vec) sd(vec)/mean(vec)
 con <- dbConnect(drv=RSQLite::SQLite(), dbname="confusion.db")
 alltables <- dbListTables(con)
 
-contingencyQuery <- paste(readLines('contingency.sql'), collapse = "\n")
+contingencyQuery <- paste(readLines('sql/contingency.sql'), collapse = "\n")
 
 queryRes <- dbGetQuery( con, contingencyQuery )
 
@@ -101,13 +103,39 @@ processAtom <- function(atomName) {
 
 #x <- atomFrame$V11
 #y <- effectSdByAtom$V1
-x <- effectCoeffVarByAtom$atomName
-y <- effectCoeffVarByAtom$V1
+#x <- effectCoeffVarByAtom$atomName
+#y <- effectCoeffVarByAtom$V1
 
-l <- atomFrame$V1
+#l <- atomFrame$V1
 #plot(x, y, xlab="effect size", ylab="sd of effect size")
 #text(x,y,labels=l, srt = -25)
 
-stripchart(y, at=-1); #text(y, 1.01, labels=l, srt=90, cex=1.5, adj=c(0,0))
+#stripchart(y, at=0.7); text(y, 0.72, labels=l, srt=90, cex=1.5, adj=c(0,0))
 
+triplet <- dt[atomName=='move_POST_INC_DEC_atom', ]
+#lapply(triplet$questionName, function(a) triplet[questionName != a, questionName])
+#apply(triplet, 1, function(a) triplet[questionName != a$questionName, questionName])
 
+#apply(triplet, 1, function(a) {
+#  m <- mean(triplet$effectSize)
+#  triplet[questionName != a$questionName &
+#          abs(effectSize - a$effectSize)/m < .2, questionName]
+#})
+
+neighbors <- function(thresh) {
+  apply(dt, 1, function(a) {
+    triplet <- dt[atomName==a$atomName, ]
+    m <- mean(triplet$effectSize)
+    nbrs <- triplet[questionName != a$questionName &
+              abs(effectSize - a$effectSize)/m < thresh, questionName]
+    #print(paste(a$questionName, ": ", paste(nbrs, collapse=', ')))
+    length(nbrs)
+  })
+}
+
+histNeighbors <- function(thresh) {
+  hist(neighbors(thresh), breaks=seq(-0.5, 2.5, 0.5),xlim=c(-1, 3),
+       xlab=paste("# of neighbors at window size of ", thresh))
+}
+
+manipulate(histNeighbors(x), x = slider(0.01, 2.5))
