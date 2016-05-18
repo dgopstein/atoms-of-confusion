@@ -134,8 +134,25 @@ neighbors <- function(thresh) {
 }
 
 histNeighbors <- function(thresh) {
-  hist(neighbors(thresh), breaks=seq(-0.5, 2.5, 0.5),xlim=c(-1, 3),
-       xlab=paste("# of neighbors at window size of ", thresh))
+  nbrs <- neighbors(thresh)
+  hist(nbrs, breaks=seq(-0.5, 2.5, 0.5),
+       main = sprintf("Cluster sizes @ window = %1.2f", thresh),
+       xaxt='n', #xlim=c(-1, 3),
+       ylim = c(0, 70),
+       xlab="# of neighbors", thresh)
+  axis(side=1,at=c(0, 1, 2)-0.25,labels=c(0,1,2))
 }
 
-manipulate(histNeighbors(x), x = slider(0.01, 2.5))
+histNeighbors(2)
+
+minThresh <- 0.01
+maxThresh <- 2.5
+manipulate(histNeighbors(x), x = slider(minThresh, maxThresh))
+
+
+saveGIF({
+  iters <- 50
+  for(i in 1:iters){
+    histNeighbors(i * maxThresh / iters)
+  }
+}, interval = 0.1, ani.width = 550, ani.height = 350)
