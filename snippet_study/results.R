@@ -126,15 +126,25 @@ neighbors <- function(thresh) {
   apply(dt, 1, function(a) {
     triplet <- dt[atomName==a$atomName, ]
     m <- mean(triplet$effectSize)
-    nbrs <- triplet[questionName != a$questionName &
+    aqn <- a$questionName
+    nbrs <- triplet[questionName != aqn &
               abs(effectSize - a$effectSize)/m < thresh, questionName]
     #print(paste(a$questionName, ": ", paste(nbrs, collapse=', ')))
-    length(nbrs)
+    list(aqn, nbrs)
   })
 }
 
+
+nbrsRes <- neighbors(0.3)
+nbrsList <- list(lapply(nbrsRes, '[[', 1), lapply(nbrsRes, '[[', 2))
+# nbrsDF <- as.data.frame(nbrsDF[1], nbrsDF[2])
+# nbrsDT <- as.data.table()
+nbrs <- nbrsDT[,lapply(.SD, paste0, collapse=", "),by=V1]
+
+neighborLength <- function(thresh) apply(neighbors, 1, length)
+
 histNeighbors <- function(thresh) {
-  nbrs <- neighbors(thresh)
+  nbrs <- neighborLength(thresh)
   hist(nbrs, breaks=seq(-0.5, 2.5, 0.5),
        main = sprintf("Cluster sizes @ window = %1.2f", thresh),
        xaxt='n', #xlim=c(-1, 3),
@@ -143,16 +153,16 @@ histNeighbors <- function(thresh) {
   axis(side=1,at=c(0, 1, 2)-0.25,labels=c(0,1,2))
 }
 
-histNeighbors(2)
+# histNeighbors(2)
 
-minThresh <- 0.01
-maxThresh <- 2.5
-manipulate(histNeighbors(x), x = slider(minThresh, maxThresh))
-
-
-saveGIF({
-  iters <- 50
-  for(i in 1:iters){
-    histNeighbors(i * maxThresh / iters)
-  }
-}, interval = 0.1, ani.width = 550, ani.height = 350)
+# minThresh <- 0.01
+# maxThresh <- 2.5
+# manipulate(histNeighbors(x), x = slider(minThresh, maxThresh))
+# 
+# 
+# saveGIF({
+#   iters <- 50
+#   for(i in 1:iters){
+#     histNeighbors(i * maxThresh / iters)
+#   }
+# }, interval = 0.1, ani.width = 550, ani.height = 350)
