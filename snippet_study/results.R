@@ -5,6 +5,8 @@ library("data.table")
 #library('plyr')
 library('manipulate')
 library('animation')
+library(gridExtra)
+library(grid)
 
 pis.nan.data.frame <- function(x) do.call(cbind, lapply(x, is.nan))
 
@@ -123,7 +125,7 @@ triplet <- dt[atomName=='move_POST_INC_DEC_atom', ]
 #})
 
 neighbors <- function(thresh) {
-  apply(dt, 1, function(a) {
+  nbrsRes <- apply(dt, 1, function(a) {
     triplet <- dt[atomName==a$atomName, ]
     m <- mean(triplet$effectSize)
     aqn <- a$questionName
@@ -132,16 +134,23 @@ neighbors <- function(thresh) {
     #print(paste(a$questionName, ": ", paste(nbrs, collapse=', ')))
     list(aqn, nbrs)
   })
+  
+  nbrsList <- list(lapply(nbrsRes, '[[', 1), lapply(nbrsRes, '[[', 2))
+  nbrsDT <- data.table(question=unlist(nbrsList[1]), neighbors=nbrsList[[2]])
+  nbrsDT$len <- lapply(nbrsDT$neighbors, length)
+  nbrsDT
 }
 
 
-nbrsRes <- neighbors(0.3)
-nbrsList <- list(lapply(nbrsRes, '[[', 1), lapply(nbrsRes, '[[', 2))
-# nbrsDF <- as.data.frame(nbrsDF[1], nbrsDF[2])
-# nbrsDT <- as.data.table()
-nbrs <- nbrsDT[,lapply(.SD, paste0, collapse=", "),by=V1]
 
-neighborLength <- function(thresh) apply(neighbors, 1, length)
+nbrsDT <- neighbors(0.3)
+
+
+grid.table(nbrsDT)
+           
+
+#neighborLength <- function(thresh) apply(neighbors, 1, length)
+
 
 histNeighbors <- function(thresh) {
   nbrs <- neighborLength(thresh)
