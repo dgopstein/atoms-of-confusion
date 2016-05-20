@@ -79,16 +79,16 @@ toDF <- function (mcnemarsRes) {
 runMcnemars <- function(contingency) {
   mcnemarsRes <- mcnemar.test(contingency, correct=FALSE)
   es <- phi(mcnemarsRes$statistic, sum(contingency))
-  list('es' = es, 'mcnemarsRes' = mcnemarsRes)
+  list('contingency' = contingency, 'mcnemarsRes' = mcnemarsRes, 'effectSize' = es)
 }
-  
+
 processAtom <- function(atomName) {
     sign <- queryRes[queryRes$atom == atomName,]
     
     contingency <- matrix(c(sum(sign$TT), sum(sign$TF), sum(sign$FT), sum(sign$FF)), 2, 2)
-    stats <- runMcnemars(contingency)
-
-    list('atomName' = atomName, 'contingency' = contingency, 'mcnemarsRes' = stats$mcnemarsRes, 'effectSize' = stats$es)
+    mcRes <- runMcnemars(atomName, contingency)
+    mcRes$atomName <- atomName
+    mcRes
 }
 
 #byAtom <- function(queryRes) {
@@ -156,7 +156,7 @@ orphans <- (nbrsDT <- neighbors(0.4))[len==0]
 orphanContingencies <- dt[questionName %in% orphans$questionName]
 nonOrphanContingencies <- dt[questionName %!in% orphans$questionName]
 
-mcTable <- nonOrphanContingencies
+#mcTable <- nonOrphanContingencies
 applyMcnemars <- function(mcTable) {
   #mcTable[, runMcnemars(Reduce("+", contingencies)), by='atomName']
   # mcTable[, .SD[, Reduce("+", contingencies)], by='atomName']
@@ -169,21 +169,47 @@ applyMcnemars <- function(mcTable) {
   contingencies <- mcTable[, .(Reduce('+', TT), Reduce('+', TF), Reduce('+', FT), Reduce('+', FF)), by='atomName']
   contingencyTables <- mapply(function(a,b,c,d) matrix(c(a,b,c,d), 2, 2), mcTable$TT,  mcTable$TF, mcTable$FT,mcTable$FF, SIMPLIFY = FALSE)
   
+  mcRes <- lapply(contingencyTables, runMcnemars)
   
+  dput(mcRes[[1]]$mcnemarsRes)
+  dput(lapply(lapply(mcRes, '[[', 'mcnemarsRes'), '[[', 'statistic'))
+  
+  
+  mcTable$statistic <- lapply(lapply(mcRes, '[[', 'mcnemarsRes'), '[[', 'statistic')
+  mcTable$p.value <- lapply(lapply(mcRes, '[[', 'mcnemarsRes'), '[[', 'p.value')
+  mcTable$effectSize <- lapply(mcRes, '[[', 'effectSize')
 
-  # contingency <- matrix(c(sum(sign$TT), sum(sign$TF), sum(sign$FT), sum(sign$FF)), 2, 2)
-  # stats <- runMcnemars(contingency)
-  
-  # Reduce("+", mcTable[atomName == 'replace_MACRO_atom']$contingencies)
-  # res <- runMcnemars(obj$contingency)
-  # obj$effectSize <- res$es
-  # obj$statistic <- res$mcnemarsRes['statistic']
-  # obj$p.value <- res$mcnemarsRes['p.value']
+  mcTable
 }
 
+orphanDT <- applyMcnemars(orphanContingencies)
 
+# orphanStats$atomName <- orphanContingencies$atomName
+# orphanStats <- applyMcnemars(orphanContingencies)
+# orphanDF <- toDF(orphanStats)
 
-lapply(orphanContingencies, applyMcnemars)
+# runMcnemarsDF <- function(contingency) {
+#   mc <- runMcnemars(contingency)
+#   mcDF <- toDF(mc$mcnemarsRes)
+#   dput(mcDF)
+#   colnames(mcDF) <- attributes(mc$mcnemarsRes[[1]])$names
+#   
+# 
+#   mcDF$contingencies <- contingency
+# 
+#   
+#   colnames(mcDF) <- c(attributes(mc$mcnemarsRes)$names, c("contingency","effect size"))
+#   
+#   mcDF
+# }
+
+#colnames(orphanDF) <- attributes(orphanStats[[1]])$names
+#colnames(orphanDF) <- c("TT", "TF", "FT", "FF", )
+
+nonOrphanStats$atomName <- nonOrphanContingencies$atomName
+nonOrphanStats <- applyMcnemars(nonOrphanContingencies)
+nonOrphanDF <- toDF(nonOrphanStats)
+
 
 #neighborLength <- function(thresh) apply(neighbors, 1, length)
 
