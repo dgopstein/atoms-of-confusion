@@ -151,12 +151,8 @@ neighbors <- function(thresh) {
 }
 
 
-orphans <- (nbrsDT <- neighbors(0.4))[len==0]
-
-orphanContingencies <- dt[questionName %in% orphans$questionName]
-nonOrphanContingencies <- dt[questionName %!in% orphans$questionName]
-
-#mcTable <- nonOrphanContingencies
+# mcTable <- nonOrphanContingencies
+# mcRes <- null
 applyMcnemars <- function(mcTable) {
   #mcTable[, runMcnemars(Reduce("+", contingencies)), by='atomName']
   # mcTable[, .SD[, Reduce("+", contingencies)], by='atomName']
@@ -166,50 +162,37 @@ applyMcnemars <- function(mcTable) {
   mcTable$FT <- lapply(mcTable$contingencies, '[[', 3)
   mcTable$FF <- lapply(mcTable$contingencies, '[[', 4)
   
-  contingencies <- mcTable[, .(Reduce('+', TT), Reduce('+', TF), Reduce('+', FT), Reduce('+', FF)), by='atomName']
-  contingencyTables <- mapply(function(a,b,c,d) matrix(c(a,b,c,d), 2, 2), mcTable$TT,  mcTable$TF, mcTable$FT,mcTable$FF, SIMPLIFY = FALSE)
+  contingencies <- mcTable[, .("TT" = Reduce('+', TT), "TF" = Reduce('+', TF), "FT" = Reduce('+', FT), "FF" = Reduce('+', FF)), by='atomName']
+  contingencyTables <- mapply(function(a,b,c,d) matrix(c(a,b,c,d), 2, 2), contingencies$TT,  contingencies$TF, contingencies$FT,contingencies$FF, SIMPLIFY = FALSE)
+  # View(contingencyTables)
   
   mcRes <- lapply(contingencyTables, runMcnemars)
-  
-  dput(mcRes[[1]]$mcnemarsRes)
-  dput(lapply(lapply(mcRes, '[[', 'mcnemarsRes'), '[[', 'statistic'))
-  
-  
-  mcTable$statistic <- lapply(lapply(mcRes, '[[', 'mcnemarsRes'), '[[', 'statistic')
-  mcTable$p.value <- lapply(lapply(mcRes, '[[', 'mcnemarsRes'), '[[', 'p.value')
-  mcTable$effectSize <- lapply(mcRes, '[[', 'effectSize')
 
-  mcTable
+  contingencies$statistic <- lapply(lapply(mcRes, '[[', 'mcnemarsRes'), '[[', 'statistic')
+  contingencies$p.value <- lapply(lapply(mcRes, '[[', 'mcnemarsRes'), '[[', 'p.value')
+  contingencies$effectSize <- lapply(mcRes, '[[', 'effectSize')
+
+  contingencies
 }
 
+csvView <- function(odt) {
+  odtView <- odt[,c(attributes(odt)$names[[1]], "p.value", "effectSize","TT", "TF", "FT", "FF"), with=FALSE]
+  data.frame(lapply(odtView, as.character), stringsAsFactors=FALSE)
+}
+
+
+
+orphans <- (nbrsDT <- neighbors(0.2))[len==0]
+
+orphanContingencies <- dt[questionName %in% orphans$questionName]
+nonOrphanContingencies <- dt[questionName %!in% orphans$questionName]
+
 orphanDT <- applyMcnemars(orphanContingencies)
+nonOrphanDT <- applyMcnemars(nonOrphanContingencies)
 
-# orphanStats$atomName <- orphanContingencies$atomName
-# orphanStats <- applyMcnemars(orphanContingencies)
-# orphanDF <- toDF(orphanStats)
-
-# runMcnemarsDF <- function(contingency) {
-#   mc <- runMcnemars(contingency)
-#   mcDF <- toDF(mc$mcnemarsRes)
-#   dput(mcDF)
-#   colnames(mcDF) <- attributes(mc$mcnemarsRes[[1]])$names
-#   
-# 
-#   mcDF$contingencies <- contingency
-# 
-#   
-#   colnames(mcDF) <- c(attributes(mc$mcnemarsRes)$names, c("contingency","effect size"))
-#   
-#   mcDF
-# }
-
-#colnames(orphanDF) <- attributes(orphanStats[[1]])$names
-#colnames(orphanDF) <- c("TT", "TF", "FT", "FF", )
-
-nonOrphanStats$atomName <- nonOrphanContingencies$atomName
-nonOrphanStats <- applyMcnemars(nonOrphanContingencies)
-nonOrphanDF <- toDF(nonOrphanStats)
-
+write.csv(csvView(orphanDT), file = "csv/orphans-0.2.csv")
+write.csv(csvView(nonOrphanDT), file = "csv/nonOrphans-0.2.csv")
+# write.csv(atomFrame, file = "atoms.csv")
 
 #neighborLength <- function(thresh) apply(neighbors, 1, length)
 
