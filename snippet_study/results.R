@@ -5,8 +5,9 @@ library("data.table")
 #library('plyr')
 library('manipulate')
 library('animation')
-library(gridExtra)
-library(grid)
+#library(gridExtra)
+#library(grid)
+library(operators)
 
 pis.nan.data.frame <- function(x) do.call(cbind, lapply(x, is.nan))
 
@@ -75,14 +76,19 @@ toDF <- function (mcnemarsRes) {
   print(effectSdByAtom)
 #}
 
+runMcnemars <- function(contingency) {
+  mcnemarsRes <- mcnemar.test(contingency, correct=FALSE)
+  es <- phi(mcnemarsRes$statistic, sum(contingency))
+  list('es' = es, 'mcnemarsRes' = mcnemarsRes)
+}
+  
 processAtom <- function(atomName) {
     sign <- queryRes[queryRes$atom == atomName,]
     
     contingency <- matrix(c(sum(sign$TT), sum(sign$TF), sum(sign$FT), sum(sign$FF)), 2, 2)
-    mcnemarsRes <- mcnemar.test(contingency, correct=FALSE)
-    es <- phi(mcnemarsRes$statistic, sum(contingency))
+    stats <- runMcnemars(contingency)
 
-    list('atomName' = atomName, 'contingency' = contingency, 'mcnemarsRes' = mcnemarsRes, 'effectSize' = es)
+    list('atomName' = atomName, 'contingency' = contingency, 'mcnemarsRes' = stats$mcnemarsRes, 'effectSize' = stats$es)
 }
 
 #byAtom <- function(queryRes) {
@@ -130,24 +136,52 @@ neighbors <- function(thresh) {
     m <- mean(triplet$effectSize)
     aqn <- a$questionName
     nbrs <- triplet[questionName != aqn &
-              abs(effectSize - a$effectSize)/m < thresh, questionName]
-    #print(paste(a$questionName, ": ", paste(nbrs, collapse=', ')))
-    list(aqn, nbrs)
+                abs(effectSize - a$effectSize) < thresh, questionName] # could (and should) be implemented in terms of the dist column below
+    
+    dist <- min(triplet[questionName != aqn, abs(effectSize - a$effectSize)])
+    
+    list(aqn, nbrs, dist)
   })
   
-  nbrsList <- list(lapply(nbrsRes, '[[', 1), lapply(nbrsRes, '[[', 2))
-  nbrsDT <- data.table(question=unlist(nbrsList[1]), neighbors=nbrsList[[2]])
+  
+  nbrsList <- list(lapply(nbrsRes, '[[', 1), lapply(nbrsRes, '[[', 2), lapply(nbrsRes, '[[', 3))
+  nbrsDT <- data.table(questionName=unlist(nbrsList[1]), neighbors=nbrsList[[2]], dist=nbrsList[[3]])
   nbrsDT$len <- lapply(nbrsDT$neighbors, length)
   nbrsDT
 }
 
 
+orphans <- (nbrsDT <- neighbors(0.4))[len==0]
 
-nbrsDT <- neighbors(0.3)
+orphanContingencies <- dt[questionName %in% orphans$questionName]
+nonOrphanContingencies <- dt[questionName %!in% orphans$questionName]
+
+mcTable <- nonOrphanContingencies
+applyMcnemars <- function(mcTable) {
+  #mcTable[, runMcnemars(Reduce("+", contingencies)), by='atomName']
+  # mcTable[, .SD[, Reduce("+", contingencies)], by='atomName']
+
+  mcTable$TT <- lapply(mcTable$contingencies, '[[', 1)
+  mcTable$TF <- lapply(mcTable$contingencies, '[[', 2)
+  mcTable$FT <- lapply(mcTable$contingencies, '[[', 3)
+  mcTable$FF <- lapply(mcTable$contingencies, '[[', 4)
+  
+  # mcTable[, c(sum(contingencies[[1]]), sum(contingencies[[2]])), by='atomName']
+  contingencies <- mcTable[, .(Reduce('+', TT), Reduce('+', TF), Reduce('+', FT), Reduce('+', FF)), by='atomName']
+  
+  # contingency <- matrix(c(sum(sign$TT), sum(sign$TF), sum(sign$FT), sum(sign$FF)), 2, 2)
+  # stats <- runMcnemars(contingency)
+  
+  # Reduce("+", mcTable[atomName == 'replace_MACRO_atom']$contingencies)
+  # res <- runMcnemars(obj$contingency)
+  # obj$effectSize <- res$es
+  # obj$statistic <- res$mcnemarsRes['statistic']
+  # obj$p.value <- res$mcnemarsRes['p.value']
+}
 
 
-grid.table(nbrsDT)
-           
+
+lapply(orphanContingencies, applyMcnemars)
 
 #neighborLength <- function(thresh) apply(neighbors, 1, length)
 
