@@ -166,9 +166,11 @@ applyMcnemars <- function(mcTable) {
   mcTable$FT <- lapply(mcTable$contingencies, '[[', 3)
   mcTable$FF <- lapply(mcTable$contingencies, '[[', 4)
   
-  # mcTable[, c(sum(contingencies[[1]]), sum(contingencies[[2]])), by='atomName']
   contingencies <- mcTable[, .(Reduce('+', TT), Reduce('+', TF), Reduce('+', FT), Reduce('+', FF)), by='atomName']
+  contingencyTables <- mapply(function(a,b,c,d) matrix(c(a,b,c,d), 2, 2), mcTable$TT,  mcTable$TF, mcTable$FT,mcTable$FF, SIMPLIFY = FALSE)
   
+  
+
   # contingency <- matrix(c(sum(sign$TT), sum(sign$TF), sum(sign$FT), sum(sign$FF)), 2, 2)
   # stats <- runMcnemars(contingency)
   
