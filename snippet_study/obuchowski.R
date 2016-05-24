@@ -18,11 +18,11 @@ cnts$n <- cnts$TT + cnts$TF + cnts$FT + cnts$FF
 TF <- cnts$TF
 FT <- cnts$FT
 
-# m = number of atoms (16?)
-# n_j = number of questions per atom (3)
-# j = is the index denoting which atom (1..16?)
+# m = number of subjects (73)
+# n_j = number of questions per subject (2)
+# j = is the index denoting which question pair
 # I = number of treatments (2, confusing/non-confusing)
-# x_ij = number of questions that responded to treatment i in clu
+# x_ij = number of questions that responded to treatment (TF/FT)
 
 m <- length(unique(cnts$atom))
 
@@ -44,4 +44,6 @@ var.hat.diff <- function(x, x1)
 obuchowski <- function (x1, x2)
   ((p.hat(x1) - p.hat(x2))^2) / var.hat.diff(x1, x2)
 
-obuchowski(TF, FT)
+obuchowski(FT, TF)
+
+cnts[, obuchowski(FT, TF), by=atom]
