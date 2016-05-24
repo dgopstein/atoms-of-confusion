@@ -1,4 +1,4 @@
-select t.tag as atom,
+select t.tag as atom, uc.userid as userId,
 SUM(CASE WHEN uc.correct||uc2.correct = 'TT' THEN 1 ELSE 0 END) as TT,
 SUM(CASE WHEN uc.correct||uc2.correct = 'TF' THEN 1 ELSE 0 END) as TF,
 SUM(CASE WHEN uc.correct||uc2.correct = 'FT' THEN 1 ELSE 0 END) as FT,
