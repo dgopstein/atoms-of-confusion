@@ -45,4 +45,4 @@ var.hat.diff <- function(x, x1, N, m)
   var.hat(x, N, m) + var.hat(x1, N, m) - 2 * cov.hat(x, x1, N, m)
 
 chis <- cnts[, .(chisq = obuchowski.test(TF, FT, N, userId)), by=atom]
-chis[, .(sig = chisq > qchisq(0.95, 1))]
+chis$sig <- chis[, chisq > qchisq(0.95, 1)]
