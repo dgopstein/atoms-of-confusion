@@ -19,6 +19,9 @@ test.obuchowski <- function(ps) {
 
 
 
-system.time(results <- replicate(1000, test.obuchowski(c(0.3, 0.3, 0.3, 0.1))))
+system.time(results <- data.table(replicate(10000, test.obuchowski(c(0.3, 0.3, 0.3, 0.1)))))
+
+nrow(results[V1 > qchisq(0.95, 1)]) / nrow(results)
 
 hist(results, breaks=100)#, xlim=c(0,3))
+
