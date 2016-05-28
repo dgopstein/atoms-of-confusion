@@ -8,10 +8,9 @@ library("data.table")
 # obuchowski(cbind(TT, TF, FT, FF) ~ atomName, contingencies)
 
 con <- dbConnect(drv=RSQLite::SQLite(), dbname="confusion.db")
-alltables <- dbListTables(con)
-contingencyQuery <- paste(readLines('sql/clustered_contingency.sql'), collapse = "\n")
-queryRes <- dbGetQuery( con, contingencyQuery )
-cnts <- data.table(queryRes)
+clusteredQuery <- paste(readLines('sql/clustered_contingency.sql'), collapse = "\n")
+clustRes <- dbGetQuery( con, clusteredQuery )
+cnts <- data.table(clustRes)
 
 N <- cnts$TT + cnts$TF + cnts$FT + cnts$FF
 

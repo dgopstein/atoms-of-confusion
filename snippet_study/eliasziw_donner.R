@@ -6,9 +6,6 @@ cnts <- data.table(clustRes)
 # Eliasziw & Donner 1991
 # Durkalski 2003
 
-bk <- cnts$FT
-ck <- cnts$TF
-
 ed <- function (bk, ck) {
   # Number of discordant answers per subject
   Sk <- bk + ck
@@ -34,4 +31,31 @@ ed <- function (bk, ck) {
   X2mc <- (b - c)^2/(b + c)
   
   X2di <- X2mc / (1 + (nc - 1) * rho.hat)
+  
+  X2di
 }
+
+test.ed <- function(ps) {
+  qs <- list()
+  qs$q1 <- sample(x = c(1, 2, 3, 4), 73, replace = T, prob = ps)
+  qs$q2 <- sample(x = c(1, 2, 3, 4), 73, replace = T, prob = ps)
+  
+  qt <- data.table(data.frame(qs))
+  
+  cnts <- data.table(qt[, .((q1==1) + (q2==1), (q1==2) + (q2==2), (q1==3) + (q2==3), (q1==4) + (q2==4))] )
+  colnames(cnts) <- c("TT", "TF", "FT", "FF")
+  cnts$id<-seq.int(nrow(cnts))
+  
+  cnts$n <- mapply(sum, cnts$TT, cnts$TF, cnts$FT, cnts$FF)
+  
+  ed(cnts$TF, cnts$FT)
+}
+
+ed(cnts$TF, cnts$FT)
+
+system.time(results <- data.table(replicate(1000, test.ed(c(0.3, 0.3, 0.3, 0.1)))))
+nrow(results[V1 > qchisq(0.95, 1)]) / nrow(results)
+
+chis <- cnts[, .(chisq = ed(TF, FT)), by=atom]0
+
+

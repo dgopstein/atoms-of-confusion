@@ -1,5 +1,12 @@
+library(ICC)
+
 source("obuchowski.R")
 
+unclusteredQuery <- paste(readLines('sql/unclustered_contingency.sql'), collapse = "\n")
+unclustRes <- dbGetQuery( con, unclusteredQuery )
+uncnts <- data.table(unclustRes)
+
+ICCest(uncnts$userId, uncnts$response, data=uncnts)
 
 test.obuchowski <- function(ps) {
   qs <- list()
@@ -24,4 +31,6 @@ system.time(results <- data.table(replicate(10000, test.obuchowski(c(0.3, 0.3, 0
 nrow(results[V1 > qchisq(0.95, 1)]) / nrow(results)
 
 hist(results, breaks=100)#, xlim=c(0,3))
+
+# http://www.ncbi.nlm.nih.gov/pmc/articles/PMC1466680/
 
