@@ -6,12 +6,15 @@ cnts <- data.table(clustRes)
 # Eliasziw & Donner 1991
 # Durkalski 2003
 
-ed <- function (bk, ck) {
+eliasziw1 <- function (bk, ck) {
   # Number of discordant answers per subject
   Sk <- bk + ck
   
   # Number of subjects with discordant answer
   Kd <- sum(Sk >= 1)
+  
+  # Number of subjects
+  K <- nrow(Sk)
   
   p.bar <- sum(bk) / sum(Sk)
   
@@ -35,7 +38,7 @@ ed <- function (bk, ck) {
   X2di
 }
 
-test.ed <- function(ps) {
+test.test <- function(ps, the.test) {
   qs <- list()
   qs$q1 <- sample(x = c(1, 2, 3, 4), 73, replace = T, prob = ps)
   qs$q2 <- sample(x = c(1, 2, 3, 4), 73, replace = T, prob = ps)
@@ -48,14 +51,14 @@ test.ed <- function(ps) {
   
   cnts$n <- mapply(sum, cnts$TT, cnts$TF, cnts$FT, cnts$FF)
   
-  ed(cnts$TF, cnts$FT)
+  the.test(cnts$TF, cnts$FT)
 }
 
-ed(cnts$TF, cnts$FT)
+eliasziw1(cnts$TF, cnts$FT)
 
-system.time(results <- data.table(replicate(1000, test.ed(c(0.3, 0.3, 0.3, 0.1)))))
+system.time(results <- data.table(replicate(1000, test.test(eliasziw1, c(0.3, 0.3, 0.3, 0.1)))))
 nrow(results[V1 > qchisq(0.95, 1)]) / nrow(results)
 
-chis <- cnts[, .(chisq = ed(TF, FT)), by=atom]0
-
+chis <- cnts[, .(chisq = eliasziw1(TF, FT)), by=atom]
+chis$p.value <- lapply(chis$chisq, function(x) pchisq(x, 1, lower.tail=FALSE))
 
