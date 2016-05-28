@@ -18,7 +18,9 @@ CV <- function(vec) sd(vec)/mean(vec)
 con <- dbConnect(drv=RSQLite::SQLite(), dbname="confusion.db")
 alltables <- dbListTables(con)
 
-contingencyQuery <- paste(readLines('sql/contingency.sql'), collapse = "\n")
+#contingencyQuery <- paste(readLines('sql/contingency.sql'), collapse = "\n")
+contingencyQuery <- paste(readLines('sql/first_cluster_contingency.sql'), collapse = "\n")
+
 
 queryRes <- dbGetQuery( con, contingencyQuery )
 
@@ -79,6 +81,7 @@ toDF <- function (mcnemarsRes) {
 runMcnemars <- function(contingency) {
   mcnemarsRes <- mcnemar.test(contingency, correct=FALSE)
   es <- phi(mcnemarsRes$statistic, sum(contingency))
+  dput(names(mcnemarsRes))
   list('contingency' = contingency, 'mcnemarsRes' = mcnemarsRes, 'effectSize' = es)
 }
 
@@ -86,7 +89,7 @@ processAtom <- function(atomName) {
     sign <- queryRes[queryRes$atom == atomName,]
     
     contingency <- matrix(c(sum(sign$TT), sum(sign$TF), sum(sign$FT), sum(sign$FF)), 2, 2)
-    mcRes <- runMcnemars(atomName, contingency)
+    mcRes <- runMcnemars(contingency)
     mcRes$atomName <- atomName
     mcRes
 }
@@ -101,6 +104,7 @@ processAtom <- function(atomName) {
   invisible(lapply(atomRes, function (r) printContingency(r$atomName, alpha, r$mcnemarsRes, r$contingency)))
 
   atomFrame <- toDF(atomRes)
+  colnames((atomFrame)) <- c('TT', 'TF', 'FT', 'FF', "statistic", "parameter", "p.value", "method", "data.name")
   
   #atomFrame
 #}
