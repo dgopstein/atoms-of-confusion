@@ -81,7 +81,6 @@ toDF <- function (mcnemarsRes) {
 runMcnemars <- function(contingency) {
   mcnemarsRes <- mcnemar.test(contingency, correct=FALSE)
   es <- phi(mcnemarsRes$statistic, sum(contingency))
-  dput(names(mcnemarsRes))
   list('contingency' = contingency, 'mcnemarsRes' = mcnemarsRes, 'effectSize' = es)
 }
 
@@ -104,7 +103,7 @@ processAtom <- function(atomName) {
   invisible(lapply(atomRes, function (r) printContingency(r$atomName, alpha, r$mcnemarsRes, r$contingency)))
 
   atomFrame <- toDF(atomRes)
-  colnames((atomFrame)) <- c('TT', 'TF', 'FT', 'FF', "statistic", "parameter", "p.value", "method", "data.name")
+  colnames(atomFrame) <- c('TT', 'TF', 'FT', 'FF', "statistic", "parameter", "p.value", "method", "data.name", "effect.size", "atomName")
   
   #atomFrame
 #}
@@ -183,44 +182,3 @@ csvView <- function(odt) {
   odtView <- odt[,c(attributes(odt)$names[[1]], "p.value", "effectSize","TT", "TF", "FT", "FF"), with=FALSE]
   data.frame(lapply(odtView, as.character), stringsAsFactors=FALSE)
 }
-
-
-
-orphans <- (nbrsDT <- neighbors(0.2))[len==0]
-
-orphanContingencies <- dt[questionName %in% orphans$questionName]
-nonOrphanContingencies <- dt[questionName %!in% orphans$questionName]
-
-orphanDT <- applyMcnemars(orphanContingencies)
-nonOrphanDT <- applyMcnemars(nonOrphanContingencies)
-
-write.csv(csvView(orphanDT), file = "csv/orphans-0.2.csv")
-write.csv(csvView(nonOrphanDT), file = "csv/nonOrphans-0.2.csv")
-# write.csv(atomFrame, file = "atoms.csv")
-
-#neighborLength <- function(thresh) apply(neighbors, 1, length)
-
-
-histNeighbors <- function(thresh) {
-  nbrs <- neighborLength(thresh)
-  hist(nbrs, breaks=seq(-0.5, 2.5, 0.5),
-       main = sprintf("Cluster sizes @ window = %1.2f", thresh),
-       xaxt='n', #xlim=c(-1, 3),
-       ylim = c(0, 70),
-       xlab="# of neighbors", thresh)
-  axis(side=1,at=c(0, 1, 2)-0.25,labels=c(0,1,2))
-}
-
-# histNeighbors(2)
-
-# minThresh <- 0.01
-# maxThresh <- 2.5
-# manipulate(histNeighbors(x), x = slider(minThresh, maxThresh))
-# 
-# 
-# saveGIF({
-#   iters <- 50
-#   for(i in 1:iters){
-#     histNeighbors(i * maxThresh / iters)
-#   }
-# }, interval = 0.1, ani.width = 550, ani.height = 350)
