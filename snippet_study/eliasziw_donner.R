@@ -14,7 +14,8 @@ eliasziw1 <- function (bk, ck) {
   Kd <- sum(Sk >= 1)
   
   # Number of subjects
-  K <- nrow(Sk)
+  #K <- nrow(Sk)
+  K <- length(Sk)
   
   p.bar <- sum(bk) / sum(Sk)
   
@@ -68,44 +69,53 @@ bk <- cnts$TF
 ck <- cnts$FT
 abcd <- cnts[,.(TT, TF, FT, FF)]
 
-# Row-wise sum [2, 2, 2, ...]
-nk <- Reduce("+", abcd)
 
-# Column-wise sum: TT:1678, TF:168, FT:845, FF:342
-abcd.sum <- apply(abcd, 2, sum)
-
-# Total number of responses
-N = sum(nk)
-
-P.hat <- abcd.sum / N
-
-#eliasziw2 <- function (bk, ck) {
+#eliasziw2 <- function (abcd) {
   
+  # Row-wise sum [2, 2, 2, ...]
+  nk <- Reduce("+", abcd)
+
   # Number of subjects
-  K <- nrow(Sk)
+  K <- length(nk)
   
   n.bar <- (1 / K) * sum(nk)
   
   n0 <- n.bar - ( sum( (nk - n.bar)^2 ) ) / (K * (K - 1) * n.bar )
   
-  P.hat * nk
+  # Total number of responses
+  N = sum(nk)
   
-  #t(sapply(nk, function(x) x * P.hat))
+  # Column-wise sum: TT:1678, TF:168, FT:845, FF:342
+  abcd.sum <- apply(abcd, 2, sum)
+  
+  P.hat <- abcd.sum / N
+  
+  nk_X_P.hat <-t(sapply(nk, function(x) x * P.hat))
+  abcd.mat <- data.matrix(abcd)
 
-  BMSpooled <- (1 / K) * sum( (abcd - t(sapply(nk, function(x) x * P.hat))) / nk )
+  BMSpooled <- (1 / K) * sum( (abcd.mat - nk_X_P.hat)^2 / nk )
+  WMSpooled <- (1 / (K * (n.bar - 1))) * sum( ( abcd.mat *  as.vector(nk - abcd.mat)) / nk )
   
   rho.tilde.star <- (BMSpooled - WMSpooled) / (BMSpooled + (n0 - 1)*WMSpooled)
   
+  rho.tilde <- 1 / (1 + P.hat[['TF']]*(1 - rho.tilde.star)/rho.tilde.star
+                      + P.hat[['FT']]*(1 - rho.tilde.star)/rho.tilde.star)
+  
+  S.bar <- (1/Kd) * sum(Sk)
+  
+  S0 <- S.bar - sum((Sk - S.bar)^2 - (K - Kd)*(S.bar^2)) / (Kd * (Kd - 1) * S.bar)
+  
   nc <- S0 + Kd*(S.bar - S0)
+
+  C.hat <- 1 + (nc - 1) * rho.tilde
   
   b <- sum(bk)
   c <- sum(ck)
   X2mc <- (b - c)^2/(b + c)
   
-  X2di <- X2mc / (1 + (nc - 1) * rho.hat)
+  X2di <- X2mc / C.hat
   
   X2di
 #}
 
-
-
+eliasziw2(abcd)
