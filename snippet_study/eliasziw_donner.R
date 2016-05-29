@@ -38,7 +38,7 @@ eliasziw1 <- function (bk, ck) {
   X2di
 }
 
-test.test <- function(ps, the.test) {
+test.test <- function(the.test, ps) {
   qs <- list()
   qs$q1 <- sample(x = c(1, 2, 3, 4), 73, replace = T, prob = ps)
   qs$q2 <- sample(x = c(1, 2, 3, 4), 73, replace = T, prob = ps)
@@ -61,4 +61,51 @@ nrow(results[V1 > qchisq(0.95, 1)]) / nrow(results)
 
 chis <- cnts[, .(chisq = eliasziw1(TF, FT)), by=atom]
 chis$p.value <- lapply(chis$chisq, function(x) pchisq(x, 1, lower.tail=FALSE))
+
+
+
+bk <- cnts$TF
+ck <- cnts$FT
+abcd <- cnts[,.(TT, TF, FT, FF)]
+
+# Row-wise sum [2, 2, 2, ...]
+nk <- Reduce("+", abcd)
+
+# Column-wise sum: TT:1678, TF:168, FT:845, FF:342
+abcd.sum <- apply(abcd, 2, sum)
+
+# Total number of responses
+N = sum(nk)
+
+P.hat <- abcd.sum / N
+
+#eliasziw2 <- function (bk, ck) {
+  
+  # Number of subjects
+  K <- nrow(Sk)
+  
+  n.bar <- (1 / K) * sum(nk)
+  
+  n0 <- n.bar - ( sum( (nk - n.bar)^2 ) ) / (K * (K - 1) * n.bar )
+  
+  P.hat * nk
+  
+  #t(sapply(nk, function(x) x * P.hat))
+
+  BMSpooled <- (1 / K) * sum( (abcd - t(sapply(nk, function(x) x * P.hat))) / nk )
+  
+  rho.tilde.star <- (BMSpooled - WMSpooled) / (BMSpooled + (n0 - 1)*WMSpooled)
+  
+  nc <- S0 + Kd*(S.bar - S0)
+  
+  b <- sum(bk)
+  c <- sum(ck)
+  X2mc <- (b - c)^2/(b + c)
+  
+  X2di <- X2mc / (1 + (nc - 1) * rho.hat)
+  
+  X2di
+#}
+
+
 
