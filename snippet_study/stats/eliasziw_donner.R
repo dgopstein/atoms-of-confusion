@@ -1,3 +1,6 @@
+library(DBI)
+library(data.table)
+
 con <- dbConnect(drv=RSQLite::SQLite(), dbname="confusion.db")
 clusteredQuery <- paste(readLines('sql/clustered_contingency.sql'), collapse = "\n")
 clustRes <- dbGetQuery( con, clusteredQuery )
