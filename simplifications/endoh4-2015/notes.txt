@@ -1,8 +1,9 @@
 0001: Google format
 0002: Add return types to function declarations - C99-6.7.2
-0003: Add explicit return value -  C99-6.9.1p12
+0003: Add explicit return value - C99-6.9.1p12
 0004: Declare and use printf instead of putchar (so the user only needs to know printf, not putchar as well)
 0005: Add excplicit types to function signatures - C99-6.7.5.3
 0006: Add second parameter to main() - C99-5.1.2.2p1
 0007: Standardize all variable names
+0008: Removed assignment used as value
 
