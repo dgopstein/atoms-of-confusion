@@ -1,31 +1,7 @@
-library("RSQLite")
-library(DBI)
-library("data.table")
-
 # An implementation of Obuchowski 1998
 
-# Desired syntax:
-# obuchowski(cbind(TT, TF, FT, FF) ~ atomName, contingencies)
-
-con <- dbConnect(drv=RSQLite::SQLite(), dbname="confusion.db")
-clusteredQuery <- paste(readLines('sql/clustered_contingency.sql'), collapse = "\n")
-clustRes <- dbGetQuery( con, clusteredQuery )
-cnts <- data.table(clustRes)
-
-N <- cnts$TT + cnts$TF + cnts$FT + cnts$FF
-
-TF <- cnts$TF
-FT <- cnts$FT
-
-# m = number of subjects (73)
-# n_j = number of questions per subject (2)
-# j = is the index denoting which question pair
-# I = number of treatments (2, confusing/non-confusing)
-# x_ij = number of questions that responded to treatment (TF/FT)
-
-x1 <- TF
-x2 <- FT
-m <- length(unique(cnts$userId))
+obuchowski <- function(abcd)
+  obuchowski.test(abcd$TF, abcd$FT, abcd$TT + abcd$TF + abcd$FT + abcd$FF, length(abcd))
 
 # Eqn (6)
 obuchowski.test <- function(x1, x2, N, m)
@@ -45,6 +21,3 @@ cov.hat <- function(x, x1, N, m)
 # Eqn (4)
 var.hat.diff <- function(x, x1, N, m)
   var.hat(x, N, m) + var.hat(x1, N, m) - 2 * cov.hat(x, x1, N, m)
-
-chis <- cnts[, .(chisq = obuchowski.test(TF, FT, N, length(unique(userId)))), by=atom]
-chis$sig <- chis[, chisq > qchisq(0.95, 1)]

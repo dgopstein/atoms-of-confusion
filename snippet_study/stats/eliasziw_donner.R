@@ -1,15 +1,17 @@
-library(DBI)
-library(data.table)
-
-con <- dbConnect(drv=RSQLite::SQLite(), dbname="confusion.db")
-clusteredQuery <- paste(readLines('sql/clustered_contingency.sql'), collapse = "\n")
-clustRes <- dbGetQuery( con, clusteredQuery )
-cnts <- data.table(clustRes)
-
 # Eliasziw & Donner 1991
-# Durkalski 2003
 
-eliasziw1 <- function (bk, ck) {
+mcnemars <- function(abcd) {
+  #b <- sum(bk)
+  #c <- sum(ck)
+  b <- sum(abcd$TF)
+  c <- sum(abcd$FT)
+  X2mc <- (b - c)^2/(b + c)
+}
+
+eliasziw1 <-function (abcd) {
+  bk <- abcd$TF
+  ck <- abcd$FT
+  
   # Number of discordant answers per subject
   Sk <- bk + ck
   
@@ -33,11 +35,7 @@ eliasziw1 <- function (bk, ck) {
   
   nc <- S0 + Kd*(S.bar - S0)
   
-  b <- sum(bk)
-  c <- sum(ck)
-  X2mc <- (b - c)^2/(b + c)
-  
-  X2di <- X2mc / (1 + (nc - 1) * rho.hat)
+  X2di <- mcnemars(abcd) / (1 + (nc - 1) * rho.hat)
   
   X2di
 }
@@ -58,26 +56,19 @@ test.test <- function(the.test, ps) {
   the.test(cnts$TF, cnts$FT)
 }
 
-eliasziw1(cnts$TF, cnts$FT)
-
-system.time(results <- data.table(replicate(1000, test.test(eliasziw1, c(0.3, 0.3, 0.3, 0.1)))))
-nrow(results[V1 > qchisq(0.95, 1)]) / nrow(results)
-
-chis <- cnts[, .(chisq = eliasziw1(TF, FT)), by=atom]
-chis$p.value <- lapply(chis$chisq, function(x) pchisq(x, 1, lower.tail=FALSE))
-
-
-
-bk <- cnts$TF
-ck <- cnts$FT
-abcd <- cnts[,.(TT, TF, FT, FF)]
-
-
-#eliasziw2 <- function (abcd) {
+eliasziw2 <- function (abcd) {
+  bk <- abcd$TF
+  ck <- abcd$FT
   
   # Row-wise sum [2, 2, 2, ...]
   nk <- Reduce("+", abcd)
 
+  # Number of discordant answers per subject
+  Sk <- bk + ck
+  
+  # Number of subjects with discordant answer
+  Kd <- sum(Sk >= 1)
+  
   # Number of subjects
   K <- length(nk)
   
@@ -88,13 +79,18 @@ abcd <- cnts[,.(TT, TF, FT, FF)]
   # Total number of responses
   N = sum(nk)
   
+  abcd.mat <- data.matrix(abcd)
+  
   # Column-wise sum: TT:1678, TF:168, FT:845, FF:342
-  abcd.sum <- apply(abcd, 2, sum)
+  abcd.sum <- sapply(abcd, sum)
   
   P.hat <- abcd.sum / N
   
+  
+
   nk_X_P.hat <-t(sapply(nk, function(x) x * P.hat))
-  abcd.mat <- data.matrix(abcd)
+  dput(abcd.mat)
+  dput(nk_X_P.hat)
 
   BMSpooled <- (1 / K) * sum( (abcd.mat - nk_X_P.hat)^2 / nk )
   WMSpooled <- (1 / (K * (n.bar - 1))) * sum( ( abcd.mat *  as.vector(nk - abcd.mat)) / nk )
@@ -112,13 +108,7 @@ abcd <- cnts[,.(TT, TF, FT, FF)]
 
   C.hat <- 1 + (nc - 1) * rho.tilde
   
-  b <- sum(bk)
-  c <- sum(ck)
-  X2mc <- (b - c)^2/(b + c)
-  
-  X2di <- X2mc / C.hat
+  X2di <- mcnemars(abcd) / C.hat
   
   X2di
-#}
-
-eliasziw2(abcd)
+}
