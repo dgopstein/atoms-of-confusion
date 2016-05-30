@@ -23,10 +23,13 @@ FT <- cnts$FT
 # I = number of treatments (2, confusing/non-confusing)
 # x_ij = number of questions that responded to treatment (TF/FT)
 
-obuchowski.test <- function(x1, x2, N, clusters) {
-  m <- length(unique(clusters))
+x1 <- TF
+x2 <- FT
+m <- length(unique(cnts$userId))
+
+# Eqn (6)
+obuchowski.test <- function(x1, x2, N, m)
   ((p.hat(x1, N) - p.hat(x2, N))^2) / var.hat.diff(x1, x2, N, m)
-}
 
 # Eqn (1)
 p.hat <- function(x, N) sum(x) / sum(N)
@@ -43,5 +46,5 @@ cov.hat <- function(x, x1, N, m)
 var.hat.diff <- function(x, x1, N, m)
   var.hat(x, N, m) + var.hat(x1, N, m) - 2 * cov.hat(x, x1, N, m)
 
-chis <- cnts[, .(chisq = obuchowski.test(TF, FT, N, userId)), by=atom]
+chis <- cnts[, .(chisq = obuchowski.test(TF, FT, N, length(unique(userId)))), by=atom]
 chis$sig <- chis[, chisq > qchisq(0.95, 1)]

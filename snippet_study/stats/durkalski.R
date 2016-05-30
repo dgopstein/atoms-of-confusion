@@ -9,8 +9,6 @@ cnts <- data.table(clustRes)
 abcd <- cnts[,.(TT, TF, FT, FF)]
 
 durkalski <- function(abcd) {
-  dput(abcd)
-  
   nk <- Reduce("+", abcd)
 
   bk <- abcd$TF
