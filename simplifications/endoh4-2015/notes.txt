@@ -1,0 +1,6 @@
+0001: Google format
+0002: Add return types to function declarations
+0003: Add explicit return value
+0004: Declare and use printf instead of putchar
+0005: Add excplicit types to function signatures
+

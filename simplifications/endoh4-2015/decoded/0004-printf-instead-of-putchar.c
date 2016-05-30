@@ -1,6 +1,6 @@
 #include <stdio.h>
 
-int f(int y, int x) {
+int f(y, x) {
   int m, z;
 
   for (m = z = 1;
@@ -11,6 +11,6 @@ int f(int y, int x) {
   return 0;
 }
 
-int main(int y) {
+int main(y) {
   f(y - 1, -1);
 }
