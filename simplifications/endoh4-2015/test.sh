@@ -22,14 +22,8 @@ for f in `ls examples/*.txt`; do
 
   args=$(perl -e "print '@ ' x ($n);")
 
-  "$prg_a $args" > $test_a
-  "$prg_b $args" > $test_b
+  "$prg_a" "$args" > $test_a
+  "$prg_b" "$args" > $test_b
   cmp $test_a $test_b
-  echo "$f: $?"
+  echo "$?: $f"
 done
-
-#if [[ 0 -ne $? ]]; then
-#  echo "Failure"
-#else
-#  echo "Success"
-#fi
