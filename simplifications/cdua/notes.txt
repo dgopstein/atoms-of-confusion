@@ -1,2 +1,0 @@
-typedef int(*h)() - makes 'h' the type of a pointer to an int-returning function
-int printf() - defines the function as an int, which presumably holds it's memory address - this probably isn't portable
