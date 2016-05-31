@@ -16,3 +16,9 @@
 0070: Logic as control flow
 0080: Replace ternary with if, using whole expression inside branch instead of variable assignment
 0090: Added explicit logical test to conditions
+
+TODO:
+- Hardcode F1(1, -1) in main, so that the user has fewer cycles to perform
+- Replace %c with %d, so that the user doesn't need to know ascii
+- Run clang-format on both C and NC versions
+
