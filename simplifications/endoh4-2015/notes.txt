@@ -7,4 +7,10 @@
 0007: Standardize all variable names
 0008: Even out operator spacing
 0010: Removed assignment used as value
-
+0020: Replace ternary with if. Involved duplicating the code and moving other initialization code before the first copy.
+0030: Replace ternary with if
+0031: Remove assignment used as value I introduced in the last step
+0040: Replace ternary with if
+0050: Replace comma operator with semicolons
+0060: Replace ternary with if
+0070: Logic as control flow
