@@ -9,7 +9,7 @@ int F1(int V1, int V2) {
   int V5;
 
   if (V3 * V3 <= V1) {
-    if (V1 % V3 != 0) {
+    if (V1 % V3) {
       V4 = V4;
       V5 = V4;
     } else {
@@ -17,15 +17,15 @@ int F1(int V1, int V2) {
       V5 = V4;
     }
   } else {
-    if (V2 + 1 != 0) {
+    if (V2 + 1) {
       if (V4 < 2) {
-        if (V1 != 0) {
+        if (V1) {
           V5 = F1(V2, 0);
         }
       } else {
         V5 = F1(V4, V2);
       }
-      if (V2 != 0) {
+      if (V2) {
         printf("%c", 10);
       } else {
         printf("%c", 32 << !V1);
@@ -37,11 +37,11 @@ int F1(int V1, int V2) {
     }
   }
 
-  for (;V5 != 0;) {
+  for (;V5;) {
     V3++;
 
     if (V3 * V3 <= V1) {
-      if (V1 % V3 != 0) {
+      if (V1 % V3) {
         V4 = V4;
         V5 = V4;
       } else {
@@ -49,15 +49,15 @@ int F1(int V1, int V2) {
         V5 = V4;
       }
     } else {
-      if (V2 + 1 != 0) {
+      if (V2 + 1) {
         if (V4 < 2) {
-          if (V1 != 0) {
+          if (V1) {
             V5 = F1(V2, 0);
           }
         } else {
           V5 = F1(V4, V2);
         }
-        if (V2 != 0) {
+        if (V2) {
           printf("%c", 10);
         } else {
           printf("%c", 32 << !V1);

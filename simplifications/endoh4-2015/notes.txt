@@ -14,3 +14,5 @@
 0050: Replace comma operator with semicolons
 0060: Replace ternary with if
 0070: Logic as control flow
+0080: Replace ternary with if, using whole expression inside branch instead of variable assignment
+0090: Added explicit logical test to conditions
