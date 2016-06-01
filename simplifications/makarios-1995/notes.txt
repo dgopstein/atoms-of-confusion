@@ -1,0 +1,7 @@
+0001: clang-format style=Google + some mods
+0002: include <stdio.h>
+0003: define F1 before it's used
+0004: speficy the full types in F1's signature
+0005: explicit pointer casts C99-6.5.4p3
+0006: specify main's return type
+0007: standardize variable names
