@@ -5,3 +5,9 @@
 0005: explicit pointer casts C99-6.5.4p3
 0006: specify main's return type
 0007: standardize variable names
+0010: expand preincrement in while to one increment before and one inside
+0020: replace assigment in while with one before and one inside
+0030: ternary to if, moving pre-condition of for-loop to precede it
+0040: replace commas with semicolons
+
+XXXX REPLACE printf with (printf, 2), because non-determinism and API

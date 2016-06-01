@@ -8,20 +8,14 @@ void F1(int V1, int V2, int V3, int V4) {
 
     int V9;
     if (V3 < V2) {
-      V3 = V3 * 8 + V2 % 8;
-      V2 /= 8;
-      V4 = V3 == V2 | V3 / 8 == V2;
-      V9 = 1;
+      V9 = V3 = V3 * 8 + V2 % 8, V2 /= 8, V4 = V3 == V2 | V3 / 8 == V2, 1;
     } else {
       V9 = (V1 - ++V4 || printf("%o\n", V1)) && V1 % V4;
     }
 
     for (; V9;)
       if (V3 < V2) {
-        V3 = V3 * 8 + V2 % 8;
-        V2 /= 8;
-        V4 = V3 == V2 | V3 / 8 == V2;
-        V9 = 1;
+        V9 = V3 = V3 * 8 + V2 % 8, V2 /= 8, V4 = V3 == V2 | V3 / 8 == V2, 1;
       } else {
         V9 = (V1 - ++V4 || printf("%o\n", V1)) && V1 % V4;
       }
