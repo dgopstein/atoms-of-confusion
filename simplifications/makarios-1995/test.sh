@@ -3,7 +3,7 @@
 gcc="gcc -w"
 
 src_a=makarios.c
-src_b=makarios.fixed.c
+src_b=decoded/0000-normalized-confusing.c
 
 prg_a=`basename $src_a`
 prg_b=`basename $src_b`

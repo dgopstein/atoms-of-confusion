@@ -5,7 +5,7 @@ void F1(int V1, int V2, int V3, int V4) {
   V2 = V1;
   while (V2) {
     for (V3 = 0; V3 < V2 ? V3 = V3 * 8 + V2 % 8, V2 /= 8, V4 = V3 == V2 | V3 / 8 == V2,
-        1 : (V1 - ++V4 || (printf("%o\n", V1), 2)) && V1 % V4;)
+        1 : (V1 - ++V4 || (printf("%d\n", V1), 2)) && V1 % V4;)
       ;
     V1 = V1 + 1;
     V2 = V1;
