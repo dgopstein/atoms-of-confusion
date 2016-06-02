@@ -1,0 +1,1 @@
+0001: Declare read before main and change it's types to be pointers and cast back to into when necessary
