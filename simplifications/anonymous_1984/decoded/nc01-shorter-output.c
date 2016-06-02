@@ -8,7 +8,8 @@ void F1(int V1, char *V2, int V3) {
 }
 int V7;
 int main() {
-  for (; "ab"[V7] != 0; F1(97 - 97, V7 + "zy", 122 / 122)) {
+  for (; "ab"[V7] != 0;) {
+    F1(97 - 97, V7 + "zy", 122 / 122);
     V7 = V7 + 1;
   }
 }
