@@ -1,1 +1,9 @@
 0001: Declare read before main and change it's types to be pointers and cast back to into when necessary
+0002: Standardize variable naming
+0003: Use printf instead of write for API understandability
+0004: Change string literals to generic characters
+0005: Clang format
+0006: Declare main as returning an int
+0007: User intermediate variables to sequences writes and reads to V2
+0010: Add parens to expression
+0020: Remove pre-increment
