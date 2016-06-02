@@ -3,8 +3,9 @@
 0003: define F1 before it's used
 0004: speficy the full types in F1's signature
 0005: explicit pointer casts C99-6.5.4p3
-0006: specify main's return type
-0007: standardize variable names
+0006: add an explicit return value to a printf call (this add's a comma atom)
+0007: specify main's return type
+0008: standardize variable names
 0010: expand preincrement in while to one increment before and one inside
 0020: replace assigment in while with one before and one inside
 0030: ternary to if, moving pre-condition of for-loop to precede it
