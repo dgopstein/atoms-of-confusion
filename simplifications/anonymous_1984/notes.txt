@@ -10,7 +10,4 @@
 0030: Change ascii arithmetic to numeric arithmetic
 0040: Remove post-increment
 0050: Swapped subscript
-0060: Add curly braces
-0070: Add explicit condition
-
-TODO: shorten "abcdef" and "zyxwvu" strings to make the program finish quicker
+0060: Add explicit condition
