@@ -7,3 +7,10 @@
 0007: User intermediate variables to sequences writes and reads to V2
 0010: Add parens to expression
 0020: Remove pre-increment
+0030: Change ascii arithmetic to numeric arithmetic
+0040: Remove post-increment
+0050: Swapped subscript
+0060: Add curly braces
+0070: Add explicit condition
+
+TODO: shorten "abcdef" and "zyxwvu" strings to make the program finish quicker
