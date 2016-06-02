@@ -10,5 +10,10 @@
 0020: replace assigment in while with one before and one inside
 0030: ternary to if, moving pre-condition of for-loop to precede it
 0040: replace commas with semicolons
+0050: replace logic as control flow with an if statement
+0060: make arithmetic parsing explicit with parens
+0070: make parsing explicit with parens
+0080: isolate pre-increment from expression
+0090: make logical test for 0 explicit
+0100: make parsing explicit with parens
 
-XXXX REPLACE printf with (printf, 2), because non-determinism and API

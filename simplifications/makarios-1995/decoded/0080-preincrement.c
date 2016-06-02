@@ -14,11 +14,11 @@ void F1(int V1, int V2, int V3, int V4) {
       V9 = 1;
     } else {
       V4 = V4 + 1;
-      if ((V1 - V4) != 0) {
+      if (V1 - V4) {
         V9 = V1 % V4; 
       } else {
         printf("%o\n", V1);
-        V9 = 2 && (V1 % V4);
+        V9 = 2 && V1 % V4;
       }
     }
 
@@ -30,11 +30,11 @@ void F1(int V1, int V2, int V3, int V4) {
         V9 = 1;
       } else {
         V4 = V4 + 1;
-        if ((V1 - V4) != 0) {
+        if (V1 - V4) {
           V9 = V1 % V4; 
         } else {
           printf("%o\n", V1);
-          V9 = 2 && (V1 % V4);
+          V9 = 2 && V1 % V4;
         }
       }
 
