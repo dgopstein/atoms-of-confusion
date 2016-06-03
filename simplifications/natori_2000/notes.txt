@@ -9,5 +9,12 @@
 0040: Swap subscripts
 0050: Add parens
 0060: Make int truncation explicit
+0070: Comma to semicolon
+0080: Logic as control flow
+0090: Replace pre-increment with a temp variable
+0100: Make comparisons against zero explicit
+0110: Make int truncation explicit
+0120: Add parens
+0130: Remove pre-increment
 
 
