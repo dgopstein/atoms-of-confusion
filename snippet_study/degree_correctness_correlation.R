@@ -8,19 +8,19 @@ correctnessRes <- dbGetQuery( con, correctnessQuery )
 # Survey data
 surveyCsv = tail(read.csv("csv/Confusing_Atoms-Clean.csv"), -1)
 
-degrees <-list("Associate", "Bachelor's", "Master's", "Doctoral", "Professional")
+degrees <-list("None Listed", "Associate", "Bachelor's", "Master's", "Doctoral", "Professional")
 gender <- list("Male", "Female", "Unspecified")
 
-survey_correctness <- merge(correctnessRes, surveyCsv, by.x="Name", by.y="TestID")
+survey_correctness <- data.table(merge(correctnessRes, surveyCsv, by.x="Name", by.y="TestID"))
 survey_correctness$correctness <- survey_correctness$n_correct / survey_correctness$n_questions
 survey_correctness$EducationText <- unlist(degrees[survey_correctness$Education])
 
 
-x <- survey_correctness$Education
-y <- survey_correctness$correctness
-lbls <- unlist(degrees) #survey_correctness$EducationText
+plot(x=survey_correctness$Education,
+     y=survey_correctness$correctness,
+     col="#00000020",pch=16, xaxt="n")
+degree_counts <- cbind(unlist(degrees), c(unlist(survey_correctness[order(Education),.(n = sum(Name != '')), by=Education]$n), 0))
+axis(1, at=(1:6), lab=apply(degree_counts, 1, function(x) paste("\n",x[1], "\nn =", x[2])))
 
-lbls
 
-plot(x,y,col="#00000020",pch=16, xaxt="n")
-axis(1, at=(1:5), lab=lbls)
+
