@@ -3,4 +3,11 @@
 0003: Removed obscure functions
 0004: Simplify constants to head-computable values
 0005: Standardize variable names
+0010: Ternary to if
+0020: Comma to semicolon
+0030: Comma to semicolon
+0040: Swap subscripts
+0050: Add parens
+0060: Make int truncation explicit
+
 
