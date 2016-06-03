@@ -1,1 +1,5 @@
 0001: Added type information to main's signature and casted the variables where necessary
+0002: Ran clang-format
+0003: Removed obscure functions
+0004: Simplify constants to head-computable values
+
