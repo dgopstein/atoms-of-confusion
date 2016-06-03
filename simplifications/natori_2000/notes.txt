@@ -1,0 +1,1 @@
+0001: Added type information to main's signature and casted the variables where necessary
