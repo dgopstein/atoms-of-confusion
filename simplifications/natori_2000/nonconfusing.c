@@ -5,7 +5,7 @@ int main(int V1, char **V2, char **V3) {
   char V4;
   int V5 = V1;
 
-  printf("%d %d %d\n", V1, V2, V3);
+  printf("a: %d %d %d %f\n", V1, V2, V3, l);
 
   V1 = V1 - 1;
   if (V5 + 1 != 0 && V5 + 4 != 0) {
@@ -21,5 +21,5 @@ int main(int V1, char **V2, char **V3) {
     V4 = 'c';
   }
 
-  return printf("%c\n", V4);
+  return printf("b: %c\n", V4);
 }

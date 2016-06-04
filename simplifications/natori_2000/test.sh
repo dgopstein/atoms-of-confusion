@@ -2,8 +2,8 @@
 
 gcc="gcc -w"
 
-src_a=natori.c
-src_b=decoded/0005*
+src_a=confusing.c
+src_b=nonconfusing.c
 
 prg_a=`basename $src_a`
 prg_b=`basename $src_b`
