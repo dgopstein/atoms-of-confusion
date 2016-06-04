@@ -2,8 +2,11 @@
 
 gcc="gcc -w"
 
-src_a=prog.c
-src_b=decoded/0000-original.c
+#src_a=prog.c
+#src_b=decoded/0000-original.c
+
+src_a=confusing.c
+src_b=nonconfusing.c
 
 prg_a=`basename $src_a`
 prg_b=`basename $src_b`
@@ -24,6 +27,8 @@ for f in `ls examples/*.txt`; do
 
   "$prg_a" "$args" > $test_a
   "$prg_b" "$args" > $test_b
-  cmp $test_a $test_b
-  echo "$?: $f"
+  cmp $test_a "examples/$f"
+  echo "$?: $f a"
+  cmp $test_b "examples/$f"
+  echo "$?: $f b"
 done
