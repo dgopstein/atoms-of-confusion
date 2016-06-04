@@ -22,7 +22,7 @@ void F1(int V1, int V2, int V3, int V4) {
       }
     }
 
-    for (; V9;) {
+    for (; V9;)
       if (V3 < V2) {
         V3 = (V3 * 8) + (V2 % 8);
         V2 /= 8;
@@ -37,7 +37,6 @@ void F1(int V1, int V2, int V3, int V4) {
           V9 = 2 && (V1 % V4);
         }
       }
-    }
 
     V1 = V1 + 1;
     V2 = V1;

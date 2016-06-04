@@ -6,6 +6,7 @@ void F1(int V1, int V2, int V3, int V4) {
   while (V2) {
     V3 = 0;
 
+    printf("%d %d %d %d\n", V1, V2, V3, V4);
     int V9;
     if (V3 < V2) {
       V3 = (V3 * 8) + (V2 % 8);
@@ -23,6 +24,7 @@ void F1(int V1, int V2, int V3, int V4) {
     }
 
     for (; V9;) {
+      printf("%d %d %d %d\n", V1, V2, V3, V4);
       if (V3 < V2) {
         V3 = (V3 * 8) + (V2 % 8);
         V2 /= 8;

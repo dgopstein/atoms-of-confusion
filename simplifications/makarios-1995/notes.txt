@@ -17,4 +17,7 @@
 0080: isolate pre-increment from expression
 0090: make logical test for 0 explicit
 0100: make parsing explicit with parens
+0110: add parens to for loop
 
+c001: add extra print statements
+c002: limit the number of executions by adding a test on the infinite while loop
