@@ -19,12 +19,12 @@ int F1(int V1, int V2) {
   } else {
     if (V2 + 1) {
       if (V4 < 2) {
-        V5 = V1 && F1(V2, 0);
+        V1 && F1(V2, 0);
       } else {
-        V5 = F1(V4, V2);
+        F1(V4, V2);
       }
       printf("%c", V2 ? 10 : 32 << !V1);
-      V1 -= V4 * !!V1;
+      V5 = V1 -= V4 * !!V1;
     } else {
       F1(V4, V1 / V4);
       V5 = 0;
@@ -45,12 +45,12 @@ int F1(int V1, int V2) {
     } else {
       if (V2 + 1) {
         if (V4 < 2) {
-          V5 = V1 && F1(V2, 0);
+          V1 && F1(V2, 0);
         } else {
-          V5 = F1(V4, V2);
+          F1(V4, V2);
         }
         printf("%c", V2 ? 10 : 32 << !V1);
-        V1 -= V4 * !!V1;
+        V5 = V1 -= V4 * !!V1;
       } else {
         F1(V4, V1 / V4);
         V5 = 0;
