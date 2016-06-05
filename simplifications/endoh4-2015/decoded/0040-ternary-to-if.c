@@ -49,6 +49,6 @@ int F1(int V1, int V2) {
   return 0;
 }
 
-int main(int V5, char **V6) {
+int main(int V6, char **V7) {
   F1(V5 - 1, -1);
 }
