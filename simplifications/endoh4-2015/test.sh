@@ -25,8 +25,8 @@ for f in `ls examples/*.txt`; do
 
   args=$(perl -e "print '@ ' x ($n);")
 
-  "$prg_a" "$args" > $test_a
-  "$prg_b" "$args" > $test_b
+  "$prg_a" $args > $test_a
+  "$prg_b" $args > $test_b
   cmp $test_a "examples/$f"
   echo "$?: $f a"
   cmp $test_b "examples/$f"
