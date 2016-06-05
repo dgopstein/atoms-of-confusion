@@ -1,5 +1,7 @@
 #include <stdio.h>
 double V4;
+
+// Assume main is called as main(1, 0, 0)
 int main(int V1, char **V2, char **V3) {
   printf("a: %d %d %d %f\n", V1, V2, V3, V4);
   return printf("b: %c\n",

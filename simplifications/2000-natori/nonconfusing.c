@@ -1,6 +1,8 @@
 #include <math.h>
 #include <stdio.h>
 double V4;
+
+// Assume main is called as main(1, 0, 0)
 int main(int V1, char **V2, char **V3) {
   char V4;
   int V5 = V1;
