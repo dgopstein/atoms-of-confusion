@@ -80,5 +80,5 @@ int F1(int V1, int V2) {
 }
 
 int main(int V5, char **V6) {
-  F1(2, -1);
+  F1(V5 - 1, -1);
 }

@@ -28,9 +28,9 @@ int F1(int V1, int V2) {
         F1(V4, V2);
       }
       if (V2 != 0) {
-        printf("1: %d\n", 10);
+        printf("1: %c\n", 10);
       } else {
-        printf("2: %d\n", 32 << !V1);
+        printf("2: %c\n", 32 << !V1);
       }
       V1 -= V4 * !!V1;
       V5 = V1;
@@ -63,9 +63,9 @@ int F1(int V1, int V2) {
           F1(V4, V2);
         }
         if (V2 != 0) {
-          printf("3: %d\n", 10);
+          printf("3: %c\n", 10);
         } else {
-          printf("4: %d\n", 32 << !V1);
+          printf("4: %c\n", 32 << !V1);
         }
         V1 -= V4 * !!V1;
         V5 = V1;
@@ -80,5 +80,5 @@ int F1(int V1, int V2) {
 }
 
 int main(int V5, char **V6) {
-  F1(2, -1);
+  F1(V5 - 1, -1);
 }

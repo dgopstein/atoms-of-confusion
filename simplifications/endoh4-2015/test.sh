@@ -27,8 +27,10 @@ for f in `ls examples/*.txt`; do
 
   "$prg_a" $args > $test_a
   "$prg_b" $args > $test_b
-  cmp $test_a "examples/$f"
-  echo "$?: $f a"
-  cmp $test_b "examples/$f"
-  echo "$?: $f b"
+  #cmp $test_a "examples/$f"
+  #echo "$?: $f a"
+  #cmp $test_b "examples/$f"
+  #echo "$?: $f b"
+  cmp $test_a $test_b
+  echo "$?: $f a b"
 done
