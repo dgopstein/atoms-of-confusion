@@ -21,3 +21,4 @@
 
 c001: add extra print statements
 c002: limit the number of executions by adding a test on the infinite while loop
+c003: hardcode F1 parameters in main()
