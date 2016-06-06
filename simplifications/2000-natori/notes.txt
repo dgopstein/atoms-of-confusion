@@ -18,3 +18,4 @@
 0130: Remove pre-increment
 
 c020: Add intermediate function, F1(int, int, int) so that the type of V2 isn't char** and ++ has definite symantics (increase by 1 instead of 8). Also change constants to iterate fewer times and produce more faried output. Add another printf for more insight.
+c030: Remove main args
