@@ -1,4 +1,4 @@
-#include<stdio.h>
+#include <stdio.h>
 
 main(int n, char** i, char** a, char** m) {
   F1(n, i, a, m);

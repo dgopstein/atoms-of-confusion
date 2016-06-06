@@ -1,4 +1,4 @@
-#include<stdio.h>
+#include <stdio.h>
 
 void F1(int n, int i, int a, int m) {
   while (i = ++n)
