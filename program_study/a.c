@@ -1,0 +1,1 @@
+../simplifications/1984-anonymous/confusing.c

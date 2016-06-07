@@ -1,0 +1,1 @@
+../simplifications/2000-natori/confusing.c
