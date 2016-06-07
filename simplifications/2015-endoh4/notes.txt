@@ -22,7 +22,5 @@ c001: add printf statements
 c002: use %d so users don't need to know ascii codes
 c003: hardcode small constants so execution time is shorter
 c004: remove main args
-
-TODO:
-- Run clang-format on both C and NC versions
+c005: clang-format again
 
