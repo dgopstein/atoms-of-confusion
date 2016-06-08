@@ -1,0 +1,889 @@
+\documentclass[]{article}
+\usepackage{lmodern}
+\usepackage{amssymb,amsmath}
+\usepackage{ifxetex,ifluatex}
+\usepackage{fixltx2e} % provides \textsubscript
+\ifnum 0\ifxetex 1\fi\ifluatex 1\fi=0 % if pdftex
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+\else % if luatex or xelatex
+  \ifxetex
+    \usepackage{mathspec}
+  \else
+    \usepackage{fontspec}
+  \fi
+  \defaultfontfeatures{Ligatures=TeX,Scale=MatchLowercase}
+\fi
+% use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+% use microtype if available
+\IfFileExists{microtype.sty}{%
+\usepackage{microtype}
+\UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\usepackage{hyperref}
+\hypersetup{unicode=true,
+            pdfborder={0 0 0},
+            breaklinks=true}
+\urlstyle{same}  % don't use monospace font for urls
+\usepackage{longtable,booktabs}
+\usepackage{graphicx,grffile}
+\makeatletter
+\def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
+\def\maxheight{\ifdim\Gin@nat@height>\textheight\textheight\else\Gin@nat@height\fi}
+\makeatother
+% Scale images if necessary, so that they will not overflow the page
+% margins by default, and it is still possible to overwrite the defaults
+% using explicit options in \includegraphics[width, height, ...]{}
+\setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
+\IfFileExists{parskip.sty}{%
+\usepackage{parskip}
+}{% else
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{6pt plus 2pt minus 1pt}
+}
+\setlength{\emergencystretch}{3em}  % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\setcounter{secnumdepth}{0}
+% Redefines (sub)paragraphs to behave more like sections
+\ifx\paragraph\undefined\else
+\let\oldparagraph\paragraph
+\renewcommand{\paragraph}[1]{\oldparagraph{#1}\mbox{}}
+\fi
+\ifx\subparagraph\undefined\else
+\let\oldsubparagraph\subparagraph
+\renewcommand{\subparagraph}[1]{\oldsubparagraph{#1}\mbox{}}
+\fi
+
+\date{}
+
+\begin{document}
+
+{SUBJECT I.D.\#\_\_\_\_\_\_\_}
+
+{You have been invited to take part in a research study that explores
+how programmers read and understand code. This study will be conducted
+by Justin Cappos of the Department of Computer Science and Engineering.
+If you agree to be in this study, you will be asked to do the
+following:}
+
+\begin{enumerate}
+\tightlist
+\item
+  {Read 4 program snippets, each of about 30 lines, and write down the
+  program output.}
+\item
+  {Complete a short demographic survey about your programming
+  experience.}
+\end{enumerate}
+
+{There are no known risks associated with your participation in this
+research beyond those of everyday life. By helping the investigator
+complete this research, you are assisting in the development of better
+interaction between programmers and code that could have positive
+benefits for all software developers.}
+
+{Participation in this study }{will}{~take approximately an hour. }{You
+will receive \$8.00 for your participation.}{~}
+
+{Confidentiality of your research records will be strictly maintained by
+assigning a pseudonym to each participant. No data is directly linked to
+any individual participant. Only the researchers who are approved by the
+IRB office for this study will have access to the participant's'
+response.}
+
+{Participation in this study is voluntary. You may refuse to participate
+or withdraw at anytime without penalty. For interviews, questionnaires,
+or surveys, you have the right to skip any questions you prefer not to
+answer.}
+
+{Nonparticipation or withdrawal will not affect the services you receive
+at NYU, and if you are a student, will not affect your grades or
+academic standing.}
+
+{If you have any questions about the study or your participation in it,
+or you wish to report a research-related problem, you may contact Justin
+Cappos at (718) 260 3116, or jcappos@nyu.edu, 2 MetroTech Center.}
+
+{For questions about your rights as a research participant, you may
+contact the University Committee on Activities Involving Human Subjects,
+New York University, 665 Broadway, Suite 804, New York, New York, 10012,
+at ask.humansubjects@nyu.edu or (212) 998-4808.}
+
+{You will be given a copy of this consent document for your records.}
+
+{Agreement to Participate}
+
+{\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_}
+
+{Subject's Signature \& Date}
+
+\begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
+
+{Study on Code Comprehension}
+
+{DATE\_\_\_\_\_\_\_\_\_\_\_\_\_~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~}
+
+
+{DIRECTIONS:}
+
+{Thank you for agreeing to participate in this study. Please read these
+instructions carefully.}
+
+{You will be asked to look at four examples of source code taken from
+different small computer programs. For each sample, }{step through the
+program as if you were the computer, executing each instruction.
+Following each code sample, you will find a page divided into two
+columns. The left hand side is to be used as ``scratch paper,'' for
+notes or for working through the code. ~In the right hand column,
+labeled ``Program Output,'' please record the standard output of the
+program (emitted by the }{printf}{~function) next to the line number of
+the code that generated it.}
+
+Please try to trace each program until it terminates. If, for whatever reason, you feel you have to give up, please make a note in the program output by writing “I give up!”. If you fill every line of space given to you in the Program Output section you should stop working on that question and move to the next.
+
+Lastly, please note the time you start and finish your work on each program in the given spaces.
+
+After the test there is a short questionnaire about your experience.
+
+
+{\includegraphics{images/image00.png}}
+
+{}
+
+{}
+
+{Example of a Completed Response}
+
+{}
+
+{Start Time}{: ~}{\_ ~ ~9:32 a.m. ~ \_}{~~~~~~~~~~~~~~~~}
+
+{}
+
+{Program Code}
+
+{}
+
+{01 ~void main() \{}
+
+{02 ~ ~int V1 = 21;}
+
+{03 ~ ~printf(``a: \%d\textbackslash{}n'', V1);}
+
+{04 ~ ~V1 *= 2;}
+
+{05 ~ ~printf(``b: \%d\textbackslash{}n'', V1);}
+
+{06 ~\}}
+
+{}
+
+{Program Output}
+
+{}
+
+{a: 21}
+
+{b: 42}
+
+{}
+
+{Finish Time}{: }{\_ ~ ~9:49 a.m. ~ \_}
+
+\begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
+
+{Program Code Sample ~E}
+
+{}
+
+{\#include \textless{}stdio.h\textgreater{}}
+
+{double V4;}
+
+{int V5;}
+
+{}
+
+{int F1(int V1, int V2, int V3) \{}
+
+{~ printf(``a: \%d \%d \%d \%f\textbackslash{}n'', V1, V2, V3, V4);}
+
+{~ return printf(``b: \%c\textbackslash{}n'',}
+
+{~ ~ ~ (V1-- + 1 \&\& V1 + 4 \&\& F1(V1, -1, V1), V1 \&\& V2)}
+
+{~ ~ ~ ~ ~ ? (F1(-1, ++V2, V3),}
+
+{~ ~ ~ ~ ~ ~ ~((V5 = (int)(V4 = (int)(V2 + 1) / (1 - (int)V3 * 2 -}
+
+{~ ~ ~ ~ ~ ~ ~ ~ ~(int)V3 * (int)V3),}
+
+{~ ~ ~ ~ ~ ~ ~ ~V4 * V4 \textgreater{}= 1 \&\& ((2 \% 3) / 4 - 2 + (V4 /
+2)) \textless{} 1),}
+
+{~ ~ ~ ~ ~ ~ ~ ~ ~printf(``c: \%d \%d \%d \%f \%d\textbackslash{}n'',
+V1, V2, V3, V4, V5),}
+
+{~ ~ ~ ~ ~ ~ ~ ~ ~V5){[}``ab''{]}))}
+
+{~ ~ ~ ~ ~ : `c');}
+
+{\}}
+
+{}
+
+{int main() \{}
+
+{~ F1(-1, -2, 0);}
+
+{\}}
+
+{}
+
+{}
+
+\href{}{}\href{}{}
+
+\begin{longtable}[]{@{}ll@{}}
+\toprule
+\begin{minipage}[t]{0.47\columnwidth}\raggedright\strut
+{Program E ~Notes ~~~~~~~~}
+\strut\end{minipage} &
+\begin{minipage}[t]{0.47\columnwidth}\raggedright\strut
+{Program E Output}
+
+{}
+
+{}
+
+{Start Time\_\_\_\_\_}
+
+{}
+
+\begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
+
+{}
+
+\begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
+
+{}
+
+\begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
+
+{}
+
+\begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
+
+{}
+
+\begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
+
+{}
+
+\begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
+
+{}
+
+\begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
+
+{}
+
+\begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
+
+{}
+
+\begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
+
+{}
+
+\begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
+
+{}
+
+\begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
+
+{}
+
+{}
+
+{End Time\_\_\_\_\_}
+\strut\end{minipage}\tabularnewline
+\bottomrule
+\end{longtable}
+
+\begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
+
+{Program Code Sample B}
+
+{}
+
+{\#include \textless{}stdio.h\textgreater{}}
+
+{void F1(int V1, char *V2, int V3) \{}
+
+{~ printf(``a: \%d \%s \%d\textbackslash{}n'', V1, V2, V3);}
+
+{~ int V4 = (V1 / V3) + V3;}
+
+{~ char *V5 = V2 - V1;}
+
+{~ V2 = V2 - 1;}
+
+{~ int V6 = (int)V2 / (int)V2;}
+
+{~ printf(``b: \%d \%s \%d\textbackslash{}n'', V4, V5, V6);}
+
+{\}}
+
+{int V7;}
+
+{int main() \{}
+
+{~ for (; ``ab''{[}V7{]} != 0;) \{}
+
+{~ ~ F1(97 - 97, V7 + ``zy'', 122 / 122);}
+
+{~ ~ V7 = V7 + 1;}
+
+{~ \}}
+
+{\}}
+
+{}
+
+{}
+
+{}
+
+{}
+
+\href{}{}\href{}{}
+
+\begin{longtable}[]{@{}ll@{}}
+\toprule
+\begin{minipage}[t]{0.47\columnwidth}\raggedright\strut
+{Program B ~Notes ~~~~~~~~}
+\strut\end{minipage} &
+\begin{minipage}[t]{0.47\columnwidth}\raggedright\strut
+{Program B Output}
+
+{}
+
+{}
+
+{Start Time\_\_\_\_\_}
+
+{}
+
+\begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
+
+{}
+
+\begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
+
+{}
+
+\begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
+
+{}
+
+\begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
+
+{}
+
+\begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
+
+{}
+
+\begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
+
+{}
+
+\begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
+
+{}
+
+\begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
+
+{}
+
+\begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
+
+{}
+
+\begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
+
+{}
+
+\begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
+
+{}
+
+{}
+
+{End Time\_\_\_\_\_}
+\strut\end{minipage}\tabularnewline
+\bottomrule
+\end{longtable}
+
+{}
+
+{}
+
+\begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
+
+{}
+
+{Program Code Sample G}
+
+{}
+
+{\#include \textless{}stdio.h\textgreater{}}
+
+{}
+
+{int F1(int V1, int V2) \{}
+
+{~ int V3, V4;}
+
+{}
+
+{~ printf(``a: \%d \%d\textbackslash{}n'', V1, V2);}
+
+{}
+
+{~ for (V3 = V4 = 1;}
+
+{~ ~ ~ ~V3 * V3 \textless{}= V1 ? V4 = V1 \% V3 ? V4 : V3 : V2 + 1 ? V4
+\textless{} 2 ?}
+
+{~ ~ ~ ~ ~ V1 \&\& F1(V2, 0) : F1(V4, V2),}
+
+{~ ~ ~ printf(``b: \%d\textbackslash{}n'', V2 ? 10 : 32
+\textless{}\textless{} !V1),}
+
+{~ ~ ~ V1 -= V4 * !!V1 : (F1(V4, V1 / V4), 0);) \{}
+
+{~ ~ printf(``c: \%d \%d\textbackslash{}n'', V1, V4);}
+
+{~ ~ V3++;}
+
+{~ \}}
+
+{}
+
+{~ return 0;}
+
+{\}}
+
+{}
+
+{int main() \{}
+
+{~ F1(2, -1);}
+
+{\}}
+
+{}
+
+\href{}{}\href{}{}
+
+\begin{longtable}[]{@{}ll@{}}
+\toprule
+\begin{minipage}[t]{0.47\columnwidth}\raggedright\strut
+{Program G Notes ~~~~~~~~}
+\strut\end{minipage} &
+\begin{minipage}[t]{0.47\columnwidth}\raggedright\strut
+{Program G Output}
+
+{}
+
+{}
+
+{Start Time\_\_\_\_\_}
+
+{}
+
+\begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
+
+{}
+
+\begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
+
+{}
+
+\begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
+
+{}
+
+\begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
+
+{}
+
+\begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
+
+{}
+
+\begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
+
+{}
+
+\begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
+
+{}
+
+\begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
+
+{}
+
+\begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
+
+{}
+
+\begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
+
+{}
+
+\begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
+
+{}
+
+{}
+
+{End Time\_\_\_\_\_}
+\strut\end{minipage}\tabularnewline
+\bottomrule
+\end{longtable}
+
+{}
+
+{Program Code Sample D}
+
+{}
+
+{\#include \textless{}stdio.h\textgreater{}}
+
+{}
+
+{void F1(int V1, int V2, int V3, int V4) \{}
+
+{~ V1 = V1 + 1;}
+
+{~ V2 = V1;}
+
+{~ while (V2 \textless{} 4) \{}
+
+{~ ~ V3 = 0;}
+
+{}
+
+{~ ~ printf(``a: \%d \%d \%d \%d\textbackslash{}n'', V1, V2, V3, V4);}
+
+{~ ~ int V9;}
+
+{~ ~ if (V3 \textless{} V2) \{}
+
+{~ ~ ~ V3 = (V3 * 8) + (V2 \% 8);}
+
+{~ ~ ~ V2 /= 8;}
+
+{~ ~ ~ V4 = (V3 == V2) \textbar{} ((V3 / 8) == V2);}
+
+{~ ~ ~ V9 = 1;}
+
+{~ ~ \} else \{}
+
+{~ ~ ~ V4 = V4 + 1;}
+
+{~ ~ ~ if ((V1 - V4) != 0) \{}
+
+{~ ~ ~ ~ V9 = V1 \% V4;}
+
+{~ ~ ~ \} else \{}
+
+{~ ~ ~ ~ printf(``b: \%d\textbackslash{}n'', V1);}
+
+{~ ~ ~ ~ V9 = 2 \&\& (V1 \% V4);}
+
+{~ ~ ~ \}}
+
+{~ ~ \}}
+
+{}
+
+{~ ~ for (; V9;) \{}
+
+{~ ~ ~ printf(``c: \%d \%d \%d \%d\textbackslash{}n'', V1, V2, V3, V4);}
+
+{~ ~ ~ if (V3 \textless{} V2) \{}
+
+{~ ~ ~ ~ V3 = (V3 * 8) + (V2 \% 8);}
+
+{~ ~ ~ ~ V2 /= 8;}
+
+{~ ~ ~ ~ V4 = (V3 == V2) \textbar{} ((V3 / 8) == V2);}
+
+{~ ~ ~ ~ V9 = 1;}
+
+{~ ~ ~ \} else \{}
+
+{~ ~ ~ ~ V4 = V4 + 1;}
+
+{~ ~ ~ ~ if ((V1 - V4) != 0) \{}
+
+{~ ~ ~ ~ ~ V9 = V1 \% V4;}
+
+{~ ~ ~ ~ \} else \{}
+
+{~ ~ ~ ~ ~ printf(``d: \%d\textbackslash{}n'', V1);}
+
+{~ ~ ~ ~ ~ V9 = 2 \&\& (V1 \% V4);}
+
+{~ ~ ~ ~ \}}
+
+{~ ~ ~ \}}
+
+{~ ~ \}}
+
+{}
+
+{~ ~ V1 = V1 + 1;}
+
+{~ ~ V2 = V1;}
+
+{~ \}}
+
+{\}}
+
+{}
+
+{int main() \{}
+
+{~ F1(1, 0, 0, 0);}
+
+{\}}
+
+\begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
+
+{}
+
+\href{}{}\href{}{}
+
+\begin{longtable}[]{@{}ll@{}}
+\toprule
+\begin{minipage}[t]{0.47\columnwidth}\raggedright\strut
+{Program D ~Notes ~~~~~~~~}
+\strut\end{minipage} &
+\begin{minipage}[t]{0.47\columnwidth}\raggedright\strut
+{Program D Output}
+
+{}
+
+{}
+
+{Start Time\_\_\_\_\_}
+
+{}
+
+\begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
+
+{}
+
+\begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
+
+{}
+
+\begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
+
+{}
+
+\begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
+
+{}
+
+\begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
+
+{}
+
+\begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
+
+{}
+
+\begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
+
+{}
+
+\begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
+
+{}
+
+\begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
+
+{}
+
+\begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
+
+{}
+
+\begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
+
+{}
+
+{}
+
+{End Time\_\_\_\_\_}
+\strut\end{minipage}\tabularnewline
+\bottomrule
+\end{longtable}
+
+{}
+
+{}
+
+{}
+
+{}
+
+{}
+
+{}
+
+{}
+
+{}
+
+{}
+
+{}
+
+\begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
+
+{}
+
+{PARTICIPANT DEMOGRAPHIC SURVEY:}
+
+{}
+
+\begin{enumerate}
+\tightlist
+\item
+  {Your age: \_\_\_\_\_}
+\end{enumerate}
+
+{}
+
+\begin{enumerate}
+\setcounter{enumi}{1}
+\tightlist
+\item
+  {Highest degree received: \_\_\_\_\_}
+\end{enumerate}
+
+{~~~~~~~~~}
+
+\begin{enumerate}
+\setcounter{enumi}{2}
+\tightlist
+\item
+  {Your current position:
+  \_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_}
+\end{enumerate}
+
+{~~~~~~~~}{(Undergraduate Student, Graduate Student, Staff, Faculty,
+etc.)}
+
+{}
+
+\begin{enumerate}
+\setcounter{enumi}{3}
+\tightlist
+\item
+  {Your major:
+  \_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_}
+\end{enumerate}
+
+{~~~~~~~~}{(If you are not currently in school, tell us what was your
+primary field of study)}
+
+{}
+
+\begin{enumerate}
+\setcounter{enumi}{4}
+\tightlist
+\item
+  {Number of years of programming experience:
+  \_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_}
+\end{enumerate}
+
+{(Please combine your years of experience with all programming
+languages. If you have one year's experience with C++ and one year with
+Java, then write down two years)}
+
+{}
+
+\begin{enumerate}
+\setcounter{enumi}{5}
+\tightlist
+\item
+  {Specifically, how many years of experience do you have in C/C++?
+  \_\_\_\_\_\_}
+\end{enumerate}
+
+{}
+
+\begin{enumerate}
+\setcounter{enumi}{6}
+\tightlist
+\item
+  {List all programming languages you have used:\\
+  \_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_}
+\end{enumerate}
+
+{\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_~~~~~~~~\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_~~~~~~~~
+}
+
+{}
+
+\begin{enumerate}
+\setcounter{enumi}{7}
+\tightlist
+\item
+  {If your current position involves developing software on a daily
+  basis, please tell us what programming language(s) you use:~~~~~~~~\\
+  \_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_}
+\end{enumerate}
+
+{\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_~~~~~~~~\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_~~~~~~~~
+}
+
+\begin{enumerate}
+\setcounter{enumi}{8}
+\tightlist
+\item
+  {What is your preferred ~programming language?
+  \_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_}
+\end{enumerate}
+
+{(Which language do you feel most comfortable working with?)}
+
+{~~~~~~~~}
+
+\begin{enumerate}
+\setcounter{enumi}{9}
+\tightlist
+\item
+  {How would you estimate your proficiency in C/C++?}
+\end{enumerate}
+
+{(With 1 representing ``Novice'' and 6 representing ``Expert,'' pick the
+number that closest matches what you see as your level of expertise)}
+
+{~~~~~~~~~~~~~~~~1~~~~~~~~2~~~~~~~~3~~~~~~~~4~~~~~~~~5~~~~~~~~6~~~~~~~~}
+
+{Please use the space below to share with us anything about your
+programming knowledge and experience not captured by the previous
+questions.}
+
+\end{document}
