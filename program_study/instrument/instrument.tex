@@ -63,6 +63,14 @@
 
 
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+\usepackage{listings}
+\usepackage{courier}
+\lstset{basicstyle=\ttfamily\footnotesize,breaklines=true}
+
 \usepackage{fancyhdr}
 
 \usepackage{helvet}
@@ -79,7 +87,7 @@
 \fancyfoot[C]{\thepage}
 
 
-\usepackage[margin=1.0in]{geometry}
+\usepackage[margin=1.0in,headheight=15pt]{geometry}
 
 
 \begin{document}
@@ -154,12 +162,15 @@ Subject's Signature \& Date
 
 \pagebreak
 
-Study on Code Comprehension
+\begin{center}\textbf{Study on Code Comprehension}\end{center}
 
-DATE\_\_\_\_\_\_\_\_\_\_\_\_\_~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+\vspace{20pt}
 
+DATE\_\_\_\_\_\_\_\_\_\_\_\_\_
 
-{DIRECTIONS:}
+\vspace{20pt}
+
+\textbf{DIRECTIONS:}
 
 {Thank you for agreeing to participate in this study. Please read these
 instructions carefully.}
@@ -180,36 +191,37 @@ Lastly, please note the time you start and finish your work on each program in t
 
 After the test there is a short questionnaire about your experience.
 
+\begin{center}\rule{0.8\linewidth}{2pt}\end{center}
 
 
+\textbf{Example of a Completed Response}
 
-{Example of a Completed Response}
+\vspace{10pt}
 
-{Start Time}{: ~}{\_ ~ ~9:32 a.m. ~ \_}{~~~~~~~~~~~~~~~~}
+\textbf{Start Time}: \underline{~~~~~9:32 a.m.~~~~~}
 
-{Program Code}
+\vspace{10pt}
 
-{01 ~void main() \{}
+\textbf{Program Code}
 
-{02 ~ ~int V1 = 21;}
+\begin{lstlisting}
+void main() {
+  int V1 = 21;
+  printf("a: %d\n", V1);
+  V1 *= 2;
+  printf("b: %d\n", V1);
+}
+\end{lstlisting}
 
-{03 ~ ~printf(``a: \%d\textbackslash{}n'', V1);}
+\textbf{Program Output}
 
-{04 ~ ~V1 *= 2;}
+a: 21
 
-{05 ~ ~printf(``b: \%d\textbackslash{}n'', V1);}
+b: 42
 
-{06 ~\}}
+\textbf{Finish Time}: \underline{~~~~~9:49 a.m.~~~~~}
 
-{Program Output}
-
-{a: 21}
-
-{b: 42}
-
-{Finish Time}{: }{\_ ~ ~9:49 a.m. ~ \_}
-
-\begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
+\begin{center}\rule{0.8\linewidth}{2pt}\end{center}
 
   \pagebreak
 
