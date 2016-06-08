@@ -1,18 +1,18 @@
-\documentclass[]{article}
+\documentclass[12pt, a4paper, oneside]{article}
+%\documentclass[]{article}
 \usepackage{lmodern}
 \usepackage{amssymb,amsmath}
 \usepackage{ifxetex,ifluatex}
-\usepackage{fixltx2e} % provides \textsubscript
 \ifnum 0\ifxetex 1\fi\ifluatex 1\fi=0 % if pdftex
-  \usepackage[T1]{fontenc}
-  \usepackage[utf8]{inputenc}
+ \usepackage[T1]{fontenc}
+ \usepackage[utf8]{inputenc}
 \else % if luatex or xelatex
-  \ifxetex
-    \usepackage{mathspec}
-  \else
-    \usepackage{fontspec}
-  \fi
-  \defaultfontfeatures{Ligatures=TeX,Scale=MatchLowercase}
+ \ifxetex
+   \usepackage{mathspec}
+ \else
+   \usepackage{fontspec}
+ \fi
+ \defaultfontfeatures{Ligatures=TeX,Scale=MatchLowercase}
 \fi
 % use upquote if available, for straight quotes in verbatim environments
 \IfFileExists{upquote.sty}{\usepackage{upquote}}{}
@@ -25,7 +25,7 @@
 \hypersetup{unicode=true,
             pdfborder={0 0 0},
             breaklinks=true}
-\urlstyle{same}  % don't use monospace font for urls
+%\urlstyle{same}  % don't use monospace font for urls
 \usepackage{longtable,booktabs}
 \usepackage{graphicx,grffile}
 \makeatletter
@@ -58,15 +58,43 @@
 
 \date{}
 
+
+
+
+
+
+\usepackage{fancyhdr}
+
+\usepackage{helvet}
+\renewcommand{\familydefault}{\sfdefault}
+
+%%%%%%%%%%%%%%%%%%%%%%%
+%   Header & Footer
+%%%%%%%%%%%%%%%%%%%%%%%
+
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[R]{{SUBJECT I.D.\#\_\_\_\_\_\_\_}}
+\renewcommand{\headrulewidth}{0pt}
+\fancyfoot[C]{\thepage}
+
+
+\usepackage[margin=1.0in]{geometry}
+
+
 \begin{document}
 
-{SUBJECT I.D.\#\_\_\_\_\_\_\_}
+\thispagestyle{empty}
 
-{You have been invited to take part in a research study that explores
+\includegraphics[width=0.5\paperwidth]{images/tandon_long_color.png}
+
+\vspace{20pt}
+
+You have been invited to take part in a research study that explores
 how programmers read and understand code. This study will be conducted
 by Justin Cappos of the Department of Computer Science and Engineering.
 If you agree to be in this study, you will be asked to do the
-following:}
+following:
 
 \begin{enumerate}
 \tightlist
@@ -78,52 +106,57 @@ following:}
   experience.}
 \end{enumerate}
 
-{There are no known risks associated with your participation in this
+There are no known risks associated with your participation in this
 research beyond those of everyday life. By helping the investigator
 complete this research, you are assisting in the development of better
 interaction between programmers and code that could have positive
-benefits for all software developers.}
+benefits for all software developers.
 
-{Participation in this study }{will}{~take approximately an hour. }{You
-will receive \$8.00 for your participation.}{~}
+Participation in this study will take approximately an hour. You
+will receive \$8.00 for your participation.
 
-{Confidentiality of your research records will be strictly maintained by
+Confidentiality of your research records will be strictly maintained by
 assigning a pseudonym to each participant. No data is directly linked to
 any individual participant. Only the researchers who are approved by the
-IRB office for this study will have access to the participant's'
-response.}
+IRB office for this study will have access to the participant's
+response.
 
-{Participation in this study is voluntary. You may refuse to participate
+Participation in this study is voluntary. You may refuse to participate
 or withdraw at anytime without penalty. For interviews, questionnaires,
 or surveys, you have the right to skip any questions you prefer not to
-answer.}
+answer.
 
-{Nonparticipation or withdrawal will not affect the services you receive
+Nonparticipation or withdrawal will not affect the services you receive
 at NYU, and if you are a student, will not affect your grades or
-academic standing.}
+academic standing.
 
-{If you have any questions about the study or your participation in it,
+If you have any questions about the study or your participation in it,
 or you wish to report a research-related problem, you may contact Justin
-Cappos at (718) 260 3116, or jcappos@nyu.edu, 2 MetroTech Center.}
+Cappos at (718) 260 3116, or jcappos@nyu.edu, 2 MetroTech Center.
 
-{For questions about your rights as a research participant, you may
+For questions about your rights as a research participant, you may
 contact the University Committee on Activities Involving Human Subjects,
 New York University, 665 Broadway, Suite 804, New York, New York, 10012,
-at ask.humansubjects@nyu.edu or (212) 998-4808.}
+at ask.humansubjects@nyu.edu or (212) 998-4808.
 
-{You will be given a copy of this consent document for your records.}
+You will be given a copy of this consent document for your records.
 
-{Agreement to Participate}
+\vspace{20pt}
+
+Agreement to Participate
+
+\vspace{20pt}
 
 {\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_}
 
-{Subject's Signature \& Date}
+Subject's Signature \& Date
+%\begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
 
-\begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
+\pagebreak
 
-{Study on Code Comprehension}
+Study on Code Comprehension
 
-{DATE\_\_\_\_\_\_\_\_\_\_\_\_\_~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~}
+DATE\_\_\_\_\_\_\_\_\_\_\_\_\_~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 
 {DIRECTIONS:}
@@ -148,23 +181,13 @@ Lastly, please note the time you start and finish your work on each program in t
 After the test there is a short questionnaire about your experience.
 
 
-{\includegraphics{images/image00.png}}
 
-{}
-
-{}
 
 {Example of a Completed Response}
 
-{}
-
 {Start Time}{: ~}{\_ ~ ~9:32 a.m. ~ \_}{~~~~~~~~~~~~~~~~}
 
-{}
-
 {Program Code}
-
-{}
 
 {01 ~void main() \{}
 
@@ -178,21 +201,18 @@ After the test there is a short questionnaire about your experience.
 
 {06 ~\}}
 
-{}
-
 {Program Output}
-
-{}
 
 {a: 21}
 
 {b: 42}
 
-{}
-
 {Finish Time}{: }{\_ ~ ~9:49 a.m. ~ \_}
 
 \begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
+
+  \pagebreak
+
 
 {Program Code Sample ~E}
 
@@ -243,8 +263,6 @@ V1, V2, V3, V4, V5),}
 {}
 
 {}
-
-\href{}{}\href{}{}
 
 \begin{longtable}[]{@{}ll@{}}
 \toprule
@@ -359,408 +377,408 @@ V1, V2, V3, V4, V5),}
 
 {}
 
-\href{}{}\href{}{}
-
-\begin{longtable}[]{@{}ll@{}}
-\toprule
-\begin{minipage}[t]{0.47\columnwidth}\raggedright\strut
-{Program B ~Notes ~~~~~~~~}
-\strut\end{minipage} &
-\begin{minipage}[t]{0.47\columnwidth}\raggedright\strut
-{Program B Output}
-
-{}
-
-{}
-
-{Start Time\_\_\_\_\_}
-
-{}
-
-\begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
-
-{}
-
-\begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
-
-{}
-
-\begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
-
-{}
-
-\begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
-
-{}
-
-\begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
-
-{}
-
-\begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
-
-{}
-
-\begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
-
-{}
-
-\begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
-
-{}
-
-\begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
-
-{}
-
-\begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
-
-{}
-
-\begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
-
-{}
-
-{}
-
-{End Time\_\_\_\_\_}
-\strut\end{minipage}\tabularnewline
-\bottomrule
-\end{longtable}
-
-{}
-
-{}
-
-\begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
-
-{}
-
-{Program Code Sample G}
-
-{}
-
-{\#include \textless{}stdio.h\textgreater{}}
-
-{}
-
-{int F1(int V1, int V2) \{}
-
-{~ int V3, V4;}
-
-{}
-
-{~ printf(``a: \%d \%d\textbackslash{}n'', V1, V2);}
-
-{}
-
-{~ for (V3 = V4 = 1;}
-
-{~ ~ ~ ~V3 * V3 \textless{}= V1 ? V4 = V1 \% V3 ? V4 : V3 : V2 + 1 ? V4
-\textless{} 2 ?}
-
-{~ ~ ~ ~ ~ V1 \&\& F1(V2, 0) : F1(V4, V2),}
-
-{~ ~ ~ printf(``b: \%d\textbackslash{}n'', V2 ? 10 : 32
-\textless{}\textless{} !V1),}
-
-{~ ~ ~ V1 -= V4 * !!V1 : (F1(V4, V1 / V4), 0);) \{}
-
-{~ ~ printf(``c: \%d \%d\textbackslash{}n'', V1, V4);}
-
-{~ ~ V3++;}
-
-{~ \}}
-
-{}
-
-{~ return 0;}
-
-{\}}
-
-{}
-
-{int main() \{}
-
-{~ F1(2, -1);}
-
-{\}}
-
-{}
-
-\href{}{}\href{}{}
-
-\begin{longtable}[]{@{}ll@{}}
-\toprule
-\begin{minipage}[t]{0.47\columnwidth}\raggedright\strut
-{Program G Notes ~~~~~~~~}
-\strut\end{minipage} &
-\begin{minipage}[t]{0.47\columnwidth}\raggedright\strut
-{Program G Output}
-
-{}
-
-{}
-
-{Start Time\_\_\_\_\_}
-
-{}
-
-\begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
-
-{}
-
-\begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
-
-{}
-
-\begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
-
-{}
-
-\begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
-
-{}
-
-\begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
-
-{}
-
-\begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
-
-{}
-
-\begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
-
-{}
-
-\begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
-
-{}
-
-\begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
-
-{}
-
-\begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
-
-{}
-
-\begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
-
-{}
-
-{}
-
-{End Time\_\_\_\_\_}
-\strut\end{minipage}\tabularnewline
-\bottomrule
-\end{longtable}
-
-{}
-
-{Program Code Sample D}
-
-{}
-
-{\#include \textless{}stdio.h\textgreater{}}
-
-{}
-
-{void F1(int V1, int V2, int V3, int V4) \{}
-
-{~ V1 = V1 + 1;}
-
-{~ V2 = V1;}
-
-{~ while (V2 \textless{} 4) \{}
-
-{~ ~ V3 = 0;}
-
-{}
-
-{~ ~ printf(``a: \%d \%d \%d \%d\textbackslash{}n'', V1, V2, V3, V4);}
-
-{~ ~ int V9;}
-
-{~ ~ if (V3 \textless{} V2) \{}
-
-{~ ~ ~ V3 = (V3 * 8) + (V2 \% 8);}
-
-{~ ~ ~ V2 /= 8;}
-
-{~ ~ ~ V4 = (V3 == V2) \textbar{} ((V3 / 8) == V2);}
-
-{~ ~ ~ V9 = 1;}
-
-{~ ~ \} else \{}
-
-{~ ~ ~ V4 = V4 + 1;}
-
-{~ ~ ~ if ((V1 - V4) != 0) \{}
-
-{~ ~ ~ ~ V9 = V1 \% V4;}
-
-{~ ~ ~ \} else \{}
-
-{~ ~ ~ ~ printf(``b: \%d\textbackslash{}n'', V1);}
-
-{~ ~ ~ ~ V9 = 2 \&\& (V1 \% V4);}
-
-{~ ~ ~ \}}
-
-{~ ~ \}}
-
-{}
-
-{~ ~ for (; V9;) \{}
-
-{~ ~ ~ printf(``c: \%d \%d \%d \%d\textbackslash{}n'', V1, V2, V3, V4);}
-
-{~ ~ ~ if (V3 \textless{} V2) \{}
-
-{~ ~ ~ ~ V3 = (V3 * 8) + (V2 \% 8);}
-
-{~ ~ ~ ~ V2 /= 8;}
-
-{~ ~ ~ ~ V4 = (V3 == V2) \textbar{} ((V3 / 8) == V2);}
-
-{~ ~ ~ ~ V9 = 1;}
-
-{~ ~ ~ \} else \{}
-
-{~ ~ ~ ~ V4 = V4 + 1;}
-
-{~ ~ ~ ~ if ((V1 - V4) != 0) \{}
-
-{~ ~ ~ ~ ~ V9 = V1 \% V4;}
-
-{~ ~ ~ ~ \} else \{}
-
-{~ ~ ~ ~ ~ printf(``d: \%d\textbackslash{}n'', V1);}
-
-{~ ~ ~ ~ ~ V9 = 2 \&\& (V1 \% V4);}
-
-{~ ~ ~ ~ \}}
-
-{~ ~ ~ \}}
-
-{~ ~ \}}
-
-{}
-
-{~ ~ V1 = V1 + 1;}
-
-{~ ~ V2 = V1;}
-
-{~ \}}
-
-{\}}
-
-{}
-
-{int main() \{}
-
-{~ F1(1, 0, 0, 0);}
-
-{\}}
-
-\begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
-
-{}
-
-\href{}{}\href{}{}
-
-\begin{longtable}[]{@{}ll@{}}
-\toprule
-\begin{minipage}[t]{0.47\columnwidth}\raggedright\strut
-{Program D ~Notes ~~~~~~~~}
-\strut\end{minipage} &
-\begin{minipage}[t]{0.47\columnwidth}\raggedright\strut
-{Program D Output}
-
-{}
-
-{}
-
-{Start Time\_\_\_\_\_}
-
-{}
-
-\begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
-
-{}
-
-\begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
-
-{}
-
-\begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
-
-{}
-
-\begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
-
-{}
-
-\begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
-
-{}
-
-\begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
-
-{}
-
-\begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
-
-{}
-
-\begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
-
-{}
-
-\begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
-
-{}
-
-\begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
-
-{}
-
-\begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
-
-{}
-
-{}
-
-{End Time\_\_\_\_\_}
-\strut\end{minipage}\tabularnewline
-\bottomrule
-\end{longtable}
-
-{}
-
-{}
-
-{}
-
-{}
-
-{}
-
-{}
-
-{}
-
-{}
-
-{}
-
-{}
-
-\begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
-
-{}
+%\href{}{}\href{}{}
+%
+%\begin{longtable}[]{@{}ll@{}}
+%\toprule
+%\begin{minipage}[t]{0.47\columnwidth}\raggedright\strut
+%{Program B ~Notes ~~~~~~~~}
+%\strut\end{minipage} &
+%\begin{minipage}[t]{0.47\columnwidth}\raggedright\strut
+%{Program B Output}
+%
+%{}
+%
+%{}
+%
+%{Start Time\_\_\_\_\_}
+%
+%{}
+%
+%\begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
+%
+%{}
+%
+%\begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
+%
+%{}
+%
+%\begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
+%
+%{}
+%
+%\begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
+%
+%{}
+%
+%\begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
+%
+%{}
+%
+%\begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
+%
+%{}
+%
+%\begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
+%
+%{}
+%
+%\begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
+%
+%{}
+%
+%\begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
+%
+%{}
+%
+%\begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
+%
+%{}
+%
+%\begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
+%
+%{}
+%
+%{}
+%
+%{End Time\_\_\_\_\_}
+%\strut\end{minipage}\tabularnewline
+%\bottomrule
+%\end{longtable}
+%
+%{}
+%
+%{}
+%
+%\begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
+%
+%{}
+%
+%{Program Code Sample G}
+%
+%{}
+%
+%{\#include \textless{}stdio.h\textgreater{}}
+%
+%{}
+%
+%{int F1(int V1, int V2) \{}
+%
+%{~ int V3, V4;}
+%
+%{}
+%
+%{~ printf(``a: \%d \%d\textbackslash{}n'', V1, V2);}
+%
+%{}
+%
+%{~ for (V3 = V4 = 1;}
+%
+%{~ ~ ~ ~V3 * V3 \textless{}= V1 ? V4 = V1 \% V3 ? V4 : V3 : V2 + 1 ? V4
+%\textless{} 2 ?}
+%
+%{~ ~ ~ ~ ~ V1 \&\& F1(V2, 0) : F1(V4, V2),}
+%
+%{~ ~ ~ printf(``b: \%d\textbackslash{}n'', V2 ? 10 : 32
+%\textless{}\textless{} !V1),}
+%
+%{~ ~ ~ V1 -= V4 * !!V1 : (F1(V4, V1 / V4), 0);) \{}
+%
+%{~ ~ printf(``c: \%d \%d\textbackslash{}n'', V1, V4);}
+%
+%{~ ~ V3++;}
+%
+%{~ \}}
+%
+%{}
+%
+%{~ return 0;}
+%
+%{\}}
+%
+%{}
+%
+%{int main() \{}
+%
+%{~ F1(2, -1);}
+%
+%{\}}
+%
+%{}
+%
+%\href{}{}\href{}{}
+%
+%\begin{longtable}[]{@{}ll@{}}
+%\toprule
+%\begin{minipage}[t]{0.47\columnwidth}\raggedright\strut
+%{Program G Notes ~~~~~~~~}
+%\strut\end{minipage} &
+%\begin{minipage}[t]{0.47\columnwidth}\raggedright\strut
+%{Program G Output}
+%
+%{}
+%
+%{}
+%
+%{Start Time\_\_\_\_\_}
+%
+%{}
+%
+%\begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
+%
+%{}
+%
+%\begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
+%
+%{}
+%
+%\begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
+%
+%{}
+%
+%\begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
+%
+%{}
+%
+%\begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
+%
+%{}
+%
+%\begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
+%
+%{}
+%
+%\begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
+%
+%{}
+%
+%\begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
+%
+%{}
+%
+%\begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
+%
+%{}
+%
+%\begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
+%
+%{}
+%
+%\begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
+%
+%{}
+%
+%{}
+%
+%{End Time\_\_\_\_\_}
+%\strut\end{minipage}\tabularnewline
+%\bottomrule
+%\end{longtable}
+%
+%{}
+%
+%{Program Code Sample D}
+%
+%{}
+%
+%{\#include \textless{}stdio.h\textgreater{}}
+%
+%{}
+%
+%{void F1(int V1, int V2, int V3, int V4) \{}
+%
+%{~ V1 = V1 + 1;}
+%
+%{~ V2 = V1;}
+%
+%{~ while (V2 \textless{} 4) \{}
+%
+%{~ ~ V3 = 0;}
+%
+%{}
+%
+%{~ ~ printf(``a: \%d \%d \%d \%d\textbackslash{}n'', V1, V2, V3, V4);}
+%
+%{~ ~ int V9;}
+%
+%{~ ~ if (V3 \textless{} V2) \{}
+%
+%{~ ~ ~ V3 = (V3 * 8) + (V2 \% 8);}
+%
+%{~ ~ ~ V2 /= 8;}
+%
+%{~ ~ ~ V4 = (V3 == V2) \textbar{} ((V3 / 8) == V2);}
+%
+%{~ ~ ~ V9 = 1;}
+%
+%{~ ~ \} else \{}
+%
+%{~ ~ ~ V4 = V4 + 1;}
+%
+%{~ ~ ~ if ((V1 - V4) != 0) \{}
+%
+%{~ ~ ~ ~ V9 = V1 \% V4;}
+%
+%{~ ~ ~ \} else \{}
+%
+%{~ ~ ~ ~ printf(``b: \%d\textbackslash{}n'', V1);}
+%
+%{~ ~ ~ ~ V9 = 2 \&\& (V1 \% V4);}
+%
+%{~ ~ ~ \}}
+%
+%{~ ~ \}}
+%
+%{}
+%
+%{~ ~ for (; V9;) \{}
+%
+%{~ ~ ~ printf(``c: \%d \%d \%d \%d\textbackslash{}n'', V1, V2, V3, V4);}
+%
+%{~ ~ ~ if (V3 \textless{} V2) \{}
+%
+%{~ ~ ~ ~ V3 = (V3 * 8) + (V2 \% 8);}
+%
+%{~ ~ ~ ~ V2 /= 8;}
+%
+%{~ ~ ~ ~ V4 = (V3 == V2) \textbar{} ((V3 / 8) == V2);}
+%
+%{~ ~ ~ ~ V9 = 1;}
+%
+%{~ ~ ~ \} else \{}
+%
+%{~ ~ ~ ~ V4 = V4 + 1;}
+%
+%{~ ~ ~ ~ if ((V1 - V4) != 0) \{}
+%
+%{~ ~ ~ ~ ~ V9 = V1 \% V4;}
+%
+%{~ ~ ~ ~ \} else \{}
+%
+%{~ ~ ~ ~ ~ printf(``d: \%d\textbackslash{}n'', V1);}
+%
+%{~ ~ ~ ~ ~ V9 = 2 \&\& (V1 \% V4);}
+%
+%{~ ~ ~ ~ \}}
+%
+%{~ ~ ~ \}}
+%
+%{~ ~ \}}
+%
+%{}
+%
+%{~ ~ V1 = V1 + 1;}
+%
+%{~ ~ V2 = V1;}
+%
+%{~ \}}
+%
+%{\}}
+%
+%{}
+%
+%{int main() \{}
+%
+%{~ F1(1, 0, 0, 0);}
+%
+%{\}}
+%
+%\begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
+%
+%{}
+%
+%\href{}{}\href{}{}
+%
+%\begin{longtable}[]{@{}ll@{}}
+%\toprule
+%\begin{minipage}[t]{0.47\columnwidth}\raggedright\strut
+%{Program D ~Notes ~~~~~~~~}
+%\strut\end{minipage} &
+%\begin{minipage}[t]{0.47\columnwidth}\raggedright\strut
+%{Program D Output}
+%
+%{}
+%
+%{}
+%
+%{Start Time\_\_\_\_\_}
+%
+%{}
+%
+%\begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
+%
+%{}
+%
+%\begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
+%
+%{}
+%
+%\begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
+%
+%{}
+%
+%\begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
+%
+%{}
+%
+%\begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
+%
+%{}
+%
+%\begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
+%
+%{}
+%
+%\begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
+%
+%{}
+%
+%\begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
+%
+%{}
+%
+%\begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
+%
+%{}
+%
+%\begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
+%
+%{}
+%
+%\begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
+%
+%{}
+%
+%{}
+%
+%{End Time\_\_\_\_\_}
+%\strut\end{minipage}\tabularnewline
+%\bottomrule
+%\end{longtable}
+%
+%{}
+%
+%{}
+%
+%{}
+%
+%{}
+%
+%{}
+%
+%{}
+%
+%{}
+%
+%{}
+%
+%{}
+%
+%{}
+%
+%\begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
+%
+%{}
 
 {PARTICIPANT DEMOGRAPHIC SURVEY:}
 
