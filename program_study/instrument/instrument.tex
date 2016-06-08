@@ -69,7 +69,15 @@
 
 \usepackage{listings}
 \usepackage{courier}
-\lstset{basicstyle=\ttfamily\footnotesize,breaklines=true}
+\lstset{basicstyle=\fontsize{10}{18}\ttfamily,breaklines=false}
+% \lstset{
+%   basicstyle  = \ttfamily,
+%   % basewidth = {.5em,0.5em},
+%   % columns   = flexible,
+%   % columns   = fullflexible,
+% }
+
+\usepackage{setspace}
 
 \usepackage{fancyhdr}
 
@@ -87,7 +95,7 @@
 \fancyfoot[C]{\thepage}
 
 
-\usepackage[margin=1.0in,headheight=15pt]{geometry}
+\usepackage[margin=0.9in,headheight=15pt]{geometry}
 
 
 \begin{document}
@@ -226,124 +234,47 @@ b: 42
   \pagebreak
 
 
-{Program Code Sample ~E}
+\textbf{Program Code Sample E}
 
-{}
+\vspace{20pt}
 
-{\#include \textless{}stdio.h\textgreater{}}
-
-{double V4;}
-
-{int V5;}
-
-{}
-
-{int F1(int V1, int V2, int V3) \{}
-
-{~ printf(``a: \%d \%d \%d \%f\textbackslash{}n'', V1, V2, V3, V4);}
-
-{~ return printf(``b: \%c\textbackslash{}n'',}
-
-{~ ~ ~ (V1-- + 1 \&\& V1 + 4 \&\& F1(V1, -1, V1), V1 \&\& V2)}
-
-{~ ~ ~ ~ ~ ? (F1(-1, ++V2, V3),}
-
-{~ ~ ~ ~ ~ ~ ~((V5 = (int)(V4 = (int)(V2 + 1) / (1 - (int)V3 * 2 -}
-
-{~ ~ ~ ~ ~ ~ ~ ~ ~(int)V3 * (int)V3),}
-
-{~ ~ ~ ~ ~ ~ ~ ~V4 * V4 \textgreater{}= 1 \&\& ((2 \% 3) / 4 - 2 + (V4 /
-2)) \textless{} 1),}
-
-{~ ~ ~ ~ ~ ~ ~ ~ ~printf(``c: \%d \%d \%d \%f \%d\textbackslash{}n'',
-V1, V2, V3, V4, V5),}
-
-{~ ~ ~ ~ ~ ~ ~ ~ ~V5){[}``ab''{]}))}
-
-{~ ~ ~ ~ ~ : `c');}
-
-{\}}
-
-{}
-
-{int main() \{}
-
-{~ F1(-1, -2, 0);}
-
-{\}}
-
-{}
-
-{}
+\lstinputlisting{../e.c}
 
 \begin{longtable}[]{@{}ll@{}}
-\toprule
-\begin{minipage}[t]{0.47\columnwidth}\raggedright\strut
-{Program E ~Notes ~~~~~~~~}
+
+
+\begin{minipage}[t]{0.5\columnwidth}\raggedright\strut
+\textbf{Program E Notes}
 \strut\end{minipage} &
-\begin{minipage}[t]{0.47\columnwidth}\raggedright\strut
-{Program E Output}
+\begin{minipage}[t]{0.5\columnwidth}\raggedright\strut
+\textbf{Program E Output}
 
-{}
+\vspace{20pt}
 
-{}
+\textbf{Start Time}: \_\_\_\_\_\_\_\_\_\_
 
-{Start Time\_\_\_\_\_}
+\vspace{10pt}
 
-{}
+\begin{center}\vspace{6pt}\rule{\linewidth}{\linethickness}\end{center}
+\begin{center}\vspace{6pt}\rule{\linewidth}{\linethickness}\end{center}
+\begin{center}\vspace{6pt}\rule{\linewidth}{\linethickness}\end{center}
+\begin{center}\vspace{6pt}\rule{\linewidth}{\linethickness}\end{center}
+\begin{center}\vspace{6pt}\rule{\linewidth}{\linethickness}\end{center}
+\begin{center}\vspace{6pt}\rule{\linewidth}{\linethickness}\end{center}
+\begin{center}\vspace{6pt}\rule{\linewidth}{\linethickness}\end{center}
+\begin{center}\vspace{6pt}\rule{\linewidth}{\linethickness}\end{center}
+\begin{center}\vspace{6pt}\rule{\linewidth}{\linethickness}\end{center}
+\begin{center}\vspace{6pt}\rule{\linewidth}{\linethickness}\end{center}
 
-\begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
+\vspace{20pt}
 
-{}
+\textbf{End Time}: \_\_\_\_\_\_\_\_\_\_
 
-\begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
-
-{}
-
-\begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
-
-{}
-
-\begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
-
-{}
-
-\begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
-
-{}
-
-\begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
-
-{}
-
-\begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
-
-{}
-
-\begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
-
-{}
-
-\begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
-
-{}
-
-\begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
-
-{}
-
-\begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
-
-{}
-
-{}
-
-{End Time\_\_\_\_\_}
 \strut\end{minipage}\tabularnewline
-\bottomrule
+
 \end{longtable}
 
-\begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
+\pagebreak
 
 {Program Code Sample B}
 
