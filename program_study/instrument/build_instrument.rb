@@ -32,7 +32,7 @@ if ARGV.length == 1
   subjects = File.read(infile).lines
   subjects.each do |line|
     subject_id, question_order = line.chomp.split(/\t/)
-    STDERR.puts("linesplit: ", [subject_id, question_order].inspect)
+    STDERR.puts([subject_id, question_order].inspect)
     write_pdf(subject_id, question_order)
   end
 elsif ARGV.length == 2
