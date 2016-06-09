@@ -2,23 +2,6 @@
 
 require 'mustache'
 
-if ARGV.length == 1
-  infile = ARGV.first
-  subjects = File.read(infile).lines
-  subjects.each do |line|
-    subject_id, question_order = line.split(/s+,?s+/)
-    write_pdf(subject_id, question_order)
-  end
-elsif ARGV.length == 2
-  subject_id, question_order = ARGV
-  write_pdf(subject_id, question_order)
-else
-  puts "Usage: build_instrument.rb subject_file.csv"
-  puts "Usage: build_instrument.rb subject_id question_order"
-  exit 1
-end
-
-
 def write_pdf(subject_id, question_order)
   questions = question_order.split('')
   
@@ -42,4 +25,21 @@ def write_pdf(subject_id, question_order)
   File.write(filename, tex)
   
   `pdflatex --output-directory=out/ #{filename}`
+end
+
+if ARGV.length == 1
+  infile = ARGV.first
+  subjects = File.read(infile).lines
+  subjects.each do |line|
+    subject_id, question_order = line.chomp.split(/\t/)
+    STDERR.puts("linesplit: ", [subject_id, question_order].inspect)
+    write_pdf(subject_id, question_order)
+  end
+elsif ARGV.length == 2
+  subject_id, question_order = ARGV
+  write_pdf(subject_id, question_order)
+else
+  puts "Usage: build_instrument.rb subject_file.csv"
+  puts "Usage: build_instrument.rb subject_id question_order"
+  exit 1
 end
