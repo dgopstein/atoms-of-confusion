@@ -25,3 +25,4 @@ c003: hardcode F1 parameters in main()
 c004: add letters before every printf statement for tracking
 c005: remove main args
 c006: clang-format again
+c007: add halt message to tell if people have given up

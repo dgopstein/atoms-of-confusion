@@ -24,3 +24,4 @@ c003: hardcode small constants so execution time is shorter
 c004: remove main args
 c005: clang-format again
 c006: reduce number of iterations for quicker evaluation
+c007: add halting message so we can figure out if people give up

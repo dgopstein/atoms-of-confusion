@@ -11,3 +11,5 @@
 0040: Remove post-increment
 0050: Swapped subscript
 0060: Add explicit condition
+
+c003: Add halt message to tell if people give up
