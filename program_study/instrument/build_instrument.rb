@@ -1,5 +1,8 @@
 #!/usr/bin/env ruby
 
+# To run this code, please create a sub-directory called /out in the 
+# current working directory, then run `./build_instrument.rb subjects.tsv`
+
 require 'mustache'
 
 def write_pdf(subject_id, question_order)
