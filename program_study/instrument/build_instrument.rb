@@ -1,7 +1,7 @@
 #!/usr/bin/env ruby
 
-# To run this code, please create a sub-directory called /out in the 
-# current working directory, then run `./build_instrument.rb subjects.tsv`
+# Run as: build_instrument.rb subject_file.tsv
+# or as:  build_instrument.rb subject_id question_order
 
 require 'mustache'
 
@@ -27,6 +27,7 @@ def write_pdf(subject_id, question_order)
   
   File.write(filename, tex)
   
+  `mkdir -p out`
   `pdflatex --output-directory=out/ #{filename}`
 end
 
@@ -42,7 +43,7 @@ elsif ARGV.length == 2
   subject_id, question_order = ARGV
   write_pdf(subject_id, question_order)
 else
-  puts "Usage: build_instrument.rb subject_file.csv"
+  puts "Usage: build_instrument.rb subject_file.tsv"
   puts "Usage: build_instrument.rb subject_id question_order"
   exit 1
 end
