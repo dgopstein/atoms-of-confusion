@@ -20,7 +20,7 @@ void F1(int V1, char *V2, int V3) {
   {
     scanf(" %c: %d %s %d", &label, &in_V1, in_V2, &in_V3);
 
-    //printf("a-%d: V1-%d, V2-%d: V3-%d\n", 'a' == label,V1 == in_V1,  !strcmp(V2, in_V2), V3 == in_V3);
+    printf("a-%d: V1-%d, V2-%d: V3-%d\n", 'a' == label,V1 == in_V1,  !strcmp(V2, in_V2), V3 == in_V3);
     int n_correct =
       ('a' == label) +
       (V1 == in_V1) +
