@@ -35,7 +35,7 @@ if ARGV.length == 1
   infile = ARGV.first
   subjects = File.read(infile).lines
   subjects.each do |line|
-    subject_id, question_order = line.chomp.split(/\t/)
+    subject_id, question_order = line.chomp.split(/\s+/)
     STDERR.puts([subject_id, question_order].inspect)
     write_pdf(subject_id, question_order)
   end
