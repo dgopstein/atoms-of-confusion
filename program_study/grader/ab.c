@@ -37,15 +37,21 @@ void F1(int V1, char *V2, int V3) {
       in_V3 = i_EOB;
     }
 
-    total_points += n_points;
-
     //printf("a-%d: V1-%d, V2-%d: V3-%d\n", 'a' == label,V1 == in_V1,  !strcmp(V2, in_V2), V3 == in_V3);
-    int n_correct =
-      ('a' == label) +
-      (V1 == in_V1) +
-      !strcmp(V2, in_V2) +
-      (V3 == in_V3);
-    total_correct += n_correct;
+
+    int n_correct;
+    if ('a' == label) {
+      n_correct = 1 +
+        (V1 == in_V1) +
+        !strcmp(V2, in_V2) +
+        (V3 == in_V3);
+
+      total_correct += n_correct;
+      total_points += n_points;
+    } else {
+      n_correct = 0;
+      total_points += 1;
+    }
 
     printf("a: %d/%d\n", n_correct, n_points);
 
@@ -79,16 +85,21 @@ void F1(int V1, char *V2, int V3) {
       in_V6 = i_EOB;
     }
 
-    total_points += n_points;
-
     //printf("b-%d: V4-%d, V5-%d: V6-%d\n", 'b' == label,V4 == in_V4,  !strcmp(V5, in_V5), V6 == in_V6);
     
-    int n_correct =
-      ('b' == label) + 
-      (V4 == in_V4) +
-      !strcmp(V5, in_V5) +
-      (V6 == in_V6);
-    total_correct += n_correct;
+    int n_correct;
+    if ('b' == label) {
+      n_correct = 1 +
+        (V4 == in_V4) +
+        !strcmp(V5, in_V5) +
+        (V6 == in_V6);
+
+      total_correct += n_correct;
+      total_points += 4;
+    } else {
+      n_correct = 0;
+      total_points += 1;
+    }
 
     printf("b: %d/%d\n", n_correct, n_points);
 
