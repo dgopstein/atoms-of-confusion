@@ -32,7 +32,6 @@ void F1(int V1, char *V2, int V3) {
     } else if (n_scanned != n_points) {
       label = l_EOB;
       in_V1 = i_EOB;
-      //in_V2 = s_EOB;
       strcpy(in_V2, s_EOB);
       in_V3 = i_EOB;
     }
@@ -73,20 +72,17 @@ void F1(int V1, char *V2, int V3) {
     int n_points = 4;
 
     int n_scanned = scanf(" %c: %d %s %d", &label, &in_V4, in_V5, &in_V6);
-
-    // If the parse failed, score every input wrong
+    
     if (n_scanned == EOF) {
       return;
     } else if (n_scanned != n_points) {
+      // If the output format was wrong, score every input wrong
       label = l_EOB;
       in_V4 = i_EOB;
-      //in_V2 = s_EOB;
       strcpy(in_V5, s_EOB);
       in_V6 = i_EOB;
     }
 
-    //printf("b-%d: V4-%d, V5-%d: V6-%d\n", 'b' == label,V4 == in_V4,  !strcmp(V5, in_V5), V6 == in_V6);
-    
     int n_correct;
     if ('b' == label) {
       n_correct = 1 +
@@ -97,6 +93,7 @@ void F1(int V1, char *V2, int V3) {
       total_correct += n_correct;
       total_points += 4;
     } else {
+      // If the wrong branch was taken all the values will be wrong, so only dock 1 point
       n_correct = 0;
       total_points += 1;
     }
@@ -106,6 +103,7 @@ void F1(int V1, char *V2, int V3) {
     GO(label);
 
     b:;
+    // Don't assume the bad values if the input was unparsable
     if (n_scanned != n_points) {
       V4 = in_V4;
       V5 = in_V5;
