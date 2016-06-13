@@ -7,11 +7,8 @@
 
 #define GO(label) \
     switch (label) { \
-      case 'a': goto a; break; \
-      case 'b': goto b; break; \
-      /*case 'c': goto c; break;*/ \
-      /*case 'd': goto d; break;*/ \
-      /*case 'e': goto e; break;*/ \
+      case 'a': goto a; total_points += 1; break; \
+      case 'b': goto b; total_points += 1; break; \
       default: return; \
     }
 
@@ -49,12 +46,11 @@ void F1(int V1, char *V2, int V3) {
       total_points += n_points;
     } else {
       n_correct = 0;
-      total_points += 1;
+      GO(label);
     }
 
-    printf("a: %d/%d\n", n_correct, n_points);
+    //printf("a: %d/%d\n", n_correct, n_points);
 
-    GO(label);
 
     a:;
     if (n_scanned != n_points) {
@@ -95,12 +91,10 @@ void F1(int V1, char *V2, int V3) {
     } else {
       // If the wrong branch was taken all the values will be wrong, so only dock 1 point
       n_correct = 0;
-      total_points += 1;
+      GO(label);
     }
 
-    printf("b: %d/%d\n", n_correct, n_points);
-
-    GO(label);
+    // printf("b: %d/%d\n", n_correct, n_points);
 
     b:;
     // Don't assume the bad values if the input was unparsable
