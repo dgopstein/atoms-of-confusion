@@ -44,10 +44,9 @@ void F1(int V1, int V2, int V3, int V4) {
     if (n_scanned < 3) in_V2 = i_EOB;
     if (n_scanned < 2) in_V1 = i_EOB;
     if (n_scanned < 1) label = l_EOB;
-    total_points += n_scanned;
   }
 
-  printf("a-%c: V1-%d, V2-%d: V3-%d, V4-%d\n", label, in_V1, in_V2, in_V3, in_V4);
+  //printf("a-%c: V1-%d, V2-%d: V3-%d, V4-%d\n", label, in_V1, in_V2, in_V3, in_V4);
 
   int n_correct;
   if ('a' == label) {
@@ -109,10 +108,9 @@ void F1(int V1, int V2, int V3, int V4) {
   } else if (n_scanned != n_points) {
     if (n_scanned < 2) in_V1 = i_EOB;
     if (n_scanned < 1) label = l_EOB;
-    total_points += n_scanned;
   }
 
-  printf("b-%c: V1-%d, V2-%d: V3-%d, V4-%d\n", label, in_V1, in_V2, in_V3, in_V4);
+  //printf("b-%c: V1-%d, V2-%d: V3-%d, V4-%d\n", label, in_V1, in_V2, in_V3, in_V4);
 
   int n_correct;
   if ('b' == label) {
@@ -162,10 +160,9 @@ void F1(int V1, int V2, int V3, int V4) {
     if (n_scanned < 3) in_V2 = i_EOB;
     if (n_scanned < 2) in_V1 = i_EOB;
     if (n_scanned < 1) label = l_EOB;
-    total_points += n_scanned;
   }
 
-  printf("c-%c: V1-%d, V2-%d: V3-%d, V4-%d\n", label, in_V1, in_V2, in_V3, in_V4);
+  //printf("c-%c: V1-%d, V2-%d: V3-%d, V4-%d\n", label, in_V1, in_V2, in_V3, in_V4);
 
   int n_correct;
   if ('c' == label || 'a' == label) {
@@ -220,10 +217,9 @@ void F1(int V1, int V2, int V3, int V4) {
   } else if (n_scanned != n_points) {
     if (n_scanned < 2) in_V1 = i_EOB;
     if (n_scanned < 1) label = l_EOB;
-    total_points += n_scanned;
   }
 
-  printf("d-%c: V1-%d, V2-%d: V3-%d, V4-%d\n", label, in_V1, in_V2, in_V3, in_V4);
+  //printf("d-%c: V1-%d, V2-%d: V3-%d, V4-%d\n", label, in_V1, in_V2, in_V3, in_V4);
 
   int n_correct;
   if ('d' == label || 'b' == label) {
@@ -270,7 +266,7 @@ int main() {
   label = l_EOB;
   scanf(" %c", &label);
 
-  printf("e-%c\n", label);
+  //printf("e-%c\n", label);
 
   int n_correct = 'e' == label || 'c' == label;
   total_correct += n_correct;

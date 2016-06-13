@@ -44,7 +44,7 @@ test_files.each do |csv_line|
     new_line = new_label + data
   end.join("\n")
 
-  puts scrubbed_stdin
+  # puts scrubbed_stdin
 
   stdout, stderr, status = Open3.capture3(bin, stdin_data: scrubbed_stdin)
 

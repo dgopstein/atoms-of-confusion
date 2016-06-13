@@ -27,10 +27,10 @@ void F1(int V1, char *V2, int V3) {
     if (n_scanned == EOF) {
       return;
     } else if (n_scanned != n_points) {
-      label = l_EOB;
-      in_V1 = i_EOB;
-      strcpy(in_V2, s_EOB);
-      in_V3 = i_EOB;
+      if (n_scanned < 4) in_V3 = i_EOB;
+      if (n_scanned < 3) strcpy(in_V2, s_EOB);
+      if (n_scanned < 2) in_V1 = i_EOB;
+      if (n_scanned < 1) label = l_EOB;
     }
 
     //printf("a-%d: V1-%d, V2-%d: V3-%d\n", 'a' == label,V1 == in_V1,  !strcmp(V2, in_V2), V3 == in_V3);
@@ -73,10 +73,10 @@ void F1(int V1, char *V2, int V3) {
       return;
     } else if (n_scanned != n_points) {
       // If the output format was wrong, score every input wrong
-      label = l_EOB;
-      in_V4 = i_EOB;
-      strcpy(in_V5, s_EOB);
-      in_V6 = i_EOB;
+      if (n_scanned < 4) in_V3 = i_EOB;
+      if (n_scanned < 3) strcpy(in_V2, s_EOB);
+      if (n_scanned < 2) in_V1 = i_EOB;
+      if (n_scanned < 1) label = l_EOB;
     }
 
     int n_correct;
