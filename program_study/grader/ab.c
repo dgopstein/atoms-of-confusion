@@ -7,8 +7,8 @@
 
 #define GO(label) \
     switch (label) { \
-      case 'a': goto a; total_points += 1; break; \
-      case 'b': goto b; total_points += 1; break; \
+      case 'a': total_points += 1; goto a; break; \
+      case 'b': total_points += 1; goto b; break; \
       default: return; \
     }
 
