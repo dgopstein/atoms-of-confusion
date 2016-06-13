@@ -24,7 +24,7 @@ void F1(int V1, int V2, int V3, int V4) {
   while (V2 < 4) {
     V3 = 0;
 
-    printf("a: %d %d %d %d\n", V1, V2, V3, V4);
+    //printf("a: %d %d %d %d\n", V1, V2, V3, V4);
 
 
 
@@ -39,14 +39,15 @@ void F1(int V1, int V2, int V3, int V4) {
   if (n_scanned == EOF) {
     return;
   } else if (n_scanned != n_points) {
-    label = l_EOB;
-    in_V1 = i_EOB;
-    in_V2 = i_EOB;
-    in_V3 = i_EOB;
-    in_V4 = i_EOB;
+    if (n_scanned < 5) in_V4 = i_EOB;
+    if (n_scanned < 4) in_V3 = i_EOB;
+    if (n_scanned < 3) in_V2 = i_EOB;
+    if (n_scanned < 2) in_V1 = i_EOB;
+    if (n_scanned < 1) label = l_EOB;
+    total_points += n_scanned;
   }
 
-  //printf("a-%d: V1-%d, V2-%d: V3-%d\n", 'a' == label,V1 == in_V1,  !strcmp(V2, in_V2), V3 == in_V3);
+  printf("a-%c: V1-%d, V2-%d: V3-%d, V4-%d\n", label, in_V1, in_V2, in_V3, in_V4);
 
   int n_correct;
   if ('a' == label) {
@@ -92,7 +93,7 @@ void F1(int V1, int V2, int V3, int V4) {
       if ((V1 - V4) != 0) {
         V9 = V1 % V4;
       } else {
-        printf("b: %d\n", V1);
+        //printf("b: %d\n", V1);
 
 
 
@@ -106,11 +107,12 @@ void F1(int V1, int V2, int V3, int V4) {
   if (n_scanned == EOF) {
     return;
   } else if (n_scanned != n_points) {
-    label = l_EOB;
-    in_V1 = i_EOB;
+    if (n_scanned < 2) in_V1 = i_EOB;
+    if (n_scanned < 1) label = l_EOB;
+    total_points += n_scanned;
   }
 
-  //printf("a-%d: V1-%d, V2-%d: V3-%d\n", 'a' == label,V1 == in_V1,  !strcmp(V2, in_V2), V3 == in_V3);
+  printf("b-%c: V1-%d, V2-%d: V3-%d, V4-%d\n", label, in_V1, in_V2, in_V3, in_V4);
 
   int n_correct;
   if ('b' == label) {
@@ -124,7 +126,7 @@ void F1(int V1, int V2, int V3, int V4) {
     GO(label);
   }
 
-  //printf("c: %d/%d\n", n_correct, n_points);
+  //printf("b: %d/%d\n", n_correct, n_points);
 
   b:;
   if (n_scanned != n_points) {
@@ -143,7 +145,7 @@ void F1(int V1, int V2, int V3, int V4) {
     }
 
     for (; V9;) {
-      printf("c: %d %d %d %d\n", V1, V2, V3, V4);
+      //printf("c: %d %d %d %d\n", V1, V2, V3, V4);
 
 /* CCCCCCCCCCCCCCCCCCCCCCCCC */
 {
@@ -155,14 +157,15 @@ void F1(int V1, int V2, int V3, int V4) {
   if (n_scanned == EOF) {
     return;
   } else if (n_scanned != n_points) {
-    label = l_EOB;
-    in_V1 = i_EOB;
-    in_V2 = i_EOB;
-    in_V3 = i_EOB;
-    in_V4 = i_EOB;
+    if (n_scanned < 5) in_V4 = i_EOB;
+    if (n_scanned < 4) in_V3 = i_EOB;
+    if (n_scanned < 3) in_V2 = i_EOB;
+    if (n_scanned < 2) in_V1 = i_EOB;
+    if (n_scanned < 1) label = l_EOB;
+    total_points += n_scanned;
   }
 
-  //printf("a-%d: V1-%d, V2-%d: V3-%d\n", 'a' == label,V1 == in_V1,  !strcmp(V2, in_V2), V3 == in_V3);
+  printf("c-%c: V1-%d, V2-%d: V3-%d, V4-%d\n", label, in_V1, in_V2, in_V3, in_V4);
 
   int n_correct;
   if ('c' == label || 'a' == label) {
@@ -202,7 +205,7 @@ void F1(int V1, int V2, int V3, int V4) {
         if ((V1 - V4) != 0) {
           V9 = V1 % V4;
         } else {
-          printf("d: %d\n", V1);
+          //printf("d: %d\n", V1);
 
 
 /* DDDDDDDDDDDDDDDDDDDDDDDD */
@@ -215,11 +218,12 @@ void F1(int V1, int V2, int V3, int V4) {
   if (n_scanned == EOF) {
     return;
   } else if (n_scanned != n_points) {
-    label = l_EOB;
-    in_V1 = i_EOB;
+    if (n_scanned < 2) in_V1 = i_EOB;
+    if (n_scanned < 1) label = l_EOB;
+    total_points += n_scanned;
   }
 
-  //printf("a-%d: V1-%d, V2-%d: V3-%d\n", 'a' == label,V1 == in_V1,  !strcmp(V2, in_V2), V3 == in_V3);
+  printf("d-%c: V1-%d, V2-%d: V3-%d, V4-%d\n", label, in_V1, in_V2, in_V3, in_V4);
 
   int n_correct;
   if ('d' == label || 'b' == label) {
@@ -261,10 +265,12 @@ void F1(int V1, int V2, int V3, int V4) {
 
 int main() {
   F1(1, 0, 0, 0);
-  printf("e\n");
+  //printf("e\n");
 {
   label = l_EOB;
   scanf(" %c", &label);
+
+  printf("e-%c\n", label);
 
   int n_correct = 'e' == label || 'c' == label;
   total_correct += n_correct;
