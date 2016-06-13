@@ -121,7 +121,7 @@ int main() {
     int n_points = 1;
     total_points += n_points;
 
-    printf("c: %d/%d\n", n_correct, n_points);
-    printf("total: %d/%d\n", total_correct, total_points);
+    //printf("c: %d/%d\n", n_correct, n_points);
+    printf("%d/%d\n", total_correct, total_points);
   }
 }

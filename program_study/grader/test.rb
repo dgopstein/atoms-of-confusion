@@ -30,5 +30,11 @@ test_files.each do |csv_line|
   
   stdout, stderr, status = Open3.capture3(cmd)
 
-  puts "#{bin_name}, #{test_file}, (expected: #{n_correct}/#{total_points}), (#{stdout.split("\n").last})"
+
+  q_type, file_desc = test_file.scan(/(\w)_([^.]+).txt/)[0]
+
+  expected = "#{n_correct}/#{total_points}"
+  actual = stdout.split("\n").last
+
+  puts "#{bin_name}, #{q_type}, #{file_desc}, #{expected == actual}, #{expected}, #{actual}"
 end
