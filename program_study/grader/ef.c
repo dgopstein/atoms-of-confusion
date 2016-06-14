@@ -140,7 +140,7 @@ int F1(int V1, int V2, int V3) {
 {
   int n_points = 5;
 
-  SCAN_LABEL('a')
+  SCAN_LABEL('c')
 
   c:;
 
@@ -264,12 +264,13 @@ int main() {
   scanf(" %c", &label);
 
   #ifdef DEBUG
-  printf("e-%c\n", label);
+  printf("d-%c\n", label);
   #endif
 
   int n_correct = 'd' == label;// || 'c' == label;
   total_correct += n_correct;
 
   total_points += 1;
+  printf("%d/%d\n", total_correct, total_points);
 }
 }
