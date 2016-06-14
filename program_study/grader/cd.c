@@ -16,16 +16,17 @@
       default: label = 'y'; return; \
     }
 
-#define SCAN_LABEL(lbl) \
+#define SCAN_LABEL(lbl1, lbl2) \
   n_scanned = scanf(" %c:?", &label); \
   if (n_scanned == EOF) { return; } \
-  else if (n_scanned == 0) { printf("didn't scan at lbl\n"); } \
+  else if (n_scanned == 0) { \
+    printf("didn't scan at %c, %c\n", lbl1, lbl2); } \
   else { \
     total_points += 1; \
-    if (label == lbl) { total_correct += 1; } \
+    if (label == lbl1 || label == lbl2) { total_correct += 1; } \
     else {  \
       label_fault = 1; \
-      printf("expected %c, got %c\n", lbl, label); \
+      printf("expected %c/%c, got %c\n", lbl1, lbl2, label); \
       GO(label); \
     } \
   }
@@ -51,7 +52,7 @@ void F1(int V1, int V2, int V3, int V4) {
 {
   int n_points = 4;
 
-  SCAN_LABEL('a')
+  SCAN_LABEL('a', 'c')
   
   a:;
 
@@ -69,7 +70,9 @@ void F1(int V1, int V2, int V3, int V4) {
 
   #ifdef DEBUG
   printf("a-expected: %d %d %d %d\n", V1, V2, V3, V4);
-  printf("a-actual:   %d %d %d %d\n\n", in_V1, in_V2, in_V3, in_V4);
+  printf("a-actual:   %d %d %d %d\n", in_V1, in_V2, in_V3, in_V4);
+  printf("%d/%d\n", total_correct, total_points);
+  printf("\n");
   #endif
 
   if (label_fault) {
@@ -119,7 +122,7 @@ void F1(int V1, int V2, int V3, int V4) {
 {
   int n_points = 1;
 
-  SCAN_LABEL('b')
+  SCAN_LABEL('b', 'd')
 
   b:;
 
@@ -133,7 +136,9 @@ void F1(int V1, int V2, int V3, int V4) {
 
   #ifdef DEBUG
   printf("b-expected: %d\n", V1);
-  printf("b-actual:   %d\n\n", in_V1);
+  printf("b-actual:   %d\n", in_V1);
+  printf("%d/%d\n", total_correct, total_points);
+  printf("\n");
   #endif
 
   if (label_fault) {
@@ -168,7 +173,7 @@ void F1(int V1, int V2, int V3, int V4) {
 {
   int n_points = 4;
 
-  SCAN_LABEL('c')
+  SCAN_LABEL('c', 'a')
   
   c:;
 
@@ -186,7 +191,9 @@ void F1(int V1, int V2, int V3, int V4) {
 
   #ifdef DEBUG
   printf("c-expected: %d %d %d %d\n", V1, V2, V3, V4);
-  printf("c-actual:   %d %d %d %d\n\n", in_V1, in_V2, in_V3, in_V4);
+  printf("c-actual:   %d %d %d %d\n", in_V1, in_V2, in_V3, in_V4);
+  printf("%d/%d\n", total_correct, total_points);
+  printf("\n");
   #endif
 
   if (label_fault) {
@@ -229,7 +236,7 @@ void F1(int V1, int V2, int V3, int V4) {
 {
   int n_points = 1;
 
-  SCAN_LABEL('d')
+  SCAN_LABEL('d', 'b')
 
   d:;
 
@@ -243,7 +250,9 @@ void F1(int V1, int V2, int V3, int V4) {
 
   #ifdef DEBUG
   printf("d-expected: %d\n", V1);
-  printf("d-actual:   %d\n\n", in_V1);
+  printf("d-actual:   %d\n", in_V1);
+  printf("%d/%d\n", total_correct, total_points);
+  printf("\n");
   #endif
 
   if (label_fault) {
@@ -290,7 +299,7 @@ int main() {
   printf("e-%c\n", label);
   #endif
 
-  int n_correct = 'c' == label;// || 'e' == label;
+  int n_correct = 'e' == label;// || 'c' == label;
   total_correct += n_correct;
 
   int n_points = 1;
