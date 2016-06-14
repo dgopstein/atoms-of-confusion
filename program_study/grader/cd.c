@@ -1,6 +1,8 @@
 #include <stdio.h>
 #include <string.h>
 
+#define DEBUG
+
 #define i_EOB 0xDEAD
 #define s_EOB "~~~~~~"
 #define l_EOB 'z'
@@ -14,6 +16,22 @@
       default: label = 'y'; return; \
     }
 
+#define SCAN_LABEL(lbl) \
+  n_scanned = scanf(" %c:?", &label); \
+  if (n_scanned == EOF) { return; } \
+  else if (n_scanned == 0) { printf("didn't scan at lbl\n"); } \
+  else { \
+    total_points += 1; \
+    if (label == lbl) { total_correct += 1; } \
+    else {  \
+      label_fault = 1; \
+      printf("expected %c, got %c\n", lbl, label); \
+      GO(label); \
+    } \
+  }
+
+int label_fault = 0;
+int n_scanned = 0;
 int total_points = 0, total_correct = 0;
 int in_V1, in_V2, in_V3, in_V4;
 char label;
@@ -31,26 +49,37 @@ void F1(int V1, int V2, int V3, int V4) {
 
 /* AAAAAAAAAAAAAAA */
 {
-  int n_points = 5;
+  int n_points = 4;
 
-  int n_scanned = scanf(" %c: %d %d %d %d", &label, &in_V1, &in_V2, &in_V3, &in_V4);
+  SCAN_LABEL('a')
+  
+  a:;
+
+  n_scanned = scanf(" %d %d %d %d", &in_V1, &in_V2, &in_V3, &in_V4);
 
   // If the parse failed, score every input wrong
   if (n_scanned == EOF) {
     return;
   } else if (n_scanned != n_points) {
-    if (n_scanned < 5) in_V4 = i_EOB;
-    if (n_scanned < 4) in_V3 = i_EOB;
-    if (n_scanned < 3) in_V2 = i_EOB;
-    if (n_scanned < 2) in_V1 = i_EOB;
-    if (n_scanned < 1) label = l_EOB;
+    if (n_scanned < 4) in_V4 = i_EOB;
+    if (n_scanned < 3) in_V3 = i_EOB;
+    if (n_scanned < 2) in_V2 = i_EOB;
+    if (n_scanned < 1) in_V1 = i_EOB;
   }
 
-  //printf("a-%c: V1-%d, V2-%d: V3-%d, V4-%d\n", label, in_V1, in_V2, in_V3, in_V4);
+  #ifdef DEBUG
+  printf("a-%c: V1-%d, V2-%d: V3-%d, V4-%d\n", label, in_V1, in_V2, in_V3, in_V4);
+  #endif
 
-  int n_correct;
-  if ('a' == label) {
-    n_correct = 1 +
+  if (label_fault) {
+    label_fault = 0;
+
+    V1 = in_V1;
+    V2 = in_V2;
+    V3 = in_V3;
+    V4 = in_V4;
+  } else {
+    int n_correct = 
       (V1 == in_V1) +
       (V2 == in_V2) +
       (V3 == in_V3) +
@@ -58,20 +87,9 @@ void F1(int V1, int V2, int V3, int V4) {
 
     total_correct += n_correct;
     total_points += n_points;
-  } else {
-    n_correct = 0;
-    GO(label);
   }
 
   //printf("a: %d/%d\n", n_correct, n_points);
-
-  a:;
-  if (n_scanned != n_points) {
-    V1 = in_V1;
-    V2 = in_V2;
-    V3 = in_V3;
-    V4 = in_V4;
-  }
 }
 /* AAAAAAAAAAAAAAA */
 
@@ -98,38 +116,37 @@ void F1(int V1, int V2, int V3, int V4) {
 
 /* BBBBBBBBBBBBBBBBBBBB */
 {
-  int n_points = 2;
+  int n_points = 1;
 
-  int n_scanned = scanf(" %c: %d", &label, &in_V1);
+  SCAN_LABEL('b')
 
-  // If the parse failed, score every input wrong
+  b:;
+
+  n_scanned = scanf(" %d", &in_V1);
+
   if (n_scanned == EOF) {
     return;
   } else if (n_scanned != n_points) {
-    if (n_scanned < 2) in_V1 = i_EOB;
-    if (n_scanned < 1) label = l_EOB;
+    if (n_scanned < 1) in_V1 = i_EOB;
   }
 
-  //printf("b-%c: V1-%d, V2-%d: V3-%d, V4-%d\n", label, in_V1, in_V2, in_V3, in_V4);
+  #ifdef DEBUG
+  printf("b-%c: V1-%d\n", label, in_V1);
+  #endif
 
-  int n_correct;
-  if ('b' == label) {
-    n_correct = 1 +
+  if (label_fault) {
+    label_fault = 0;
+
+    V1 = in_V1;
+  } else {
+    int n_correct = 
       (V1 == in_V1);
 
     total_correct += n_correct;
     total_points += n_points;
-  } else {
-    n_correct = 0;
-    GO(label);
   }
 
   //printf("b: %d/%d\n", n_correct, n_points);
-
-  b:;
-  if (n_scanned != n_points) {
-    V1 = in_V1;
-  }
 }
 /* BBBBBBBBBBBBBBBBBBBBBBBB */
 
@@ -147,26 +164,37 @@ void F1(int V1, int V2, int V3, int V4) {
 
 /* CCCCCCCCCCCCCCCCCCCCCCCCC */
 {
-  int n_points = 5;
+  int n_points = 4;
 
-  int n_scanned = scanf(" %c: %d %d %d %d", &label, &in_V1, &in_V2, &in_V3, &in_V4);
+  SCAN_LABEL('c')
+  
+  c:;
+
+  n_scanned = scanf(" %d %d %d %d", &in_V1, &in_V2, &in_V3, &in_V4);
 
   // If the parse failed, score every input wrong
   if (n_scanned == EOF) {
     return;
   } else if (n_scanned != n_points) {
-    if (n_scanned < 5) in_V4 = i_EOB;
-    if (n_scanned < 4) in_V3 = i_EOB;
-    if (n_scanned < 3) in_V2 = i_EOB;
-    if (n_scanned < 2) in_V1 = i_EOB;
-    if (n_scanned < 1) label = l_EOB;
+    if (n_scanned < 4) in_V4 = i_EOB;
+    if (n_scanned < 3) in_V3 = i_EOB;
+    if (n_scanned < 2) in_V2 = i_EOB;
+    if (n_scanned < 1) in_V1 = i_EOB;
   }
 
-  //printf("c-%c: V1-%d, V2-%d: V3-%d, V4-%d\n", label, in_V1, in_V2, in_V3, in_V4);
+  #ifdef DEBUG
+  printf("c-%c: V1-%d, V2-%d: V3-%d, V4-%d\n", label, in_V1, in_V2, in_V3, in_V4);
+  #endif
 
-  int n_correct;
-  if ('c' == label || 'a' == label) {
-    n_correct = 1 +
+  if (label_fault) {
+    label_fault = 0;
+
+    V1 = in_V1;
+    V2 = in_V2;
+    V3 = in_V3;
+    V4 = in_V4;
+  } else {
+    int n_correct = 
       (V1 == in_V1) +
       (V2 == in_V2) +
       (V3 == in_V3) +
@@ -174,20 +202,9 @@ void F1(int V1, int V2, int V3, int V4) {
 
     total_correct += n_correct;
     total_points += n_points;
-  } else {
-    n_correct = 0;
-    GO(label);
   }
 
   //printf("c: %d/%d\n", n_correct, n_points);
-
-  c:;
-  if (n_scanned != n_points) {
-    V1 = in_V1;
-    V2 = in_V2;
-    V3 = in_V3;
-    V4 = in_V4;
-  }
 }
 /* CCCCCCCCCCCCCCCCCCCCCCCCC */
 
@@ -207,38 +224,37 @@ void F1(int V1, int V2, int V3, int V4) {
 
 /* DDDDDDDDDDDDDDDDDDDDDDDD */
 {
-  int n_points = 2;
+  int n_points = 1;
 
-  int n_scanned = scanf(" %c: %d", &label, &in_V1);
+  SCAN_LABEL('d')
 
-  // If the parse failed, score every input wrong
+  d:;
+
+  n_scanned = scanf(" %d", &in_V1);
+
   if (n_scanned == EOF) {
     return;
   } else if (n_scanned != n_points) {
-    if (n_scanned < 2) in_V1 = i_EOB;
-    if (n_scanned < 1) label = l_EOB;
+    if (n_scanned < 1) in_V1 = i_EOB;
   }
 
-  //printf("d-%c: V1-%d, V2-%d: V3-%d, V4-%d\n", label, in_V1, in_V2, in_V3, in_V4);
+  #ifdef DEBUG
+  printf("d-%c: V1-%d\n", label, in_V1);
+  #endif
 
-  int n_correct;
-  if ('d' == label || 'b' == label) {
-    n_correct = 1 +
+  if (label_fault) {
+    label_fault = 0;
+
+    V1 = in_V1;
+  } else {
+    int n_correct = 
       (V1 == in_V1);
 
     total_correct += n_correct;
     total_points += n_points;
-  } else {
-    n_correct = 0;
-    GO(label);
   }
 
-  //printf("c: %d/%d\n", n_correct, n_points);
-
-  d:;
-  if (n_scanned != n_points) {
-    V1 = in_V1;
-  }
+  //printf("d: %d/%d\n", n_correct, n_points);
 }
 /* DDDDDDDDDDDDDDDDDDDDDDDD */
 
@@ -266,7 +282,9 @@ int main() {
   label = l_EOB;
   scanf(" %c", &label);
 
-  //printf("e-%c\n", label);
+  #ifdef DEBUG
+  printf("e-%c\n", label);
+  #endif
 
   int n_correct = 'e' == label || 'c' == label;
   total_correct += n_correct;
