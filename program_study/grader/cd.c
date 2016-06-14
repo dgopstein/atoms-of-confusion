@@ -290,7 +290,7 @@ int main() {
   printf("e-%c\n", label);
   #endif
 
-  int n_correct = 'e' == label || 'c' == label;
+  int n_correct = 'c' == label;// || 'e' == label;
   total_correct += n_correct;
 
   int n_points = 1;
