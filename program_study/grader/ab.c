@@ -9,7 +9,7 @@
     switch (label) { \
       case 'a': total_points += 1; goto a; break; \
       case 'b': total_points += 1; goto b; break; \
-      default: return; \
+      default: label = 'y'; return; \
     }
 
 int total_points = 0, total_correct = 0;
@@ -46,6 +46,7 @@ void F1(int V1, char *V2, int V3) {
       total_points += n_points;
     } else {
       n_correct = 0;
+      //printf("GO1: %c\n", label);
       GO(label);
     }
 
@@ -91,6 +92,7 @@ void F1(int V1, char *V2, int V3) {
     } else {
       // If the wrong branch was taken all the values will be wrong, so only dock 1 point
       n_correct = 0;
+      //printf("GO2: %c\n", label);
       GO(label);
     }
 

@@ -11,7 +11,7 @@
       case 'b': total_points += 1; goto b; break; \
       case 'c': total_points += 1; goto c; break; \
       case 'd': total_points += 1; goto d; break; \
-      default: return; \
+      default: label = 'y'; return; \
     }
 
 int total_points = 0, total_correct = 0;
