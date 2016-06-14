@@ -308,8 +308,7 @@ int main() {
   int n_correct = 'e' == label;// || 'c' == label;
   total_correct += n_correct;
 
-  int n_points = 1;
-  total_points += n_points;
+  total_points += 1;
 }
 
   printf("%d/%d\n", total_correct, total_points);
