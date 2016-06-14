@@ -9,10 +9,10 @@
 
 #define GO(label) \
     switch (label) { \
-      case 'a': total_points += 1; goto a; break; \
-      case 'b': total_points += 1; goto b; break; \
-      case 'c': total_points += 1; goto c; break; \
-      case 'd': total_points += 1; goto d; break; \
+      case 'a': goto a; break; \
+      case 'b': goto b; break; \
+      case 'c': goto c; break; \
+      case 'd': goto d; break; \
       default: label = 'y'; return; \
     }
 
@@ -71,8 +71,6 @@ void F1(int V1, int V2, int V3, int V4) {
   #ifdef DEBUG
   printf("a-expected: %d %d %d %d\n", V1, V2, V3, V4);
   printf("a-actual:   %d %d %d %d\n", in_V1, in_V2, in_V3, in_V4);
-  printf("%d/%d\n", total_correct, total_points);
-  printf("\n");
   #endif
 
   if (label_fault) {
@@ -93,7 +91,10 @@ void F1(int V1, int V2, int V3, int V4) {
     total_points += n_points;
   }
 
-  //printf("a: %d/%d\n", n_correct, n_points);
+  #ifdef DEBUG
+  printf("%d/%d\n", total_correct, total_points);
+  printf("\n");
+  #endif
 }
 /* AAAAAAAAAAAAAAA */
 
@@ -137,8 +138,6 @@ void F1(int V1, int V2, int V3, int V4) {
   #ifdef DEBUG
   printf("b-expected: %d\n", V1);
   printf("b-actual:   %d\n", in_V1);
-  printf("%d/%d\n", total_correct, total_points);
-  printf("\n");
   #endif
 
   if (label_fault) {
@@ -154,6 +153,10 @@ void F1(int V1, int V2, int V3, int V4) {
   }
 
   //printf("b: %d/%d\n", n_correct, n_points);
+  #ifdef DEBUG
+  printf("%d/%d\n", total_correct, total_points);
+  printf("\n");
+  #endif
 }
 /* BBBBBBBBBBBBBBBBBBBBBBBB */
 
@@ -192,8 +195,6 @@ void F1(int V1, int V2, int V3, int V4) {
   #ifdef DEBUG
   printf("c-expected: %d %d %d %d\n", V1, V2, V3, V4);
   printf("c-actual:   %d %d %d %d\n", in_V1, in_V2, in_V3, in_V4);
-  printf("%d/%d\n", total_correct, total_points);
-  printf("\n");
   #endif
 
   if (label_fault) {
@@ -215,6 +216,10 @@ void F1(int V1, int V2, int V3, int V4) {
   }
 
   //printf("c: %d/%d\n", n_correct, n_points);
+  #ifdef DEBUG
+  printf("%d/%d\n", total_correct, total_points);
+  printf("\n");
+  #endif
 }
 /* CCCCCCCCCCCCCCCCCCCCCCCCC */
 
@@ -251,8 +256,6 @@ void F1(int V1, int V2, int V3, int V4) {
   #ifdef DEBUG
   printf("d-expected: %d\n", V1);
   printf("d-actual:   %d\n", in_V1);
-  printf("%d/%d\n", total_correct, total_points);
-  printf("\n");
   #endif
 
   if (label_fault) {
@@ -267,7 +270,10 @@ void F1(int V1, int V2, int V3, int V4) {
     total_points += n_points;
   }
 
-  //printf("d: %d/%d\n", n_correct, n_points);
+  #ifdef DEBUG
+  printf("%d/%d\n", total_correct, total_points);
+  printf("\n");
+  #endif
 }
 /* DDDDDDDDDDDDDDDDDDDDDDDD */
 
