@@ -1,15 +1,7 @@
 #include <math.h>
 #include <stdio.h>
-#include <string.h>
 
-
-#define DEBUG
-
-#define f_EOB INFINITY
-#define i_EOB 0xDEAD
-#define s_EOB "~~~~~~"
-#define l_EOB 'z'
-#define c_EOB '!'
+#include "macros.h"
 
 #define GO(label) \
     switch (label) { \
@@ -19,29 +11,10 @@
       default: label = 'y'; return -1; \
     }
 
-#define SCAN_LABEL(lbl1) \
-  n_scanned = scanf(" %c:?", &label); \
-  if (n_scanned == EOF) { return -2; } \
-  else if (n_scanned == 0) { \
-    printf("didn't scan at %c\n", lbl1); } \
-  else { \
-    total_points += 1; \
-    if (label == lbl1) { total_correct += 1; } \
-    else {  \
-      label_fault = 1; \
-      printf("expected %c, got %c\n", lbl1, label); \
-      GO(label); \
-    } \
-  }
 
-int label_fault = 0;
-int n_scanned = 0;
-int total_points = 0, total_correct = 0;
 int in_V1, in_V2, in_V3, in_V7;
 double in_V4;
 char in_V6;
-char label;
-
 
 
 double V4;
@@ -259,18 +232,5 @@ int main() {
 
 
   //printf("d\n");
-{
-  label = l_EOB;
-  scanf(" %c", &label);
-
-  #ifdef DEBUG
-  printf("d-%c\n", label);
-  #endif
-
-  int n_correct = 'd' == label;// || 'c' == label;
-  total_correct += n_correct;
-
-  total_points += 1;
-  printf("%d/%d\n", total_correct, total_points);
-}
+  HALT_LABEL('d')
 }

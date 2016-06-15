@@ -1,11 +1,7 @@
 #include <stdio.h>
-#include <string.h>
 
-#define DEBUG
 
-#define i_EOB 0xDEAD
-#define s_EOB "~~~~~~"
-#define l_EOB 'z'
+#include "macros.h"
 
 #define GO(label) \
     switch (label) { \
@@ -16,26 +12,7 @@
       default: label = 'y'; return; \
     }
 
-#define SCAN_LABEL(lbl1, lbl2) \
-  n_scanned = scanf(" %c:?", &label); \
-  if (n_scanned == EOF) { return; } \
-  else if (n_scanned == 0) { \
-    printf("didn't scan at %c, %c\n", lbl1, lbl2); } \
-  else { \
-    total_points += 1; \
-    if (label == lbl1 || label == lbl2) { total_correct += 1; } \
-    else {  \
-      label_fault = 1; \
-      printf("expected %c/%c, got %c\n", lbl1, lbl2, label); \
-      GO(label); \
-    } \
-  }
-
-int label_fault = 0;
-int n_scanned = 0;
-int total_points = 0, total_correct = 0;
 int in_V1, in_V2, in_V3, in_V4;
-char label;
 
 void F1(int V1, int V2, int V3, int V4) {
   V1 = V1 + 1;
@@ -50,7 +27,7 @@ void F1(int V1, int V2, int V3, int V4) {
 
 /* AAAAAAAAAAAAAAA */
 {
-  SCAN_LABEL('a', 'c')
+  SCAN_LABELS('a', 'c')
   
   a:;
 
@@ -121,7 +98,7 @@ void F1(int V1, int V2, int V3, int V4) {
 
 /* BBBBBBBBBBBBBBBBBBBB */
 {
-  SCAN_LABEL('b', 'd')
+  SCAN_LABELS('b', 'd')
 
   b:;
 
@@ -174,7 +151,7 @@ void F1(int V1, int V2, int V3, int V4) {
 
 /* CCCCCCCCCCCCCCCCCCCCCCCCC */
 {
-  SCAN_LABEL('c', 'a')
+  SCAN_LABELS('c', 'a')
   
   c:;
 
@@ -239,7 +216,7 @@ void F1(int V1, int V2, int V3, int V4) {
 
 /* DDDDDDDDDDDDDDDDDDDDDDDD */
 {
-  SCAN_LABEL('d', 'b')
+  SCAN_LABELS('d', 'b')
 
   d:;
 
@@ -297,19 +274,6 @@ void F1(int V1, int V2, int V3, int V4) {
 int main() {
   F1(1, 0, 0, 0);
   //printf("e\n");
-{
-  label = l_EOB;
-  scanf(" %c", &label);
 
-  #ifdef DEBUG
-  printf("e-%c\n", label);
-  #endif
-
-  int n_correct = 'e' == label;// || 'c' == label;
-  total_correct += n_correct;
-
-  total_points += 1;
-}
-
-  printf("%d/%d\n", total_correct, total_points);
+  HALT_LABEL('e')
 }
