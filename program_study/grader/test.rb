@@ -35,7 +35,8 @@ test_files.each do |csv_line|
   stdout, stderr, status = Open3.capture3(bin, stdin_data: scrubbed_stdin)
 
   expected = "#{n_correct}/#{total_points}"
-  actual = stdout.split("\n").last
+  actual = stdout.encode('UTF-8', 'UTF-8', :invalid => :replace)
+                 .split(/\n/).last
 
   puts "#{bin_name}, #{q_type}, #{file_desc}, #{expected == actual ? ' ' : 'F'}, #{expected}, #{actual}"
 end
