@@ -50,13 +50,13 @@ void F1(int V1, int V2, int V3, int V4) {
 
 /* AAAAAAAAAAAAAAA */
 {
-  int n_points = 4;
-
   SCAN_LABEL('a', 'c')
   
   a:;
 
   n_scanned = scanf(" %d %d %d %d", &in_V1, &in_V2, &in_V3, &in_V4);
+
+  int n_points = 4;
 
   // If the parse failed, score every input wrong
   if (n_scanned == EOF) {
@@ -121,13 +121,13 @@ void F1(int V1, int V2, int V3, int V4) {
 
 /* BBBBBBBBBBBBBBBBBBBB */
 {
-  int n_points = 1;
-
   SCAN_LABEL('b', 'd')
 
   b:;
 
   n_scanned = scanf(" %d", &in_V1);
+
+  int n_points = 1;
 
   if (n_scanned == EOF) {
     return;
@@ -174,13 +174,13 @@ void F1(int V1, int V2, int V3, int V4) {
 
 /* CCCCCCCCCCCCCCCCCCCCCCCCC */
 {
-  int n_points = 4;
-
   SCAN_LABEL('c', 'a')
   
   c:;
 
   n_scanned = scanf(" %d %d %d %d", &in_V1, &in_V2, &in_V3, &in_V4);
+
+  int n_points = 4;
 
   // If the parse failed, score every input wrong
   if (n_scanned == EOF) {
@@ -239,13 +239,13 @@ void F1(int V1, int V2, int V3, int V4) {
 
 /* DDDDDDDDDDDDDDDDDDDDDDDD */
 {
-  int n_points = 1;
-
   SCAN_LABEL('d', 'b')
 
   d:;
 
   n_scanned = scanf(" %d", &in_V1);
+
+  int n_points = 1;
 
   if (n_scanned == EOF) {
     return;
