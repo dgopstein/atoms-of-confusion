@@ -20,7 +20,7 @@ prog_names.each do |prog|
 end
 
 test_files.each do |csv_line|
-  test_file, bin_name, n_correct, total_points = csv_line.values_at(*%w[file binary correct total])
+  test_file, bin_name, n_correct, total_points, comment = csv_line.values_at(*%w[file binary correct total comment])
 
   bin = bins[bin_name]
 
@@ -38,5 +38,5 @@ test_files.each do |csv_line|
   actual = stdout.encode('UTF-8', 'UTF-8', :invalid => :replace)
                  .split(/\n/).last
 
-  puts "#{bin_name}, #{q_type}, #{file_desc}, #{expected == actual ? ' ' : 'F'}, #{expected}, #{actual}"
+  puts "#{bin_name}, #{q_type}, #{file_desc}, #{expected == actual ? ' ' : 'F'}, #{expected}, #{actual}, #{comment}"
 end

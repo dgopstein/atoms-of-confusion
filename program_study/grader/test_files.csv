@@ -1,4 +1,4 @@
-file,binary,correct,total
+file,binary,correct,total,comment
 a_real.txt,ab,17,17
 a_0000.txt,ab,16,17
 b_5125.txt,ab,16,17
@@ -15,4 +15,4 @@ c_5278.txt,cd,?,?
 e_real.txt,ef,34,34
 f_real.txt,ef,34,34
 e_7400.txt,ef,4,6
-e_5125.txt,ef,5,7
+e_5125.txt,ef,5,7,the user didn't recurse and the computer did
