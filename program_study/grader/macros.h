@@ -25,7 +25,7 @@
 
 #define SCAN_LABELS(lbl1, lbl2) \
   n_scanned = scanf(" %c:?", &label); \
-  if (n_scanned == EOF) { return; } \
+  if (n_scanned == EOF) { return -8; } \
   else if (n_scanned == 0) { \
     printf("didn't scan at %c, %c\n", lbl1, lbl2); } \
   else { \

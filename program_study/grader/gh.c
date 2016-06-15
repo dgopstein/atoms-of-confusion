@@ -118,7 +118,7 @@ int F1(int V1, int V2) {
 
 /* start: 111111111111111 */
 {
-  SCAN_LABEL('1')
+  SCAN_LABELS('1', 'b')
 
   c1:;
   int in_10;
@@ -170,7 +170,7 @@ int F1(int V1, int V2) {
 
 /* start: 222222222222222 */
 {
-  SCAN_LABEL('2')
+  SCAN_LABELS('2', 'b')
 
   c2:;
 
@@ -314,7 +314,7 @@ int F1(int V1, int V2) {
 
 /* start: 333333333333333 */
 {
-  SCAN_LABEL('3')
+  SCAN_LABELS('3', 'b')
 
   c3:;
   int in_10;
@@ -367,7 +367,7 @@ int F1(int V1, int V2) {
 
 /* start: 444444444444444 */
 {
-  SCAN_LABEL('4')
+  SCAN_LABELS('4', 'b')
 
   c4:;
 
@@ -427,4 +427,6 @@ int F1(int V1, int V2) {
 int main() {
   F1(1, 0);
   printf("d\n");
+
+  HALT_LABEL('d')
 }

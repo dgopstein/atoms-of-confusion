@@ -7,7 +7,7 @@ require 'open3'
 
 test_files = CSV.read('test_files.csv', headers: true)
 
-prog_names = %w[ab cd ef] # gh]
+prog_names = %w[ab cd ef gh]
 
 bins = prog_names.map{|name| [name, "bin/#{name}"]}.to_h
 

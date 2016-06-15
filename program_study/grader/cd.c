@@ -9,12 +9,12 @@
       case 'b': goto b; break; \
       case 'c': goto c; break; \
       case 'd': goto d; break; \
-      default: label = 'y'; return; \
+      default: label = 'y'; return -1; \
     }
 
 int in_V1, in_V2, in_V3, in_V4;
 
-void F1(int V1, int V2, int V3, int V4) {
+int F1(int V1, int V2, int V3, int V4) {
   V1 = V1 + 1;
   V2 = V1;
   while (V2 < 4) {
@@ -37,7 +37,7 @@ void F1(int V1, int V2, int V3, int V4) {
 
   // If the parse failed, score every input wrong
   if (n_scanned == EOF) {
-    return;
+    return -9;
   } else if (n_scanned != n_points) {
     if (n_scanned < 4) in_V4 = i_EOB;
     if (n_scanned < 3) in_V3 = i_EOB;
@@ -107,7 +107,7 @@ void F1(int V1, int V2, int V3, int V4) {
   int n_points = 1;
 
   if (n_scanned == EOF) {
-    return;
+    return -9;
   } else if (n_scanned != n_points) {
     if (n_scanned < 1) in_V1 = i_EOB;
   }
@@ -161,7 +161,7 @@ void F1(int V1, int V2, int V3, int V4) {
 
   // If the parse failed, score every input wrong
   if (n_scanned == EOF) {
-    return;
+    return -9;
   } else if (n_scanned != n_points) {
     if (n_scanned < 4) in_V4 = i_EOB;
     if (n_scanned < 3) in_V3 = i_EOB;
@@ -225,7 +225,7 @@ void F1(int V1, int V2, int V3, int V4) {
   int n_points = 1;
 
   if (n_scanned == EOF) {
-    return;
+    return -9;
   } else if (n_scanned != n_points) {
     if (n_scanned < 1) in_V1 = i_EOB;
   }
@@ -269,6 +269,8 @@ void F1(int V1, int V2, int V3, int V4) {
     V1 = V1 + 1;
     V2 = V1;
   }
+
+  return 0;
 }
 
 int main() {

@@ -17,7 +17,7 @@ end
 def unify_output_str(type, output)
   label_map = {
     c: {c: 'e'},#a: 'a', b: 'b', c: 'e'},
-    d: {}#c: 'a', d: 'b', e: 'c'},
+    g: {c: 'b'}
   }.with_indifferent_access
 
   scrubbed = output.lines.map do |line|
