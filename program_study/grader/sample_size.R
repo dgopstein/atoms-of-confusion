@@ -10,7 +10,8 @@ length(scores('a'))
 
 var.test(scores('a'), scores('b'))
 
-pairs <- c(c('a', 'b'), c('c', 'd'), c('e', 'f'), c('g', 'h'))
+cs <- c('a', 'c', 'e', 'g')
+ncs <- c('b', 'd', 'f', 'h')
 
 pair.test <- function(a, b) {
   as <- scores(a)
@@ -20,12 +21,12 @@ pair.test <- function(a, b) {
 
   wss <- n.wilcox.ord(power = 0.8, alpha = 0.05, t = 0.5, p = c(mean(as), 1 - mean(as)), q = c(mean(bs), 1 - mean(bs)))
   
-  list("p.value" = wt$p.value, "ss" = wss$`total sample size`)
+  tt <- t.test(as, bs)
+  tss <- n.ttest(power = 0.8, alpha = 0.05, mean(as) - mean(bs), sd1 = sd(as), sd2 = sd(bs))
+  
+  list("pair" = paste(a, b, sep=""), "t.p.value" = tt$p.value, "t.ss" = tss$`Total sample size`, "wilcox.p.value" = wt$p.value, "wilcox.ss" = wss$`total sample size`)
 }
 
-apply(pair.test, pairs)
+pair.data <- t(mapply(pair.test, cs, ncs))
+pair.data
 
-pair.test('a', 'b')
-pair.test('c', 'd')
-pair.test('e', 'f')
-pair.test('g', 'h')
