@@ -16,6 +16,10 @@ end
 
 results = CSV.read(results_file, headers: true)
 
+pilot_ids = [3782, 1161, 1224, 3270, 9351, 6490, 4747, 6224, 3881, 6033]
+
+pilot_results = results.select{|r| pilot_ids.include?(r["Subject"].to_i)}.map{|r| r["Subject"].to_i}
+
 compile_graders!
 
 scores = ('a'..'h').each_with_object(Hash.new{[]}) do |q, hash|

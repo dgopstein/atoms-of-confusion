@@ -13,8 +13,6 @@ compile_graders!
 test_files.each do |csv_line|
   test_file, bin_name, n_correct, total_points, comment = csv_line.values_at(*%w[file binary correct total comment])
 
-  bin = $bins[bin_name]
-
   # Make sure different version of the same program
   # Emit the same line-labels even after transformation
    
