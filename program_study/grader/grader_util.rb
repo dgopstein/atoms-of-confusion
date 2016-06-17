@@ -32,7 +32,7 @@ def run_grader(type, stdout)
   scrubbed_stdout = stdout.encode('UTF-8', 'UTF-8', :invalid => :replace)
                           .split(/\n/)
 
-  faults = scrubbed_stdout.flat_map{|line| line.scan(/FAULT: (.*)/)[0]}.compact
+  faults = scrubbed_stdout.flat_map{|line| line.scan(/FAULT: (.*)/)[0]&.map{|s|s.split(",")}}.compact
 
   actual = scrubbed_stdout.last.split("/").map(&:to_i)
 
