@@ -57,11 +57,9 @@ int F1(int V1, int V2) {
     V1 = in_V1;
     V2 = in_V2;
   } else {
-    int n_correct = 
-      (V1 == in_V1) +
-      (V2 == in_V2);
+    param_fault('a', 0, V1 == in_V1);
+    param_fault('a', 1, V2 == in_V2);
 
-    total_correct += n_correct;
     total_points += n_points;
   }
 
@@ -142,10 +140,8 @@ int F1(int V1, int V2) {
   if (label_fault) {
     label_fault = 0;
   } else {
-    int n_correct = 
-      (10 == in_10);
+    param_fault('1', 0, 10 == in_10);
 
-    total_correct += n_correct;
     total_points += n_points;
   }
 
@@ -194,10 +190,8 @@ int F1(int V1, int V2) {
   if (label_fault) {
     label_fault = 0;
   } else {
-    int n_correct = 
-      (out_c2 == in_c2);
+    param_fault('2', 0, out_c2 == in_c2);
 
-    total_correct += n_correct;
     total_points += n_points;
   }
 
@@ -262,11 +256,9 @@ int F1(int V1, int V2) {
     V1 = in_V1;
     V4 = in_V4;
   } else {
-    int n_correct = 
-      (V1 == in_V1) +
-      (V4 == in_V4);
+    param_fault('b', 0, V1 == in_V1);
+    param_fault('b', 1, V4 == in_V4);
 
-    total_correct += n_correct;
     total_points += n_points;
   }
 
@@ -338,10 +330,8 @@ int F1(int V1, int V2) {
   if (label_fault) {
     label_fault = 0;
   } else {
-    int n_correct = 
-      (10 == in_10);
+    param_fault('3', 0, 10 == in_10);
 
-    total_correct += n_correct;
     total_points += n_points;
   }
 
@@ -391,10 +381,8 @@ int F1(int V1, int V2) {
   if (label_fault) {
     label_fault = 0;
   } else {
-    int n_correct = 
-      (out_c4 == in_c4);
+    param_fault('4', 0, out_c4 == in_c4);
 
-    total_correct += n_correct;
     total_points += n_points;
   }
 
