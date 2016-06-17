@@ -1,6 +1,6 @@
 require 'active_support/core_ext/hash/indifferent_access'
 
-$prog_names = %w[ab cd ef gh]
+$prog_names = %w[ab]# cd ef gh]
 
 $bins = $prog_names.map{|name| [name, "bin/#{name}"]}.to_h
 
@@ -29,8 +29,12 @@ def run_grader(type, stdout)
   scrubbed_stdin = unify_output_str(type, stdout)
   bin = $bins[$type_to_bin[type]]
   stdout, stderr, status = Open3.capture3(bin, stdin_data: scrubbed_stdin)
-  actual = stdout.encode('UTF-8', 'UTF-8', :invalid => :replace)
-                 .split(/\n/).last
+  scrubbed_stdout = stdout.encode('UTF-8', 'UTF-8', :invalid => :replace)
+                          .split(/\n/)
 
-  actual.split("/").map(&:to_i)
+  faults = scrubbed_stdout.flat_map{|line| line.scan(/FAULT: (.*)/)[0]}.compact
+
+  actual = scrubbed_stdout.last.split("/").map(&:to_i)
+
+  [actual, faults]
 end

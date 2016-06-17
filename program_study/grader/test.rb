@@ -19,9 +19,11 @@ test_files.each do |csv_line|
   stdout = File.read("test/"+test_file)
   q_type, file_desc = parse_filename(test_file)
 
-  actual = run_grader(q_type, stdout).join("/")
+  actual, faults = run_grader(q_type, stdout)
 
   expected = "#{n_correct}/#{total_points}"
 
-  puts "#{bin_name}, #{q_type}, #{file_desc}, #{expected == actual ? ' ' : 'F'}, #{expected}, #{actual}, #{comment}"
+  pass = expected == actual.join("/") && faults.size == (actual[1] - actual[0])
+
+  puts "#{bin_name}, #{q_type}, #{file_desc}, #{pass ? ' ' : 'F'}, #{faults.size}, #{expected}, #{actual.join("/")}, #{comment}"
 end
