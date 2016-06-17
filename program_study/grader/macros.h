@@ -37,7 +37,9 @@
     if (label == lbl1 || label == lbl2) { total_correct += 1; } \
     else {  \
       label_fault = 1; \
-      faults[fault_idx++] = sprintf("FAULT: labels,%c,%c,%c", lbl1, lbl2 label); \
+      char *fault_str = (char *)malloc(20); \
+      sprintf(fault_str, "FAULT: labels,%c,%c,%c", lbl1, lbl2, label); \
+      faults[fault_idx++] = fault_str; \
       printf("expected %c/%c, got %c\n", lbl1, lbl2, label); \
       GO(label); \
     } \
