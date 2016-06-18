@@ -50,14 +50,8 @@ int F1(int V1, char *V2, int V3) {
     V2 = in_V2;
     V3 = in_V3;
   } else {
-    param_fault('a', 0, V1 == in_V1);
-    param_fault('a', 1, !strcmp(V2, in_V2));
-    param_fault('a', 2, V3 == in_V3);
-
-    total_points += n_points;
+    params_fault('a', n_points, (int []){V1 == in_V1, !strcmp(V2, in_V2), V3 == in_V3});
   }
-
-  //printf("a: %d/%d\n", n_correct, n_points);
 
   #ifdef DEBUG
   printf("%d/%d\n", total_correct, total_points);
@@ -108,11 +102,7 @@ int F1(int V1, char *V2, int V3) {
     V5 = in_V5;
     V6 = in_V6;
   } else {
-    param_fault('b', 0, V4 == in_V4);
-    param_fault('b', 1, !strcmp(V5, in_V5));
-    param_fault('b', 2, V6 == in_V6);
-
-    total_points += n_points;
+    params_fault('b', n_points, (int []){V4 == in_V4, !strcmp(V5, in_V5), V6 == in_V6});
   }
 
   #ifdef DEBUG

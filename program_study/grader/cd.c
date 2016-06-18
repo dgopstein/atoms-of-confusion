@@ -58,12 +58,7 @@ int F1(int V1, int V2, int V3, int V4) {
     V3 = in_V3;
     V4 = in_V4;
   } else {
-    param_fault('a', 0, V1 == in_V1);
-    param_fault('a', 1, V2 == in_V2);
-    param_fault('a', 2, V3 == in_V3);
-    param_fault('a', 3, V4 == in_V4);
-
-    total_points += n_points;
+    params_fault('a', n_points, (int []){V1 == in_V1, V2 == in_V2, V3 == in_V3, V4 == in_V4});
   }
 
   #ifdef DEBUG
@@ -110,6 +105,7 @@ int F1(int V1, int V2, int V3, int V4) {
     if (n_scanned < 1) in_V1 = i_EOB;
   }
 
+  check_label('b');
   #ifdef DEBUG
   printf("b-expected: %d\n", V1);
   printf("b-actual:   %d\n", in_V1);
@@ -120,9 +116,7 @@ int F1(int V1, int V2, int V3, int V4) {
 
     V1 = in_V1;
   } else {
-    param_fault('b', 0, V1 == in_V1);
-
-    total_points += n_points;
+    params_fault('b', n_points, (int []){V1 == in_V1});
   }
 
   //printf("b: %d/%d\n", n_correct, n_points);
@@ -165,6 +159,7 @@ int F1(int V1, int V2, int V3, int V4) {
     if (n_scanned < 1) in_V1 = i_EOB;
   }
 
+  check_label('a');
   #ifdef DEBUG
   printf("c-expected: %d %d %d %d\n", V1, V2, V3, V4);
   printf("c-actual:   %d %d %d %d\n", in_V1, in_V2, in_V3, in_V4);
@@ -178,12 +173,7 @@ int F1(int V1, int V2, int V3, int V4) {
     V3 = in_V3;
     V4 = in_V4;
   } else {
-    param_fault('c', 0, V1 == in_V1);
-    param_fault('c', 1, V2 == in_V2);
-    param_fault('c', 2, V3 == in_V3);
-    param_fault('c', 3, V4 == in_V4);
-
-    total_points += n_points;
+    params_fault('a', n_points, (int []){V1 == in_V1, V2 == in_V2, V3 == in_V3, V4 == in_V4});
   }
 
   //printf("c: %d/%d\n", n_correct, n_points);
@@ -224,6 +214,7 @@ int F1(int V1, int V2, int V3, int V4) {
     if (n_scanned < 1) in_V1 = i_EOB;
   }
 
+  check_label('b');
   #ifdef DEBUG
   printf("d-expected: %d\n", V1);
   printf("d-actual:   %d\n", in_V1);
@@ -234,9 +225,7 @@ int F1(int V1, int V2, int V3, int V4) {
 
     V1 = in_V1;
   } else {
-    param_fault('d', 0, V1 == in_V1);
-
-    total_points += n_points;
+    params_fault('b', n_points, (int []){V1 == in_V1});
   }
 
   #ifdef DEBUG

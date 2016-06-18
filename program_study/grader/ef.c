@@ -61,12 +61,7 @@ int F1(int V1, int V2, int V3) {
     V3 = in_V3;
     V4 = in_V4;
   } else {
-    param_fault('a', 0, V1 == in_V1);
-    param_fault('a', 1, V2 == in_V2);
-    param_fault('a', 2, V3 == in_V3);
-    param_fault('a', 3, fabs(V4 - in_V4) < 0.0001);
-
-    total_points += n_points;
+    params_fault('a', n_points, (int []){V1 == in_V1, V2 == in_V2, V3 == in_V3, fabs(V4 - in_V4) < 0.0001});
   }
 
   //printf("a: %d/%d\n", n_correct, n_points);
@@ -142,13 +137,7 @@ int F1(int V1, int V2, int V3) {
     V4 = in_V4;
     V7 = in_V7;
   } else {
-    param_fault('c', 0, V1 == in_V1);
-    param_fault('c', 1, V2 == in_V2);
-    param_fault('c', 2, V3 == in_V3);
-    param_fault('c', 3, fabs(V4 - in_V4) < 0.0001);
-    param_fault('c', 4, V7 == in_V7);
-
-    total_points += n_points;
+    params_fault('c', n_points, (int []){V1 == in_V1, V2 == in_V2, V3 == in_V3, fabs(V4 - in_V4) < 0.0001, V7 == in_V7});
   }
 
   //printf("a: %d/%d\n", n_correct, n_points);
@@ -203,9 +192,7 @@ int F1(int V1, int V2, int V3) {
 
     V6 = in_V6;
   } else {
-    param_fault('b', 0, V6 == in_V6);
-
-    total_points += n_points;
+    params_fault('b', n_points, (int []){V6 == in_V6});
   }
 
   //printf("a: %d/%d\n", n_correct, n_points);
