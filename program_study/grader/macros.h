@@ -88,16 +88,6 @@ char label;
 char* faults[100];
 int fault_idx = 0;
 
-void p_fault(char lbl, int fmt_idx, int cnd) {
-  if (cnd) {
-    total_correct += 1;
-  } else {
-    char *fault_str = (char *)malloc(20);
-    sprintf(fault_str, "FAULT: param,%c,%d", lbl, fmt_idx);
-    faults[fault_idx++] = fault_str;
-  }
-}
-
 void check_label(char lbl) {
   char *fault_str = (char *)malloc(20);
   sprintf(fault_str, "CHECK: label,%c", lbl);
@@ -114,8 +104,19 @@ void check_halt() {
   faults[fault_idx++] = "CHECK: halt";
 }
 
+void p_fault(char lbl, int fmt_idx, int cnd) {
+  check_param(lbl, fmt_idx);
+  if (cnd) {
+    total_correct += 1;
+  } else {
+    char *fault_str = (char *)malloc(20);
+    sprintf(fault_str, "FAULT: param,%c,%d", lbl, fmt_idx);
+    faults[fault_idx++] = fault_str;
+  }
+}
+
+
 void params_fault(char lbl, int count, int *arr) {
-  check_param(lbl, count);
   for (int i = 0; i < count; i++) {
     p_fault(lbl, i, arr[i]);
   }
