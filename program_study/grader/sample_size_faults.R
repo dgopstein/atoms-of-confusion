@@ -19,7 +19,33 @@ pilot$c_faults
 binoms <- mapply(binom.test, pilot$c_faults,pilot$c_checks)
 # pilot$c_pvalues <- unlist(binoms[3,])
 
-n.ttest(power = 0.8, alpha = 0.05, mean.diff = mean(as) - mean(bs), sd1 = sd(as), sd2 = sd(bs))
+# http://stats.stackexchange.com/questions/113602/test-if-two-binomial-distributions-are-statistically-different-from-each-other
+f.t <- function(a, a_total, b, b_total) fisher.test(rbind(c(a,a_total-a), c(b,b_total-b)), alternative="greater")
+f.t.res <- mapply(f.t, pilot$c_faults, pilot$c_checks, pilot$nc_faults, pilot$nc_checks)
+pilot$ft.p.value <- unlist(f.t.res[1,])
+
+cloglog.sample.size(p.alt, n = NULL, p = 0.5, power = 0.8, alpha = 0.05,
+                    alternative = c("two.sided", "greater", "less"), exact.n = FALSE,
+                    recompute.power = FALSE, phi = 1)
+pilot$prop.ss <- unlist(mapply(function(a, b) { power.prop.test(p1 = a, p2 = b, power = 0.8) }, pilot$c_fault_rate, pilot$nc_fault_rate)[1,])
 
 # which atoms are the most confusing
+hist(pilot$prop.ss, xlim=c(0, 200), breaks = 200, xlab="Sample Size Estimate", main = "Sample Sizes for Individual Variable Errors")
+
 # which atoms still remain in the NC questions
+
+#http://stackoverflow.com/questions/12866189/calculating-the-outliers-in-r
+outliers <- function(data, level = "mild") {
+  lowerq = quantile(data)[2]
+  upperq = quantile(data)[4]
+  iqr = upperq - lowerq
+  
+  multiplier <- if (level == "mild") 1.5 else 3
+  
+  threshold.upper = (iqr * multiplier) + upperq
+  threshold.lower = lowerq - (iqr * multiplier)
+  
+  data[data < threshold.lower | data > threshold.upper]
+}
+
+outliers(pilot$nc_fault_rate, "mild")
