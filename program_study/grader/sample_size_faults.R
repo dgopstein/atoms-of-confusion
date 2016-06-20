@@ -1,6 +1,7 @@
 library("data.table")
 library("samplesize")
 library(lsr)
+library("Hmisc")
 
 pilot <- data.table(read.csv("csv/fault_rates.csv", header = TRUE))
 pilot$c_checks <- mapply(max, 1, pilot$c_checks)
@@ -45,7 +46,12 @@ outliers <- function(data, level = "mild") {
   threshold.upper = (iqr * multiplier) + upperq
   threshold.lower = lowerq - (iqr * multiplier)
   
-  data[data < threshold.lower | data > threshold.upper]
+  #data[data < threshold.lower | data > threshold.upper]
+  threshold.upper
 }
 
-outliers(pilot$nc_fault_rate, "mild")
+upper.quantile <- outliers(pilot$nc_fault_rate, "mild")
+upper.wilson <- binconf(sum(pilot$nc_faults), sum(pilot$nc_checks))[3]
+
+pilot[nc_fault_rate > upper.quantile]
+pilot[nc_fault_rate > upper.wilson]
