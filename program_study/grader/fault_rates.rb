@@ -24,9 +24,13 @@ all_faults_unnormed = results.flat_map do |r|
     if ans
       _, faults, _ = run_grader(q, ans)
       faults.map {|f| [q, *f] }
+      #faults.map {|f| [r['Subject'], q, *f] }
     end
   end.compact
 end
+
+#pp all_faults_unnormed
+#exit
 
 all_checks_unnormed = results.flat_map do |r|
   ('a'..'h').flat_map do |q|
@@ -104,9 +108,9 @@ fault_pairs = fault_counts.map do |fault, count|
       [qtype, count, pair_count||0, check_count||0, cp_count||0]
     end
 
-  [newtype, *fault_rest, c_count, nc_count, c_checks, nc_checks]
+  [newtype, *fault_rest, c_count, c_checks, nc_count, nc_checks]
 end.uniq
 
-puts "question,fault, ..., c_count,nc_count"
+puts "question,fault,label,arg,c_faults,c_checks,nc_faults,nc_checks"
 puts fault_pairs.sort_by{|*_, ccnt, ncnct, _, _| (ccnt - ncnct).abs}.map(&:to_csv).join
 

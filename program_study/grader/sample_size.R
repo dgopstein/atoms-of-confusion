@@ -67,7 +67,7 @@ print(w.vs.t(c.sum, nc.sum))
 # 
 # t.test(c.sum, nc.sum)
 
-diff.table <- t(cbind(cnt.table[1,], cnt.table[2,] - cnt.table[1,]))
-
-chisq.test(cnt.table)
-chisq.test(diff.table)
+# diff.table <- t(cbind(cnt.table[1,], cnt.table[2,] - cnt.table[1,]))
+# 
+# chisq.test(cnt.table)
+# chisq.test(diff.table)
