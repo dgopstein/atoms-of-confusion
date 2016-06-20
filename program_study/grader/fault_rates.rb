@@ -105,7 +105,7 @@ fault_pairs = fault_counts.map do |fault, count|
     end
 
   [newtype, *fault_rest, c_count, nc_count, c_checks, nc_checks]
-end
+end.uniq
 
 puts "question,fault, ..., c_count,nc_count"
 puts fault_pairs.sort_by{|*_, ccnt, ncnct, _, _| (ccnt - ncnct).abs}.map(&:to_csv).join
