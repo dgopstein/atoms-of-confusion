@@ -33,8 +33,9 @@ def run_grader(type, stdout)
                           .split(/\n/)
 
   faults = scrubbed_stdout.flat_map{|line| line.scan(/FAULT: (.*)/)[0]&.map{|s|s.split(",")}}.compact
+  checks = scrubbed_stdout.flat_map{|line| line.scan(/CHECK: (.*)/)[0]&.map{|s|s.split(",")}}.compact
 
   actual = scrubbed_stdout.last.split("/").map(&:to_i)
 
-  [actual, faults]
+  [actual, faults, checks]
 end
