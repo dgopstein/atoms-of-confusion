@@ -1,10 +1,4 @@
-Coder,Subject,Date,Order,start1,end1,start2,end2,start3,end3,start4,end4,A,B,C,D,E,F,G,H,q1,q2,q3,q4,q5,q6,q7,q8,q9,q10,q11,
-Yanyan,1161,6/9/2016,fbgc,1:36,1:39,1:40,1:48,1:48,2:02,2:03,2:07,,error // V7 no value,"a: 1 2 0 0 
-b: 2
-error",,,error // V4 has no value,"a: 1 0
-b:
-error",,27,M,Master graduated,Graduate student,Cyber Security,7,2,"Matlab, C/C++, Python","Python, Matlab","Matlab, Python",2,
-Yanyan,1224,6/13/2016,gedb,2:01,2:03,2:04,2:07,2:09,2:30,2:32,2:42,,"a: 0 zy 1
+Coder,Subject,Date,Order,start1,end1,start2,end2,start3,end3,start4,end4,A,B,C,D,E,F,G,H,q1,q2,q3,q4,q5,q6,q7,q8,q9,q10,q11,Yanyan,1224,6/13/16,gedb,2:01,2:03,2:04,2:07,2:09,2:30,2:32,2:42,,"a: 0 zy 1
 b: 1 z 1
 a: 0 zz 1
 b: 0 zz 1
@@ -15,8 +9,7 @@ c: 2 2 20 2
 c: 2 2 20 3
 e","a: -1 -2 0 0.0
 I give up!",,"a: 1 0 
-I give up!",,,,,,,,,,,,,
-Dan,3270,6/15/2016,gadf,11:03,11:13,11:14,11:25,11:26,11:43,11:43,11:46,"a: 0 bzy 1
+I give up!",,,,,,,,,,,,,Dan,3270,6/15/16,gadf,11:03,11:13,11:14,11:25,11:26,11:43,11:43,11:46,"a: 0 bzy 1
 b: 1 abzy 1
 X",,,"a: 2 2 0 0
 c: 2 0 0 1
@@ -26,8 +19,7 @@ b: 3 0 0 1
 e",,"a: -1 -2 0 0
 b: c
 d","a: 1 0
-c: 1 1",,57,M,PhD,grad student,CS,35,6,"bliss, c, assem, java, javascript, pascal, pl-1, fortran, python","java, javascript","java, c",5,No one codes or should be allowed to code ... (DAN can't read this)
-Dan,3782,,hceb,15:33,15:49,15:44,16:01,16:01,16:16,16:16,16:27,,"a: 0 zy 1
+c: 1 1",,57,M,PhD,grad student,CS,35,6,"bliss, c, assem, java, javascript, pascal, pl-1, fortran, python","java, javascript","java, c",5,No one codes or should be allowed to code ... (DAN can't read this)Dan,3782,,hceb,15:33,15:49,15:44,16:01,16:01,16:16,16:16,16:27,,"a: 0 zy 1
 b: 1 zy 1
 a: 0 y 1
 b: 1 y 1
@@ -40,8 +32,7 @@ b: 1 1
 a: 0 0
 2: 1000000
 4: 0
-d",32,F,PhD,grad student,CS,3,3,"c/c++, matlab, c#, python, java",c/c++,c/c++,3,
-Yanyan,3881,6/14/2016,gdaf,18:19,18:26,18:26,18:42,18:42,18:50,18:50,18:54,"a: 0 'zy' 1
+d",32,F,PhD,grad student,CS,3,3,"c/c++, matlab, c#, python, java",c/c++,c/c++,3,Yanyan,3881,6/14/16,gdaf,18:19,18:26,18:26,18:42,18:42,18:50,18:50,18:54,"a: 0 'zy' 1
 b: 1 '0' 1
 c:",,,"a: 2 2 0 0
 c: 2 0 2 1
@@ -50,8 +41,7 @@ a: 3 3 0 2
 c: 3 0 3 1",,"a: -1 -2 0 &V4
 b: c","a: 1 0
 I Give Up
-I Give Up (Lost the track on second print)",,32,M,PhD,Graduate Student,CS,10,almost 1 year,"java, c/c++, haskell, prolog, pd, c#, assembly 8086/8088, vhdl, as3, javascript",java or c#,"I don't have a preference, it depends about what you want to do, resources available and experience. ",1,object oriented creation in c++
-Dan,4747,6/14/2016,dgaf,10:32,10:52,11:08,11:22,10:53,11:02,11:03,11:08,"a: 0 zy 1
+I Give Up (Lost the track on second print)",,32,M,PhD,Graduate Student,CS,10,almost 1 year,"java, c/c++, haskell, prolog, pd, c#, assembly 8086/8088, vhdl, as3, javascript",java or c#,"I don't have a preference, it depends about what you want to do, resources available and experience. ",1,object oriented creation in c++Dan,4747,6/14/16,dgaf,10:32,10:52,11:08,11:22,10:53,11:02,11:03,11:08,"a: 0 zy 1
 b: 1 abzy 1
 c",,,"a: 2 2 0 0
 c: 2 0 2 1
@@ -70,8 +60,7 @@ d","a: 1 0
 a: 0 0
 a: 0 0
 b: 1
-""I give up!""",,20,M,Bachelors,undergrad,EE,1,1,"c, c++, python",,c++,3,
-Dan,6033,6/11/2016,cfha,15:37,15:45,15:45,15:49,15:49,15:59,15:50,15:51,I Give Up,,"a: 2 2 0 0
+""I give up!""",,20,M,Bachelors,undergrad,EE,1,1,"c, c++, python",,c++,3,Dan,6033,6/11/16,cfha,15:37,15:45,15:45,15:49,15:49,15:59,15:50,15:51,I Give Up,,"a: 2 2 0 0
 a: 3 3 0 0
 c",,,"a: -1 -2 0 0.0
 b: c
@@ -80,8 +69,7 @@ a: 0 0
 b: 0 1
 b: 1 1
 d
-",21,F,Bachelors,undergrad,CSE,6,2,"c, c++, java, javascript, SQL, actionscript 2/3",,actionscript 3,4,
-Yanyan,6224,6/13/2016,hbec,10:36,10:44,10:45,10:50,10:51,10:58,10:59,11:10,,"a: 0 azy 1
+",21,F,Bachelors,undergrad,CSE,6,2,"c, c++, java, javascript, SQL, actionscript 2/3",,actionscript 3,4,Yanyan,6224,6/13/16,hbec,10:36,10:44,10:45,10:50,10:51,10:58,10:59,11:10,,"a: 0 azy 1
 b: 1 azy 1
 a: 0 bzy 1
 b: 1 bzy 1
@@ -97,8 +85,7 @@ a: 0 0
 a: 1 0
 b: 1 1
 a: 1 0
-b: 1 1",19,F,BS,Undergraduate,Computer Engineering,4,2,"C, C#, C++, Python, Java",,C++,4,
-Yanyan,6490,6/12/2016,hecb,4:27,4:56,4:57,5:11,5:12,5:23,5:24,5:28,,"a: 0 zy 1
+b: 1 1",19,F,BS,Undergraduate,Computer Engineering,4,2,"C, C#, C++, Python, Java",,C++,4,Yanyan,6490,6/12/16,hecb,4:27,4:56,4:57,5:11,5:12,5:23,5:24,5:28,,"a: 0 zy 1
 b: 1 zy 1
 give up don't know ""ab""[V7] meaning","a: 2 0 2 1
 a: 2 0 19 1
@@ -115,8 +102,7 @@ a: 0 0
 a: 1 0
 b: 1 1
 a: 0 0
-a: 1 0",26,M,PhD,Graduate student,EE,4,4,"C/C++, Python, Matlab",C/Matlab,C,5,"In my daily use of C, I seldom meet the kind of questions captured by this test. What I usually do is to implement some algorithms to conduct simulations."
-Dan,9351,6/152016,dhae,14:03,14:15,14:16,14:35,14:36,14:45,14:45,14:55,c,,,"a: 2 2 0 0
+a: 1 0",26,M,PhD,Graduate student,EE,4,4,"C/C++, Python, Matlab",C/Matlab,C,5,"In my daily use of C, I seldom meet the kind of questions captured by this test. What I usually do is to implement some algorithms to conduct simulations."Dan,9351,6/152016,dhae,14:03,14:15,14:16,14:35,14:36,14:45,14:45,14:55,c,,,"a: 2 2 0 0
 c: 2 0 2 1
 d: 2
 a: 3 3 0 2
