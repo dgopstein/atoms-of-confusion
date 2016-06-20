@@ -1,21 +1,4 @@
 Coder,Subject,Date,Order,start1,end1,start2,end2,start3,end3,start4,end4,A,B,C,D,E,F,G,H,q1,q2,q3,q4,q5,q6,q7,q8,q9,q10,q11,
-Yanyan,1161,6/9/2016,fbgc,1:36,1:39,1:40,1:48,1:48,2:02,2:03,2:07,,error // V7 no value,"a: 1 2 0 0 
-b: 2
-error",,,error // V4 has no value,"a: 1 0
-b:
-error",,27,M,Master graduated,Graduate student,Cyber Security,7,2,"Matlab, C/C++, Python","Python, Matlab","Matlab, Python",2,
-Yanyan,1224,6/13/2016,gedb,2:01,2:03,2:04,2:07,2:09,2:30,2:32,2:42,,"a: 0 zy 1
-b: 1 z 1
-a: 0 zz 1
-b: 0 zz 1
-c",,"a: 2 2 0 0
-c: 2 4 2 0
-d: 2
-c: 2 2 20 2
-c: 2 2 20 3
-e","a: -1 -2 0 0.0
-I give up!",,"a: 1 0 
-I give up!",,,,,,,,,,,,,
 Dan,3270,6/15/2016,gadf,11:03,11:13,11:14,11:25,11:26,11:43,11:43,11:46,"a: 0 bzy 1
 b: 1 abzy 1
 X",,,"a: 2 2 0 0
