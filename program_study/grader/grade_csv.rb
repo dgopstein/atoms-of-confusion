@@ -1,6 +1,5 @@
 #!/usr/bin/env ruby
 
-require './unify_output.rb'
 require './grader_util.rb'
 
 require 'csv' 

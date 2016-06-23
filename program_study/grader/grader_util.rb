@@ -1,4 +1,5 @@
 require 'active_support/core_ext/hash/indifferent_access'
+require './unify_output.rb'
 
 $prog_names = %w[ab cd ef gh]
 
@@ -37,5 +38,5 @@ def run_grader(type, stdout)
 
   actual = scrubbed_stdout.last.split("/").map(&:to_i)
 
-  [actual, faults, checks]
+  [actual, faults, checks, scrubbed_stdout]
 end
