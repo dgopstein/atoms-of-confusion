@@ -104,23 +104,35 @@ void check_halt() {
   faults[fault_idx++] = "CHECK: halt";
 }
 
-void p_fault(char lbl, int fmt_idx, int cnd) {
+int param_fault(char lbl, int fmt_idx, int cnd) {
   check_param(lbl, fmt_idx);
+  total_points += 1;
+
+  int was_fault;
   if (cnd) {
-    total_correct += 1;
+    was_fault = 1;
   } else {
     char *fault_str = (char *)malloc(20);
     sprintf(fault_str, "FAULT: param,%c,%d", lbl, fmt_idx);
     faults[fault_idx++] = fault_str;
+
+    was_fault = 0;
   }
+
+  total_correct += 1 - was_fault;
+
+  return was_fault;
 }
 
 
-void params_fault(char lbl, int count, int *arr) {
-  for (int i = 0; i < count; i++) {
-    p_fault(lbl, i, arr[i]);
-  }
+//void params_fault(char lbl, int count, int *arr) {
+//  for (int i = 0; i < count; i++) {
+//    p_fault(lbl, i, arr[i]);
+//  }
+//
+//  total_points += count;
+//}
 
-  total_points += count;
-}
+int i_eq(int a, int b) { return a == b; }
+int f_eq(int a, int b) { return fabs(a - b) < 0.0001; }
 
