@@ -54,10 +54,13 @@ pair.test <- function(a, b) {
   w.vs.t(as, bs, name =  paste(a, b, sep=""))
 }
 
-pair.data <- t(mapply(pair.test, cs, ncs))
+# Sample Size
+n.ttest(power = 0.8, alpha = 0.05, mean.diff = mean(c.sum) - mean(nc.sum), sd1 = sd(c.sum), sd2 = sd(nc.sum))
 
-print(pair.data)
-print(w.vs.t(c.sum, nc.sum))
+#pair.data <- t(mapply(pair.test, cs, ncs))
+
+#print(pair.data)
+#print(w.vs.t(c.sum, nc.sum))
 
 # hist(c.sum, breaks = 10)
 # hist(nc.sum, breaks = 10)
