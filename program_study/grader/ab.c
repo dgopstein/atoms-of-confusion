@@ -10,7 +10,7 @@
     }
 
 int in_V1, in_V3, in_V4, in_V6;
-char in_V2[100], in_V5[100];
+char *in_V2, *in_V5;
 
 int F1(int V1, char *V2, int V3) {
   // printf("a: %d %s %d\n", V1, V2, V3);
@@ -50,7 +50,9 @@ int F1(int V1, char *V2, int V3) {
     V2 = in_V2;
     V3 = in_V3;
   } else {
-    params_fault('a', n_points, (int []){V1 == in_V1, !strcmp(V2, in_V2), V3 == in_V3});
+    i_param_fault('a', 1, &V1, &in_V1);
+    s_param_fault('a', 2, &V2, &in_V2);
+    i_param_fault('a', 3, &V3, &in_V3);
   }
 
   #ifdef DEBUG
@@ -102,7 +104,9 @@ int F1(int V1, char *V2, int V3) {
     V5 = in_V5;
     V6 = in_V6;
   } else {
-    params_fault('b', n_points, (int []){V4 == in_V4, !strcmp(V5, in_V5), V6 == in_V6});
+    i_param_fault('b', 1, &V4, &in_V4);
+    s_param_fault('b', 2, &V5, &in_V5);
+    i_param_fault('b', 3, &V6, &in_V6);
   }
 
   #ifdef DEBUG
@@ -122,6 +126,9 @@ int F1(int V1, char *V2, int V3) {
 
 int V7;
 int main() {
+  in_V2 = (char *)malloc(20);
+  in_V5 = (char *)malloc(20);
+
   for (; "ab"[V7] != 0;) {
     F1(97 - 97, &"zy"[V7], 122 / 122);
     V7 = V7 + 1;

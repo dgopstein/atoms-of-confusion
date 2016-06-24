@@ -1,5 +1,6 @@
 #include <string.h>
 #include <stdlib.h>
+#include <math.h>
 
 #define MIN(a,b) (((a)<(b))?(a):(b))
 
@@ -137,13 +138,16 @@ int c_eq(char a,     char b) { return a == b; }
 int i_eq(int a,       int b) { return a == b; }
 int f_eq(float a,   float b) { return fabs(a - b) < 0.0001; }
 int d_eq(double a, double b) { return fabs(a - b) < 0.0001; }
-int s_eq(char *a,   char *b) { return !strcmp(a, b); };
+int s_eq(char *a,   char *b) { printf("str\n"); return !strcmp(a, b); printf("cmp\n");};
 
 void c_ass(char *a,     char *b) { *a = *b; }
 void i_ass(int *a,       int *b) { *a = *b; }
 void f_ass(float *a,   float *b) { *a = *b; }
 void d_ass(double *a, double *b) { *a = *b; }
-void s_ass(char *a,     char *b) { strcpy(a, b); }
+void s_ass(char **a,     char **b) { 
+  *a = (char *)malloc(20); 
+  strcpy(*a, *b);
+}
 
 void c_param_fault(char lbl, int idx, char *a, char *b) {
   if (p_fault(lbl, idx, c_eq(*a, *b))) c_ass(a, b); }
@@ -157,6 +161,6 @@ void f_param_fault(char lbl, int idx, float *a, float *b) {
 void d_param_fault(char lbl, int idx, double *a, double *b) {
   if (p_fault(lbl, idx, d_eq(*a, *b))) d_ass(a, b); }
 
-void s_param_fault(char lbl, int idx, char *a, char *b) {
-  if (p_fault(lbl, idx, s_eq(a, b))) s_ass(a, b); }
+void s_param_fault(char lbl, int idx, char **a, char **b) {
+  if (p_fault(lbl, idx, s_eq(*a, *b))) s_ass(a, b); }
 

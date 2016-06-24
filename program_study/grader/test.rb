@@ -19,7 +19,7 @@ test_files.each do |csv_line|
   stdout = File.read("test/"+test_file)
   q_type, file_desc = parse_filename(test_file)
 
-  actual, faults = run_grader(q_type, stdout)
+  (actual, faults = run_grader(q_type, stdout)) or next
 
   expected = "#{n_correct}/#{total_points}"
 
