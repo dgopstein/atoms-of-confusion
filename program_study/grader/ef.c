@@ -61,10 +61,10 @@ int F1(int V1, int V2, int V3) {
     V3 = in_V3;
     V4 = in_V4;
   } else {
-    if (param_fault('a', 1, i_eq(V1, in_V1))) V1 = in_V1;
-    if (param_fault('a', 2, i_eq(V2, in_V2))) V2 = in_V2;
-    if (param_fault('a', 3, i_eq(V3, in_V3))) V3 = in_V3;
-    if (param_fault('a', 3, f_eq(V4, in_V4))) V4 = in_V4;
+    i_param_fault('a', 1, &V1, &in_V1);
+    i_param_fault('a', 2, &V2, &in_V2);
+    i_param_fault('a', 3, &V3, &in_V3);
+    d_param_fault('a', 3, &V4, &in_V4);
   }
 
   //printf("a: %d/%d\n", n_correct, n_points);
@@ -142,11 +142,11 @@ int F1(int V1, int V2, int V3) {
     V4 = in_V4;
     V7 = in_V7;
   } else {
-    if (param_fault('c', 1, i_eq(V1, in_V1))) V1 = in_V1;
-    if (param_fault('c', 2, i_eq(V2, in_V2))) V2 = in_V2;
-    if (param_fault('c', 3, i_eq(V3, in_V3))) V3 = in_V3;
-    if (param_fault('c', 3, f_eq(V4, in_V4))) V4 = in_V4;
-    if (param_fault('c', 4, i_eq(V7, in_V7))) V7 = in_V7;
+    i_param_fault('c', 1, &V1, &in_V1);
+    i_param_fault('c', 2, &V2, &in_V2);
+    i_param_fault('c', 3, &V3, &in_V3);
+    d_param_fault('c', 3, &V4, &in_V4);
+    i_param_fault('c', 4, &V7, &in_V7);
   }
 
   //printf("a: %d/%d\n", n_correct, n_points);
@@ -167,8 +167,6 @@ int F1(int V1, int V2, int V3) {
   } else {
     V6 = 'c';
   }
-
-
 
 
 
@@ -201,7 +199,7 @@ int F1(int V1, int V2, int V3) {
 
     V6 = in_V6;
   } else {
-    if (param_fault('b', 1, i_eq(V6, in_V6))) V6 = in_V6;
+    c_param_fault('b', 1, &V6, &in_V6);
   }
 
   //printf("a: %d/%d\n", n_correct, n_points);
