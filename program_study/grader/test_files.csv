@@ -5,7 +5,7 @@ b_5125.txt,ab,16,17
 b_7400.txt,ab,7,9
 a_2024.txt,ab,6,9
 b_5278.txt,ab,6,9
-b_6708.txt,ab,13,17
+b_6708.txt,ab,15,17,take into account the malformed strings
 c_real.txt,cd,30,30
 d_real.txt,cd,30,30
 d_7400.txt,cd,27,29
@@ -16,7 +16,7 @@ e_real.txt,ef,34,34
 f_real.txt,ef,34,34
 e_7400.txt,ef,4,6
 e_5125.txt,ef,5,7,the user didn't recurse and the computer did
-e_6490.txt,ef,13,18
+e_6490.txt,ef,13,18,fully hand traced - pretty sure about this score
 e_9351.txt,ef,9,12
 g_real.txt,gh,14,14
 h_real.txt,gh,14,14

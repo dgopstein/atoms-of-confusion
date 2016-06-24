@@ -57,7 +57,8 @@ int F1(int V1, int V2) {
     V1 = in_V1;
     V2 = in_V2;
   } else {
-    params_fault('a', n_points, (int []){V1 == in_V1, V2 == in_V2});
+    i_param_fault('a', 1, &V1, &in_V1);
+    i_param_fault('a', 2, &V2, &in_V2);
   }
 
   #ifdef DEBUG
@@ -137,7 +138,7 @@ int F1(int V1, int V2) {
   if (label_fault) {
     label_fault = 0;
   } else {
-    params_fault('1', n_points, (int []){10 == in_10});
+    p_fault('1', 1, 10 == in_10);
   }
 
   #ifdef DEBUG
@@ -185,7 +186,9 @@ int F1(int V1, int V2) {
   if (label_fault) {
     label_fault = 0;
   } else {
-    params_fault('2', n_points, (int []){out_c2 == in_c2});
+    //params_fault('2', n_points, (int []){out_c2 == in_c2});
+    in_V1 = !(in_c2 >> 6);
+    i_param_fault('2', 1, &V1, &in_V1);
   }
 
   #ifdef DEBUG
@@ -222,7 +225,7 @@ int F1(int V1, int V2) {
 
 /* start: BBBBBBBBBBBBBBB */
 {
-  SCAN_LABEL('b')
+  SCAN_LABELS('b', 'c')
 
   b:;
 
@@ -249,7 +252,8 @@ int F1(int V1, int V2) {
     V1 = in_V1;
     V4 = in_V4;
   } else {
-    params_fault('b', n_points, (int []){V1 == in_V1, V4 == in_V4});
+    i_param_fault('b', 1, &V1, &in_V1);
+    i_param_fault('b', 2, &V4, &in_V4);
   }
 
   #ifdef DEBUG
@@ -320,7 +324,7 @@ int F1(int V1, int V2) {
   if (label_fault) {
     label_fault = 0;
   } else {
-    params_fault('3', n_points, (int []){10 == in_10});
+    p_fault('3', 1, 10 == in_10);
   }
 
   #ifdef DEBUG
@@ -369,7 +373,8 @@ int F1(int V1, int V2) {
   if (label_fault) {
     label_fault = 0;
   } else {
-    params_fault('4', n_points, (int []){out_c4 == in_c4});
+    in_V1 = !(in_c4 >> 6);
+    i_param_fault('4', 1, &V1, &in_V1);
   }
 
   #ifdef DEBUG

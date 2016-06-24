@@ -2,7 +2,7 @@ require 'active_support/core_ext/hash/indifferent_access'
 require './unify_output.rb'
 require 'pp'
 
-$prog_names = %w[ab ef] #%w[ab cd ef gh]
+$prog_names = %w[ab cd ef gh]
 
 $bins = $prog_names.map{|name| [name, "bin/#{name}"]}.to_h
 

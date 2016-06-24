@@ -149,6 +149,8 @@ void s_ass(char **a,     char **b) {
   strcpy(*a, *b);
 }
 
+// Check value, increment total_points, and assign the users value to in-memory model
+
 void c_param_fault(char lbl, int idx, char *a, char *b) {
   if (p_fault(lbl, idx, c_eq(*a, *b))) c_ass(a, b); }
 
