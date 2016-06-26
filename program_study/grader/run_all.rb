@@ -20,6 +20,7 @@ compile_graders!
 scores = results.flat_map do |r|
   ('a'..'h').map do |q|
     ans = r[q.upcase]
+    puts "Subject #{r['Subject']}, #{q}"
     ans and [r['Subject'].to_i, q, run_grader(q, ans).last]
   end.compact
 end

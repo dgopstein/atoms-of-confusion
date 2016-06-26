@@ -248,7 +248,12 @@ int F1(int V1, int V2, int V3, int V4) {
 
 
 
-          V9 = 2 && (V1 % V4);
+          // Prevent floating point exception
+          if (V4 == 0) {
+            V9 = 1;
+          } else {
+            V9 = 2 && (V1 % V4);
+          }
         }
       }
     }

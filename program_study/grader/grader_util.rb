@@ -38,6 +38,11 @@ def run_grader(type, stdout)
   faults = scrubbed_stdout.flat_map{|line| line.scan(/FAULT: (.*)/)[0]&.map{|s|s.split(",")}}.compact
   checks = scrubbed_stdout.flat_map{|line| line.scan(/CHECK: (.*)/)[0]&.map{|s|s.split(",")}}.compact
 
+  if scrubbed_stdout.empty?
+    puts "Error executing #{bin} on \n#{scrubbed_stdin}"
+    return nil
+  end
+
   actual = scrubbed_stdout.last.split("/").map(&:to_i)
 
   [actual, faults, checks, scrubbed_stdout]
