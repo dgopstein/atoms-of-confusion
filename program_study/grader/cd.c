@@ -46,8 +46,8 @@ int F1(int V1, int V2, int V3, int V4) {
   }
 
   #ifdef DEBUG
-  printf("a-expected: %d %d %d %d\n", V1, V2, V3, V4);
-  printf("a-actual:   %d %d %d %d\n", in_V1, in_V2, in_V3, in_V4);
+  printf("a-computed: %d %d %d %d\n", V1, V2, V3, V4);
+  printf("a-inputted:   %d %d %d %d\n", in_V1, in_V2, in_V3, in_V4);
   #endif
 
   if (label_fault) {
@@ -110,8 +110,8 @@ int F1(int V1, int V2, int V3, int V4) {
 
   check_label('b');
   #ifdef DEBUG
-  printf("b-expected: %d\n", V1);
-  printf("b-actual:   %d\n", in_V1);
+  printf("b-computed: %d\n", V1);
+  printf("b-inputted:   %d\n", in_V1);
   #endif
 
   if (label_fault) {
@@ -164,8 +164,8 @@ int F1(int V1, int V2, int V3, int V4) {
 
   check_label('a');
   #ifdef DEBUG
-  printf("c-expected: %d %d %d %d\n", V1, V2, V3, V4);
-  printf("c-actual:   %d %d %d %d\n", in_V1, in_V2, in_V3, in_V4);
+  printf("c-computed: %d %d %d %d\n", V1, V2, V3, V4);
+  printf("c-inputted:   %d %d %d %d\n", in_V1, in_V2, in_V3, in_V4);
   #endif
 
   if (label_fault) {
@@ -222,8 +222,8 @@ int F1(int V1, int V2, int V3, int V4) {
 
   check_label('b');
   #ifdef DEBUG
-  printf("d-expected: %d\n", V1);
-  printf("d-actual:   %d\n", in_V1);
+  printf("d-computed: %d\n", V1);
+  printf("d-inputted:   %d\n", in_V1);
   #endif
 
   if (label_fault) {
