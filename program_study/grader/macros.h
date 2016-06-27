@@ -138,7 +138,7 @@ int c_eq(char a,     char b) { return a == b; }
 int i_eq(int a,       int b) { return a == b; }
 int f_eq(float a,   float b) { return fabs(a - b) < 0.0001; }
 int d_eq(double a, double b) { return fabs(a - b) < 0.0001; }
-int s_eq(char *a,   char *b) { printf("str\n"); return !strcmp(a, b); printf("cmp\n");};
+int s_eq(char *a,   char *b) { return !strcmp(a, b); };
 
 void c_ass(char *a,     char *b) { *a = *b; }
 void i_ass(int *a,       int *b) { *a = *b; }
