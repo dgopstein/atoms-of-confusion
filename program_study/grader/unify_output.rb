@@ -21,11 +21,15 @@ def unify_output_str(type, output)
   }.with_indifferent_access
 
   scrubbed = output.lines.map do |line|
-    label, data = line.scan(/(\w)(.*)/).first
+    if ["X", "!"].include? line.chomp
+      line
+    else
+      label, data = line.scan(/(\w)(.*)/).first
 
-    new_label = label_map.fetch(type, {})[label] || label
-    
-    new_line = new_label + data
+      new_label = label_map.fetch(type, {})[label] || label
+      
+      new_line = new_label + data
+    end
   end.join("\n")
 
   scrubbed

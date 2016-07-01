@@ -34,7 +34,8 @@ pilot$prop.ss <- unlist(mapply(function(a, b) { power.prop.test(p1 = a, p2 = b, 
 
 mapply(function(a, b) { power.prop.test(p1 = a, p2 = b, power = 0.8) }, pilot$c_fault_rate, pilot$nc_fault_rate)
 
-length(pilot$prop.ss[pilot$prop.ss]) / 5
+# what percentage of the faults will get the correct nominal power if we test 19 participants
+length(pilot$prop.ss[pilot$prop.ss < 19]) / length(pilot$prop.ss)
 
 # which atoms are the most confusing
 hist(pilot$prop.ss, xlim=c(0, 200), breaks = 200, xlab="Sample Size Estimate", main = "Sample Sizes for Individual Variable Errors")
