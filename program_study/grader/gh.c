@@ -48,7 +48,7 @@ int F1(int V1, int V2) {
 
   #ifdef DEBUG
   printf("a-computed: %d %d\n", V1, V2);
-  printf("a-inputted:   %d %d\n", in_V1, in_V2);
+  printf("a-inputted: %d %d\n", in_V1, in_V2);
   #endif
 
   if (label_fault) {
@@ -132,7 +132,7 @@ int F1(int V1, int V2) {
 
   #ifdef DEBUG
   printf("1-computed: %d\n", 10);
-  printf("1-inputted:   %d\n", in_10);
+  printf("1-inputted: %d\n", in_10);
   #endif
 
   if (label_fault) {
@@ -180,7 +180,7 @@ int F1(int V1, int V2) {
 
   #ifdef DEBUG
   printf("2-computed: %d\n", out_c2);
-  printf("2-inputted:   %d\n", in_c2);
+  printf("2-inputted: %d\n", in_c2);
   #endif
 
   if (label_fault) {
@@ -243,7 +243,7 @@ int F1(int V1, int V2) {
 
   #ifdef DEBUG
   printf("b-computed: %d %d\n", V1, V4);
-  printf("b-inputted:   %d %d\n", in_V1, in_V4);
+  printf("b-inputted: %d %d\n", in_V1, in_V4);
   #endif
 
   if (label_fault) {
@@ -318,7 +318,7 @@ int F1(int V1, int V2) {
 
   #ifdef DEBUG
   printf("3-computed: %d\n", 10);
-  printf("3-inputted:   %d\n", in_10);
+  printf("3-inputted: %d\n", in_10);
   #endif
 
   if (label_fault) {
@@ -367,7 +367,7 @@ int F1(int V1, int V2) {
 
   #ifdef DEBUG
   printf("4-computed: %d\n", out_c4);
-  printf("4-inputted:   %d\n", in_c4);
+  printf("4-inputted: %d\n", in_c4);
   #endif
 
   if (label_fault) {

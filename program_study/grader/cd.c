@@ -47,7 +47,7 @@ int F1(int V1, int V2, int V3, int V4) {
 
   #ifdef DEBUG
   printf("a-computed: %d %d %d %d\n", V1, V2, V3, V4);
-  printf("a-inputted:   %d %d %d %d\n", in_V1, in_V2, in_V3, in_V4);
+  printf("a-inputted: %d %d %d %d\n", in_V1, in_V2, in_V3, in_V4);
   #endif
 
   if (label_fault) {
@@ -65,8 +65,7 @@ int F1(int V1, int V2, int V3, int V4) {
   }
 
   #ifdef DEBUG
-  printf("%d/%d\n", total_correct, total_points);
-  printf("\n");
+  printf("%d/%d\n\n", total_correct, total_points);
   #endif
 }
 /* AAAAAAAAAAAAAAA */
@@ -111,7 +110,7 @@ int F1(int V1, int V2, int V3, int V4) {
   check_label('b');
   #ifdef DEBUG
   printf("b-computed: %d\n", V1);
-  printf("b-inputted:   %d\n", in_V1);
+  printf("b-inputted: %d\n", in_V1);
   #endif
 
   if (label_fault) {
@@ -124,8 +123,7 @@ int F1(int V1, int V2, int V3, int V4) {
 
   //printf("b: %d/%d\n", n_correct, n_points);
   #ifdef DEBUG
-  printf("%d/%d\n", total_correct, total_points);
-  printf("\n");
+  printf("%d/%d\n\n", total_correct, total_points);
   #endif
 }
 /* BBBBBBBBBBBBBBBBBBBBBBBB */
@@ -135,7 +133,11 @@ int F1(int V1, int V2, int V3, int V4) {
 
 
 
-        V9 = 2 && (V1 % V4);
+        if (V4 == 0) { // protect against floating point exception
+          V9 = V1 == 0;
+        } else {
+          V9 = 2 && (V1 % V4);
+        }
       }
     }
 
@@ -165,7 +167,7 @@ int F1(int V1, int V2, int V3, int V4) {
   check_label('a');
   #ifdef DEBUG
   printf("c-computed: %d %d %d %d\n", V1, V2, V3, V4);
-  printf("c-inputted:   %d %d %d %d\n", in_V1, in_V2, in_V3, in_V4);
+  printf("c-inputted: %d %d %d %d\n", in_V1, in_V2, in_V3, in_V4);
   #endif
 
   if (label_fault) {
@@ -184,8 +186,7 @@ int F1(int V1, int V2, int V3, int V4) {
 
   //printf("c: %d/%d\n", n_correct, n_points);
   #ifdef DEBUG
-  printf("%d/%d\n", total_correct, total_points);
-  printf("\n");
+  printf("%d/%d\n\n", total_correct, total_points);
   #endif
 }
 /* CCCCCCCCCCCCCCCCCCCCCCCCC */
@@ -223,7 +224,7 @@ int F1(int V1, int V2, int V3, int V4) {
   check_label('b');
   #ifdef DEBUG
   printf("d-computed: %d\n", V1);
-  printf("d-inputted:   %d\n", in_V1);
+  printf("d-inputted: %d\n", in_V1);
   #endif
 
   if (label_fault) {
@@ -235,8 +236,7 @@ int F1(int V1, int V2, int V3, int V4) {
   }
 
   #ifdef DEBUG
-  printf("%d/%d\n", total_correct, total_points);
-  printf("\n");
+  printf("%d/%d\n\n", total_correct, total_points);
   #endif
 }
 /* DDDDDDDDDDDDDDDDDDDDDDDD */
