@@ -5,7 +5,7 @@ library("Hmisc")
 library("binomSampleSize")
 library("binGroup")
 
-pilot <- data.table(read.csv("csv/fault_rates.csv", header = TRUE))
+pilot <- data.table(read.csv("csv/pilot_fault_rates.csv", header = TRUE))
 pilot$c_checks <- mapply(max, 1, pilot$c_checks)
 
 pilot$c_fault_rate  <- pilot$c_faults / pilot$c_checks
