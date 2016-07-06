@@ -102,7 +102,7 @@ processAtom <- function(atomName) {
 
   invisible(lapply(atomRes, function (r) printContingency(r$atomName, alpha, r$mcnemarsRes, r$contingency)))
 
-  atomFrame <- toDF(atomRes)
+  atomFrame <- data.table(toDF(atomRes))
   colnames(atomFrame) <- c('TT', 'TF', 'FT', 'FF', "statistic", "parameter", "p.value", "method", "data.name", "effect.size", "atomName")
   
   #atomFrame
@@ -182,3 +182,9 @@ csvView <- function(odt) {
   odtView <- odt[,c(attributes(odt)$names[[1]], "p.value", "effectSize","TT", "TF", "FT", "FF"), with=FALSE]
   data.frame(lapply(odtView, as.character), stringsAsFactors=FALSE)
 }
+
+nc <- function(x) as.numeric(as.character(x))
+
+atomFrame$total <- atomFrame[, nc(TT) + nc(TF) + nc(FT) + nc(FF)]
+
+atomFrame$c.incorrect.rate <- atomFrame[, (nc(FT) + nc(FF)) / total]
