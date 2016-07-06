@@ -308,8 +308,7 @@ Subject,Date,Order,start1,end1,start2,end2,start3,end3,start4,end4,A,B,C,D,E,F,G
  c: 2 0 2 1
  d: 2
  d: 2 0 0 2
- c: 2 0 0 3
- ...","a: -1 -2 0 0.0
+ c: 2 0 0 3","a: -1 -2 0 0.0
  b: c
  d",,,"a: 1 0
  b: 1 1
@@ -410,10 +409,7 @@ Subject,Date,Order,start1,end1,start2,end2,start3,end3,start4,end4,A,B,C,D,E,F,G
 9582,7/5/16,hbec,11:33,11:44,11:44,11:47,11:48,11:52,11:52,11:55,,"undefined
  ends with:
  c","a: 2 2 0 0
- I give up",,"a: -1 -2 0 ??
- ...
- ends with
- d",,,"a: 1 0
+ I give up",,"a: -1 -2 0 ?",,,"a: 1 0
  b: 1 1
  a: 0 0
  a: 0 0
