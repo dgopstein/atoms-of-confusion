@@ -2,7 +2,8 @@ library("data.table")
 library("samplesize")
 library(lsr)
 
-pilot.results <- data.table(read.csv("csv/pilot_results.csv", header = TRUE))
+# ./grade_csv.rb csv/pilot_results.csv > csv/pilot_grades.csv
+pilot.results <- data.table(read.csv("csv/pilot_grades.csv", header = TRUE))
 pilot.results <- pilot.results[subject != 1161]
 pilot.results$confusing <- pilot.results$qtype %in% c('a','c','e','g')
 
@@ -13,6 +14,7 @@ nc.sum <- scores.summed[confusing == FALSE, rate]
 scores.summed.subject <- scores.summed[,sum(rate)/2,by="subject"]
 
 plot(c.sum, nc.sum, xlim=c(.3,1), ylim=c(.3,1))
+abline(lm(nc.sum ~ c.sum))
 abline(0,1)
 
 # sum.tt <- t.test(c.sum, nc.sum)
@@ -54,8 +56,21 @@ pair.test <- function(a, b) {
   w.vs.t(as, bs, name =  paste(a, b, sep=""))
 }
 
-# Sample Size
+# Overall Sample Size
 n.ttest(power = 0.8, alpha = 0.05, mean.diff = mean(c.sum) - mean(nc.sum), sd1 = sd(c.sum), sd2 = sd(nc.sum))
+
+# Question Sample Size
+q.ss <- function(a, b) {
+    c.sum <- pilot.results[,correct/points,by=qtype][qtype==a]$V1
+    nc.sum <- pilot.results[,correct/points,by=qtype][qtype==b]$V1
+    
+    n.ttest(power = 0.8, alpha = 0.05, mean.diff = mean(c.sum) - mean(nc.sum), sd1 = sd(c.sum), sd2 = sd(nc.sum))
+}
+
+q.ss('a', 'b')[1]
+q.ss('c', 'd')[1]
+q.ss('e', 'f')[1]
+q.ss('g', 'h')[1]
 
 #pair.data <- t(mapply(pair.test, cs, ncs))
 

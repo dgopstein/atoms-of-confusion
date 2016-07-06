@@ -1,6 +1,9 @@
 library("data.table")
 library(Hmisc)
 
+c.types <- c('a', 'c', 'e', 'g')
+nc.types <- c('b', 'd', 'f', 'h')
+
 f.t <- function(a, a_total, b, b_total) fisher.test(rbind(c(a,a_total-a), c(b,b_total-b)), alternative="greater")
 
 # ./fault_rates.rb csv/results.csv > csv/fault_rates.csv
@@ -8,6 +11,7 @@ faultDT <- data.table(read.csv("csv/fault_rates.csv", header = TRUE))
 
 # ./grade_csv.rb csv/results.csv > csv/grades.csv
 gradeDT <- data.table(read.csv("csv/grades.csv", header = TRUE))
+gradeDT$confusing <- gradeDT$qtype %in% c.types
 
 #######################################################
 # How many subjects answered a question totally correct
@@ -22,8 +26,6 @@ n.correct.f.t('c', 'd')$p.value
 n.correct.f.t('e', 'f')$p.value
 n.correct.f.t('g', 'h')$p.value
 
-c.types <- c('a', 'c', 'e', 'g')
-nc.types <- c('b', 'd', 'f', 'h')
 
 f.t(sum(all.correct[qtype %in% nc.types]$n.correct), sum(gradeDT$qtype %in% nc.types),
     sum(all.correct[qtype %in% c.types]$n.correct), sum(gradeDT$qtype %in% c.types))
@@ -41,7 +43,7 @@ faultDT$nc_fault_rate <- faultDT$nc_faults/faultDT$nc_checks
 
 
 #######################################################
-# Outliers
+# Outlier subjects based on question correctness
 #######################################################
 # upper.wilson <- binconf(sum(faultDT$nc_faults), sum(faultDT$nc_checks, na.rm = TRUE))[3]
 # faultDT[nc_fault_rate > upper.wilson]
