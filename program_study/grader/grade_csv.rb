@@ -1,4 +1,4 @@
-#!/usr/bin/env ruby
+#!/usr/bin/env rvm 2.3.1 do ruby
 
 require './grader_util.rb'
 
