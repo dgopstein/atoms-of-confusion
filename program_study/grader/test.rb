@@ -1,5 +1,7 @@
 #!/usr/bin/env ruby
 
+# Compare the result of the grader script with hand-calculated values that are recorded in test_files.csv
+
 require './unify_output.rb'
 require './grader_util.rb'
 

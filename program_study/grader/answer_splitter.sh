@@ -1,5 +1,7 @@
 #!/bin/sh
 
+# Take a pdf of a subjects answers of the form Consent-Answers-Survey and split it into 3 separate files
+
 input_file=$1
 subject_id=$2
 

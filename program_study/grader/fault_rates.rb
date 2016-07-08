@@ -1,5 +1,8 @@
 #!/usr/bin/env ruby
 
+# Read in a CSV of the raw user answers and output a CSV that counts how
+# many times a given label/param had an error associated with it
+
 require './unify_output.rb'
 require './grader_util.rb'
 

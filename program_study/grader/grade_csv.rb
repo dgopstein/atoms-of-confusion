@@ -1,5 +1,7 @@
 #!/usr/bin/env rvm 2.3.1 do ruby
 
+# Read a CSV of raw user data and output a CSV of the score on every question for each user
+
 require './grader_util.rb'
 
 require 'csv' 

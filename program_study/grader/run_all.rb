@@ -1,5 +1,7 @@
 #!/usr/bin/env ruby
 
+# Run the grader scripts on every user answers just to see if they run without error, it also outputs all the grader scripts' output
+
 require './grader_util.rb'
 
 require 'csv' 
