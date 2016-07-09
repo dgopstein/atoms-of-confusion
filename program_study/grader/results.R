@@ -16,6 +16,7 @@ faultDT$nc_fault_rate <- faultDT$nc_faults/faultDT$nc_checks
 # ./grade_csv.rb csv/results.csv > csv/grades.csv
 gradeDT <- data.table(read.csv("csv/grades.csv", header = TRUE))
 gradeDT$confusing <- gradeDT$qtype %in% c.types
+gradeDT$rate <- gradeDT[, correct/points]
 
 #######################################################
 # How many subjects answered a question totally correct
@@ -79,16 +80,22 @@ q.p.value <- function(a, b) {
   c.sum <- gradeDT[,correct/points,by=qtype][qtype==a]$V1
   nc.sum <- gradeDT[,correct/points,by=qtype][qtype==b]$V1
   
-  t.test(c.sum, nc.sum)
-  #n.ttest(power = 0.8, alpha = 0.05, mean.diff = mean(c.sum) - mean(nc.sum), sd1 = sd(c.sum), sd2 = sd(nc.sum))
+  t.test(c.sum, nc.sum, alternative="less")
 }
-
-gradeDT[order(qtype), sum(correct/points), by=qtype]
 
 q.p.value('a', 'b')$p.value
 q.p.value('c', 'd')$p.value
 q.p.value('e', 'f')$p.value
 q.p.value('g', 'h')$p.value
+
+# Correctness of each question pair
+gradeDT[order(qtype), sum(correct)/sum(points), by=qtype]
+
+# Correctness of all C vs all NC
+gradeDT[, sum(correct)/sum(points), by=confusing]
+
+# p-value for all C vs all NC
+t.test(gradeDT[confusing==TRUE]$rate, gradeDT[confusing==FALSE]$rate, alternative="less")
 #$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
 
 
