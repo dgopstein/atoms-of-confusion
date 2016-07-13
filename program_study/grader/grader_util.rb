@@ -6,6 +6,12 @@ $prog_names = %w[ab cd ef gh]
 
 $bins = $prog_names.map{|name| [name, "bin/#{name}"]}.to_h
 
+$pilot_ids = [3782, 1161, 1224, 3270, 9351, 6490, 4747, 6224, 3881, 6033]
+
+def read_results(results_file)
+  CSV.read(results_file, headers: true).reject{|r| $pilot_ids.include?(r['Subject'].to_i)}
+end
+
 def compile_graders!
   $prog_names.each do |prog|
     compilation = system("gcc #{prog}.c -o bin/#{prog}")

@@ -15,7 +15,7 @@ if results_file.nil?
   exit(1)
 end
 
-results = CSV.read(results_file, headers: true)
+results = read_results(results_file)
 
 compile_graders!
 

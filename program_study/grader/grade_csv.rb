@@ -16,7 +16,7 @@ if results_file.nil?
   exit(1)
 end
 
-results = CSV.read(results_file, headers: true)
+results = read_results(results_file)
 
 #pilot_ids = [3782, 1161, 1224, 3270, 9351, 6490, 4747, 6224, 3881, 6033]
 #pilot_ids = [3782, 1224, 3270, 9351, 6490, 4747, 6224, 3881, 6033]
