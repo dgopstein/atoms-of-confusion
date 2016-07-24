@@ -1,17 +1,25 @@
 library("data.table")
 library(Hmisc)
+library(xtable)
 
 ##### Histogram includes
 library(MASS)
 library(RColorBrewer)
 rf <- colorRampPalette(rev(brewer.pal(11,'Spectral')))
 r <- rf(32)
+set2 <- colorRampPalette(brewer.pal(8,'Set2'))(8)
+set3 <- colorRampPalette(brewer.pal(12,'Set3'))(12)
 library(grDevices)
 #$$$$
 library(lattice)
 
 c.types <- c('a', 'c', 'e', 'g')
 nc.types <- c('b', 'd', 'f', 'h')
+
+q.src.linelist <- list('a'=14,'b'=17,'c'=14,'d'=52,'e'=21,'f'=34,'g'=22,'h'=84) # number of lines in each .c file
+q.src.lines <- sapply(q.src.linelist, "[[", 1)
+q.src.charlist <- list('a'=318,'b'=356,'c'=356,'d'=957,'e'=580,'f'=641,'g'=424,'h'=1291) # number of chars in each .c file
+q.src.chars <- sapply(q.src.charlist, "[[", 1)
 
 pilot.ids <- c(3782, 1161, 1224, 3270, 9351, 6490, 4747, 6224, 3881, 6033)
 
@@ -20,7 +28,6 @@ f.t <- function(a, a_total, b, b_total) fisher.test(rbind(c(a,a_total-a), c(b,b_
 
 # ./fault_rates.rb csv/results.csv > csv/fault_rates.csv
 faultDT <- data.table(read.csv("csv/fault_rates.csv", header = TRUE))#[! subject %in% pilot.ids]
-nrow(faultDT)
 faultDT$c_checks <- mapply(max, 1, faultDT$c_checks)
 faultDT$c_fault_rate  <- faultDT$c_faults / faultDT$c_checks
 faultDT$nc_fault_rate <- faultDT$nc_faults/faultDT$nc_checks
@@ -50,6 +57,7 @@ n.correct.f.t('e', 'f')$p.value
 n.correct.f.t('g', 'h')$p.value
 
 # All questions pooled
+
 f.t(sum(all.correct[qtype %in% nc.types]$n.correct), sum(gradeDT$qtype %in% nc.types),
     sum(all.correct[qtype %in% c.types]$n.correct), sum(gradeDT$qtype %in% c.types))
 #$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
@@ -116,19 +124,37 @@ q.p.value <- function(a, b) {
   t.test(c.sum, nc.sum, alternative="less")
 }
 
-q.p.value('a', 'b')$p.value
-q.p.value('c', 'd')$p.value
-q.p.value('e', 'f')$p.value
-q.p.value('g', 'h')$p.value
+
+a.v.b <- q.p.value('a', 'b')$p.value
+c.v.d <- q.p.value('c', 'd')$p.value
+e.v.f <- q.p.value('e', 'f')$p.value
+g.v.h <- q.p.value('g', 'h')$p.value
 
 # Correctness of each question pair
-gradeDT[order(qtype), sum(correct)/sum(points), by=qtype]
+gradeDT[order(qtype), mean(rate), by=qtype]
 
 # Correctness of all C vs all NC
-gradeDT[, sum(correct)/sum(points), by=confusing]
+all.correctness <- gradeDT[, .(correctness = mean(rate)), by=confusing]
 
 # p-value for all C vs all NC
-t.test(gradeDT[confusing==TRUE]$rate, gradeDT[confusing==FALSE]$rate, alternative="less")
+all.q.p.value <- t.test(gradeDT[confusing==TRUE]$rate, gradeDT[confusing==FALSE]$rate, alternative="less")$p.value
+
+q.rate <- gradeDT[order(qtype),.( correctness = mean(rate), confusing = max(confusing) ), by=qtype]
+q.rate <- rbind(q.rate, list("all C", all.correctness[confusing==TRUE]$correctness, 1))
+q.rate <- rbind(q.rate, list("all NC", all.correctness[confusing==FALSE]$correctness, 0))
+
+q.correctness.labels <- sapply(c(a.v.b, c.v.d, e.v.f, g.v.h, all.q.p.value), function(x) sprintf("p: %0.4f", x))
+
+#svg("img/average_score_per_question.svg")
+png("img/average_score_per_question.png", width = 512, height = 640)
+bar.colors <- set3[c(5, 6)]
+barchart(correctness~qtype,data=q.rate,groups=confusing, main='Average Score by Question Type',
+         ylab = "Correctness Rate", xlab=list(label = q.correctness.labels, cex = 0.8),
+         par.settings=list(fontsize = list(text = 24), superpose.polygon = list(col = bar.colors)),
+         key=simpleKey(c("Confusing","Non-Confusing"), col=rev(bar.colors), space="right", cex = 0.7))
+         #key=list(space="right", points=list(col=rev(bar.colors)), text=list(label = c("Confusing","Non-Confusing"), cex = 0.7)))
+dev.off()
+
 #$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
 
 
@@ -168,13 +194,13 @@ gradeDT[order(qpos, confusing), .( COUNT = .N ),by=c('qpos', 'confusing')]
 pos.scores <- gradeDT[, .(rate = mean(rate)),by=c('qpos','confusing')]
 plot(pos.scores$qpos, pos.scores$rate)
 
-#$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+#$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+
 
 
 #######################################################
 # Timing per question
 #######################################################
-
 
 q.times <- gradeDT[order(qtype),.( time = mean(mins), confusing = max(confusing) ),by=qtype]
 
@@ -182,5 +208,35 @@ q.times <- gradeDT[order(qtype),.( time = mean(mins), confusing = max(confusing)
 barchart(time~qtype,data=q.times,groups=confusing, main='Average minutes taken to answer each question')
          #scales=list(x=list(rot=90,cex=0.8)))
 
-#$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+####
+# Timing per correctness rate
+###
+plot(gradeDT[confusing==TRUE]$rate, gradeDT[confusing==TRUE]$mins, col=set2[1], main='Correctness vs Time for Cs', xlab='Correctness', ylab='Time')
+plot(gradeDT[confusing==FALSE]$rate, gradeDT[confusing==FALSE]$mins, col=set2[2], main='Correctness vs Time for NCs', xlab='Correctness', ylab='Time')
 
+# combine C and NC
+plot(gradeDT$rate, gradeDT$mins, type='n', main='Correctness vs Time', xlab='Correctness', ylab='Time')
+points(gradeDT[confusing==TRUE]$rate, gradeDT[confusing==TRUE]$mins, col=set2[1])
+points(gradeDT[confusing==FALSE]$rate, gradeDT[confusing==FALSE]$mins, col=set2[2])
+
+#$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+
+
+#######################################################
+# Correctness by program length
+#######################################################
+
+chars.rate <- gradeDT[,.(correctness=rate, chars=unlist(q.src.charslist[qtype]), confusing)]
+boxplot(correctness~chars, data=chars.rate)
+
+#paste(names(q.src.chars), q.src.chars, sep=": ") # get the names of each question/length
+boxplot(correctness~chars, data=chars.rate[confusing==TRUE], xaxt='n', main='Correctness for C Questions', xlab="Question: number of chars in source")
+axis(1, c("a: 318",'c: 356','g: 424','e: 580'), at=c(1,2,3,4))
+boxplot(correctness~chars, data=chars.rate[confusing==FALSE], xaxt='n', main='Correctness for NC Questions', xlab="Question: number of chars in source")
+axis(1, c("b: 356",'f: 641','d: 957','h: 1291'), at=c(1,2,3,4))
+
+
+# boxplot to see the variance of individual results?
+# log-scale the results to make them look linear?
+# color C/NC differently
+#$$$$$$$$$$$$$$$$$$$$$$$$$$$
