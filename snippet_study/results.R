@@ -100,12 +100,15 @@ processAtom <- function(atomName) {
   alpha <- 0.05
 
   atomRes <- lapply(unique(queryRes$atom), processAtom)
-
+  
   invisible(lapply(atomRes, function (r) printContingency(r$atomName, alpha, r$mcnemarsRes, r$contingency)))
 
   atomFrame <- data.table(toDF(atomRes))
   colnames(atomFrame) <- c('TT', 'TF', 'FT', 'FF', "statistic", "parameter", "p.value", "method", "data.name", "effect.size", "atomName")
   atomFrame$atomName <- atomFrame[,as.character(atomName)]
+  atomFrame$effect.size <- atomFrame[,as.numeric(as.character(effect.size))]
+  atomFrame$p.value <- atomFrame[,as.numeric(as.character(p.value))]
+  
   
   # Remove old atom types
   atomFrame <- atomFrame[atomFrame[,!atomName %in% c("remove_INDENTATION_atom", "Indentation")]]
@@ -129,7 +132,7 @@ processAtom <- function(atomName) {
     "Literal encoding"              = "Change of Literal Encoding",
     "Curly braces"                  = "Omitted Curly Braces",
     "Type conversion"               = "Type Conversion",
-    "move_Preprocessor_Directives_Inside_Statements" = "Preprocessor in Expr.",
+    "move_Preprocessor_Directives_Inside_Statements" = "Preprocessor in Expression",
     "replace_Mixed_Pointer_Integer_Arithmetic" = "Pointer Arithmetic"
     #  "Indentation",
     #  "remove_INDENTATION_atom",
@@ -221,6 +224,11 @@ atomFrame$total <- atomFrame[, nc(TT) + nc(TF) + nc(FT) + nc(FF)]
 
 atomFrame$c.incorrect.rate <- atomFrame[, (nc(FT) + nc(FF)) / total]
 
-snippet.results <- atomFrame[, .("Atom" = prettyName, "Effect Size" = sprintf("%3.2f", as.numeric(as.character(effect.size))), "p-value"=sprintf("%0.2e", as.numeric(as.character(p.value))))]
-setorder(snippet.results, -"Effect Size")
-print(xtable(snippet.results), include.rownames=FALSE)
+snippet.results <- atomFrame[, .(
+  "Atom" = prettyName,
+  "Effect" = sprintf("%3.2f", effect.size),
+  "p-value"= paste(ifelse(p.value < alpha, '\\textbf{', "{"), sprintf(ifelse(p.value < 0.1, "%0.2e", "%0.2f"), p.value), "}", sep='')
+  # ,"Accept"= ifelse(p.value<alpha,"T","F")
+  )]
+setorder(snippet.results, -"Effect")
+print(xtable(snippet.results), include.rownames=FALSE, sanitize.text.function=identity)
