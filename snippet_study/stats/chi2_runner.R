@@ -27,10 +27,10 @@ test_all <- function(test) test(abcd)
 
 
 mcnemars.chis   <- test_by_atom(mcnemars)
-dukalski.chis   <- test_by_atom(durkalski)
+durkalski.chis   <- test_by_atom(durkalski)
 obuchowski.chis <- test_by_atom(obuchowski)
 eliasziw1.chis  <- test_by_atom(eliasziw1)
 # test_by_atom(eliasziw2)
 
-all.chis <- Reduce(function(...) merge(..., all=T, by="atom"), list(mcnemars.chis, dukalski.chis, obuchowski.chis, eliasziw1.chis))
+all.chis <- Reduce(function(...) merge(..., all=T, by="atom"), list(mcnemars.chis, durkalski.chis, obuchowski.chis, eliasziw1.chis))
 
