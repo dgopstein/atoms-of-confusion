@@ -91,8 +91,6 @@ int F1(int V1, int V2, int V3) {
     F1(V1, -1, V1);
   }
 
-  printf("V1,V2: (%d, %d)\n", V1, V2);
-
   if (V1 && V2) {
     V2 = V2 + 1;
     F1(-1, V2, V3);
