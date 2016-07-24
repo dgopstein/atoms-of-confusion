@@ -104,6 +104,8 @@ processAtom <- function(atomName) {
 
   atomFrame <- data.table(toDF(atomRes))
   colnames(atomFrame) <- c('TT', 'TF', 'FT', 'FF', "statistic", "parameter", "p.value", "method", "data.name", "effect.size", "atomName")
+  atomFrame$atomName <- atomFrame[,as.character(atomName)]
+  atomFrame <- atomFrame[atomFrame[,!atomName %in% c("remove_INDENTATION_atom", "Indentation")]]
   
   #atomFrame
 #}
@@ -188,3 +190,29 @@ nc <- function(x) as.numeric(as.character(x))
 atomFrame$total <- atomFrame[, nc(TT) + nc(TF) + nc(FT) + nc(FF)]
 
 atomFrame$c.incorrect.rate <- atomFrame[, (nc(FT) + nc(FF)) / total]
+
+name.conversion <- list(
+  "add_CONDITION_atom"            = "Implicit Predicate",
+  "add_PARENTHESIS_atom"          = "Infix Operator Precedence",
+  "move_POST_INC_DEC_atom"        = "Post-Increment/Decrement",
+  "move_PRE_INC_DEC_atom"         = "Pre-Increment/Decrement",
+  "replace_CONSTANTVARIABLE_atom" = "Constant Variables",
+  "replace_MACRO_atom"            = "Macro Operator Precedence",
+  "replace_Ternary_Operator"      = "Conditional Operator",
+  "replace_Arithmetic_As_Logic"   = "Arithmetic as Logic",
+  "replace_Comma_Operator"        = "Comma Operator",
+  "Constant Assignment"           = "Side-Effecting Expression",
+  "Logic as Control Flow"         = "Logic as Control Flow",
+  "Re-purposed variables"         = "Repurposed Variables",
+  "Swapped subscripts"            = "Reversed Subscripts",
+  "Dead, unreachable, repeated"   = "Dead, Unreachable, Repeated",
+  "Literal encoding"              = "Change of Literal Encoding",
+  "Curly braces"                  = "Omitted Curly Braces",
+  "Type conversion"               = "Type Conversion",
+  "move_Preprocessor_Directives_Inside_Statements" = "Preprocessor in Expr.",
+  "replace_Mixed_Pointer_Integer_Arithmetic" = "Pointer Arithmetic"
+#  "Indentation",
+#  "remove_INDENTATION_atom",
+)
+
+atomFrame[, .(atomName = paste("\"", atomName, "\"", sep=""), name = name.conversion[atomName]),]
