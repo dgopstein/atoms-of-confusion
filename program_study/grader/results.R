@@ -142,17 +142,20 @@ all.q.p.value <- t.test(gradeDT[confusing==TRUE]$rate, gradeDT[confusing==FALSE]
 q.rate <- gradeDT[order(qtype),.( correctness = mean(rate), confusing = max(confusing) ), by=qtype]
 q.rate <- rbind(q.rate, list("all C", all.correctness[confusing==TRUE]$correctness, 1))
 q.rate <- rbind(q.rate, list("all NC", all.correctness[confusing==FALSE]$correctness, 0))
+#colnames(q.rate) <- null
+#q.rate$qtype <- c("", "", "", "", "", "", "", "", "", "")
 
-q.correctness.labels <- sapply(c(a.v.b, c.v.d, e.v.f, g.v.h, all.q.p.value), function(x) sprintf("p: %0.4f", x))
+q.correctness.labels <- paste0(c("Q1\n", "Q2\n", "Q3\n", "Q4\n", "All\n"), sapply(c(a.v.b, c.v.d, e.v.f, g.v.h, all.q.p.value), function(x) sprintf("p: %0.4f", x)))
 
-#svg("img/average_score_per_question.svg")
-png("img/average_score_per_question.png", width = 512, height = 640)
+#svg("img/average_score_per_question.svg", width = 9, height = 8)
+png("img/average_score_per_question.png", width = 768, height = 768)
+#https://cran.r-project.org/web/packages/lattice/lattice.pdf
 bar.colors <- set3[c(5, 6)]
-barchart(correctness~qtype,data=q.rate,groups=confusing, main='Average Score by Question Type',
-         ylab = "Correctness Rate", xlab=list(label = q.correctness.labels, cex = 0.8),
-         par.settings=list(fontsize = list(text = 24), superpose.polygon = list(col = bar.colors)),
-         key=simpleKey(c("Confusing","Non-Confusing"), col=rev(bar.colors), space="right", cex = 0.7))
-         #key=list(space="right", points=list(col=rev(bar.colors)), text=list(label = c("Confusing","Non-Confusing"), cex = 0.7)))
+barchart(correctness~qtype,data=q.rate,groups=confusing, main='Average Score by Question Type', 
+         ylab = "Correctness Rate", xlab=list(label = q.correctness.labels, cex = 0.8), scales=list(x=list(draw=FALSE)), 
+         par.settings=list(fontsize = list(text = 24), superpose.polygon = list(col = bar.colors), par.main.text = list(just=c(.45, 0))),
+         auto.key=list(text=c("Non-Confusing", "Confusing"), height = 6, size = 1, padding.text = -2, columns = 2,
+                       reverse.rows = TRUE, between=.5, between.columns=0.8, width=10, space="top", cex = 0.8))
 dev.off()
 
 #$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
