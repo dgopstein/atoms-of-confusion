@@ -8,6 +8,11 @@ clusteredQuery <- paste(readLines('sql/clustered_contingency.sql'), collapse = "
 clustRes <- dbGetQuery( con, clusteredQuery )
 cnts <- data.table(clustRes)
 
+# Cleaning
+cnts <- cnts[cnts[,!atom %in% c("remove_INDENTATION_atom", "Indentation")]] # Remove old atom types
+cnts[, atomName := unlist(name.conversion[atom])]
+
+
 name.conversion <- list(
   "add_CONDITION_atom"            = "Implicit Predicate",
   "add_PARENTHESIS_atom"          = "Infix Operator Precedence",
@@ -36,16 +41,10 @@ alpha <- 0.05
 phi <- function(chi2, n) sqrt(chi2/n)
 
 # Statistics
-durkalski.chis <- cnts[, .(chisq = durkalski(.(TT=TT, TF=TF, FT=FT, FF=FF))), by=atom]
+durkalski.chis <- cnts[, .(chisq = durkalski(.(TT=TT, TF=TF, FT=FT, FF=FF))), by=.(atom, atomName)]
 durkalski.chis$p.value <- lapply(durkalski.chis$chisq, function(x) pchisq(x, 1, lower.tail=FALSE))
-durkalski.chis$effect.size <- mapply(phi, durkalski.chis$chisq, cnts[,.(n=sum(TT,TF,FT,FF)), by=atom]$n)
+durkalski.chis$effect.size <- mapply(phi, durkalski.chis$chisq, cnts[,.(n=sum(TT,TF,FT,FF)), by=.(atom,atomName)]$n)
 durkalski.chis$sig <- lapply(durkalski.chis$chisq, function(x) x > qchisq(1-alpha, 1))
-
-# Cleaning
-durkalski.chis <- durkalski.chis[durkalski.chis[,!atom %in% c("remove_INDENTATION_atom", "Indentation")]] # Remove old atom types
-durkalski.chis[, atomName := name.conversion[atom]] # Add pretty name
-
-durkalski.chis
 
 snippet.results <- durkalski.chis[, .(
   "Atom" = atomName,
@@ -55,3 +54,10 @@ snippet.results <- durkalski.chis[, .(
 )]
 setorder(snippet.results, -"Effect")
 print(xtable(snippet.results), include.rownames=FALSE, sanitize.text.function=identity)
+
+# Playground
+atom.contingencies = cnts[, .(TT=sum(TT), TF=sum(TF), FT=sum(FT), FF=sum(FF)), by=atom]
+question.contingencies = cnts[, .(TT=sum(TT), TF=sum(TF), FT=sum(FT), FF=sum(FF)), by=list(question,atomName)]
+
+
+
