@@ -148,7 +148,8 @@ q.rate <- rbind(q.rate, list("all NC", all.correctness[confusing==FALSE]$correct
 q.correctness.labels <- paste0(c("Q1\n", "Q2\n", "Q3\n", "Q4\n", "All\n"), sapply(c(a.v.b, c.v.d, e.v.f, g.v.h, all.q.p.value), function(x) sprintf("p: %0.4f", x)))
 
 #svg("img/average_score_per_question.svg", width = 9, height = 8)
-png("img/average_score_per_question.png", width = 768, height = 768)
+#png("img/average_score_per_question.png", width = 768, height = 768)
+pdf("img/average_score_per_question.pdf", width = 9, height = 8)
 #https://cran.r-project.org/web/packages/lattice/lattice.pdf
 bar.colors <- set3[c(5, 6)]
 barchart(correctness~qtype,data=q.rate,groups=confusing, main='Average Score by Question Type', 
@@ -171,19 +172,19 @@ dev.off()
 f.t.res <- mapply(f.t, faultDT$c_faults, faultDT$c_checks, faultDT$nc_faults, faultDT$nc_checks)
 faultDT$ft.p.value <- unlist(f.t.res[1,])
 
-resultsDT[, sum(grepl("X",A))]
-resultsDT[, sum(grepl("X",B))]
-resultsDT[, sum(grepl("X",C))]
-resultsDT[, sum(grepl("X",D))]
-resultsDT[, sum(grepl("X",E))]
-resultsDT[, sum(grepl("X",F))]
-resultsDT[, sum(grepl("X",G))]
-resultsDT[, sum(grepl("X",H))]
-f.t(4, 31, 0, 31)$p.value # ab
-f.t(2, 31, 1, 31)$p.value # cd
-f.t(4, 31, 1, 31)$p.value # ef
-f.t(4, 31, 2, 31)$p.value # gh
-f.t(14, 124, 4, 124)$p.value # all
+a.x <- resultsDT[, sum(grepl("X",A))]
+b.x <- resultsDT[, sum(grepl("X",B))]
+c.x <- resultsDT[, sum(grepl("X",C))]
+d.x <- resultsDT[, sum(grepl("X",D))]
+e.x <- resultsDT[, sum(grepl("X",E))]
+f.x <- resultsDT[, sum(grepl("X",F))]
+g.x <- resultsDT[, sum(grepl("X",G))]
+h.x <- resultsDT[, sum(grepl("X",H))]
+f.t(a.x, 31, b.x, 31)$p.value # ab
+f.t(c.x, 31, d.x, 31)$p.value # cd
+f.t(e.x, 31, f.x, 31)$p.value # ef
+f.t(g.x, 31, h.x, 31)$p.value # gh
+f.t(a.x+c.x+e.x+g.x, 124, b.x+d.x+f.x+h.x, 124)$p.value # all
 #$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
 
 
