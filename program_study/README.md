@@ -1,6 +1,6 @@
 # Program Study Data
 
-In this study we showed 2 varations (one containing atoms, one with atoms removed) of 4 programs (IOCCC winners from various years) to participants to measure the difference in hand trace error rates.
+In this study we showed 2 variations (one containing atoms, one with atoms removed) of 4 programs (IOCCC winners from various years) to participants to measure the difference in hand trace error rates.
 
 ### Programs - `[a-h].c`
 
@@ -10,7 +10,7 @@ The 8 files `[a-h].c` were the text of the program study. All odd-lettered progr
 
 The transcribed results from each subject. The data is stored as a CSV with the following columns:
 
-* **Subject**: A unique, randomized, number assigned anonymouly to each subject.
+* **Subject**: A unique, randomized, number assigned anonymously to each subject.
 * **Date**: The date the test was administered in the subject's local time.
 * **Order**: Lists the selection of questions on the test, in the order they were written.
 * **(start/end)[1-4]**: The time at which each question was started/finished. The order of these columns corresponds to the letters in the `Order` column.
@@ -39,7 +39,7 @@ Each element of each line of output from each trace was scored, counted, and gro
 
 The score each participant received on each question they answered
 
-* **subject**: A unique, randomized, number assigned anonymouly to each subject.
+* **subject**: A unique, randomized, number assigned anonymously to each subject.
 * **qtype**: Which question, `[a-h]`.
 * **qpos**: Which position in the test the question appeared, `[1-4]`.
 * **mins**: How long it took the participant to answer the question, in minutes.
