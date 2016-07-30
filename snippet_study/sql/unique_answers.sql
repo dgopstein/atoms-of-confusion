@@ -22,12 +22,14 @@ select t.tag as atom, t.tag||'_'||uc.codeid as question, uc.codeid as c_id, uc2.
 COUNT(distinct(uc.answer)) as C_unique,
 COUNT(distinct(uc2.answer)) as NC_unique,
 SUM(CASE WHEN uc.correct  = 'T' THEN 1 ELSE 0 END) as C_correct,
-SUM(CASE WHEN uc2.correct = 'T' THEN 1 ELSE 0 END) as NC_correct
+SUM(CASE WHEN uc2.correct = 'T' THEN 1 ELSE 0 END) as NC_correct,
+count(uc.answer) as C_total,
+count(uc2.answer) as NC_total
 from usercode uc
 join code c on uc.codeid = c.id
 join usercode uc2 on uc.userid = uc2.userid and uc2.codeid = c.pair
 join codetags ct on ct.codeid = c.id
 join tag t on ct.tagid = t.id
---where c.type = 'Confusing'
+where c.type = 'Confusing'
 group by t.id, c_id
 order by C_correct + NC_correct;

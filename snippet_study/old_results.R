@@ -17,13 +17,12 @@ pis.nan.data.frame <- function(x) do.call(cbind, lapply(x, is.nan))
 CV <- function(vec) sd(vec)/mean(vec)
 
 con <- dbConnect(drv=RSQLite::SQLite(), dbname="confusion.db")
-alltables <- dbListTables(con)
+query.from.file <- function(filename) {
+  query <- paste(readLines(filename), collapse = "\n")
+  dbGetQuery( con, query )
+}
 
-#contingencyQuery <- paste(readLines('sql/contingency.sql'), collapse = "\n")
-contingencyQuery <- paste(readLines('sql/first_cluster_contingency.sql'), collapse = "\n")
-
-
-queryRes <- dbGetQuery( con, contingencyQuery )
+queryRes <- query.from.file('sql/first_cluster_contingency.sql')
 
 alpha <- 0.05
 

@@ -1,11 +1,16 @@
 library(DBI)
 library(data.table)
+library(xtable)
 
 source("stats/durkalski.R")
 
 con <- dbConnect(drv=RSQLite::SQLite(), dbname="confusion.db")
-clusteredQuery <- paste(readLines('sql/clustered_contingency.sql'), collapse = "\n")
-clustRes <- dbGetQuery( con, clusteredQuery )
+query.from.file <- function(filename) {
+  query <- paste(readLines(filename), collapse = "\n")
+  dbGetQuery( con, query )
+}
+
+clustRes <- query.from.file('sql/clustered_contingency.sql')
 cnts <- data.table(clustRes)
 
 # Cleaning
@@ -40,7 +45,7 @@ name.conversion <- list(
 alpha <- 0.05
 phi <- function(chi2, n) sqrt(chi2/n)
 
-modified.mcnemars <- obuchowski
+modified.mcnemars <- durkalski
 
 # Statistics
 durkalski.chis <- cnts[, .(chisq = modified.mcnemars(.(TT=TT, TF=TF, FT=FT, FF=FF))), by=.(atom, atomName)]
@@ -56,6 +61,9 @@ snippet.results <- durkalski.chis[, .(
 )]
 setorder(snippet.results, -"Effect")
 print(xtable(snippet.results), include.rownames=FALSE, sanitize.text.function=identity)
+# ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+#   Atoms figure for paper
+# ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 # All questions C vs NC
 all.q.data <- cnts[cnts[,!atomName %in% c("Dead, Unreachable, Repeated",  "Arithmetic as Logic", "Pointer Arithmetic", "Constant Variables")]]
@@ -67,7 +75,8 @@ all.q.effect.size
 
 # Playground
 atom.contingencies = cnts[, .(TT=sum(TT), TF=sum(TF), FT=sum(FT), FF=sum(FF)), by=atom]
-question.contingencies = cnts[, .(TT=sum(TT), TF=sum(TF), FT=sum(FT), FF=sum(FF)), by=list(question,atomName)]
+
+
 
 
 
