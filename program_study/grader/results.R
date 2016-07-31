@@ -230,7 +230,7 @@ points(gradeDT[confusing==FALSE]$rate, gradeDT[confusing==FALSE]$mins, col=set2[
 # Correctness by program length
 #######################################################
 
-chars.rate <- gradeDT[,.(correctness=rate, chars=unlist(q.src.charslist[qtype]), confusing)]
+chars.rate <- gradeDT[,.(correctness=rate, chars=unlist(q.src.charlist[qtype]), confusing)]
 boxplot(correctness~chars, data=chars.rate)
 
 #paste(names(q.src.chars), q.src.chars, sep=": ") # get the names of each question/length
@@ -244,3 +244,10 @@ axis(1, c("b: 356",'f: 641','d: 957','h: 1291'), at=c(1,2,3,4))
 # log-scale the results to make them look linear?
 # color C/NC differently
 #$$$$$$$$$$$$$$$$$$$$$$$$$$$
+
+#######################################################
+# How far people got in the questions
+######################################################
+boxplot(points ~ qtype, gradeDT, main="How many points the subject attempted, by question")
+
+
