@@ -5,10 +5,8 @@ library(xtable)
 source("stats/durkalski.R")
 
 con <- dbConnect(drv=RSQLite::SQLite(), dbname="confusion.db")
-query.from.file <- function(filename) {
-  query <- paste(readLines(filename), collapse = "\n")
-  dbGetQuery( con, query )
-}
+query.from.string <- function(query) data.table(dbGetQuery( con, query ))
+query.from.file <- function(filename) query.from.string(paste(readLines(filename), collapse = "\n"))
 
 clustRes <- query.from.file('sql/clustered_contingency.sql')
 cnts <- data.table(clustRes)
@@ -41,6 +39,8 @@ name.conversion <- list(
   #  "Indentation",
   #  "remove_INDENTATION_atom",
 )
+
+is.truthy <- function(str) ifelse(str == "T", 1, 0)
 
 alpha <- 0.05
 phi <- function(chi2, n) sqrt(chi2/n)
@@ -76,7 +76,50 @@ all.q.effect.size
 # Playground
 atom.contingencies = cnts[, .(TT=sum(TT), TF=sum(TF), FT=sum(FT), FF=sum(FF)), by=atom]
 
+##########################################################
+#  Anecdote: How many different answer per question
+##########################################################
+unique.answers <- query.from.file('sql/unique_answers.sql')
+unique.answers.flat <- unique.answers[, .(atom=c(atom, atom), question=c(question,question), qid=c(c_id, nc_id), type=c("C", "NC"), unique=c(C_unique, NC_unique), correct=c(C_correct, NC_correct), total=c(C_total, NC_total))]
+unique.answers.flat[, rate:=(correct / total)]
 
+# Number of unique responses on confusing/non-confusing versions of code
+plot(NC_unique ~ C_unique, unique.answers, ylim=c(0,22), xlim=c(0,22), main="Number of unique responses on confusing/non-confusing")
 
+# Unique responses vs. correctness
+plot(unique ~ rate, unique.answers.flat[type=="C"], xlim=c(0, 1), ylim=c(0,22), main="Unique responses vs. correctness - Confusing")
+plot(unique ~ rate, unique.answers.flat[type=="NC"], xlim=c(0, 1), ylim=c(0,22), main="Unique responses vs. correctness - Non-Confusing")
 
+#########################################################
+#                  Clustering
+#########################################################
+# Cluster responses - http://www.statmethods.net/advstats/cluster.html
+results.by.user <- query.from.string("select * from usercode;")
+results.by.user.mat <- matrix(ncol = results.by.user[, max(CodeID)], nrow = results.by.user[, max(UserID)])
+inp.mtx <- as.matrix(results.by.user[,.(UserID,CodeID,is.truthy(Correct))]) # http://stats.stackexchange.com/questions/6827/efficient-way-to-populate-matrix-in-r
+results.by.user.mat[inp.mtx[,1:2] ]<- inp.mtx[,3]
+results.by.user.mat <- results.by.user.mat[rowSums(is.na(results.by.user.mat))!=dim(results.by.user.mat)[2], ] # Remove empty rows(users)
 
+library(cluster)
+# clustering <- clara(x=results.by.user.mat, k = 1)
+# clustering$diss
+# nrow(results.by.user.mat)
+# for (i in 2:15) wss[i] <- sum(clara(results.by.user.mat, k=i)$withinss)
+
+# https://rstudio-pubs-static.s3.amazonaws.com/33876_1d7794d9a86647ca90c4f182df93f0e8.html
+D=daisy(results.by.user.mat, metric='gower') # Declare binary data
+H.fit <- hclust(D, method="ward.D2")
+plot(H.fit, main="Hierarchical clusters of users")
+rect.hclust(H.fit, k=2, border="red")
+groups <- cutree(H.fit, k=2)
+#clusplot(results.by.user.mat, groups, color=TRUE, shade=TRUE, labels=2, lines=0, main= 'Customer segments')
+
+user.clus <- as.data.table(results.by.user.mat)
+user.clus$group <- groups
+group1 <- apply(user.clus[groups==1], 2, function(x) mean(x, na.rm=TRUE))
+group2 <- apply(user.clus[groups==2], 2, function(x) mean(x, na.rm=TRUE))
+groups.diff <- data.table(t(t(group1 - group2))) # Transpose (I apply t twice, but it only ends up transposing once [idk why]) to put the data into rows
+biggest.diff.idx <- which(abs(groups.diff) > 0.7) # Find the largest differences between the groups, these are the question numbers for the most import differentiators
+groups.diff[biggest.diff.idx]
+mean(group1)
+mean(group2)
