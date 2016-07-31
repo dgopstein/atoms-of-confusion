@@ -15,6 +15,7 @@ cnts <- data.table(clustRes)
 cnts <- cnts[cnts[,!atom %in% c("remove_INDENTATION_atom", "Indentation")]] # Remove old atom types
 cnts[, atomName := unlist(name.conversion[atom])]
 
+results.by.user <- query.from.string("select * from usercode;")
 
 name.conversion <- list(
   "add_CONDITION_atom"            = "Implicit Predicate",
@@ -82,6 +83,10 @@ atom.contingencies = cnts[, .(TT=sum(TT), TF=sum(TF), FT=sum(FT), FF=sum(FF)), b
 unique.answers <- query.from.file('sql/unique_answers.sql')
 unique.answers.flat <- unique.answers[, .(atom=c(atom, atom), question=c(question,question), qid=c(c_id, nc_id), type=c("C", "NC"), unique=c(C_unique, NC_unique), correct=c(C_correct, NC_correct), total=c(C_total, NC_total))]
 unique.answers.flat[, rate:=(correct / total)]
+results.by.user
+
+# Responses with only 1 answer
+unique.answers.flat[unique==1, , by=type]
 
 # Number of unique responses on confusing/non-confusing versions of code
 plot(NC_unique ~ C_unique, unique.answers, ylim=c(0,22), xlim=c(0,22), main="Number of unique responses on confusing/non-confusing")
@@ -94,7 +99,6 @@ plot(unique ~ rate, unique.answers.flat[type=="NC"], xlim=c(0, 1), ylim=c(0,22),
 #                  Clustering
 #########################################################
 # Cluster responses - http://www.statmethods.net/advstats/cluster.html
-results.by.user <- query.from.string("select * from usercode;")
 results.by.user.mat <- matrix(ncol = results.by.user[, max(CodeID)], nrow = results.by.user[, max(UserID)])
 inp.mtx <- as.matrix(results.by.user[,.(UserID,CodeID,is.truthy(Correct))]) # http://stats.stackexchange.com/questions/6827/efficient-way-to-populate-matrix-in-r
 results.by.user.mat[inp.mtx[,1:2] ]<- inp.mtx[,3]

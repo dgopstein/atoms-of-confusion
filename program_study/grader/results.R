@@ -248,7 +248,19 @@ axis(1, c("b: 356",'f: 641','d: 957','h: 1291'), at=c(1,2,3,4))
 #######################################################
 # How far people got in the questions
 #######################################################
+library(vioplot)
+vioplot(
+  gradeDT[qtype=='a']$points,
+  gradeDT[qtype=='b']$points,
+  gradeDT[qtype=='c']$points,
+  gradeDT[qtype=='d']$points,
+  gradeDT[qtype=='e']$points,
+  gradeDT[qtype=='f']$points,
+  gradeDT[qtype=='g']$points,
+  gradeDT[qtype=='h']$points
+  ,col="#F2F2F2")
 boxplot(points ~ qtype, gradeDT, main="How many points the subject attempted, by question")
+
 
 #######################################################
 # Why did some people do better on C questions
