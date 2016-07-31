@@ -247,7 +247,22 @@ axis(1, c("b: 356",'f: 641','d: 957','h: 1291'), at=c(1,2,3,4))
 
 #######################################################
 # How far people got in the questions
-######################################################
+#######################################################
 boxplot(points ~ qtype, gradeDT, main="How many points the subject attempted, by question")
+
+#######################################################
+# Why did some people do better on C questions
+#######################################################
+
+subj.rates <- gradeDT[, .(rate=mean(rate)), by=.(subject, confusing)]
+subj.backwards <- # the subjects who did better on C questions
+  (subj.rates[confusing==TRUE][subj.rates[confusing==TRUE]$rate > subj.rates[confusing==FALSE]$rate])$subject
+
+# subjects who only tried one print statement
+one.and.done <- gradeDT[points==1&confusing==FALSE]$subject
+
+not.one.and.done <- setdiff(subj.backwards, one.and.done)
+
+gradeDT[subject %in% not.one.and.done]
 
 

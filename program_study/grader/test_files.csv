@@ -6,6 +6,7 @@ b_7400.txt,ab,7,9
 a_2024.txt,ab,6,9
 b_5278.txt,ab,6,9
 b_6708.txt,ab,15,17,take into account the malformed strings
+a_7642.txt,ab,15,17,only penalize 'azy' one time
 c_real.txt,cd,30,30
 d_real.txt,cd,30,30
 d_7400.txt,cd,27,29
