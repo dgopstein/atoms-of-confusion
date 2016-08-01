@@ -83,10 +83,12 @@ atom.contingencies = cnts[, .(TT=sum(TT), TF=sum(TF), FT=sum(FT), FF=sum(FF)), b
 unique.answers <- query.from.file('sql/unique_answers.sql')
 unique.answers.flat <- unique.answers[, .(atom=c(atom, atom), question=c(question,question), qid=c(c_id, nc_id), type=c("C", "NC"), unique=c(C_unique, NC_unique), correct=c(C_correct, NC_correct), total=c(C_total, NC_total))]
 unique.answers.flat[, rate:=(correct / total)]
-results.by.user
 
 # Responses with only 1 answer
-unique.answers.flat[unique==1, , by=type]
+unique.answers.flat[unique==1, .N, by=type] # Distribution by C/NC
+results.by.user[CodeID==101, .N, by=.(CodeID, Correct)] # verification
+
+
 
 # Number of unique responses on confusing/non-confusing versions of code
 plot(NC_unique ~ C_unique, unique.answers, ylim=c(0,22), xlim=c(0,22), main="Number of unique responses on confusing/non-confusing")

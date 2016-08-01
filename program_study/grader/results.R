@@ -13,6 +13,8 @@ library(grDevices)
 #$$$$
 library(lattice)
 
+q.types <- c('a', 'b', 'c', 'd', 'e', 'f', 'g', 'h')
+q.cols <- c('A', 'B', 'C', 'D', 'E', 'F', 'G', 'H')
 c.types <- c('a', 'c', 'e', 'g')
 nc.types <- c('b', 'd', 'f', 'h')
 
@@ -172,19 +174,35 @@ dev.off()
 f.t.res <- mapply(f.t, faultDT$c_faults, faultDT$c_checks, faultDT$nc_faults, faultDT$nc_checks)
 faultDT$ft.p.value <- unlist(f.t.res[1,])
 
-a.x <- resultsDT[, sum(grepl("X",A))]
-b.x <- resultsDT[, sum(grepl("X",B))]
-c.x <- resultsDT[, sum(grepl("X",C))]
-d.x <- resultsDT[, sum(grepl("X",D))]
-e.x <- resultsDT[, sum(grepl("X",E))]
-f.x <- resultsDT[, sum(grepl("X",F))]
-g.x <- resultsDT[, sum(grepl("X",G))]
-h.x <- resultsDT[, sum(grepl("X",H))]
-f.t(a.x, 31, b.x, 31)$p.value # ab
-f.t(c.x, 31, d.x, 31)$p.value # cd
-f.t(e.x, 31, f.x, 31)$p.value # ef
-f.t(g.x, 31, h.x, 31)$p.value # gh
-f.t(a.x+c.x+e.x+g.x, 124, b.x+d.x+f.x+h.x, 124)$p.value # all
+# Count how many X,!, or ?'s are in the user responses
+count.chars <- function(char) sapply(q.cols, function(x) sum(grepl(char,resultsDT[[x]])))
+
+# Check whether the counts of X,!, or ?'s are statistically significant
+sig.counts <- function(counts) {
+  mapply(function(a, b){ f.t(counts[[a]], resultsDT[, sum(get(a) != "")],
+                             counts[[b]], resultsDT[, sum(get(b) != "")])$p.value},
+         toupper(c.types), toupper(nc.types))
+}
+
+total.sig.counts <- function (counts) {
+  f.t(sum(counts[toupper(c.types)]), resultsDT[, sum((A!="")+(C!="")+(E!="")+(G!=""))],
+      sum(counts[toupper(nc.types)]),resultsDT[, sum((B!="")+(D!="")+(F!="")+(H!=""))]) 
+}
+
+error.counts <- count.chars("X")
+igu.counts <- count.chars("!")
+unknown.counts <- count.chars("\\?")
+
+sig.counts(error.counts)
+sig.counts(igu.counts)
+sig.counts(unknown.counts)
+
+total.sig.counts(error.counts)$p.value
+total.sig.counts(igu.counts)$p.value
+total.sig.counts(unknown.counts)$p.value
+
+unlist(q.src.charlist)[c.types]
+
 #$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
 
 
@@ -276,5 +294,18 @@ one.and.done <- gradeDT[points==1&confusing==FALSE]$subject
 not.one.and.done <- setdiff(subj.backwards, one.and.done)
 
 gradeDT[subject %in% not.one.and.done]
+
+#######################################################
+#              100% correct questions
+#######################################################
+
+gradeDT[rate == 1, .N, by=qtype][order(qtype)]
+gradeDT[rate == 1, .N, by=confusing]
+
+gradeDT[, mean(rate), by=qtype]
+boxplot(rate ~ qtype, gradeDT[order(qtype), .(rate), by=qtype], main="Correctness by Question", xlab="Question", ylab="Correctness")
+vioplot()
+
+
 
 
