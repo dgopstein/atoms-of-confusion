@@ -15,7 +15,7 @@ cnts <- data.table(clustRes)
 cnts <- cnts[cnts[,!atom %in% c("remove_INDENTATION_atom", "Indentation")]] # Remove old atom types
 cnts[, atomName := unlist(name.conversion[atom])]
 
-results.by.user <- query.from.string("select * from usercode;")
+usercode <- query.from.string("select * from usercode;")
 
 name.conversion <- list(
   "add_CONDITION_atom"            = "Implicit Predicate",
@@ -86,7 +86,7 @@ unique.answers.flat[, rate:=(correct / total)]
 
 # Responses with only 1 answer
 unique.answers.flat[unique==1, .N, by=type] # Distribution by C/NC
-results.by.user[CodeID==101, .N, by=.(CodeID, Correct)] # verification
+usercode[CodeID==101, .N, by=.(CodeID, Correct)] # verification
 
 
 
@@ -101,10 +101,12 @@ plot(unique ~ rate, unique.answers.flat[type=="NC"], xlim=c(0, 1), ylim=c(0,22),
 #                  Clustering
 #########################################################
 # Cluster responses - http://www.statmethods.net/advstats/cluster.html
-results.by.user.mat <- matrix(ncol = results.by.user[, max(CodeID)], nrow = results.by.user[, max(UserID)])
-inp.mtx <- as.matrix(results.by.user[,.(UserID,CodeID,is.truthy(Correct))]) # http://stats.stackexchange.com/questions/6827/efficient-way-to-populate-matrix-in-r
+results.by.user.mat <- matrix(ncol = usercode[, max(CodeID)], nrow = usercode[, max(UserID)])
+inp.mtx <- as.matrix(usercode[,.(UserID,CodeID,is.truthy(Correct))]) # http://stats.stackexchange.com/questions/6827/efficient-way-to-populate-matrix-in-r
 results.by.user.mat[inp.mtx[,1:2] ]<- inp.mtx[,3]
-results.by.user.mat <- results.by.user.mat[rowSums(is.na(results.by.user.mat))!=dim(results.by.user.mat)[2], ] # Remove empty rows(users)
+mat.idx <- which(rowSums(is.na(results.by.user.mat))!=(dim(results.by.user.mat)[2]))
+results.by.user.mat <- results.by.user.mat[rowSums(is.na(results.by.user.mat))!=(dim(results.by.user.mat)[2]), ] # Remove empty rows(users)
+
 
 library(cluster)
 # clustering <- clara(x=results.by.user.mat, k = 1)
@@ -124,8 +126,12 @@ user.clus <- as.data.table(results.by.user.mat)
 user.clus$group <- groups
 group1 <- apply(user.clus[groups==1], 2, function(x) mean(x, na.rm=TRUE))
 group2 <- apply(user.clus[groups==2], 2, function(x) mean(x, na.rm=TRUE))
-groups.diff <- data.table(t(t(group1 - group2))) # Transpose (I apply t twice, but it only ends up transposing once [idk why]) to put the data into rows
+groups.diff <- data.table(atom = c(unique.answers.flat[order(qid)]$atom, "Not a real question"), qid = c(1:126, -1),  diff = t(t(group1 - group2))[,1]) # Transpose (I apply t twice, but it only ends up transposing once [idk why]) to put the data into rows
 biggest.diff.idx <- which(abs(groups.diff) > 0.7) # Find the largest differences between the groups, these are the question numbers for the most import differentiators
 groups.diff[biggest.diff.idx]
 mean(group1)
 mean(group2)
+
+groups.diff[diff > 0][, .(.N, mean(diff)), by=atom]
+
+
