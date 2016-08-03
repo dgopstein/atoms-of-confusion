@@ -81,14 +81,30 @@ atom.contingencies = cnts[, .(TT=sum(TT), TF=sum(TF), FT=sum(FT), FF=sum(FF)), b
 #  Anecdote: How many different answer per question
 ##########################################################
 unique.answers <- query.from.file('sql/unique_answers.sql')
-unique.answers.flat <- unique.answers[, .(atom=c(atom, atom), question=c(question,question), qid=c(c_id, nc_id), type=c("C", "NC"), unique=c(C_unique, NC_unique), correct=c(C_correct, NC_correct), total=c(C_total, NC_total))]
-unique.answers.flat[, rate:=(correct / total)]
+#unique.answers.flat <- unique.answers[, .(atom=c(atom, atom), question=c(question,question), qid=c(c_id, nc_id+1), type=.("C", "NC"), unique=c(C_unique, NC_unique), correct=c(C_correct, NC_correct), total=c(C_total, NC_total))]
+unique.answers.c <-  unique.answers[, .(atom, qid=c_id,  type="C",  unique=C_unique,  correct=C_correct,  total= C_total)]
+unique.answers.nc <- unique.answers[, .(atom, qid=nc_id, type="NC", unique=NC_unique, correct=NC_correct, total=NC_total)]
+unique.answers.flat <- rbind(unique.answers.c, unique.answers.nc)[order(qid)]
+unique.answers.flat[, incorrect          := (total - correct)       ]
+unique.answers.flat[, incorrect.variance := ((unique-1) / incorrect)]
+unique.answers.flat[, rate               := (correct / total)       ]
+unique.answers.flat
+
+# Graph the variance of incorrect answers
+varianceDT <- unique.answers.flat[is.finite(incorrect.variance)][order(incorrect.variance)]
+par(oma=c(1,8,1,1))
+barplot(varianceDT$incorrect.variance, names.arg=varianceDT$question, horiz=TRUE, las=2, cex.names=0.5, xlim=c(0,1.1))
+high.var.incorrect <- varianceDT[incorrect.variance < 1][order(-incorrect.variance)][1:10]
+low.var.incorrect <- varianceDT[incorrect.variance < 1][order( incorrect.variance)][1:10]
+mean(high.var.incorrect$rate)
+mean(low.var.incorrect$rate)
+high.var.incorrect[, .(question, unique, incorrect, guess.rate=incorrect.variance, correctness=rate)]
+low.var.incorrect[, .(question, unique, incorrect, guess.rate=incorrect.variance, correctness=rate)]
+nrow(usercode[CodeID==106&Correct=="T", .(Answer)])
 
 # Responses with only 1 answer
 unique.answers.flat[unique==1, .N, by=type] # Distribution by C/NC
 usercode[CodeID==101, .N, by=.(CodeID, Correct)] # verification
-
-
 
 # Number of unique responses on confusing/non-confusing versions of code
 plot(NC_unique ~ C_unique, unique.answers, ylim=c(0,22), xlim=c(0,22), main="Number of unique responses on confusing/non-confusing")
@@ -96,6 +112,8 @@ plot(NC_unique ~ C_unique, unique.answers, ylim=c(0,22), xlim=c(0,22), main="Num
 # Unique responses vs. correctness
 plot(unique ~ rate, unique.answers.flat[type=="C"], xlim=c(0, 1), ylim=c(0,22), main="Unique responses vs. correctness - Confusing")
 plot(unique ~ rate, unique.answers.flat[type=="NC"], xlim=c(0, 1), ylim=c(0,22), main="Unique responses vs. correctness - Non-Confusing")
+
+
 
 #########################################################
 #                  Clustering
@@ -132,6 +150,17 @@ groups.diff[biggest.diff.idx]
 mean(group1)
 mean(group2)
 
-groups.diff[diff > 0][, .(.N, mean(diff)), by=atom]
+groups.diff[diff > 0][, .(atom, diff=mean(diff))]
+
+#########################################################
+#                  Clustering
+#########################################################
+
+
+
+
+
+
+
 
 
