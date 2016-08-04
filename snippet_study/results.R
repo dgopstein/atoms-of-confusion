@@ -209,6 +209,9 @@ colnames(experts.mat) <- 1:126
 novices.mat <- novices.mat[,order(colSums(novices.mat, na.rm=TRUE))]
 experts.mat <- experts.mat[,order(colSums(experts.mat, na.rm=TRUE))]
 
+novice.ids <- as.numeric(rownames(novices.mat))
+expert.ids <- as.numeric(rownames(experts.mat))
+
 novice.orders <- as.numeric(colnames(novices.mat))
 expert.orders <- as.numeric(colnames(experts.mat))
 question.orders <- cbind(novice.orders, expert.orders)
@@ -223,8 +226,8 @@ nc.deviations <- match(novice.nc.orders, expert.nc.orders)
 c.distances  <- 1:63 - c.deviations
 nc.distances <- 1:63 - nc.deviations
 
-novice.c.orders[which(abs(c.distances) > 30)]
-novice.nc.orders[which(abs(nc.distances) > 45)]
+novice.c.orders[which(c.distances > 30)]
+novice.nc.orders[which(nc.distances < -20)]
 
 # Confusing Parallel Coordinates Plot
 c.orders <- cbind(1:63, c.deviations)
@@ -241,6 +244,26 @@ parcoord(nc.orders, col=set2, lwd=4, main="Difficulty ranking of\nNon-Confusing 
 title(ylab="<-- Less Difficult        More Difficult -->")
 axis(2, at=seq(0,1,length.out=63), labels=novice.nc.orders, cex.axis=0.7, las=1)
 axis(4, at=seq(0,1,length.out=63), labels=expert.nc.orders, cex.axis=0.7, las=1)
+
+#########################################################
+#               User Demographics
+#########################################################
+
+userTable  <- query.from.string('select * from user;')
+userSurvey <- data.table(read.csv("confidential-Confusing_Atoms-Clean.csv", header = TRUE))
+colnames(userSurvey)[1:10] <- c("ResponseID", "ResponseSet", "Name", "ExternalDataReference", "EmailAddress", "IPAddress", "Status", "StartDate", "EndDate", "Finished")
+nrow(userTable)
+nrow(userSurvey)
+userDT <- data.table(merge(userTable, userSurvey, all.y=TRUE, by.x="Name", by.y ="TestID"))
+userDT <- userDT[!is.na(ID)]
+userDT[, CMonth := as.numeric(CMonth)]
+userDT[, ProgMonth := as.numeric(ProgMonth)]
+
+userDT[ID %in% novice.ids, .(mean.c = mean(CMonth, na.rm=TRUE), mean.prog = mean(ProgMonth, na.rm=TRUE), med.c = median(CMonth, na.rm=TRUE), med.prog = median(ProgMonth, na.rm=TRUE))]
+userDT[ID %in% expert.ids, .(mean.c = mean(CMonth, na.rm=TRUE), mean.prog = mean(ProgMonth, na.rm=TRUE), med.c = median(CMonth, na.rm=TRUE), med.prog = median(ProgMonth, na.rm=TRUE))]
+
+
+
 
 
 
