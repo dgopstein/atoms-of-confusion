@@ -168,7 +168,7 @@ dev.off()
 
 
 #######################################################
-# I give up's (incomplete data from 2016-07-05)
+# I give up's
 #######################################################
 # http://stats.stackexchange.com/questions/113602/test-if-two-binomial-distributions-are-statistically-different-from-each-other
 f.t.res <- mapply(f.t, faultDT$c_faults, faultDT$c_checks, faultDT$nc_faults, faultDT$nc_checks)
@@ -202,6 +202,16 @@ total.sig.counts(igu.counts)$p.value
 total.sig.counts(unknown.counts)$p.value
 
 unlist(q.src.charlist)[c.types]
+
+
+# On which question do people give up?
+
+
+resultsDT.flat <- resultsDT[, .(q=q.cols, Order, output=sapply(q.cols, function(chr) as.character(get(chr)))), by=Subject]
+resultsDT.flat <- resultsDT.flat[nchar(output) > 0]
+resultsDT.flat$pos <- apply(resultsDT.flat, 1, function(x) {dput(x); regexpr(tolower(x[['q']]), x[['Order']])[1]})
+resultsDT.flat$gave.up <- resultsDT.flat[, grepl('!',output)]
+resultsDT.flat[gave.up==TRUE, .("IGUs" = sum(gave.up)), by=pos][order(pos)]
 
 #$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
 

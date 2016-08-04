@@ -4,6 +4,8 @@ library(xtable)
 
 source("stats/durkalski.R")
 
+par.orig <- par()
+
 con <- dbConnect(drv=RSQLite::SQLite(), dbname="confusion.db")
 query.from.string <- function(query) data.table(dbGetQuery( con, query ))
 query.from.file <- function(filename) query.from.string(paste(readLines(filename), collapse = "\n"))
@@ -116,7 +118,7 @@ plot(unique ~ rate, unique.answers.flat[type=="NC"], xlim=c(0, 1), ylim=c(0,22),
 
 
 #########################################################
-#                  Clustering
+#           Clustering People
 #########################################################
 # Cluster responses - http://www.statmethods.net/advstats/cluster.html
 results.by.user.mat <- matrix(ncol = usercode[, max(CodeID)], nrow = usercode[, max(UserID)])
@@ -134,33 +136,51 @@ library(cluster)
 
 # https://rstudio-pubs-static.s3.amazonaws.com/33876_1d7794d9a86647ca90c4f182df93f0e8.html
 D=daisy(results.by.user.mat, metric='gower') # Declare binary data
-H.fit <- hclust(D, method="ward.D2")
-plot(H.fit, main="Hierarchical clusters of users")
-rect.hclust(H.fit, k=2, border="red")
-groups <- cutree(H.fit, k=2)
+H.user.fit <- hclust(D, method="ward.D2")
+plot(H.user.fit, main="Hierarchical clusters of users")
+rect.hclust(H.user.fit, k=2, border="red")
+user.groups <- cutree(H.user.fit, k=2)
 #clusplot(results.by.user.mat, groups, color=TRUE, shade=TRUE, labels=2, lines=0, main= 'Customer segments')
 
 user.clus <- as.data.table(results.by.user.mat)
-user.clus$group <- groups
-group1 <- apply(user.clus[groups==1], 2, function(x) mean(x, na.rm=TRUE))
-group2 <- apply(user.clus[groups==2], 2, function(x) mean(x, na.rm=TRUE))
-groups.diff <- data.table(atom = c(unique.answers.flat[order(qid)]$atom, "Not a real question"), qid = c(1:126, -1),  diff = t(t(group1 - group2))[,1]) # Transpose (I apply t twice, but it only ends up transposing once [idk why]) to put the data into rows
-biggest.diff.idx <- which(abs(groups.diff) > 0.7) # Find the largest differences between the groups, these are the question numbers for the most import differentiators
-groups.diff[biggest.diff.idx]
-mean(group1)
-mean(group2)
+user.clus$group <- user.groups
+user.group1 <- apply(user.clus[user.groups==1], 2, function(x) mean(x, na.rm=TRUE))
+user.group2 <- apply(user.clus[user.groups==2], 2, function(x) mean(x, na.rm=TRUE))
+user.groups.diff <- data.table(atom = c(unique.answers.flat[order(qid)]$atom, "Not a real question"), qid = c(1:126, -1),  diff = t(t(user.group1 - user.group2))[,1]) # Transpose (I apply t twice, but it only ends up transposing once [idk why]) to put the data into rows
+biggest.diff.idx <- which(abs(user.groups.diff) > 0.7) # Find the largest differences between the groups, these are the question numbers for the most import differentiators
+user.groups.diff[biggest.diff.idx]
+mean(user.group1)
+mean(user.group2)
 
-groups.diff[diff > 0][, .(atom, diff=mean(diff))]
+user.groups.diff[diff > 0][, .(atom, diff=mean(diff))]
 
 #########################################################
-#                  Clustering
+#               Clustering Answers
 #########################################################
 
+results.by.qid.mat <- t(results.by.user.mat)
+D=daisy(results.by.qid.mat, metric='gower') # Declare binary data
+H.qid.fit <- hclust(D, method="ward.D2")
 
+par(par.orig) # reset par
+plot(H.qid.fit, main="Hierarchical clusters of questions")
+n.qid.groups <- 3
+rect.hclust(H.qid.fit, k=n.qid.groups, border="red")
 
+qid.groups <- cutree(H.qid.fit, k=n.qid.groups)
+qid.clus <- as.data.table(results.by.qid.mat)
+qid.clus$group <- qid.groups
+qid.clus$qid <- 1:126
+qid.clus$question <- unique.answers.flat[order(qid), paste(atom, type, sep="_")]
+qid.clus$rate <- unique.answers.flat[order(qid), rate]
 
+#########################################################
+#               Monotonic Users/Answer heatmap
+#########################################################
+rownames(results.by.qid.mat) <- 1:126
+colnames(results.by.qid.mat) <- 1:73
+results.ordered <- results.by.qid.mat[,order(colSums(results.by.qid.mat, na.rm=TRUE))]
+results.ordered <- results.ordered[order(rowSums(results.ordered, na.rm=TRUE)),]
+#results.ordered <- replace(results.ordered, which(function(x) x ==NA, results.ordered)
 
-
-
-
-
+heatmap(results.ordered, col=c("black", "yellow"), scale="none", Rowv = NA, Colv = NA, xlab="Subjects", ylab="Questions")
