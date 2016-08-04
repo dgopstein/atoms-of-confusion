@@ -1,7 +1,12 @@
 library(DBI)
 library(data.table)
 library(xtable)
-
+library(MASS)
+library(RColorBrewer)
+rf <- colorRampPalette(rev(brewer.pal(11,'Spectral')))
+r <- rf(32)
+set2 <- colorRampPalette(brewer.pal(8,'Set2'))(8)
+set3 <- colorRampPalette(brewer.pal(12,'Set3'))(12)
 source("stats/durkalski.R")
 
 par.orig <- par()
@@ -92,6 +97,10 @@ unique.answers.flat[, incorrect.variance := ((unique-1) / incorrect)]
 unique.answers.flat[, rate               := (correct / total)       ]
 unique.answers.flat
 
+all.qids <- unique.answers.flat$qid
+n.questions <- nrow(unique.answers.flat)
+max.qid <- max(unique.answers.flat$qid)
+
 # Graph the variance of incorrect answers
 varianceDT <- unique.answers.flat[is.finite(incorrect.variance)][order(incorrect.variance)]
 par(oma=c(1,8,1,1))
@@ -146,7 +155,7 @@ user.clus <- as.data.table(results.by.user.mat)
 user.clus$group <- user.groups
 user.group1 <- apply(user.clus[user.groups==1], 2, function(x) mean(x, na.rm=TRUE))
 user.group2 <- apply(user.clus[user.groups==2], 2, function(x) mean(x, na.rm=TRUE))
-user.groups.diff <- data.table(atom = c(unique.answers.flat[order(qid)]$atom, "Not a real question"), qid = c(1:126, -1),  diff = t(t(user.group1 - user.group2))[,1]) # Transpose (I apply t twice, but it only ends up transposing once [idk why]) to put the data into rows
+user.groups.diff <- data.table(atom = c(unique.answers.flat[order(qid)]$atom, "Not a real question"), qid = c(1:max.qid, -1),  diff = t(t(user.group1 - user.group2))[,1]) # Transpose (I apply t twice, but it only ends up transposing once [idk why]) to put the data into rows
 biggest.diff.idx <- which(abs(user.groups.diff) > 0.7) # Find the largest differences between the groups, these are the question numbers for the most import differentiators
 user.groups.diff[biggest.diff.idx]
 mean(user.group1)
@@ -170,7 +179,7 @@ rect.hclust(H.qid.fit, k=n.qid.groups, border="red")
 qid.groups <- cutree(H.qid.fit, k=n.qid.groups)
 qid.clus <- as.data.table(results.by.qid.mat)
 qid.clus$group <- qid.groups
-qid.clus$qid <- 1:126
+qid.clus$qid <- 1:max.qid
 qid.clus$question <- unique.answers.flat[order(qid), paste(atom, type, sep="_")]
 qid.clus$rate <- unique.answers.flat[order(qid), rate]
 
@@ -184,3 +193,54 @@ results.ordered <- results.ordered[order(rowSums(results.ordered, na.rm=TRUE)),]
 #results.ordered <- replace(results.ordered, which(function(x) x ==NA, results.ordered)
 
 heatmap(results.ordered, col=c("black", "yellow"), scale="none", Rowv = NA, Colv = NA, xlab="Subjects", ylab="Questions")
+
+#########################################################
+#               2D clustering
+#########################################################
+
+novices.mat <- results.by.user.mat[which(user.groups == 1),]
+rownames(novices.mat) <- which(user.groups == 1)
+colnames(novices.mat) <- 1:126
+experts.mat <- results.by.user.mat[which(user.groups == 2),]
+rownames(experts.mat) <- which(user.groups == 2)
+colnames(experts.mat) <- 1:126
+
+# Sort question correctness
+novices.mat <- novices.mat[,order(colSums(novices.mat, na.rm=TRUE))]
+experts.mat <- experts.mat[,order(colSums(experts.mat, na.rm=TRUE))]
+
+novice.orders <- as.numeric(colnames(novices.mat))
+expert.orders <- as.numeric(colnames(experts.mat))
+question.orders <- cbind(novice.orders, expert.orders)
+novice.c.orders  <- novice.orders[which( as.logical(novice.orders %% 2))]
+expert.c.orders  <- expert.orders[which( as.logical(expert.orders %% 2))]
+novice.nc.orders <- novice.orders[which(!as.logical(novice.orders %% 2))]
+expert.nc.orders <- expert.orders[which(!as.logical(expert.orders %% 2))]
+
+c.deviations  <- match(novice.c.orders, expert.c.orders)
+nc.deviations <- match(novice.nc.orders, expert.nc.orders)
+
+c.distances  <- 1:63 - c.deviations
+nc.distances <- 1:63 - nc.deviations
+
+novice.c.orders[which(abs(c.distances) > 30)]
+novice.nc.orders[which(abs(nc.distances) > 45)]
+
+# Confusing Parallel Coordinates Plot
+c.orders <- cbind(1:63, c.deviations)
+colnames(c.orders) <- c("novices", "experts")
+parcoord(c.orders, col=set2, lwd=4, main="Difficulty ranking of\nConfusing questions by user group")
+title(ylab="<-- Less Difficult        More Difficult -->")
+axis(2, at=seq(0,1,length.out=63), labels=novice.c.orders, cex.axis=0.7, las=1)
+axis(4, at=seq(0,1,length.out=63), labels=expert.c.orders, cex.axis=0.7, las=1)
+
+# Confusing Parallel Coordinates Plot
+nc.orders <- cbind(1:63, nc.deviations)
+colnames(nc.orders) <- c("novices", "experts")
+parcoord(nc.orders, col=set2, lwd=4, main="Difficulty ranking of\nNon-Confusing questions by user group")
+title(ylab="<-- Less Difficult        More Difficult -->")
+axis(2, at=seq(0,1,length.out=63), labels=novice.nc.orders, cex.axis=0.7, las=1)
+axis(4, at=seq(0,1,length.out=63), labels=expert.nc.orders, cex.axis=0.7, las=1)
+
+
+
