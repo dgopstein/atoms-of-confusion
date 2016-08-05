@@ -11,6 +11,16 @@ source("stats/durkalski.R")
 
 par.orig <- par()
 
+add.alpha <- function(col, alpha=1){
+  if(missing(col))
+    stop("Please provide a vector of colours.")
+  apply(sapply(col, col2rgb)/255, 2, 
+        function(x) 
+          rgb(x[1], x[2], x[3], alpha=alpha))  
+}
+range01 <- function(x){(x-min(x))/(max(x)-min(x))} # http://stackoverflow.com/questions/5665599/range-standardization-0-to-1-in-r
+
+
 con <- dbConnect(drv=RSQLite::SQLite(), dbname="confusion.db")
 query.from.string <- function(query) data.table(dbGetQuery( con, query ))
 query.from.file <- function(filename) query.from.string(paste(readLines(filename), collapse = "\n"))
@@ -227,43 +237,120 @@ c.distances  <- 1:63 - c.deviations
 nc.distances <- 1:63 - nc.deviations
 
 novice.c.orders[which(c.distances > 30)]
-novice.nc.orders[which(nc.distances < -20)]
+novice.nc.orders[which(nc.distances < -45)]
 
+novice.c.orders[which(c.distances < -20)]
+novice.nc.orders[which(nc.distances > 40)]
+
+par(par.orig)
+par.orig$oma
+par(oma=c(1,2,1,1))
 # Confusing Parallel Coordinates Plot
+slope.colors <- sapply(abs(c.distances), function(d) rgb(.2, .2, .2, alpha = (.1+d/max(abs(c.distances))) * .9))
 c.orders <- cbind(1:63, c.deviations)
 colnames(c.orders) <- c("novices", "experts")
-parcoord(c.orders, col=set2, lwd=4, main="Difficulty ranking of\nConfusing questions by user group")
-title(ylab="<-- Less Difficult        More Difficult -->")
+parcoord(c.orders, col=slope.colors, lwd=4, main="Difficulty ranking of\nConfusing questions by user group")
+title(ylab="<-- More Difficult        Less Difficult -->")
 axis(2, at=seq(0,1,length.out=63), labels=novice.c.orders, cex.axis=0.7, las=1)
 axis(4, at=seq(0,1,length.out=63), labels=expert.c.orders, cex.axis=0.7, las=1)
 
 # Confusing Parallel Coordinates Plot
+slope.colors <- sapply(abs(nc.distances), function(d) rgb(.2, .2, .2, alpha = (.1+d/max(abs(nc.distances))) * .9))
 nc.orders <- cbind(1:63, nc.deviations)
 colnames(nc.orders) <- c("novices", "experts")
-parcoord(nc.orders, col=set2, lwd=4, main="Difficulty ranking of\nNon-Confusing questions by user group")
+parcoord(nc.orders, col=slope.colors, lwd=4, main="Difficulty ranking of\nNon-Confusing questions by user group")
 title(ylab="<-- Less Difficult        More Difficult -->")
 axis(2, at=seq(0,1,length.out=63), labels=novice.nc.orders, cex.axis=0.7, las=1)
 axis(4, at=seq(0,1,length.out=63), labels=expert.nc.orders, cex.axis=0.7, las=1)
+
+# Line segment plot by correctness
+# usercode$confusing <- as.logical(usercode$CodeID %% 2)
+# usercode$experience[usercode$UserID %in% novice.ids] <- "novice"
+# usercode$experience[usercode$UserID %in% expert.ids] <- "expert"
+# usercode[, by=list(experience, confusing)]
+
+novice.rates <- (colSums(novices.mat, na.rm=TRUE))/colSums(!is.na(novices.mat))
+expert.rates <- (colSums(experts.mat, na.rm=TRUE))/colSums(!is.na(experts.mat))
+novice.rates <- novice.rates[order(as.numeric(names(novice.rates)))]
+expert.rates <- expert.rates[order(as.numeric(names(expert.rates)))]
+
+t.test(novice.rates, expert.rates)
+
+novice.line.rates <- cbind(0, novice.rates)
+expert.line.rates <- cbind(1, expert.rates)
+experience.rates <- rbind(novice.line.rates, expert.line.rates)
+experience.slopes <- expert.rates - novice.rates
+
+#cols <- set3
+experience.slopes.magnitude <- range01(experience.slopes - mean(experience.slopes))
+bo.ramp <- colorRampPalette(c("blue", "purple"))
+color.steps <- 20
+slope.cols <- bo.ramp(color.steps)[cut(experience.slopes.magnitude, breaks=color.steps)]
+slope.cols <- mapply(function(col, mag) add.alpha(col, alpha=mag), slope.cols, .1+(abs(1.8*(experience.slopes.magnitude-.5)))**2.5)
+plot(experience.rates)
+segments(0, novice.rates, 1, expert.rates, col=slope.cols, lwd=4)
+#lines(novice.line.rates, expert.line.rates, type='l')
+
 
 #########################################################
 #               User Demographics
 #########################################################
 
 userTable  <- query.from.string('select * from user;')
-userSurvey <- data.table(read.csv("confidential-Confusing_Atoms-Clean.csv", header = TRUE))
+userSurvey <- read.csv("confidential-Confusing_Atoms-Clean.csv", header = TRUE)
+userSurvey <- userSurvey[-1] # Remove column labels
+userSurvey <- data.table(userSurvey)
 colnames(userSurvey)[1:10] <- c("ResponseID", "ResponseSet", "Name", "ExternalDataReference", "EmailAddress", "IPAddress", "Status", "StartDate", "EndDate", "Finished")
-nrow(userTable)
-nrow(userSurvey)
+userTable[, Name := as.factor(as.numeric(Name))]
+userTable$Name
+userSurvey$TestID
+#userSurvey[, TestID := as.numeric(TestID)]
+
+userTable$Name[order(userTable$Name)]
+userSurvey$TestID[order(userSurvey$TestID)]
+
 userDT <- data.table(merge(userTable, userSurvey, all.y=TRUE, by.x="Name", by.y ="TestID"))
+#userDT <- head(userDT, -1) # Remove column labels
+userDT$ID
 userDT <- userDT[!is.na(ID)]
 userDT[, CMonth := as.numeric(CMonth)]
+userDT[, Gender := as.numeric(Gender)]
 userDT[, ProgMonth := as.numeric(ProgMonth)]
-
-userDT[ID %in% novice.ids, .(mean.c = mean(CMonth, na.rm=TRUE), mean.prog = mean(ProgMonth, na.rm=TRUE), med.c = median(CMonth, na.rm=TRUE), med.prog = median(ProgMonth, na.rm=TRUE))]
-userDT[ID %in% expert.ids, .(mean.c = mean(CMonth, na.rm=TRUE), mean.prog = mean(ProgMonth, na.rm=TRUE), med.c = median(CMonth, na.rm=TRUE), med.prog = median(ProgMonth, na.rm=TRUE))]
-
+userDT$experience[which(userDT$ID %in% novice.ids)] <- "novice"
+userDT$experience[which(userDT$ID %in% expert.ids)] <- "expert"
 
 
+# Are mean/median experience programming and with C correlated? (nope)
+userDT[,.(mean.c = mean(CMonth, na.rm=TRUE), mean.prog = mean(ProgMonth, na.rm=TRUE), med.c = median(CMonth, na.rm=TRUE), med.prog = median(ProgMonth, na.rm=TRUE)), by=experience]
+
+t.test(userDT[experience=="novice"]$CMonth, userDT[experience=="expert"]$CMonth)
+
+# Gender (nope)
+userDT[Gender == 2, sum(Gender - 1)]
+gender.exp.sig <- f.t(userDT[ID %in% novice.ids & Gender == 2, sum(Gender - 1)] ,length(novice.ids),
+                      userDT[ID %in% expert.ids & Gender == 2, sum(Gender - 1)] ,length(expert.ids))
+userDT[, mean(Gender - 1), by=experience]
+
+# Education
+gender.exp.sig <- f.t(userDT[ID %in% novice.ids & Gender == 2, sum(Gender - 1)] ,length(novice.ids),
+                      userDT[ID %in% expert.ids & Gender == 2, sum(Gender - 1)] ,length(expert.ids))
+userDT[order(c(experience, Education)), .N, by=list(Education, experience)]
+
+# 1-Associate Degree
+# 2-Bachelor's Degree
+# 3-Master's Degree
+# 4-Doctoral Degree
+# 5-Professional Degree
+
+# Months since C
+test.year <- 2016
+test.mon <- 04
+userDT[, last.c.year := as.numeric(sapply(strsplit(as.character(LastC), "-"), '[[', 1))]
+userDT[, last.c.mon  := as.numeric(sapply(strsplit(as.character(LastC), "-"), '[[', 2))]
+userDT[, last.c.total.mon := (((test.year - last.c.year) * 12) + test.mon - last.c.mon)]
+userDT$last.c.total.mon <- ifelse(userDT$last.c.total.mon < 0, 0, userDT$last.c.total.mon) # Remove future values
+userDT[, .(last.c.mean = mean(last.c.total.mon), last.c.med = median(last.c.total.mon)), by=experience]
 
 
-
+t.test(userDT[experience=="novice"]$last.c.total.mon, userDT[experience=="expert"]$last.c.total.mon)
+       
