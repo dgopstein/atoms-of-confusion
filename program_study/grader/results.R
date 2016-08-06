@@ -6,7 +6,6 @@ library(xtable)
 library(MASS)
 library(RColorBrewer)
 rf <- colorRampPalette(rev(brewer.pal(11,'Spectral')))
-r <- rf(32)
 set2 <- colorRampPalette(brewer.pal(8,'Set2'))(8)
 set3 <- colorRampPalette(brewer.pal(12,'Set3'))(12)
 library(grDevices)
@@ -19,7 +18,7 @@ q.cols <- c('A', 'B', 'C', 'D', 'E', 'F', 'G', 'H')
 c.types <- c('a', 'c', 'e', 'g')
 nc.types <- c('b', 'd', 'f', 'h')
 
-q.checks <- c(17, 17, 30, 30, 34, 34, 14, 14)
+q.checks <- as.integer(c(17, 17, 30, 30, 34, 34, 14, 14))
 names(q.checks) <- q.types
 
 q.src.linelist <- list('a'=14,'b'=17,'c'=14,'d'=52,'e'=21,'f'=34,'g'=22,'h'=84) # number of lines in each .c file
@@ -51,11 +50,9 @@ faultDT$nc_fault_rate <- faultDT$nc_faults/faultDT$nc_checks
 # ./grade_csv.rb csv/results.csv > csv/grades.csv
 gradeDT <- data.table(read.csv("csv/grades.csv", header = TRUE))
 gradeDT$confusing <- gradeDT$qtype %in% c.types
-gradeDT$
+gradeDT$gave.up <- resultsDT.flat$gave.up
+gradeDT[gave.up == TRUE, points := q.checks[qtype]] # penalize people for giving up
 gradeDT$rate <- gradeDT[, correct/points]
-
-
-
 
 
 #######################################################
@@ -113,19 +110,19 @@ c.sum <- scores.summed[confusing == TRUE, rate]
 nc.sum <- scores.summed[confusing == FALSE, rate]
 
 scores.summed.subject <- scores.summed[,sum(rate)/2,by="subject"]
-plot(c.sum, nc.sum, type='n', xlim=c(0,1), ylim=c(0,1))
+#plot(c.sum, nc.sum, type='n', xlim=c(0,1), ylim=c(0,1))
 
 # Heatmap: http://www.r-bloggers.com/5-ways-to-do-2d-histograms-in-r/
 # Overlay image: http://stackoverflow.com/questions/12918367/in-r-how-to-plot-with-a-png-as-background
-k <- kde2d(c.sum, nc.sum, n=200, lims=c(0,1, 0,1))
-lim <- par()
-img <- image(k, col=r)
-#rasterImage(img, lim$usr[1], lim$usr[3], lim$usr[2], lim$usr[4])
-
+k <- kde2d(c.sum, nc.sum, n=200, lims=c(0,1, 0,1), h=.3)
+img <- image(k, col=rf(32))
 grid()
 title(main="Subject performance on C vs NC questions", xlab = "C correct rate", ylab = "NC correct rate")
 points(c.sum, nc.sum, pch=16, bg="black", col=rgb(.2,.2,.2,.8))#'#404040F0')
 abline(0,1)
+
+hist(c.sum); rug(c.sum)
+hist(nc.sum); rug(nc.sum)
 
 #$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
 
@@ -323,6 +320,23 @@ gradeDT[, mean(rate), by=qtype]
 boxplot(rate ~ qtype, gradeDT[order(qtype), .(rate), by=qtype], main="Correctness by Question", xlab="Question", ylab="Correctness")
 vioplot()
 
+#######################################################
+#             Cluster the subjects
+#######################################################
 
+library(cluster)
 
+results.mat <- matrix(ncol = length(q.types), nrow = nrow(resultsDT))
+colnames(results.mat) <- q.types
+rownames(results.mat) <- resultsDT$Subject
+inp.mtx <- as.matrix(gradeDT[,.(subject,qtype,as.numeric(rate))]) # http://stats.stackexchange.com/questions/6827/efficient-way-to-populate-matrix-in-r
+results.mat[inp.mtx[,1:2] ]<- inp.mtx[,3]
+results.mat <- matrix(data = as.numeric(results.mat), ncol = length(q.types), nrow = nrow(resultsDT))
+
+# https://rstudio-pubs-static.s3.amazonaws.com/33876_1d7794d9a86647ca90c4f182df93f0e8.html
+D=daisy(results.mat, metric='gower') # Declare binary data
+H.fit <- hclust(D, method="ward.D2")
+plot(H.fit, main="Hierarchical clusters of users")
+rect.hclust(H.user.fit, k=2, border="red")
+user.groups <- cutree(H.user.fit, k=2)
 

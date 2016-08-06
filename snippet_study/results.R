@@ -283,12 +283,15 @@ experience.slopes <- expert.rates - novice.rates
 
 #cols <- set3
 experience.slopes.magnitude <- range01(experience.slopes - mean(experience.slopes))
-bo.ramp <- colorRampPalette(c("blue", "purple"))
+bo.ramp <- colorRampPalette(c("#1181F1", "#C101F1"))
 color.steps <- 20
 slope.cols <- bo.ramp(color.steps)[cut(experience.slopes.magnitude, breaks=color.steps)]
 slope.cols <- mapply(function(col, mag) add.alpha(col, alpha=mag), slope.cols, .1+(abs(1.8*(experience.slopes.magnitude-.5)))**2.5)
-plot(experience.rates)
+plot(experience.rates, main="Qustion Correctness by Subject Ability", ylab="Question Correctness", xaxt='n')
 segments(0, novice.rates, 1, expert.rates, col=slope.cols, lwd=4)
+axis(2, at=seq(0,1,length.out=63), labels=novice.rates, cex.axis=0.7, las=1)
+axis(4, at=seq(0,1,length.out=63), labels=expert.rates, cex.axis=0.7, las=1)
+axis(1, at=c(0, 1), labels=c("Low Ability", "High Ability"))
 #lines(novice.line.rates, expert.line.rates, type='l')
 
 
