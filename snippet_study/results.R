@@ -32,7 +32,7 @@ cnts <- data.table(clustRes)
 cnts <- cnts[cnts[,!atom %in% c("remove_INDENTATION_atom", "Indentation")]] # Remove old atom types
 cnts[, atomName := unlist(name.conversion[atom])]
 
-usercode <- query.from.string("select * from usercode;")
+usercode <- query.from.string("select * from scrubbed_usercode;")
 
 name.conversion <- list(
   "add_CONDITION_atom"            = "Implicit Predicate",
@@ -108,8 +108,9 @@ unique.answers.flat[, rate               := (correct / total)       ]
 unique.answers.flat
 
 all.qids <- unique.answers.flat$qid
+c.qids   <- unique.answers.c$qid
+nc.qids  <- unique.answers.nc$qid
 n.questions <- nrow(unique.answers.flat)
-max.qid <- max(unique.answers.flat$qid)
 
 # Graph the variance of incorrect answers
 varianceDT <- unique.answers.flat[is.finite(incorrect.variance)][order(incorrect.variance)]
@@ -143,6 +144,7 @@ plot(unique ~ rate, unique.answers.flat[type=="NC"], xlim=c(0, 1), ylim=c(0,22),
 results.by.user.mat <- matrix(ncol = usercode[, max(CodeID)], nrow = usercode[, max(UserID)])
 inp.mtx <- as.matrix(usercode[,.(UserID,CodeID,is.truthy(Correct))]) # http://stats.stackexchange.com/questions/6827/efficient-way-to-populate-matrix-in-r
 results.by.user.mat[inp.mtx[,1:2] ]<- inp.mtx[,3]
+results.by.user.mat <- results.by.user.mat[, all.qids]
 mat.idx <- which(rowSums(is.na(results.by.user.mat))!=(dim(results.by.user.mat)[2]))
 results.by.user.mat <- results.by.user.mat[rowSums(is.na(results.by.user.mat))!=(dim(results.by.user.mat)[2]), ] # Remove empty rows(users)
 
@@ -165,8 +167,8 @@ user.clus <- as.data.table(results.by.user.mat)
 user.clus$group <- user.groups
 user.group1 <- apply(user.clus[user.groups==1], 2, function(x) mean(x, na.rm=TRUE))
 user.group2 <- apply(user.clus[user.groups==2], 2, function(x) mean(x, na.rm=TRUE))
-user.groups.diff <- data.table(atom = c(unique.answers.flat[order(qid)]$atom, "Not a real question"), qid = c(1:max.qid, -1),  diff = t(t(user.group1 - user.group2))[,1]) # Transpose (I apply t twice, but it only ends up transposing once [idk why]) to put the data into rows
-biggest.diff.idx <- which(abs(user.groups.diff) > 0.7) # Find the largest differences between the groups, these are the question numbers for the most import differentiators
+user.groups.diff <- data.table(atom = c(unique.answers.flat[order(qid)]$atom, "Not a real question"), qid = c(all.qids, -1),  diff = t(t(user.group1 - user.group2))[,1]) # Transpose (I apply t twice, but it only ends up transposing once [idk why]) to put the data into rows
+biggest.diff.idx <- which(abs(user.groups.diff$diff) > 0.7) # Find the largest differences between the groups, these are the question numbers for the most import differentiators
 user.groups.diff[biggest.diff.idx]
 mean(user.group1)
 mean(user.group2)
@@ -181,7 +183,7 @@ results.by.qid.mat <- t(results.by.user.mat)
 D=daisy(results.by.qid.mat, metric='gower') # Declare binary data
 H.qid.fit <- hclust(D, method="ward.D2")
 
-par(par.orig) # reset par
+suppressWarnings(par(par.orig)) # reset par
 plot(H.qid.fit, main="Hierarchical clusters of questions")
 n.qid.groups <- 3
 rect.hclust(H.qid.fit, k=n.qid.groups, border="red")
@@ -189,14 +191,14 @@ rect.hclust(H.qid.fit, k=n.qid.groups, border="red")
 qid.groups <- cutree(H.qid.fit, k=n.qid.groups)
 qid.clus <- as.data.table(results.by.qid.mat)
 qid.clus$group <- qid.groups
-qid.clus$qid <- 1:max.qid
+qid.clus$qid <- all.qids
 qid.clus$question <- unique.answers.flat[order(qid), paste(atom, type, sep="_")]
 qid.clus$rate <- unique.answers.flat[order(qid), rate]
 
 #########################################################
 #               Monotonic Users/Answer heatmap
 #########################################################
-rownames(results.by.qid.mat) <- 1:126
+rownames(results.by.qid.mat) <- all.qids
 colnames(results.by.qid.mat) <- 1:73
 results.ordered <- results.by.qid.mat[,order(colSums(results.by.qid.mat, na.rm=TRUE))]
 results.ordered <- results.ordered[order(rowSums(results.ordered, na.rm=TRUE)),]
@@ -208,12 +210,14 @@ heatmap(results.ordered, col=c("black", "yellow"), scale="none", Rowv = NA, Colv
 #               2D clustering
 #########################################################
 
+
+
 novices.mat <- results.by.user.mat[which(user.groups == 1),]
 rownames(novices.mat) <- which(user.groups == 1)
-colnames(novices.mat) <- 1:126
+colnames(novices.mat) <- all.qids
 experts.mat <- results.by.user.mat[which(user.groups == 2),]
 rownames(experts.mat) <- which(user.groups == 2)
-colnames(experts.mat) <- 1:126
+colnames(experts.mat) <- all.qids
 
 # Sort question correctness
 novices.mat <- novices.mat[,order(colSums(novices.mat, na.rm=TRUE))]
@@ -233,8 +237,8 @@ expert.nc.orders <- expert.orders[which(!as.logical(expert.orders %% 2))]
 c.deviations  <- match(novice.c.orders, expert.c.orders)
 nc.deviations <- match(novice.nc.orders, expert.nc.orders)
 
-c.distances  <- 1:63 - c.deviations
-nc.distances <- 1:63 - nc.deviations
+c.distances  <- c.qids - c.deviations
+nc.distances <- nc.qids - nc.deviations
 
 novice.c.orders[which(c.distances > 30)]
 novice.nc.orders[which(nc.distances < -45)]
@@ -242,26 +246,26 @@ novice.nc.orders[which(nc.distances < -45)]
 novice.c.orders[which(c.distances < -20)]
 novice.nc.orders[which(nc.distances > 40)]
 
-par(par.orig)
+suppressWarnings(par(par.orig))
 par.orig$oma
 par(oma=c(1,2,1,1))
 # Confusing Parallel Coordinates Plot
 slope.colors <- sapply(abs(c.distances), function(d) rgb(.2, .2, .2, alpha = (.1+d/max(abs(c.distances))) * .9))
-c.orders <- cbind(1:63, c.deviations)
+c.orders <- cbind(c.qids, c.deviations)
 colnames(c.orders) <- c("novices", "experts")
 parcoord(c.orders, col=slope.colors, lwd=4, main="Difficulty ranking of\nConfusing questions by user group")
 title(ylab="<-- More Difficult        Less Difficult -->")
-axis(2, at=seq(0,1,length.out=63), labels=novice.c.orders, cex.axis=0.7, las=1)
-axis(4, at=seq(0,1,length.out=63), labels=expert.c.orders, cex.axis=0.7, las=1)
+axis(2, at=seq(0,1,length.out=length(c.qids)), labels=novice.c.orders, cex.axis=0.7, las=1)
+axis(4, at=seq(0,1,length.out=length(nc.qids)), labels=expert.c.orders, cex.axis=0.7, las=1)
 
 # Confusing Parallel Coordinates Plot
 slope.colors <- sapply(abs(nc.distances), function(d) rgb(.2, .2, .2, alpha = (.1+d/max(abs(nc.distances))) * .9))
-nc.orders <- cbind(1:63, nc.deviations)
+nc.orders <- cbind(nc.qids, nc.deviations)
 colnames(nc.orders) <- c("novices", "experts")
 parcoord(nc.orders, col=slope.colors, lwd=4, main="Difficulty ranking of\nNon-Confusing questions by user group")
 title(ylab="<-- Less Difficult        More Difficult -->")
-axis(2, at=seq(0,1,length.out=63), labels=novice.nc.orders, cex.axis=0.7, las=1)
-axis(4, at=seq(0,1,length.out=63), labels=expert.nc.orders, cex.axis=0.7, las=1)
+axis(2, at=seq(0,1,length.out=length(c.qids)), labels=novice.nc.orders, cex.axis=0.7, las=1)
+axis(4, at=seq(0,1,length.out=length(nc.qids)), labels=expert.nc.orders, cex.axis=0.7, las=1)
 
 # Line segment plot by correctness
 # usercode$confusing <- as.logical(usercode$CodeID %% 2)
@@ -289,8 +293,8 @@ slope.cols <- bo.ramp(color.steps)[cut(experience.slopes.magnitude, breaks=color
 slope.cols <- mapply(function(col, mag) add.alpha(col, alpha=mag), slope.cols, .1+(abs(1.8*(experience.slopes.magnitude-.5)))**2.5)
 plot(experience.rates, main="Qustion Correctness by Subject Ability", ylab="Question Correctness", xaxt='n')
 segments(0, novice.rates, 1, expert.rates, col=slope.cols, lwd=4)
-axis(2, at=seq(0,1,length.out=63), labels=novice.rates, cex.axis=0.7, las=1)
-axis(4, at=seq(0,1,length.out=63), labels=expert.rates, cex.axis=0.7, las=1)
+#axis(2, at=seq(0,1,length.out=length(novice.rates)), labels=novice.rates, cex.axis=0.7, las=1)
+#axis(4, at=seq(0,1,length.out=length(expert.rates)), labels=expert.rates, cex.axis=0.7, las=1)
 axis(1, at=c(0, 1), labels=c("Low Ability", "High Ability"))
 #lines(novice.line.rates, expert.line.rates, type='l')
 
@@ -305,12 +309,12 @@ userSurvey <- userSurvey[-1] # Remove column labels
 userSurvey <- data.table(userSurvey)
 colnames(userSurvey)[1:10] <- c("ResponseID", "ResponseSet", "Name", "ExternalDataReference", "EmailAddress", "IPAddress", "Status", "StartDate", "EndDate", "Finished")
 userTable[, Name := as.factor(as.numeric(Name))]
-userTable$Name
-userSurvey$TestID
+#userTable$Name
+#userSurvey$TestID
 #userSurvey[, TestID := as.numeric(TestID)]
 
-userTable$Name[order(userTable$Name)]
-userSurvey$TestID[order(userSurvey$TestID)]
+#userTable$Name[order(userTable$Name)]
+#userSurvey$TestID[order(userSurvey$TestID)]
 
 userDT <- data.table(merge(userTable, userSurvey, all.y=TRUE, by.x="Name", by.y ="TestID"))
 #userDT <- head(userDT, -1) # Remove column labels
