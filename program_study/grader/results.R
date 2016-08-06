@@ -12,36 +12,50 @@ set3 <- colorRampPalette(brewer.pal(12,'Set3'))(12)
 library(grDevices)
 #$$$$
 library(lattice)
+library(testit)
 
 q.types <- c('a', 'b', 'c', 'd', 'e', 'f', 'g', 'h')
 q.cols <- c('A', 'B', 'C', 'D', 'E', 'F', 'G', 'H')
 c.types <- c('a', 'c', 'e', 'g')
 nc.types <- c('b', 'd', 'f', 'h')
 
+q.checks <- c(17, 17, 30, 30, 34, 34, 14, 14)
+names(q.checks) <- q.types
+
 q.src.linelist <- list('a'=14,'b'=17,'c'=14,'d'=52,'e'=21,'f'=34,'g'=22,'h'=84) # number of lines in each .c file
 q.src.lines <- sapply(q.src.linelist, "[[", 1)
 q.src.charlist <- list('a'=318,'b'=356,'c'=356,'d'=957,'e'=580,'f'=641,'g'=424,'h'=1291) # number of chars in each .c file
 q.src.chars <- sapply(q.src.charlist, "[[", 1)
 
-pilot.ids <- c(3782, 1161, 1224, 3270, 9351, 6490, 4747, 6224, 3881, 6033)
-
+pilot.ids <- c(3782, 1161, 1224, 3270, 9351, 6490, 4747, 6224, 3881, 6033, 7400, 5125)
 
 f.t <- function(a, a_total, b, b_total) fisher.test(rbind(c(a,a_total-a), c(b,b_total-b)), alternative="greater")
 
+resultsDT <- data.table(read.csv("csv/results.csv", header = TRUE))
+
+assert("There are no pilot ID's in the results", !any(resultsDT$Subject %in% pilot.ids))
+
+resultsDT.flat <- resultsDT[, .(q=q.cols, Order, output=sapply(q.cols, function(chr) as.character(get(chr)))), by=Subject]
+resultsDT.flat <- resultsDT.flat[nchar(output) > 0]
+resultsDT.flat$pos <- apply(resultsDT.flat, 1, function(x) {regexpr(tolower(x[['q']]), x[['Order']])[1]})
+resultsDT.flat$gave.up <- resultsDT.flat[, grepl('!',output)]
+resultsDT.flat[gave.up==TRUE, .("IGUs" = sum(gave.up)), by=pos][order(pos)]
+
 # ./fault_rates.rb csv/results.csv > csv/fault_rates.csv
-faultDT <- data.table(read.csv("csv/fault_rates.csv", header = TRUE))#[! subject %in% pilot.ids]
+faultDT <- data.table(read.csv("csv/fault_rates.csv", header = TRUE))
 faultDT$c_checks <- mapply(max, 1, faultDT$c_checks)
 faultDT$c_fault_rate  <- faultDT$c_faults / faultDT$c_checks
 faultDT$nc_fault_rate <- faultDT$nc_faults/faultDT$nc_checks
 
 
 # ./grade_csv.rb csv/results.csv > csv/grades.csv
-gradeDT <- data.table(read.csv("csv/grades.csv", header = TRUE))#[! subject %in% pilot.ids]
+gradeDT <- data.table(read.csv("csv/grades.csv", header = TRUE))
 gradeDT$confusing <- gradeDT$qtype %in% c.types
+gradeDT$
 gradeDT$rate <- gradeDT[, correct/points]
 
 
-resultsDT <- data.table(read.csv("csv/results.csv", header = TRUE))#[! Subject %in% pilot.ids]
+
 
 
 #######################################################
@@ -205,13 +219,6 @@ unlist(q.src.charlist)[c.types]
 
 
 # On which question do people give up?
-
-
-resultsDT.flat <- resultsDT[, .(q=q.cols, Order, output=sapply(q.cols, function(chr) as.character(get(chr)))), by=Subject]
-resultsDT.flat <- resultsDT.flat[nchar(output) > 0]
-resultsDT.flat$pos <- apply(resultsDT.flat, 1, function(x) {dput(x); regexpr(tolower(x[['q']]), x[['Order']])[1]})
-resultsDT.flat$gave.up <- resultsDT.flat[, grepl('!',output)]
-resultsDT.flat[gave.up==TRUE, .("IGUs" = sum(gave.up)), by=pos][order(pos)]
 
 #$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
 
