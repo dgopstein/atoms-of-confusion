@@ -32,6 +32,7 @@ f.t <- function(a, a_total, b, b_total) fisher.test(rbind(c(a,a_total-a), c(b,b_
 
 resultsDT <- data.table(read.csv("csv/results.csv", header = TRUE))
 
+
 assert("There are no pilot ID's in the results", !any(resultsDT$Subject %in% pilot.ids))
 
 resultsDT.flat <- resultsDT[, .(q=q.cols, Order, output=sapply(q.cols, function(chr) as.character(get(chr)))), by=Subject]
@@ -326,17 +327,60 @@ vioplot()
 
 library(cluster)
 
-results.mat <- matrix(ncol = length(q.types), nrow = nrow(resultsDT))
-colnames(results.mat) <- q.types
-rownames(results.mat) <- resultsDT$Subject
-inp.mtx <- as.matrix(gradeDT[,.(subject,qtype,as.numeric(rate))]) # http://stats.stackexchange.com/questions/6827/efficient-way-to-populate-matrix-in-r
-results.mat[inp.mtx[,1:2] ]<- inp.mtx[,3]
-results.mat <- matrix(data = as.numeric(results.mat), ncol = length(q.types), nrow = nrow(resultsDT))
+# results.mat <- matrix(ncol = length(q.types), nrow = nrow(resultsDT))
+# colnames(results.mat) <- q.types
+# rownames(results.mat) <- resultsDT$Subject
+# inp.mtx <- as.matrix(gradeDT[,.(subject,qtype,as.numeric(rate))]) # http://stats.stackexchange.com/questions/6827/efficient-way-to-populate-matrix-in-r
+# results.mat[inp.mtx[,1:2] ]<- inp.mtx[,3]
+# results.mat <- matrix(data = as.numeric(results.mat), ncol = length(q.types), nrow = nrow(resultsDT))
+# 
+# # https://rstudio-pubs-static.s3.amazonaws.com/33876_1d7794d9a86647ca90c4f182df93f0e8.html
+# D=daisy(results.mat, metric='gower') # Declare binary data
+# H.fit <- hclust(D, method="ward.D2")
+# plot(H.fit, main="Hierarchical clusters of users")
+# rect.hclust(H.user.fit, k=2, border="red")
+# user.groups <- cutree(H.user.fit, k=2)
 
-# https://rstudio-pubs-static.s3.amazonaws.com/33876_1d7794d9a86647ca90c4f182df93f0e8.html
-D=daisy(results.mat, metric='gower') # Declare binary data
+
+D=daisy(subject.points[order(subject),.(subject, rate)], metric="gower")
 H.fit <- hclust(D, method="ward.D2")
 plot(H.fit, main="Hierarchical clusters of users")
-rect.hclust(H.user.fit, k=2, border="red")
-user.groups <- cutree(H.user.fit, k=2)
+rect.hclust(H.fit, k=2, border="red")
+user.groups <- cutree(H.fit, k=2)
+
+library("ks")
+hist(subject.points$rate, freq = F)
+lines(density(subject.points$rate))
+segments(mean(subject.points$rate),0,mean(subject.points$rate),2.5, lwd=2, col="red") # visualize partitioning the subjects at the mean
+
+library(stringr)
+subject.points[, ability := ifelse(rate > mean(rate), "high", "low")] # partition the subjects at the mean
+subject.points$ability <- as.factor(subject.points$ability)
+demographicDT <- data.table(read.csv("csv/confidential_demographics.csv", header = TRUE))
+subjectDT <- merge(subject.points, demographicDT, by.x='subject', by.y='Subject')
+subjectDT[,n.lang:=1+str_count(Languages, ","),]
+
+# img <- image(kde2d(subjectDT[!is.na(Age)]$Age, subjectDT[!is.na(Age)]$rate, n=200, lims=c(15,45, 0,1), h=c(10, .3)), col=rf(32))
+# points(subjectDT[!is.na(Age)]$Age, subjectDT[!is.na(Age)]$rate)
+
+
+par(mfrow=c(2,7))
+
+plot(rate ~ ProgrammingYears, data=subjectDT)
+plot(rate ~ CYears, data=subjectDT)
+boxplot(rate ~ Gender, data=subjectDT)
+boxplot(rate ~ Degree, data=subjectDT)
+boxplot(rate ~ SelfEval, data=subjectDT)
+boxplot(rate ~ n.lang, data=subjectDT)
+boxplot(rate ~ round(Age/5), data=subjectDT)
+
+
+plot(ability ~ ProgrammingYears, data=subjectDT)
+plot(ability ~ CYears, data=subjectDT)
+plot(ability ~ Gender, data=subjectDT)
+plot(ability ~ Degree, data=subjectDT)
+plot(ability ~ SelfEval, data=subjectDT)
+plot(ability ~ n.lang, data=subjectDT)
+plot(ability ~ Age, data=subjectDT)
+
 
