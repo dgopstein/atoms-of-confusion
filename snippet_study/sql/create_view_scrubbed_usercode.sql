@@ -1,0 +1,1 @@
+CREATE VIEW scrubbed_usercode AS select * from usercode uc join tag t on uc.codeid=ct.codeid join codetags ct on t.id=ct.tagid where tag not in ("remove_INDENTATION_atom", "Indentation") and uc.codeid not in (39, 40);
