@@ -6,5 +6,5 @@
 
 select *
 --delete
-from usercode WHERE codeid in (39, 40) and userid in (select id from user where lastlogin < '2016-04-18 00:00:00');
+from scrubbed_usercode WHERE codeid in (39, 40) and userid in (select id from user where lastlogin < '2016-04-18 00:00:00');
 
