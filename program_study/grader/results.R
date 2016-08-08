@@ -40,13 +40,15 @@ resultsDT.flat <- resultsDT.flat[nchar(output) > 0]
 resultsDT.flat$pos <- apply(resultsDT.flat, 1, function(x) {regexpr(tolower(x[['q']]), x[['Order']])[1]})
 resultsDT.flat$gave.up <- resultsDT.flat[, grepl('!',output)]
 resultsDT.flat[gave.up==TRUE, .("IGUs" = sum(gave.up)), by=pos][order(pos)]
+resultsDT.flat[, confusing:=tolower(q)%in%c.types]
+
 
 # ./fault_rates.rb csv/results.csv > csv/fault_rates.csv
 faultDT <- data.table(read.csv("csv/fault_rates.csv", header = TRUE))
 faultDT$c_checks <- mapply(max, 1, faultDT$c_checks)
 faultDT$c_fault_rate  <- faultDT$c_faults / faultDT$c_checks
 faultDT$nc_fault_rate <- faultDT$nc_faults/faultDT$nc_checks
-
+#faultDT[, confusing:=question%in%c.types]
 
 # ./grade_csv.rb csv/results.csv > csv/grades.csv
 gradeDT <- data.table(read.csv("csv/grades.csv", header = TRUE))
@@ -115,12 +117,16 @@ scores.summed.subject <- scores.summed[,sum(rate)/2,by="subject"]
 
 # Heatmap: http://www.r-bloggers.com/5-ways-to-do-2d-histograms-in-r/
 # Overlay image: http://stackoverflow.com/questions/12918367/in-r-how-to-plot-with-a-png-as-background
-k <- kde2d(c.sum, nc.sum, n=200, lims=c(0,1, 0,1), h=.3)
-img <- image(k, col=rf(32))
-grid()
-title(main="Subject performance on C vs NC questions", xlab = "C correct rate", ylab = "NC correct rate")
+
+pdf("img/program_subject_performance_c_vs_nc_questions.pdf", width = 5, height = 5.5)
+# k <- kde2d(c.sum, nc.sum, n=200, lims=c(0,1, 0,1), h=.3)
+# img <- image(k, col=rf(32))
+# grid()
+plot(c.sum, nc.sum, xlim=c(0,1), ylim=c(0,1), xlab="", ylab="")
+title(main="Subject performance on\nObfuscated vs Transformed programs", xlab = "Obfuscated correct rate", ylab = "Transformed correct rate")
 points(c.sum, nc.sum, pch=16, bg="black", col=rgb(.2,.2,.2,.8))#'#404040F0')
-abline(0,1)
+abline(0,1,lty=3)
+dev.off()
 
 hist(c.sum); rug(c.sum)
 hist(nc.sum); rug(nc.sum)
@@ -161,15 +167,14 @@ q.rate <- rbind(q.rate, list("all NC", all.correctness[confusing==FALSE]$correct
 
 q.correctness.labels <- paste0(c("Q1\n", "Q2\n", "Q3\n", "Q4\n", "All\n"), sapply(c(a.v.b, c.v.d, e.v.f, g.v.h, all.q.p.value), function(x) sprintf("p: %0.4f", x)))
 
-#svg("img/average_score_per_question.svg", width = 9, height = 8)
-#png("img/average_score_per_question.png", width = 768, height = 768)
+
 pdf("img/average_score_per_question.pdf", width = 9, height = 8)
 #https://cran.r-project.org/web/packages/lattice/lattice.pdf
 bar.colors <- set3[c(5, 6)]
 barchart(correctness~qtype,data=q.rate,groups=confusing, main='Average Score by Question Type', 
          ylab = "Correctness Rate", xlab=list(label = q.correctness.labels, cex = 0.8), scales=list(x=list(draw=FALSE)), 
          par.settings=list(fontsize = list(text = 24), superpose.polygon = list(col = bar.colors), par.main.text = list(just=c(.45, 0))),
-         auto.key=list(text=c("Non-Confusing", "Confusing"), height = 6, size = 1, padding.text = -2, columns = 2,
+         auto.key=list(text=rev(c("Obfuscated", "Transformed")), height = 6, size = 1, padding.text = -2, columns = 2,
                        reverse.rows = TRUE, between=.5, between.columns=0.8, width=10, space="top", cex = 0.8))
 dev.off()
 
@@ -204,6 +209,9 @@ total.sig.counts <- function (counts) {
 error.counts <- count.chars("X")
 igu.counts <- count.chars("!")
 unknown.counts <- count.chars("\\?")
+
+igu.c.count <- sum(igu.counts[toupper(c.types)])
+igu.nc.count <- sum(igu.counts[toupper(nc.types)])
 
 sig.counts(error.counts)
 sig.counts(igu.counts)
@@ -382,5 +390,46 @@ plot(ability ~ Degree, data=subjectDT)
 plot(ability ~ SelfEval, data=subjectDT)
 plot(ability ~ n.lang, data=subjectDT)
 plot(ability ~ Age, data=subjectDT)
+
+#######################################################
+#             Combined bar chart
+#######################################################
+
+
+resultsDT.flat[!gave.up&nchar(output)==1&output!="X", .(q, output, confusing)]
+
+
+
+
+library(gridExtra)
+
+give.ups <- gradeDT[, .(val=as.integer(gave.up)/1), by=confusing]
+label.faults <- melt(faultDT, measure.vars=c('c_fault_rate', 'nc_fault_rate'))[,.(val=value, confusing=variable=='c_fault_rate')]
+points.answered <- gradeDT[(!gave.up), .(val=points/.N), by=confusing]
+totally.correct <- gradeDT[, .(val=as.integer(rate==1)/1), by=confusing]
+
+pvc <- function(dt, alt) sprintf("%0.4f", t.test(val ~ confusing, data=dt, alternative=alt)$p.value)
+mean.dt <- function(dt, name, alt) dt[,.(val=mean(val), label=paste(name, "\np=", pvc(dt, alt), sep="")), by=confusing]
+give.ups.mean     <-    mean.dt(give.ups, "Give Ups", "less")
+label.faults.mean <-    mean.dt(label.faults, "Control Flow Errors", "less")
+points.answered.mean <- mean.dt(points.answered, "Points Answered", "greater")
+totally.correct.mean <- mean.dt(totally.correct, "Totally Correct", "greater")
+
+combined.bar.data.bad <- rbind(give.ups.mean, label.faults.mean)
+combined.bar.data.good <- rbind(points.answered.mean, totally.correct.mean)  
+
+plot.bad  <- barchart(val ~ label, data=combined.bar.data.bad,  groups=rev(confusing), main="Failures",  ylab="Rate")
+plot.good <- barchart(val ~ label, data=combined.bar.data.good, groups=rev(confusing), main="Successes", ylab="Rate")
+
+plot.bad
+plot.good
+
+pdf("img/program_study_good_bad.pdf", width = 7, height = 6)
+grid.arrange(plot.bad, plot.good, draw.key(simpleKey(c("Obfuscated", "Transformed"))), ncol=2, heights=c(10, 1))
+dev.off()
+
+
+
+
 
 

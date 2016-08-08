@@ -98,6 +98,8 @@ atom.contingencies = cnts[, .(TT=sum(TT), TF=sum(TF), FT=sum(FT), FF=sum(FF)), b
 #  Anecdote: How many different answer per question
 ##########################################################
 unique.answers <- query.from.file('sql/unique_answers.sql')
+unique.answers[, c.rate := C_correct/C_total]
+unique.answers[, nc.rate:= NC_correct/NC_total]
 #unique.answers.flat <- unique.answers[, .(atom=c(atom, atom), question=c(question,question), qid=c(c_id, nc_id+1), type=.("C", "NC"), unique=c(C_unique, NC_unique), correct=c(C_correct, NC_correct), total=c(C_total, NC_total))]
 unique.answers.c <-  unique.answers[, .(atom, qid=c_id,  type="C",  unique=C_unique,  correct=C_correct,  total= C_total)]
 unique.answers.nc <- unique.answers[, .(atom, qid=nc_id, type="NC", unique=NC_unique, correct=NC_correct, total=NC_total)]
@@ -285,18 +287,24 @@ expert.line.rates <- cbind(1, expert.rates)
 experience.rates <- rbind(novice.line.rates, expert.line.rates)
 experience.slopes <- expert.rates - novice.rates
 
+all.qids[which.max(experience.slopes)]
+all.qids[which.min(experience.slopes)]
+sum(experience.slopes < 0)
+
+
+
 #cols <- set3
 experience.slopes.magnitude <- range01(experience.slopes - mean(experience.slopes))
 bo.ramp <- colorRampPalette(c("#1181F1", "#C101F1"))
 color.steps <- 20
 slope.cols <- bo.ramp(color.steps)[cut(experience.slopes.magnitude, breaks=color.steps)]
 slope.cols <- mapply(function(col, mag) add.alpha(col, alpha=mag), slope.cols, .1+(abs(1.8*(experience.slopes.magnitude-.5)))**2.5)
-plot(experience.rates, main="Qustion Correctness by Subject Ability", ylab="Question Correctness", xaxt='n')
+
+pdf("img/snippet_correctness_by_subject_ability.pdf", width = 4, height = 7)
+plot(experience.rates, main="Question Correctness\nby Subject Ability", ylab="Question Correctness", xaxt='n')
 segments(0, novice.rates, 1, expert.rates, col=slope.cols, lwd=4)
-#axis(2, at=seq(0,1,length.out=length(novice.rates)), labels=novice.rates, cex.axis=0.7, las=1)
-#axis(4, at=seq(0,1,length.out=length(expert.rates)), labels=expert.rates, cex.axis=0.7, las=1)
 axis(1, at=c(0, 1), labels=c("Low Ability", "High Ability"))
-#lines(novice.line.rates, expert.line.rates, type='l')
+dev.off()
 
 
 #########################################################
@@ -360,4 +368,18 @@ userDT[, .(last.c.mean = mean(last.c.total.mon), last.c.med = median(last.c.tota
 
 
 t.test(userDT[experience=="novice"]$last.c.total.mon, userDT[experience=="expert"]$last.c.total.mon)
+
+#########################################################
+#               User Performance
+#########################################################
+
+pdf("img/snippet_subject_performance_c_vs_nc_questions.pdf", width = 5, height = 5.5)
+# k <- kde2d(unique.answers$c.rate, unique.answers$nc.rate, n=200, lims=c(0,1, 0,1), h=.3)
+# img <- image(k, col=rf(32))
+# grid()
+plot(unique.answers$c.rate, unique.answers$nc.rate, xlim=c(0,1), ylim=c(0,1), xlab="", ylab="")
+title(main="Subject performance on\nObfuscated vs Transformed snippets", xlab = "Obfuscated correct rate", ylab = "Transformed correct rate")
+points(unique.answers$c.rate, unique.answers$nc.rate, pch=16, bg="black", col=rgb(.2,.2,.2,.8))#'#404040F0')
+abline(0,1,lty=3)
+dev.off()
        
