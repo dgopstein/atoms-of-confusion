@@ -165,7 +165,9 @@ q.rate <- rbind(q.rate, list("all NC", all.correctness[confusing==FALSE]$correct
 #colnames(q.rate) <- null
 #q.rate$qtype <- c("", "", "", "", "", "", "", "", "", "")
 
-q.correctness.labels <- paste0(c("Q1\n", "Q2\n", "Q3\n", "Q4\n", "All\n"), sapply(c(a.v.b, c.v.d, e.v.f, g.v.h, all.q.p.value), function(x) sprintf("p: %0.4f", x)))
+q.correctness.labels <- paste0(c("Q1\n", "Q2\n", "Q3\n", "Q4\n", "All\n"),
+                               sapply(c(a.v.b, c.v.d, e.v.f, g.v.h, all.q.p.value),
+                                      function(x) ifelse(x >= 0.0001, sprintf("p: %0.4f", x), sprintf("p: %0.2e", x))))
 
 
 pdf("img/average_score_per_question.pdf", width = 9, height = 8)

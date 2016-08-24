@@ -2,6 +2,7 @@ library(DBI)
 library(data.table)
 library(xtable)
 library(MASS)
+library(gplots)
 library(RColorBrewer)
 rf <- colorRampPalette(rev(brewer.pal(11,'Spectral')))
 r <- rf(32)
@@ -287,6 +288,12 @@ expert.line.rates <- cbind(1, expert.rates)
 experience.rates <- rbind(novice.line.rates, expert.line.rates)
 experience.slopes <- expert.rates - novice.rates
 
+exp.order <- order(experience.slopes)
+experience.slopes <- experience.slopes[exp.order]
+novice.rates <- novice.rates[exp.order]
+expert.rates <- expert.rates[exp.order]
+
+
 all.qids[which.max(experience.slopes)]
 all.qids[which.min(experience.slopes)]
 sum(experience.slopes < 0)
@@ -300,9 +307,11 @@ color.steps <- 20
 slope.cols <- bo.ramp(color.steps)[cut(experience.slopes.magnitude, breaks=color.steps)]
 slope.cols <- mapply(function(col, mag) add.alpha(col, alpha=mag), slope.cols, .1+(abs(1.8*(experience.slopes.magnitude-.5)))**2.5)
 
-pdf("img/snippet_correctness_by_subject_ability.pdf", width = 4, height = 7)
+
+pdf("img/snippet_correctness_by_subject_ability.pdf", width = 4, height = 5)
+par(mar=c(2.5, 4, 3, 2))
 plot(experience.rates, main="Question Correctness\nby Subject Ability", ylab="Question Correctness", xaxt='n')
-segments(0, novice.rates, 1, expert.rates, col=slope.cols, lwd=4)
+segments(0, (novice.rates), 1, (expert.rates), col=(slope.cols), lwd=4)
 axis(1, at=c(0, 1), labels=c("Low Ability", "High Ability"))
 dev.off()
 
@@ -374,12 +383,49 @@ t.test(userDT[experience=="novice"]$last.c.total.mon, userDT[experience=="expert
 #########################################################
 
 pdf("img/snippet_subject_performance_c_vs_nc_questions.pdf", width = 5, height = 5.5)
-# k <- kde2d(unique.answers$c.rate, unique.answers$nc.rate, n=200, lims=c(0,1, 0,1), h=.3)
-# img <- image(k, col=rf(32))
-# grid()
 plot(unique.answers$c.rate, unique.answers$nc.rate, xlim=c(0,1), ylim=c(0,1), xlab="", ylab="")
-title(main="Subject performance on\nObfuscated vs Transformed snippets", xlab = "Obfuscated correct rate", ylab = "Transformed correct rate")
+title(main="Subject performance on\nAtom candidate vs Transformed snippets", xlab = "Atom candidate correct rate", ylab = "Transformed correct rate")
 points(unique.answers$c.rate, unique.answers$nc.rate, pch=16, bg="black", col=rgb(.2,.2,.2,.8))#'#404040F0')
 abline(0,1,lty=3)
 dev.off()
        
+#########################################################
+#              Question correlation matrix
+#########################################################
+
+results.correct.mat <- results.by.user.mat
+results.correct.mat[is.na(results.correct.mat)] <- 0
+correct.mat <- t(results.correct.mat) %*% results.correct.mat
+
+cor(results.by.user.mat, results.by.user.mat, use="pairwise.complete.obs")[1:10, 1:10]
+cor(results.by.user.mat[1,], results.by.user.mat[2,], use="pairwise.complete.obs")
+cor(results.by.user.mat[1,], results.by.user.mat[2,], use="pairwise.complete.obs")
+
+unique.answers[nc_id==2]
+
+cor(results.by.user.mat[,2], results.by.user.mat[,3], use="pairwise.complete.obs")
+cor.mat <- apply(results.by.user.mat, 2, function(x)
+             apply(results.by.user.mat, 2, function(y)
+               cor(x, y, use="pairwise.complete.obs")))
+cor.mat[1:10, 1:10]
+cor.mat[is.na(cor.mat)] <- 0
+colnames(cor.mat) <- all.qids
+rownames(cor.mat) <- all.qids
+heatmap(cor.mat, scale="none")
+
+results.by.user.mat[1:10, 1:10]
+
+#answered.mat <- sqrt(crossprod(t(colSums(results.correct.mat)), t(colSums(results.correct.mat))))
+answered.mat <- colSums(results.correct.mat)
+answered.mat[1:10, 1:10]
+cond.prob.mat <- (correct.mat / answered.mat)
+cond.prob.mat[1:10, 1:10]
+
+colnames(cond.prob.mat) <- all.qids
+rownames(cond.prob.mat) <- all.qids
+heatmap(cond.prob.mat, scale="none")
+which(cond.prob.mat > 0.98 & cond.prob.mat < 1)
+cond.prob.mat[137]
+
+
+
