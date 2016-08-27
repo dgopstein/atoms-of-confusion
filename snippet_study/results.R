@@ -8,7 +8,12 @@ rf <- colorRampPalette(rev(brewer.pal(11,'Spectral')))
 r <- rf(32)
 set2 <- colorRampPalette(brewer.pal(8,'Set2'))(8)
 set3 <- colorRampPalette(brewer.pal(12,'Set3'))(12)
+set33 <- brewer.pal(3,'Set3')
 source("stats/durkalski.R")
+
+lattice.orange <- "#FFE5CC"
+lattice.green <- "#CCFFCC"
+
 
 par.orig <- par()
 
@@ -324,17 +329,29 @@ sum(experience.slopes < 0)
 
 #cols <- set3
 experience.slopes.magnitude <- range01(experience.slopes - mean(experience.slopes))
-bo.ramp <- colorRampPalette(c("#1181F1", "#C101F1"))
+#bo.ramp <- colorRampPalette(c("#1181F1", "#C101F1"))
+bo.ramp <- colorRampPalette(set33)
 color.steps <- 20
 slope.cols <- bo.ramp(color.steps)[cut(experience.slopes.magnitude, breaks=color.steps)]
-slope.cols <- mapply(function(col, mag) add.alpha(col, alpha=mag), slope.cols, .1+(abs(1.8*(experience.slopes.magnitude-.5)))**2.5)
+slope.cols <- mapply(function(col, mag) add.alpha(col, alpha=mag), slope.cols, .2+(abs(1.0*(experience.slopes.magnitude-.2)))**1.0)
+# color.pivot <- function(x) {
+#   idx <- which(x == experience.slopes.magnitude)
+#   len <- length(experience.slopes.magnitude)
+#   n <- 5
+#   ifelse(idx <= n || idx >= len - n, color3, color2)
+# }
+# slope.cols <- sapply(experience.slopes.magnitude, color.pivot)
 
-
+len.cols <- length(experience.slopes.magnitude)
+n.highlight <- 5
 pdf("img/snippet_correctness_by_subject_ability.pdf", width = 4, height = 5)
 par(mar=c(2.5, 4, 3, 2))
 plot(experience.rates, main="Question Correctness\nby Subject Ability", ylab="Question Correctness", xaxt='n')
 segments(0, (novice.rates), 1, (expert.rates), col=(slope.cols), lwd=4)
-axis(1, at=c(0, 1), labels=c("Low Ability", "High Ability"))
+segments(0, (novice.rates)[1:n.highlight], 1, (expert.rates)[1:n.highlight], col=(slope.cols), lwd=4)
+points(experience.rates)
+#segments(0, (novice.rates)[len.cols - n.highlight : len.cols], 1, (expert.rates)[len.cols - n.highlight : len.cols], col=(slope.cols[len.cols - n.highlight : len.cols]), lwd=4)
+axis(1, at=c(0, 1), labels=c("Low\nperforming", "High\nperforming"), tick=FALSE)
 dev.off()
 
 # novice/expert scatter plot

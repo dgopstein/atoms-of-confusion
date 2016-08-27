@@ -8,6 +8,8 @@ library(RColorBrewer)
 rf <- colorRampPalette(rev(brewer.pal(11,'Spectral')))
 set2 <- colorRampPalette(brewer.pal(8,'Set2'))(8)
 set3 <- colorRampPalette(brewer.pal(12,'Set3'))(12)
+set33 <- brewer.pal(3,'Set3')
+set33.ramp <- colorRampPalette(set3)(12)
 library(grDevices)
 #$$$$
 library(lattice)
@@ -17,6 +19,7 @@ q.types <- c('a', 'b', 'c', 'd', 'e', 'f', 'g', 'h')
 q.cols <- c('A', 'B', 'C', 'D', 'E', 'F', 'G', 'H')
 c.types <- c('a', 'c', 'e', 'g')
 nc.types <- c('b', 'd', 'f', 'h')
+
 
 q.checks <- as.integer(c(17, 17, 30, 30, 34, 34, 14, 14))
 names(q.checks) <- q.types
@@ -161,6 +164,7 @@ gradeDT[order(qtype), mean(rate), by=qtype]
 
 # Correctness of all C vs all NC
 all.correctness <- gradeDT[, .(correctness = mean(rate)), by=confusing]
+all.difference <- (all.correctness[confusing==TRUE]-all.correctness[confusing==FALSE])$correctness
 
 # p-value for all C vs all NC
 all.q.p.value <- t.test(gradeDT[confusing==TRUE]$rate, gradeDT[confusing==FALSE]$rate, alternative="less")$p.value
@@ -178,11 +182,12 @@ q.correctness.labels <- paste0(c("Q1\n", "Q2\n", "Q3\n", "Q4\n", "All\n"),
 
 pdf("img/average_score_per_question.pdf", width = 9, height = 8)
 #https://cran.r-project.org/web/packages/lattice/lattice.pdf
-bar.colors <- set3[c(5, 6)]
+#bar.colors <- set3[c(5, 6)]
+bar.colors <- set33[c(3,2)]
 barchart(correctness~qtype,data=q.rate,groups=confusing, main='Average Score by Question Type', 
          ylab = "Correctness Rate", xlab=list(label = q.correctness.labels, cex = 0.8), scales=list(x=list(draw=FALSE)), 
          par.settings=list(fontsize = list(text = 24), superpose.polygon = list(col = bar.colors), par.main.text = list(just=c(.45, 0))),
-         auto.key=list(text=rev(c("Obfuscated", "Transformed")), height = 6, size = 1, padding.text = -2, columns = 2,
+         auto.key=list(text=rev(c("Obfuscated", "Clarified")), height = 6, size = 1, padding.text = -2, columns = 2,
                        reverse.rows = TRUE, between=.5, between.columns=0.8, width=10, space="top", cex = 0.8))
 dev.off()
 
@@ -380,7 +385,8 @@ subjectDT[,n.lang:=1+str_count(Languages, ","),]
 # points(subjectDT[!is.na(Age)]$Age, subjectDT[!is.na(Age)]$rate)
 
 
-par(mfrow=c(2,7))
+#par(mfrow=c(2,7))
+#par(mfrow=c(1,1))
 
 plot(rate ~ ProgrammingYears, data=subjectDT)
 plot(rate ~ CYears, data=subjectDT)
@@ -403,6 +409,7 @@ plot(ability ~ Age, data=subjectDT)
 #             Combined bar chart
 #######################################################
 
+require(ggplot2); require(gridExtra); require(grid)
 
 resultsDT.flat[!gave.up&nchar(output)==1&output!="X", .(q, output, confusing)]
 
@@ -418,22 +425,24 @@ totally.correct <- gradeDT[, .(val=as.integer(rate==1)/1), by=confusing]
 
 pvc <- function(dt, alt) sprintf("%0.4f", t.test(val ~ confusing, data=dt, alternative=alt)$p.value)
 mean.dt <- function(dt, name, alt) dt[,.(val=mean(val), label=paste(name, "\np=", pvc(dt, alt), sep="")), by=confusing]
-give.ups.mean     <-    mean.dt(give.ups, "Give Ups", "less")
-label.faults.mean <-    mean.dt(label.faults, "Control Flow Errors", "less")
-points.answered.mean <- mean.dt(points.answered, "Points Answered", "greater")
-totally.correct.mean <- mean.dt(totally.correct, "Totally Correct", "greater")
+give.ups.mean     <-    mean.dt(give.ups, "\nGive Ups", "less")
+label.faults.mean <-    mean.dt(label.faults, "Control Flow\nErrors", "less")
+points.answered.mean <- mean.dt(points.answered, "Points\nAnswered", "greater")
+totally.correct.mean <- mean.dt(totally.correct, "Totally\nCorrect", "greater")
 
 combined.bar.data.bad <- rbind(give.ups.mean, label.faults.mean)
 combined.bar.data.good <- rbind(points.answered.mean, totally.correct.mean)  
 
-plot.bad  <- barchart(val ~ label, data=combined.bar.data.bad,  groups=rev(confusing), main="Failures",  ylab="Rate")
-plot.good <- barchart(val ~ label, data=combined.bar.data.good, groups=rev(confusing), main="Successes", ylab="Rate")
+plot.bad  <- barchart(val ~ label, data=combined.bar.data.bad,  groups=rev(confusing), main="Failures",  ylab="Rate", col=set33[c(2,3)])
+plot.good <- barchart(val ~ label, data=combined.bar.data.good, groups=rev(confusing), main="Successes", ylab="Rate", col=set33[c(2,3)])
+
 
 plot.bad
 plot.good
 
-pdf("img/program_study_good_bad.pdf", width = 7, height = 6)
-grid.arrange(plot.bad, plot.good, draw.key(simpleKey(c("Obfuscated", "Transformed"))), ncol=2, heights=c(10, 1))
+pdf("img/program_study_good_bad.pdf", width = 6, height = 5)
+lgnd <- legend(1, 2, legend=c("a", "b"), fill=attr(set33, "palette"), cex=0.6, bty="n")
+grid.arrange(plot.bad, plot.good, ncol=2, heights=c(10, 1))
 dev.off()
 
 
