@@ -29,11 +29,6 @@ query.from.file <- function(filename) query.from.string(paste(readLines(filename
 clustRes <- query.from.file('sql/clustered_contingency.sql')
 cnts <- data.table(clustRes)
 
-# Cleaning
-cnts <- cnts[cnts[,!atom %in% c("remove_INDENTATION_atom", "Indentation")]] # Remove old atom types
-cnts[, atomName := unlist(name.conversion[atom])]
-
-usercode <- query.from.string("select * from scrubbed_usercode;")
 
 name.conversion <- list(
   "add_CONDITION_atom"            = "Implicit Predicate",
@@ -64,17 +59,30 @@ is.truthy <- function(str) ifelse(str == "T", 1, 0)
 alpha <- 0.05
 phi <- function(chi2, n) sqrt(chi2/n)
 
+
+# Cleaning
+cnts <- cnts[cnts[,!atom %in% c("remove_INDENTATION_atom", "Indentation")]] # Remove old atom types
+cnts[, atomName := unlist(name.conversion[atom])]
+
+usercode <- query.from.string("select * from scrubbed_usercode;")
+
 modified.mcnemars <- durkalski
 
 # Statistics
 durkalski.chis <- cnts[, .(chisq = modified.mcnemars(.(TT=TT, TF=TF, FT=FT, FF=FF))), by=.(atom, atomName)]
+durkalski.chis$c.rate <- cnts[, .(c.rate = sum(TT,TF)/sum(TT,TF,FT,FF)), by=.(atom, atomName)]$c.rate
+durkalski.chis$nc.rate<- cnts[,.(nc.rate = sum(TT,FT)/sum(TT,TF,FT,FF)), by=.(atom, atomName)]$nc.rate
 durkalski.chis$p.value <- lapply(durkalski.chis$chisq, function(x) pchisq(x, 1, lower.tail=FALSE))
 durkalski.chis$effect.size <- mapply(phi, durkalski.chis$chisq, cnts[,.(n=sum(TT,TF,FT,FF)), by=.(atom,atomName)]$n)
 durkalski.chis$sig <- lapply(durkalski.chis$chisq, function(x) x > qchisq(1-alpha, 1))
 
+# amount of confusion removed in most confusing atom
+durkalski.chis[order(-effect.size), (nc.rate - c.rate)][1]
+
 snippet.results <- durkalski.chis[, .(
   "Atom" = atomName,
   "Effect" = sprintf("%3.2f", effect.size),
+  "Rate Change" = nc.rate - c.rate,
   "p-value"= paste(ifelse(p.value < alpha, '\\textbf{', "{"), sprintf(ifelse(p.value < 0.01, "%0.2e", "%0.3f"), p.value), "}", sep='')
   # ,"Accept"= ifelse(p.value<alpha,"T","F")
 )]
@@ -131,6 +139,8 @@ nrow(usercode[CodeID==106&Correct=="T", .(Answer)])
 unique.answers.flat[unique==1, .N, by=type] # Distribution by C/NC
 usercode[CodeID==101, .N, by=.(CodeID, Correct)] # verification
 
+usercode[CodeID==107]
+
 # Number of unique responses on confusing/non-confusing versions of code
 plot(NC_unique ~ C_unique, unique.answers, ylim=c(0,22), xlim=c(0,22), main="Number of unique responses on confusing/non-confusing")
 
@@ -139,6 +149,8 @@ plot(unique ~ rate, unique.answers.flat[type=="C"], xlim=c(0, 1), ylim=c(0,22), 
 plot(unique ~ rate, unique.answers.flat[type=="NC"], xlim=c(0, 1), ylim=c(0,22), main="Unique responses vs. correctness - Non-Confusing")
 
 
+# Most common highly-diverse answer
+usercode[Tag=='replace_Comma_Operator', .N, by=.(Answer, CodeID)][order(CodeID, N)]
 
 #########################################################
 #           Clustering People
@@ -226,6 +238,16 @@ colnames(experts.mat) <- all.qids
 novices.mat <- novices.mat[,order(colSums(novices.mat, na.rm=TRUE))]
 experts.mat <- experts.mat[,order(colSums(experts.mat, na.rm=TRUE))]
 
+novices.rate <- rowSums(novices.mat, na.rm=TRUE) / ncol(novices.mat)
+experts.rate <- rowSums(experts.mat, na.rm=TRUE) / ncol(experts.mat)
+
+novices.rate[order(novices.rate)]
+experts.rate[order(experts.rate)]
+
+# Average correctness for novices and experts
+mean(novices.rate)
+mean(experts.rate)
+
 novice.ids <- as.numeric(rownames(novices.mat))
 expert.ids <- as.numeric(rownames(experts.mat))
 
@@ -271,7 +293,7 @@ axis(2, at=seq(0,1,length.out=length(c.qids)), labels=novice.nc.orders, cex.axis
 axis(4, at=seq(0,1,length.out=length(nc.qids)), labels=expert.nc.orders, cex.axis=0.7, las=1)
 
 # Line segment plot by correctness
-# usercode$confusing <- as.logical(usercode$CodeID %% 2)
+usercode$confusing <- as.logical(usercode$CodeID %% 2)
 # usercode$experience[usercode$UserID %in% novice.ids] <- "novice"
 # usercode$experience[usercode$UserID %in% expert.ids] <- "expert"
 # usercode[, by=list(experience, confusing)]
@@ -315,6 +337,12 @@ segments(0, (novice.rates), 1, (expert.rates), col=(slope.cols), lwd=4)
 axis(1, at=c(0, 1), labels=c("Low Ability", "High Ability"))
 dev.off()
 
+# novice/expert scatter plot
+pdf("img/snippet_question_by_ability.pdf", width = 5, height = 5)
+par(par.orig)
+plot(novice.rates,expert.rates, xlim=c(0,1), ylim=c(0,1), xlab="Low-performer correctness", ylab="High-performer correctness")
+abline(0,1,lty=3)
+dev.off()
 
 #########################################################
 #               User Demographics
@@ -427,5 +455,11 @@ heatmap(cond.prob.mat, scale="none")
 which(cond.prob.mat > 0.98 & cond.prob.mat < 1)
 cond.prob.mat[137]
 
+###############################################################################
+#       How many errors is the top quartile of atoms responsible for
+###############################################################################
 
-
+lower.usercode <- usercode[!(Tag %in% durkalski.chis[order(-effect.size)][1:5]$atom)]
+all.n.incorrect   <- sum(      usercode[confusing == TRUE]$Correct == 'F')
+lower.n.incorrect <- sum(lower.usercode[confusing == TRUE]$Correct == 'F')
+1 - (lower.n.incorrect / all.n.incorrect)

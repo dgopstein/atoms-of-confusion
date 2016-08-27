@@ -32,7 +32,6 @@ f.t <- function(a, a_total, b, b_total) fisher.test(rbind(c(a,a_total-a), c(b,b_
 
 resultsDT <- data.table(read.csv("csv/results.csv", header = TRUE))
 
-
 assert("There are no pilot ID's in the results", !any(resultsDT$Subject %in% pilot.ids))
 
 resultsDT.flat <- resultsDT[, .(q=q.cols, Order, output=sapply(q.cols, function(chr) as.character(get(chr)))), by=Subject]
@@ -114,6 +113,13 @@ nc.sum <- scores.summed[confusing == FALSE, rate]
 
 scores.summed.subject <- scores.summed[,sum(rate)/2,by="subject"]
 #plot(c.sum, nc.sum, type='n', xlim=c(0,1), ylim=c(0,1))
+
+# participants who did better on C than NC
+better.on.c <- scores.summed.subject[c.sum > nc.sum]$subject
+resultsDT[resultsDT$Subject %in% better.on.c]$Order
+mean(scores.summed[confusing == TRUE & subject %in% better.on.c]$rate - scores.summed[confusing == FALSE & subject %in% better.on.c]$rate)
+mean(scores.summed[confusing == TRUE & !(subject %in% better.on.c)]$rate - scores.summed[confusing == FALSE & !(subject %in% better.on.c)]$rate)
+
 
 # Heatmap: http://www.r-bloggers.com/5-ways-to-do-2d-histograms-in-r/
 # Overlay image: http://stackoverflow.com/questions/12918367/in-r-how-to-plot-with-a-png-as-background
