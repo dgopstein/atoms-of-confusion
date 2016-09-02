@@ -3,7 +3,7 @@
 
 select
   uc.userid as subject,
-  uc.codeid as question,
+  t.tag as atom,
   uc.correct  = 'T' as control,
   uc2.correct = 'T' as treatment
 from scrubbed_usercode uc
@@ -12,6 +12,6 @@ join scrubbed_usercode uc2 on uc.userid = uc2.userid and uc2.codeid = c.pair
 join codetags ct on ct.codeid = c.id
 join tag t on ct.tagid = t.id
 where
-uc.userid < 20 AND uc.codeid < 10 AND
+uc.userid < 20 AND uc.codeid < 20 AND
 c.type = 'Confusing';
 
