@@ -334,8 +334,8 @@ all.qids[which.max(experience.slopes)]
 all.qids[which.min(experience.slopes)]
 sum(experience.slopes < 0)
 
-all.qids[novice.ids]
-all.qids[expert.ids]
+sort(unique(usercode$UserID))[novice.ids]
+sort(unique(usercode$UserID))[expert.ids]
 
 
 #cols <- set3
