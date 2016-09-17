@@ -84,15 +84,24 @@ durkalski.chis$sig <- lapply(durkalski.chis$chisq, function(x) x > qchisq(1-alph
 # amount of confusion removed in most confusing atom
 durkalski.chis[order(-effect.size), (nc.rate - c.rate)][1]
 
-snippet.results <- durkalski.chis[, .(
+snippet.results <- durkalski.chis[order(-effect.size), .(
   "Atom" = atomName,
   "Effect" = sprintf("%3.2f", effect.size),
   "Rate Change" = nc.rate - c.rate,
-  "p-value"= paste(ifelse(p.value < alpha, '\\textbf{', "{"), sprintf(ifelse(p.value < 0.01, "%0.2e", "%0.3f"), p.value), "}", sep='')
-  # ,"Accept"= ifelse(p.value<alpha,"T","F")
+  "p-value"= p.value
 )]
+
+p.value <- snippet.results$"p-value"
+snippet.results.latex <- snippet.results
+snippet.results.latex$"p-value" <- paste(ifelse(p.value < alpha, '\\textbf{', "{"), sprintf(ifelse(p.value < 0.01, "%0.2e", "%0.3f"), p.value), "}", sep='')
+
+snippet.results.html <- snippet.results
+snippet.results.html$"p-value" <- paste(ifelse(p.value < alpha, '<b>', ""), sprintf(ifelse(p.value < 0.01, "%0.2e", "%0.3f"), p.value), ifelse(p.value < alpha, '</b>', ""), sep='')
+
 setorder(snippet.results, -"Effect")
-print(xtable(snippet.results), include.rownames=FALSE, sanitize.text.function=identity)
+print(xtable(snippet.results.latex), include.rownames=FALSE, sanitize.text.function=identity)
+print(xtable(snippet.results.html), include.rownames=FALSE, sanitize.text.function=identity, type="html")
+
 # ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 #   Atoms figure for paper
 # ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -325,6 +334,8 @@ all.qids[which.max(experience.slopes)]
 all.qids[which.min(experience.slopes)]
 sum(experience.slopes < 0)
 
+all.qids[novice.ids]
+all.qids[expert.ids]
 
 
 #cols <- set3
