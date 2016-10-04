@@ -62,10 +62,12 @@ def label_norm_fault(flt)
     ['g', '2'] => 'b',
     ['g', '3'] => 'b',
     ['g', '4'] => 'b',
+    ['g', 'b'] => 'c',
     ['h', '1'] => 'b',
     ['h', '2'] => 'b',
     ['h', '3'] => 'b',
     ['h', '4'] => 'b',
+    ['h', 'b'] => 'c',
   }
   new_label = label_map[flt.values_at(0,2)]
   if new_label

@@ -64,7 +64,7 @@ int F1(int V1, int V2, int V3) {
     i_param_fault('a', 1, &V1, &in_V1);
     i_param_fault('a', 2, &V2, &in_V2);
     i_param_fault('a', 3, &V3, &in_V3);
-    d_param_fault('a', 3, &V4, &in_V4);
+    d_param_fault('a', 4, &V4, &in_V4);
   }
 
   //printf("a: %d/%d\n", n_correct, n_points);
@@ -143,8 +143,8 @@ int F1(int V1, int V2, int V3) {
     i_param_fault('c', 1, &V1, &in_V1);
     i_param_fault('c', 2, &V2, &in_V2);
     i_param_fault('c', 3, &V3, &in_V3);
-    d_param_fault('c', 3, &V4, &in_V4);
-    i_param_fault('c', 4, &V7, &in_V7);
+    d_param_fault('c', 4, &V4, &in_V4);
+    i_param_fault('c', 5, &V7, &in_V7);
   }
 
   //printf("a: %d/%d\n", n_correct, n_points);
