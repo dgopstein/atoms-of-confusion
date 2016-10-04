@@ -1,5 +1,5 @@
-The subdirectories in this directories each correspond to a winner of the IOCCC.
-Each of those winners in turn corresponds to one question of the [Atom Impact Experiment](atomsofconfusion.com/program_study).
+The subdirectories in this directory each correspond to a winner of the IOCCC.
+Each of those winners in turn corresponds to one question of the [Atom Impact Experiment](http://atomsofconfusion.com/program_study).
 The names of the files in the impact experiment correspond to the obfuscated and transformed versions of each of these winners in order of year:
 
  * `a.c` - `1984-anonymous/confusing.c` - obfuscated
