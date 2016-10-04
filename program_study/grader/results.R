@@ -29,7 +29,7 @@ q.src.lines <- sapply(q.src.linelist, "[[", 1)
 q.src.charlist <- list('a'=318,'b'=356,'c'=356,'d'=957,'e'=580,'f'=641,'g'=424,'h'=1291) # number of chars in each .c file
 q.src.chars <- sapply(q.src.charlist, "[[", 1)
 
-pilot.ids <- c(3782, 1161, 1224, 3270, 9351, 6490, 4747, 6224, 3881, 6033, 7400, 5125)
+pilot.ids <- c(1161, 1224, 3270, 3782, 3881, 4747, 5125, 6033, 6224, 6490, 7400, 9351)
 
 f.t <- function(a, a_total, b, b_total) fisher.test(rbind(c(a,a_total-a), c(b,b_total-b)), alternative="greater")
 
