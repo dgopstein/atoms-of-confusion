@@ -19,7 +19,7 @@ The first line shows what the program says should happen the second line shows w
 
 The grader propogates all wrong values so the subject isn't docked repeatedly for a single mistake. In this example the value of `1234` will be used by the grader in all subsequent calculations involving that variable.
 
-When the grader is finished, it omits a summary of every parameter check and fault (error). For the above example, it looks like this:
+When the grader is finished, it omits a summary of every parameter check and fault (error). It outputs results formatted as `OUTCOME: attribute,line-label,parameter-position` For the above example, it looks like this:
 
     CHECK: label,a
     CHECK: param,a,1
