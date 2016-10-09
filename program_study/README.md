@@ -6,6 +6,32 @@ In this study we showed 2 variations (one containing atoms, one with atoms remov
 
 The 8 files `[a-h].c` were the text of the program study. All odd-lettered programs `[a, c, e, g]` contain atoms, and all even-lettered programs `[b, d, f, h]` have had their atoms removed.
 
+### Graders - `grader/[ab, cd, ef, gh].c`
+
+Since each pair of C/NC (confusing/nonconfusing) program has (mostly) the same output, each pair was graded using a single combined grader.
+Each grader takes as input the subject-generated output of the program. The grader then compares what the subject thought the output should be against what is actually calculated by the computer. At each print statement the program outputs two lines showing each result, first the real output, then what the subject thought in a format like this:
+
+    a-computed: 0 zy 1
+    a-inputted: 1234 zy 1
+    3/4
+
+The first line shows what the program says should happen the second line shows what the programmer believes should happen. The next line scores the programmer on how many of the parameters (including the line label) were answered correctly. Note the error in the first parameter, the computer said the output should be `0`, the subject said `1234`, so the score is docked one point to 3 out of 4.
+
+The grader propogates all wrong values so the subject isn't docked repeatedly for a single mistake. In this example the value of `1234` will be used by the grader in all subsequent calculations involving that variable.
+
+When the grader is finished, it omits a summary of every parameter check and fault (error). For the above example, it looks like this:
+
+    CHECK: label,a
+    CHECK: param,a,1
+    FAULT: param,a,1
+    CHECK: param,a,2
+    CHECK: param,a,3
+
+It is often useful to grade every response, all at once. This can be down as follows:
+
+    grader/run_all.rb grader/csv/results.csv
+
+
 ### Results - `grader/csv/results.csv`
 
 The transcribed results from each subject. The data is stored as a CSV with the following columns:
@@ -35,7 +61,7 @@ Each element of each line of output from each trace was scored, counted, and gro
 * **nc_faults**: The number of errors on this element in programs without atoms.
 * **nc_checks**: How many times this element was graded (faults + correct) in programs without atoms.
 
-### Grades
+### Grades - `grader/csv/grades.csv`
 
 The score each participant received on each question they answered
 
