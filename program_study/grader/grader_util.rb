@@ -1,10 +1,12 @@
+$cwd = File.expand_path File.dirname(__FILE__) unless $cwd 
+
 require 'active_support/core_ext/hash/indifferent_access'
-require './unify_output.rb'
+require "#$cwd/unify_output.rb"
 require 'pp'
 
 $prog_names = %w[ab cd ef gh]
 
-$bins = $prog_names.map{|name| [name, "bin/#{name}"]}.to_h
+$bins = $prog_names.map{|name| [name, "#$cwd/bin/#{name}"]}.to_h
 
 $pilot_ids = [3782, 1161, 1224, 3270, 9351, 6490, 4747, 6224, 3881, 6033]
 
@@ -14,7 +16,7 @@ end
 
 def compile_graders!
   $prog_names.each do |prog|
-    compilation = system("gcc #{prog}.c -o bin/#{prog}")
+    compilation = system("gcc #$cwd/#{prog}.c -o #$cwd/bin/#{prog}")
     if !compilation
       puts "program '#{prog}' compiled with non-zero exit code #{compilation}!"
       exit compilation

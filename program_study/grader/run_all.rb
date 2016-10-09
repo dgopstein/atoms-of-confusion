@@ -2,7 +2,9 @@
 
 # Run the grader scripts on every user answers just to see if they run without error, it also outputs all the grader scripts' output
 
-require './grader_util.rb'
+$cwd = File.expand_path File.dirname(__FILE__)
+
+require "#$cwd/grader_util.rb"
 
 require 'csv' 
 require 'open3'
