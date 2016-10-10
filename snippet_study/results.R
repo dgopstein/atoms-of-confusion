@@ -1,9 +1,11 @@
 library(DBI)
+library(RSQLite)
 library(data.table)
 library(xtable)
 library(MASS)
 library(gplots)
 library(RColorBrewer)
+library(ggplot2)
 rf <- colorRampPalette(rev(brewer.pal(11,'Spectral')))
 r <- rf(32)
 set2 <- colorRampPalette(brewer.pal(8,'Set2'))(8)
@@ -80,6 +82,12 @@ durkalski.chis$nc.rate<- cnts[,.(nc.rate = sum(TT,FT)/sum(TT,TF,FT,FF)), by=.(at
 durkalski.chis$p.value <- lapply(durkalski.chis$chisq, function(x) pchisq(x, 1, lower.tail=FALSE))
 durkalski.chis$effect.size <- mapply(phi, durkalski.chis$chisq, cnts[,.(n=sum(TT,TF,FT,FF)), by=.(atom,atomName)]$n)
 durkalski.chis$sig <- lapply(durkalski.chis$chisq, function(x) x > qchisq(1-alpha, 1))
+
+# plot density of effect.sizes
+hist(durkalski.chis$effect.size, breaks=4, prob=TRUE, xlim=c(0, 1), ylab = "Probability of occurence", xlab="Effect Size")
+lines(density(durkalski.chis$effect.size, bw=0.12), col='red', lwd=3)
+lines(density(rbeta(10000, 3, 20), bw=0.2), col='blue', lwd=3)
+
 
 # amount of confusion removed in most confusing atom
 durkalski.chis[order(-effect.size), (nc.rate - c.rate)][1]
