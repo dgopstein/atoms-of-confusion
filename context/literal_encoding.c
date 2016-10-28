@@ -70,6 +70,18 @@ void arithmetic_NC() {
   printf("%d\n", V3);
 }
 
+void arithmetic_novar_C() {
+  int V1 = 12 + 013;
+
+  printf("%d\n", V1);
+}
+
+void arithmetic_novar_NC() {
+  int V3 = 12 + 11;
+
+  printf("%d\n", V3);
+}
+
 int main() {
   toplevel_C();
   toplevel_NC();
@@ -78,4 +90,6 @@ int main() {
 
   arithmetic_C();
   arithmetic_NC();
+  arithmetic_novar_C();
+  arithmetic_novar_NC();
 }
