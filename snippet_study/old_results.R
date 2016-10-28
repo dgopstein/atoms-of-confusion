@@ -123,7 +123,7 @@ processAtom <- function(atomName) {
     "replace_Ternary_Operator"      = "Conditional Operator",
     "replace_Arithmetic_As_Logic"   = "Arithmetic as Logic",
     "replace_Comma_Operator"        = "Comma Operator",
-    "Constant Assignment"           = "Side-Effecting Expression",
+    "Constant Assignment"           = "Assignment as Value",
     "Logic as Control Flow"         = "Logic as Control Flow",
     "Re-purposed variables"         = "Repurposed Variables",
     "Swapped subscripts"            = "Reversed Subscripts",
