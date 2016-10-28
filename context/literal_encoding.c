@@ -1,4 +1,6 @@
-int toplevel_C() {
+#include <stdio.h>
+
+void toplevel_C() {
   int V1 = 12;
   int V2 = 013;
   int V3;
@@ -12,7 +14,7 @@ int toplevel_C() {
   printf("%d\n", V3);
 }
 
-int toplevel_NC() {
+void toplevel_NC() {
   int V1 = 12;
   int V2 = 11;
   int V3;
@@ -26,7 +28,7 @@ int toplevel_NC() {
   printf("%d\n", V3);
 }
 
-int predicate_C() {
+void predicate_C() {
   int V1 = 12;
   int V2;
   
@@ -39,7 +41,7 @@ int predicate_C() {
   printf("%d\n", V2);
 }
 
-int predicate_NC() {
+void predicate_NC() {
   int V1 = 12;
   int V2;
   
@@ -52,9 +54,28 @@ int predicate_NC() {
   printf("%d\n", V2);
 }
 
+void arithmetic_C() {
+  int V1 = 12;
+  int V2 = 013;
+  int V3 = V1 + V2;
+
+  printf("%d\n", V3);
+}
+
+void arithmetic_NC() {
+  int V1 = 12;
+  int V2 = 11;
+  int V3 = V1 + V2;
+
+  printf("%d\n", V3);
+}
+
 int main() {
   toplevel_C();
   toplevel_NC();
   predicate_C();
   predicate_NC();
+
+  arithmetic_C();
+  arithmetic_NC();
 }
