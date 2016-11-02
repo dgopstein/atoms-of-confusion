@@ -54,6 +54,29 @@ void predicate_NC() {
   printf("%d\n", V2);
 }
 
+void body_C() {
+  int V1 = 1;
+  int V2 = 2;
+
+  if (V1) {
+    V2 = 012;
+  }
+
+  printf("%d\n", V2);
+}
+
+void body_NC() {
+  int V1 = 1;
+  int V2 = 012;
+  int V3 = 2;
+
+  if (V1) {
+    V3 = V2;
+  }
+
+  printf("%d\n", V3);
+}
+
 void arithmetic_C() {
   int V1 = 12 + 013;
 
@@ -71,9 +94,8 @@ int main() {
   toplevel_NC();
   predicate_C();
   predicate_NC();
-
+  body_C();
+  body_NC();
   arithmetic_C();
   arithmetic_NC();
-  arithmetic_novar_C();
-  arithmetic_novar_NC();
 }
