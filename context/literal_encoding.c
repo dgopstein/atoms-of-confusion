@@ -55,28 +55,12 @@ void predicate_NC() {
 }
 
 void arithmetic_C() {
-  int V1 = 12;
-  int V2 = 013;
-  int V3 = V1 + V2;
-
-  printf("%d\n", V3);
-}
-
-void arithmetic_NC() {
-  int V1 = 12;
-  int V2 = 11;
-  int V3 = V1 + V2;
-
-  printf("%d\n", V3);
-}
-
-void arithmetic_novar_C() {
   int V1 = 12 + 013;
 
   printf("%d\n", V1);
 }
 
-void arithmetic_novar_NC() {
+void arithmetic_NC() {
   int V3 = 12 + 11;
 
   printf("%d\n", V3);
