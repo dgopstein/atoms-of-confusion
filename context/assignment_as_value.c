@@ -1,3 +1,5 @@
+#include <stdio.h>
+
 void toplevel_C() {
   int V1 = 1;
   int V2 = (V1 = 2);
