@@ -3,7 +3,7 @@
 void toplevel_C() {
   int V1 = 0
 #define M1 1
-    && 2;
+    ;
 
   printf("%d\n", M1);
 }
@@ -12,7 +12,7 @@ void toplevel_NC() {
 #define M1 1
 
   int V1 = 0
-    && 2;
+    ;
     
   printf("%d\n", M1);
 }
