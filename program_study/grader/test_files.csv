@@ -1,6 +1,7 @@
 file,binary,correct,total,comment
 a_real.txt,ab,17,17
 a_0000.txt,ab,16,17
+a_rand.txt,ab,14,17
 b_5125.txt,ab,16,17
 b_7400.txt,ab,7,9
 a_2024.txt,ab,6,9
@@ -20,7 +21,6 @@ e_7400.txt,ef,4,6
 e_5125.txt,ef,5,7,the user didn't recurse and the computer did
 e_6490.txt,ef,13,18,fully hand traced - pretty sure about this score
 e_9351.txt,ef,9,12
-e_1224.txt,ef,?,?
 g_real.txt,gh,14,14
 h_real.txt,gh,14,14
 g_7400.txt,gh,1,4
