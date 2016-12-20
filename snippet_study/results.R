@@ -499,3 +499,16 @@ lower.usercode <- usercode[!(Tag %in% durkalski.chis[order(-effect.size)][1:5]$a
 all.n.incorrect   <- sum(      usercode[confusing == TRUE]$Correct == 'F')
 lower.n.incorrect <- sum(lower.usercode[confusing == TRUE]$Correct == 'F')
 1 - (lower.n.incorrect / all.n.incorrect)
+
+# Were while-loops with assignment in the condition confusing?
+q.cont <- question.contingencies <- data.table(query.from.file('sql/question_contingency.sql'))
+q.cont.mats <- mapply(function(a,b,c,d) matrix(c(a,b,c,d), 2, 2), q.cont$TT,  q.cont$TF, q.cont$FT,q.cont$FF, SIMPLIFY = FALSE)
+mcnemarsRes <- lapply(q.cont.mats, function(x) mcnemar.test(x, correct=FALSE))
+rm(q.cont)
+question.contingencies$chisq <- sapply(mcnemarsRes, function(row) row[['statistic']])
+question.contingencies$p.value <- sapply(mcnemarsRes, function(row) row[['p.value']])
+question.contingencies[, sample := TT+TF+FT+FF]
+question.contingencies[, effect.size := phi(chisq, sample)]
+question.contingencies[, c.rate := (TT+TF)/sample]
+question.contingencies[, nc.rate := (TT+FT)/sample]
+question.contingencies
