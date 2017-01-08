@@ -14,6 +14,8 @@ library(grDevices)
 #$$$$
 library(lattice)
 library(testit)
+library(tidyr)
+
 
 q.types <- c('a', 'b', 'c', 'd', 'e', 'f', 'g', 'h')
 q.cols <- c('A', 'B', 'C', 'D', 'E', 'F', 'G', 'H')
@@ -378,6 +380,8 @@ library(stringr)
 subject.points[, ability := ifelse(rate > mean(rate), "high", "low")] # partition the subjects at the mean
 subject.points$ability <- as.factor(subject.points$ability)
 demographicDT <- data.table(read.csv("csv/confidential_demographics.csv", header = TRUE))
+demographicDT$Languages <- as.character(demographicDT$Languages)
+demographicDT$language.list <- sapply(demographicDT[, Languages], function(x) sapply(strsplit(x,", "), tolower))
 subjectDT <- merge(subject.points, demographicDT, by.x='subject', by.y='Subject')
 subjectDT[,n.lang:=1+str_count(Languages, ","),]
 
@@ -385,7 +389,7 @@ subjectDT[,n.lang:=1+str_count(Languages, ","),]
 # points(subjectDT[!is.na(Age)]$Age, subjectDT[!is.na(Age)]$rate)
 
 
-#par(mfrow=c(2,7))
+#par(mfrow=c(3,3))
 #par(mfrow=c(1,1))
 
 plot(rate ~ ProgrammingYears, data=subjectDT)
@@ -404,6 +408,34 @@ plot(ability ~ Degree, data=subjectDT)
 plot(ability ~ SelfEval, data=subjectDT)
 plot(ability ~ n.lang, data=subjectDT)
 plot(ability ~ Age, data=subjectDT)
+
+
+
+# Plot years experience vs correctness
+dev.off()
+boxplot(rate ~ SelfEval, data=subjectDT)
+
+
+# Plot years experience vs correctness
+dev.off()
+# filteredSubjectDT<-subjectDT[!is.na(CYears) & CYears != 25,][order(CYears)] # Outlier?
+filteredSubjectDT<-subjectDT[!is.na(CYears),][order(CYears)]
+y<-filteredSubjectDT$rate
+x<-filteredSubjectDT$CYears
+plot(y ~ x, main="Program Study\nC Experience vs. Performance", xlab="Years of C experience", ylab="% Correct")
+#m<-nls(y~a*x/(x+b), start=list(a=1,b=1))
+m<-nls(y~a*x^b, start=list(a=20,b=.2))
+#m<-nls(y~a*x^2+b*x, start=list(a=1,b=2))
+lines(seq(1,30,0.2),predict(m, list(x=seq(1,30,0.2))),lty=2,col="red",lwd=3)
+cor(y,predict(m))
+aq<-aq.plot(cbind(y, predict(m)))
+plot(y ~ x, col=as.factor(aq$outliers))
+
+library(MVN)
+library(mvoutlier)
+mvOutlier(subjectDT[,.(CYears, rate)])
+filteredSubjectDT[c(32,42)]
+aq.plot(subjectDT[,.(CYears, rate)], alpha=0.0000000969)
 
 #######################################################
 #             Combined bar chart
@@ -447,6 +479,17 @@ dev.off()
 
 
 
+t.test(rate ~ Gender, subjectDT) # Gender is not statistical correlated with performance
+cor.test(subjectDT$SelfEval, subjectDT$rate, method="spearman") # SelfEval is statistically significantly correlated with performance
+summary(subjectDT$Languages)
+subjectDT[,.(rate, unlist(language.list))]
 
+unnest(subjectDT, language.list)
+unstack(subjectDT, rate~language.list)
 
+language.rates <- subjectDT[,.(language = unlist(language.list)), by=rate]
+language.rates.agg <- language.rates[, .(n = .N, rate = mean(rate), sd = sd(rate)), by=language]
+language.rates <- merge(language.rates, language.rates.agg, by="language", suffixes = c("", ".mean"))
+language.rates$language <- factor(language.rates$language, language.rates.agg[order(rate)]$language) # order the languages by correctness
 
+boxplot(rate ~ language, language.rates[n > 1],  las=2, mar=c(8, 4, 20, 2))

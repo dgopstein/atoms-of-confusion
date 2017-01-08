@@ -6,6 +6,7 @@ library(MASS)
 library(gplots)
 library(RColorBrewer)
 library(ggplot2)
+
 rf <- colorRampPalette(rev(brewer.pal(11,'Spectral')))
 r <- rf(32)
 set2 <- colorRampPalette(brewer.pal(8,'Set2'))(8)
@@ -401,12 +402,29 @@ userDT <- data.table(merge(userTable, userSurvey, all.y=TRUE, by.x="Name", by.y 
 #userDT <- head(userDT, -1) # Remove column labels
 userDT$ID
 userDT <- userDT[!is.na(ID)]
-userDT[, CMonth := as.numeric(CMonth)]
-userDT[, Gender := as.numeric(Gender)]
-userDT[, ProgMonth := as.numeric(ProgMonth)]
+userDT[, CMonth := as.numeric(as.character(CMonth))]
+userDT[, Gender := as.numeric(as.character(Gender))]
+userDT[, ProgMonth := as.numeric(as.character(ProgMonth))]
 userDT$experience[which(userDT$ID %in% novice.ids)] <- "novice"
 userDT$experience[which(userDT$ID %in% expert.ids)] <- "expert"
 
+# plot experience vs performance
+# https://www.r-bloggers.com/first-steps-with-non-linear-regression-in-r/
+dev.off()
+y<-userDT[!is.na(CMonth),][order(CMonth)]$Score
+x<-userDT[!is.na(CMonth),][order(CMonth)]$CMonth
+plot(y ~ x, main="C Experience vs. Performance", xlab="Months of C experience", ylab="% Correct Code Snippets")
+#m<-nls(y~a*x/(b+x), start=list(a=1, b=1))
+m<-nls(y~a*x^b, start=list(a=20,b=.2))
+lines(x,predict(m),lty=2,col="red",lwd=3)
+cor(y,predict(m))
+
+y<-userDT[!is.na(ProgMonth),][order(ProgMonth)]$Score
+x<-userDT[!is.na(ProgMonth),][order(ProgMonth)]$ProgMonth
+plot(y ~ x, main="Programming Experience vs. Performance", xlab="Months of Programming experience", ylab="% Correct Code Snippets")
+m<-nls(y~a*x^b, start=list(a=20,b=.2))
+lines(x,predict(m),lty=2,col="red",lwd=3)
+cor(y,predict(m))
 
 # Are mean/median experience programming and with C correlated? (nope)
 userDT[,.(mean.c = mean(CMonth, na.rm=TRUE), mean.prog = mean(ProgMonth, na.rm=TRUE), med.c = median(CMonth, na.rm=TRUE), med.prog = median(ProgMonth, na.rm=TRUE)), by=experience]
