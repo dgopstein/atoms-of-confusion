@@ -380,8 +380,15 @@ library(stringr)
 subject.points[, ability := ifelse(rate > mean(rate), "high", "low")] # partition the subjects at the mean
 subject.points$ability <- as.factor(subject.points$ability)
 demographicDT <- data.table(read.csv("csv/confidential_demographics.csv", header = TRUE))
+
 demographicDT$Languages <- as.character(demographicDT$Languages)
+demographicDT$DailyLang <- as.character(demographicDT$DailyLang)
+demographicDT$FavoriteLang <- as.character(demographicDT$FavoriteLang)
+
 demographicDT$language.list <- sapply(demographicDT[, Languages], function(x) sapply(strsplit(x,", "), tolower))
+demographicDT$daily.lang.list <- sapply(demographicDT[, DailyLang], function(x) sapply(strsplit(x,", "), tolower))
+demographicDT$fav.lang.list <- sapply(demographicDT[, FavoriteLang], function(x) sapply(strsplit(x,", "), tolower))
+
 subjectDT <- merge(subject.points, demographicDT, by.x='subject', by.y='Subject')
 subjectDT[,n.lang:=1+str_count(Languages, ","),]
 
@@ -398,7 +405,8 @@ boxplot(rate ~ Gender, data=subjectDT)
 boxplot(rate ~ Degree, data=subjectDT)
 boxplot(rate ~ SelfEval, data=subjectDT)
 boxplot(rate ~ n.lang, data=subjectDT)
-boxplot(rate ~ round(Age/5), data=subjectDT)
+boxplot(rate ~ Age, data=subjectDT)
+boxplot(rate ~ round(Age/7), data=subjectDT)
 
 
 plot(ability ~ ProgrammingYears, data=subjectDT)
@@ -487,9 +495,45 @@ subjectDT[,.(rate, unlist(language.list))]
 unnest(subjectDT, language.list)
 unstack(subjectDT, rate~language.list)
 
+# Known languages as a predictor of performance
 language.rates <- subjectDT[,.(language = unlist(language.list)), by=rate]
 language.rates.agg <- language.rates[, .(n = .N, rate = mean(rate), sd = sd(rate)), by=language]
 language.rates <- merge(language.rates, language.rates.agg, by="language", suffixes = c("", ".mean"))
-language.rates$language <- factor(language.rates$language, language.rates.agg[order(rate)]$language) # order the languages by correctness
+multi.language.rates <- language.rates[n > 1]
+multi.language.rates$language <- factor(multi.language.rates$language, language.rates.agg[n>1][order(rate)]$language) # order the languages by correctness
+boxplot(rate ~ language, multi.language.rates,  las=2, mar=c(8, 4, 20, 2), main="Average Correctness by known language")
 
-boxplot(rate ~ language, language.rates[n > 1],  las=2, mar=c(8, 4, 20, 2))
+# Daily languages as a predictor of performance
+daily.lang.rates <- subjectDT[,.(language = unlist(daily.lang.list)), by=rate]
+daily.lang.rates.agg <- daily.lang.rates[, .(n = .N, rate = mean(rate), sd = sd(rate)), by=language]
+daily.lang.rates <- merge(daily.lang.rates, daily.lang.rates.agg, by="language", suffixes = c("", ".mean"))
+multi.daily.lang.rates <- daily.lang.rates[n > 1]
+multi.daily.lang.rates$language <- factor(multi.daily.lang.rates$language, daily.lang.rates.agg[n>1][order(rate)]$language) # order the languages by correctness
+boxplot(rate ~ language, multi.daily.lang.rates,  las=2, medlwd=2, medcol="#444444" , main="Average Correctness\nby daily language")
+points(1:nrow(daily.lang.rates.agg[n>1]), daily.lang.rates.agg[n>1][order(rate)]$rate, pch=16)
+# library(vioplot)
+# vioplot(multi.daily.lang.rates[language=="javascript"]$rate, multi.daily.lang.rates[language=="python"]$rate,
+#         multi.daily.lang.rates[language=="java"]$rate, multi.daily.lang.rates[language=="c#"]$rate,
+#         multi.daily.lang.rates[language=="c++"]$rate, multi.daily.lang.rates[language=="c"]$rate, names = daily.lang.rates.agg[n>1]$language)
+# multi.daily.lang.rates[, .(n = .N, rate = median(rate), sd = sd(rate)), by=language]
+
+# Favorite languages as a predictor of performance
+major.rates <- subjectDT[,.(language = unlist(fav.lang.list)), by=rate]
+fav.lang.rates.agg <- fav.lang.rates[, .(n = .N, rate = mean(rate), sd = sd(rate)), by=language]
+fav.lang.rates <- merge(fav.lang.rates, fav.lang.rates.agg, by="language", suffixes = c("", ".mean"))
+multi.fav.lang.rates <- fav.lang.rates[n > 1]
+multi.fav.lang.rates$language <- factor(multi.fav.lang.rates$language, fav.lang.rates.agg[n>1][order(rate)]$language) # order the languages by correctness
+boxplot(rate ~ language, multi.fav.lang.rates,  las=2, medlwd=2, medcol="#444444" , main="Average Correctness\nby favorite language")
+points(1:nrow(fav.lang.rates.agg[n>1]), fav.lang.rates.agg[n>1][order(rate)]$rate, pch=16)
+
+
+
+major.rates <- subjectDT[, .(major = Major, rate)]
+major.rates.agg <- subjectDT[, .(major=Major, rate=mean(rate), n=.N), by=Major]
+major.rates <- merge(major.rates, major.rates.agg, by="major", suffixes = c("", ".mean"))
+multi.major.rates <- major.rates[n > 1]
+multi.major.rates$major <- factor(multi.major.rates$major, major.rates.agg[n>1][order(rate)]$major) # order the languages by correctness
+boxplot(rate ~ major, multi.major.rates, las=2, medlwd=2, medcol="#444444", main="Correctness by Major", names=paste(major.rates.agg[n>1][order(rate)]$major, " [", major.rates.agg[n>1][order(rate)]$n, "]", sep=''))
+points(1:nrow(major.rates.agg[n>1]), major.rates.agg[n>1][order(rate)]$rate, pch=16)
+
+
