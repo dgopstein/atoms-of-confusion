@@ -533,7 +533,7 @@ major.rates.agg <- subjectDT[, .(major=Major, rate=mean(rate), n=.N), by=Major]
 major.rates <- merge(major.rates, major.rates.agg, by="major", suffixes = c("", ".mean"))
 multi.major.rates <- major.rates[n > 1]
 multi.major.rates$major <- factor(multi.major.rates$major, major.rates.agg[n>1][order(rate)]$major) # order the languages by correctness
-boxplot(rate ~ major, multi.major.rates, las=2, medlwd=2, medcol="#444444", main="Correctness by Major", names=paste(major.rates.agg[n>1][order(rate)]$major, " [", major.rates.agg[n>1][order(rate)]$n, "]", sep=''))
+boxplot(rate ~ major, multi.major.rates, las=2, medlwd=2, medcol="#444444", main="Correctness\nby Major", names=paste(major.rates.agg[n>1][order(rate)]$major, " [", major.rates.agg[n>1][order(rate)]$n, "]", sep=''))
 points(1:nrow(major.rates.agg[n>1]), major.rates.agg[n>1][order(rate)]$rate, pch=16)
 
 
