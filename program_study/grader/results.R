@@ -565,22 +565,29 @@ known.coeffs[2:nrow(known.coeffs),  lang := substr(name, nchar("known.lang.indic
 known.coeffs[, display := c("(Intercept)", paste(tail(lang, -1), "  ", format(known.lang.counts, digits=2), sep=''))]
 
 par.orig<-par(mar=c(4,8,4,1));
-barplot(known.coeffs[!is.na(coeffs)&counts>1][order(coeffs)]$coeffs, names.arg=known.coeffs[!is.na(coeffs)&counts>1][order(coeffs)]$display, horiz=TRUE, las=2, main="Predictive power of language            \n to program study performance            ");
+#barplot(known.coeffs[!is.na(coeffs)&counts>1][order(coeffs)]$coeffs, names.arg=known.coeffs[!is.na(coeffs)&counts>1][order(coeffs)]$display, horiz=TRUE, las=2, main="Predictive power of language            \n to program study performance            ");
+barplot(known.coeffs[!is.na(coeffs)&counts>5][order(coeffs)]$coeffs, names.arg=known.coeffs[!is.na(coeffs)&counts>5][order(coeffs)]$display, horiz=TRUE, las=2, main="Predictive power of language (n>5)                 \n to program study performance            ");
 par(par.orig)
 
 # Daily Languages as predictor of score including experience as confounder
 daily.lang.levels <- factor(sort(unique(unlist(subjectDT$daily.lang.list))))
 subjectDT$daily.lang.factor <- sapply(subjectDT$daily.lang.list, function(x) { factor(x, levels=daily.lang.levels) })
 daily.lang.indicators <- t(sapply(subjectDT$daily.lang.factor, table))
-exp.lang.predictors <- cbind(c.years = subjectDT$CYears, prog.years = subjectDT$ProgrammingYears, daily.lang.indicators)
-daily.lang.counts <- colSums(exp.lang.predictors)
+raw.exp.lang.predictors <- cbind(c.years = subjectDT$CYears, daily.lang.indicators)
+daily.lang.indicators <- t(scale(t(daily.lang.indicators))) # Scale each subject (so adding more languages doesn't increase the mean)
+exp.lang.predictors <- cbind(c.years = scale(subjectDT$CYears), daily.lang.indicators) # Scale C months to have same mean/sd as languages
+colnames(exp.lang.predictors)[1] <- "c.years"
+daily.lang.counts <- colSums(raw.exp.lang.predictors)
+
 
 m <- lm(subjectDT$rate ~ exp.lang.predictors)
 daily.coeffs <- data.table(name = names(m$coefficients), coeffs = m$coefficients, counts = c(nrow(subjectDT), daily.lang.counts))
 daily.coeffs[2:nrow(daily.coeffs),  lang := substr(name, nchar("exp.lang.predictors."), 100)]
 daily.coeffs[, display := c("(Intercept)", paste(tail(lang, -1), "  ", format(daily.lang.counts, digits=2), sep=''))]
-par.orig<-par(mar=c(4,8,4,1), mfrow=c(1,1));
+daily.coeffs <- tail(daily.coeffs, -1) # drop the intercept
+dev.off()
+par.orig<-par(mar=c(4,8,4,1));
 barplot(daily.coeffs[!is.na(coeffs)&counts>1][order(coeffs)]$coeffs, names.arg=daily.coeffs[!is.na(coeffs)&counts>1][order(coeffs)]$display, horiz=TRUE, las=2)
-mtext("Predictive power of daily language\n to program study performance\nwith experience",side = 3, at = c(-0.4,4), line = -0) 
+mtext("Predictive power of daily language\n to program study performance\nwith experience",side = 3, at = c(-0.15,4), line = -0) 
 par(par.orig)
 

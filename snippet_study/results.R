@@ -579,8 +579,24 @@ multi.pri.lan.rates$language <- factor(multi.pri.lan.rates$language, multi.pri.l
 boxplot2(rate ~ language, multi.pri.lan.rates,  las=2, medlwd=2, medcol="#444444" , main="Snippet Study\nAverage Correctness\nby primary language")
 points(1:nrow(pri.lan.rates.agg[n>1]), pri.lan.rates.agg[n>1][order(rate)]$rate, pch=16)
 
-userDT[Score > 90]
-usercode[UserID==49]
+# Primary Languages as predictor of score including experience as confounder
+pri.lang.levels <- factor(sort(unique(unlist(userDT$pri.lan.list))))
+userDT$pri.lang.factor <- sapply(userDT$pri.lan.list, function(x) { factor(x, levels=pri.lang.levels) })
+pri.lang.indicators <- t(sapply(userDT$pri.lang.factor, table))
+raw.exp.lang.predictors <- cbind(c.months = userDT$CMonth, pri.lang.indicators)
+pri.lang.indicators <- t(scale(t(pri.lang.indicators))) # Scale each subject (so adding more languages doesn't increase the mean)
+exp.lang.predictors <- cbind(c.months = scale(userDT$CMonth), pri.lang.indicators) # Scale C months to have same mean/sd as languages
+colnames(exp.lang.predictors)[1] <- "c.months"
+pri.lang.counts <- colSums(raw.exp.lang.predictors, na.rm = TRUE)
 
+m <- lm(userDT$Score ~ exp.lang.predictors)
+pri.coeffs <- data.table(name = names(m$coefficients), coeffs = m$coefficients, counts = c(nrow(userDT), pri.lang.counts))
+pri.coeffs[2:nrow(pri.coeffs),  lang := substr(name, nchar("exp.lang.predictors."), 100)]
+pri.coeffs[, display := c("(Intercept)", paste(tail(lang, -1), "  ", format(pri.lang.counts, digits=2), sep=''))]
+pri.coeffs <- tail(pri.coeffs, -1) # drop the intercept
+par.orig<-par(mar=c(4,8,4,1), mfrow=c(1,1));
+barplot(pri.coeffs[!is.na(coeffs)&counts>1][order(coeffs)]$coeffs, names.arg=pri.coeffs[!is.na(coeffs)&counts>1][order(coeffs)]$display, horiz=TRUE, las=2)
+mtext("Predictive power of primary language\n to snippet study performance\nwith experience",side = 3, at = -4) 
+par(par.orig)
 
 
