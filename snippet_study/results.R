@@ -7,6 +7,8 @@ library(gplots)
 library(RColorBrewer)
 library(ggplot2)
 
+setwd(dirname(rstudioapi::getActiveDocumentContext()$path))
+
 rf <- colorRampPalette(rev(brewer.pal(11,'Spectral')))
 r <- rf(32)
 set2 <- colorRampPalette(brewer.pal(8,'Set2'))(8)
@@ -386,25 +388,22 @@ dev.off()
 #########################################################
 
 userTable  <- query.from.string('select * from user;')
-userSurvey <- read.csv("confidential-Confusing_Atoms-Clean.csv", header = TRUE)
+userTable[, Name := as.factor(as.numeric(Name))]
+
+userSurvey <- read.csv("confidential-Confusing_Atoms-scrubbed.csv", header = TRUE)
 userSurvey <- userSurvey[-1] # Remove column labels
 userSurvey <- data.table(userSurvey)
-colnames(userSurvey)[1:10] <- c("ResponseID", "ResponseSet", "Name", "ExternalDataReference", "EmailAddress", "IPAddress", "Status", "StartDate", "EndDate", "Finished")
-userTable[, Name := as.factor(as.numeric(Name))]
-#userTable$Name
-#userSurvey$TestID
-#userSurvey[, TestID := as.numeric(TestID)]
-
-#userTable$Name[order(userTable$Name)]
-#userSurvey$TestID[order(userSurvey$TestID)]
+userSurvey[, TestID := as.factor(TestID)]
+userSurvey[, CMonth := as.numeric(as.character(CMonth))]
+userSurvey[, Gender := as.numeric(as.character(Gender))]
+userSurvey[, ProgMonth := as.numeric(as.character(ProgMonth))]
+userSurvey[, LastC := as.character(LastC)]
+userSurvey[, PriLan := as.character(PriLan)]
+userSurvey$pri.lan.list <- sapply(userSurvey[, PriLan], function(x) sapply(strsplit(x,", "), tolower))
 
 userDT <- data.table(merge(userTable, userSurvey, all.y=TRUE, by.x="Name", by.y ="TestID"))
-#userDT <- head(userDT, -1) # Remove column labels
-userDT$ID
 userDT <- userDT[!is.na(ID)]
-userDT[, CMonth := as.numeric(as.character(CMonth))]
-userDT[, Gender := as.numeric(as.character(Gender))]
-userDT[, ProgMonth := as.numeric(as.character(ProgMonth))]
+userDT <- userDT[!is.na(Score)]
 userDT$experience[which(userDT$ID %in% novice.ids)] <- "novice"
 userDT$experience[which(userDT$ID %in% expert.ids)] <- "expert"
 
@@ -413,7 +412,7 @@ userDT$experience[which(userDT$ID %in% expert.ids)] <- "expert"
 dev.off()
 y<-userDT[!is.na(CMonth),][order(CMonth)]$Score
 x<-userDT[!is.na(CMonth),][order(CMonth)]$CMonth
-plot(y ~ x, main="C Experience vs. Performance", xlab="Months of C experience", ylab="% Correct Code Snippets")
+plot(y ~ x, main="Snippet Study\nC Experience vs. Performance", xlab="Months of C experience", ylab="% Correct Code Snippets")
 #m<-nls(y~a*x/(b+x), start=list(a=1, b=1))
 m<-nls(y~a*x^b, start=list(a=20,b=.2))
 lines(x,predict(m),lty=2,col="red",lwd=3)
@@ -438,8 +437,6 @@ gender.exp.sig <- f.t(userDT[ID %in% novice.ids & Gender == 2, sum(Gender - 1)] 
 userDT[, mean(Gender - 1), by=experience]
 
 # Education
-gender.exp.sig <- f.t(userDT[ID %in% novice.ids & Gender == 2, sum(Gender - 1)] ,length(novice.ids),
-                      userDT[ID %in% expert.ids & Gender == 2, sum(Gender - 1)] ,length(expert.ids))
 userDT[order(c(experience, Education)), .N, by=list(Education, experience)]
 
 # 1-Associate Degree
@@ -451,8 +448,8 @@ userDT[order(c(experience, Education)), .N, by=list(Education, experience)]
 # Months since C
 test.year <- 2016
 test.mon <- 04
-userDT[, last.c.year := as.numeric(sapply(strsplit(as.character(LastC), "-"), '[[', 1))]
-userDT[, last.c.mon  := as.numeric(sapply(strsplit(as.character(LastC), "-"), '[[', 2))]
+userDT[, last.c.year := as.numeric(sapply(strsplit(LastC, "-"), '[[', 1))]
+userDT[, last.c.mon  := as.numeric(sapply(strsplit(LastC, "-"), '[[', 2))]
 userDT[, last.c.total.mon := (((test.year - last.c.year) * 12) + test.mon - last.c.mon)]
 userDT$last.c.total.mon <- ifelse(userDT$last.c.total.mon < 0, 0, userDT$last.c.total.mon) # Remove future values
 userDT[, .(last.c.mean = mean(last.c.total.mon), last.c.med = median(last.c.total.mon)), by=experience]
@@ -530,3 +527,60 @@ question.contingencies[, effect.size := phi(chisq, sample)]
 question.contingencies[, c.rate := (TT+TF)/sample]
 question.contingencies[, nc.rate := (TT+FT)/sample]
 question.contingencies
+
+###############################################################################
+#       Demographics again
+###############################################################################
+colnames(userDT)
+
+# Duration vs Score
+plot(Score ~ Duration, userDT)
+y <- userDT$Score
+x <- userDT$Duration
+#m<-nls(y~(a*x^b), start=list(a=2000,b=.7))
+m<-nls(y~a*x/(x+b), start=list(a=1,b=1))
+lines(seq(1000000,4000000,100000),predict(m, list(x=seq(1000000,4000000,100000))),lty=2,col="red",lwd=3)
+cor(y,predict(m))
+
+# Browser
+boxplot(Score ~ Browser, userDT)
+
+# Gender
+boxplot(Score ~ Gender, userDT)
+boxplot(Duration ~ Gender, userDT)
+t.test(Score ~ Gender, userDT) # Not staistically significant
+
+boxplot(Score ~ Education, userDT[Education > 1], main="Snippet Study\nCorrectness vs Education", xlab="Working/Completed Degree", xaxt='n'); axis(side=1, at=1:3, labels=c("bachelors", "masters", "phd"))
+plot(Score ~ FirstC, userDT, main="Score by FirstC") # XXX needs to be processed
+plot(Score ~ LastC, userDT, main="Score by LastC") # XXX needs to be processed
+plot(Score ~ CMonth, userDT, main="Score by CMonths")
+plot(Score ~ ProgMonth, userDT, main="Score by ProgMonths")
+userDT$Education
+# CMonth vs ProgMonth
+m<-nls(Score~(a*CMonth^b), data=userDT, start=list(a=1,b=1)) # cor=0.48
+m<-nls(Score~(a*ProgMonth^b), data=userDT, start=list(a=1,b=1)) # cor=0.44
+m<-nls(Score~(CMonth^a + b*ProgMonth^c), data=cmos, start=list(a=1,b=1,c=1)) # cor=0.51
+cor(cmos$Score,predict(m))
+
+
+# Does LastC help clarify CMonths? Not really...
+userDT$last.c.int <- as.numeric(as.Date(paste(userDT$LastC, "01", sep="-")))
+cmos <- userDT[!is.na(CMonth)]
+m<-nls(Score~(a*CMonth + b*last.c.int*CMonth), data=cmos, start=list(a=1,b=1))
+cor(cmos$Score,predict(m))
+
+# Primary Language as predictor of Score
+pri.lan.rates <- userDT[,.(language = unlist(pri.lan.list)), by=Score]
+pri.lan.rates$rate <- pri.lan.rates$Score
+pri.lan.rates.agg <- pri.lan.rates[, .(n = .N, rate = mean(rate), sd = sd(rate)), by=language]
+pri.lan.rates <- merge(pri.lan.rates, pri.lan.rates.agg, by="language", suffixes = c("", ".mean"))
+multi.pri.lan.rates <- pri.lan.rates[n > 1]
+multi.pri.lan.rates$language <- factor(multi.pri.lan.rates$language, multi.pri.lan.rates[,.(med=median(rate)), by=language][order(med)]$language) # order the languages by correctness
+boxplot2(rate ~ language, multi.pri.lan.rates,  las=2, medlwd=2, medcol="#444444" , main="Snippet Study\nAverage Correctness\nby primary language")
+points(1:nrow(pri.lan.rates.agg[n>1]), pri.lan.rates.agg[n>1][order(rate)]$rate, pch=16)
+
+userDT[Score > 90]
+usercode[UserID==49]
+
+
+

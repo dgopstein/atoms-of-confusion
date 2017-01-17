@@ -16,6 +16,7 @@ library(lattice)
 library(testit)
 library(tidyr)
 
+setwd(dirname(rstudioapi::getActiveDocumentContext()$path))
 
 q.types <- c('a', 'b', 'c', 'd', 'e', 'f', 'g', 'h')
 q.cols <- c('A', 'B', 'C', 'D', 'E', 'F', 'G', 'H')
@@ -402,8 +403,8 @@ subjectDT[,n.lang:=1+str_count(Languages, ","),]
 plot(rate ~ ProgrammingYears, data=subjectDT)
 plot(rate ~ CYears, data=subjectDT)
 boxplot(rate ~ Gender, data=subjectDT)
-boxplot(rate ~ Degree, data=subjectDT)
-boxplot(rate ~ SelfEval, data=subjectDT)
+boxplot(rate ~ Degree, data=subjectDT, main="Program Study\nCorrectness vs Education", xlab="Working/Completed Degree", xaxt='n'); axis(side=1, at=1:3, labels=c("bachelors", "masters", "phd"))
+boxplot(rate ~ SelfEval, data=subjectDT[SelfEval < 6], main="Program Study\nCorrectness vs Self-Evaluation")
 boxplot(rate ~ n.lang, data=subjectDT)
 boxplot(rate ~ Age, data=subjectDT)
 boxplot(rate ~ round(Age/7), data=subjectDT)
@@ -416,7 +417,6 @@ plot(ability ~ Degree, data=subjectDT)
 plot(ability ~ SelfEval, data=subjectDT)
 plot(ability ~ n.lang, data=subjectDT)
 plot(ability ~ Age, data=subjectDT)
-
 
 
 # Plot years experience vs correctness
@@ -508,9 +508,9 @@ daily.lang.rates <- subjectDT[,.(language = unlist(daily.lang.list)), by=rate]
 daily.lang.rates.agg <- daily.lang.rates[, .(n = .N, rate = mean(rate), sd = sd(rate)), by=language]
 daily.lang.rates <- merge(daily.lang.rates, daily.lang.rates.agg, by="language", suffixes = c("", ".mean"))
 multi.daily.lang.rates <- daily.lang.rates[n > 1]
-multi.daily.lang.rates$language <- factor(multi.daily.lang.rates$language, daily.lang.rates.agg[n>1][order(rate)]$language) # order the languages by correctness
-boxplot(rate ~ language, multi.daily.lang.rates,  las=2, medlwd=2, medcol="#444444" , main="Average Correctness\nby daily language")
-points(1:nrow(daily.lang.rates.agg[n>1]), daily.lang.rates.agg[n>1][order(rate)]$rate, pch=16)
+multi.daily.lang.rates$language <- factor(multi.daily.lang.rates$language, multi.daily.lang.rates[,.(med=median(rate)), by=language][order(med)]$language) # order the languages by correctness
+boxplot2(rate ~ language, multi.daily.lang.rates,  las=2, medlwd=2, medcol="#444444" , main="Program Study\nAverage Correctness\nby daily language")
+#points(1:nrow(daily.lang.rates.agg[n>1]), daily.lang.rates.agg[n>1][order(rate)]$rate, pch=16)
 # library(vioplot)
 # vioplot(multi.daily.lang.rates[language=="javascript"]$rate, multi.daily.lang.rates[language=="python"]$rate,
 #         multi.daily.lang.rates[language=="java"]$rate, multi.daily.lang.rates[language=="c#"]$rate,
@@ -518,7 +518,7 @@ points(1:nrow(daily.lang.rates.agg[n>1]), daily.lang.rates.agg[n>1][order(rate)]
 # multi.daily.lang.rates[, .(n = .N, rate = median(rate), sd = sd(rate)), by=language]
 
 # Favorite languages as a predictor of performance
-major.rates <- subjectDT[,.(language = unlist(fav.lang.list)), by=rate]
+fav.lang.rates <- subjectDT[,.(language = unlist(fav.lang.list)), by=rate]
 fav.lang.rates.agg <- fav.lang.rates[, .(n = .N, rate = mean(rate), sd = sd(rate)), by=language]
 fav.lang.rates <- merge(fav.lang.rates, fav.lang.rates.agg, by="language", suffixes = c("", ".mean"))
 multi.fav.lang.rates <- fav.lang.rates[n > 1]
@@ -526,8 +526,7 @@ multi.fav.lang.rates$language <- factor(multi.fav.lang.rates$language, fav.lang.
 boxplot(rate ~ language, multi.fav.lang.rates,  las=2, medlwd=2, medcol="#444444" , main="Average Correctness\nby favorite language")
 points(1:nrow(fav.lang.rates.agg[n>1]), fav.lang.rates.agg[n>1][order(rate)]$rate, pch=16)
 
-
-
+# Major as a predictor of performance
 major.rates <- subjectDT[, .(major = Major, rate)]
 major.rates.agg <- subjectDT[, .(major=Major, rate=mean(rate), n=.N), by=Major]
 major.rates <- merge(major.rates, major.rates.agg, by="major", suffixes = c("", ".mean"))
@@ -536,4 +535,52 @@ multi.major.rates$major <- factor(multi.major.rates$major, major.rates.agg[n>1][
 boxplot(rate ~ major, multi.major.rates, las=2, medlwd=2, medcol="#444444", main="Correctness\nby Major", names=paste(major.rates.agg[n>1][order(rate)]$major, " [", major.rates.agg[n>1][order(rate)]$n, "]", sep=''))
 points(1:nrow(major.rates.agg[n>1]), major.rates.agg[n>1][order(rate)]$rate, pch=16)
 
+# Duration as a predictor of correctness
+subjectDT <- merge(subjectDT, gradeDT[, .(duration = sum(mins)), by=subject], by="subject")
+subjectDT[order(duration), .(subject, duration, rate)]
+plot(rate ~ duration, subjectDT) # no correlation
+
+# Education as a predictor of correctness
+plot(rate ~ Degree, subjectDT)
+subjectDT$Degree
+
+library(plot3D)
+library(rgl)
+library(scatterplot3d)
+library(car)
+scatter3d(x=subjectDT$SelfEval,y=subjectDT$ProgrammingYears,z=subjectDT$rate, colkey=F)
+
+# Encode known languages with the factor levels of every language mentioned in the results
+# https://stackoverflow.com/questions/41670305/indicator-matrix-for-non-exclusive-factors
+known.lang.factor <- factor(sort(unique(unlist(subjectDT$language.list))))
+subjectDT$language.list.factor <- sapply(subjectDT$language.list, function(x) { factor(x, levels=known.lang.factor) })
+known.lang.indicator.matrix <- t(sapply(subjectDT$language.list.factor, table))
+known.lang.counts <- colSums(known.lang.indicator.matrix)
+
+
+# Multiple Linear Regression - Known Languages as predictor of score
+m <- lm(subjectDT$rate ~ known.lang.indicator.matrix)
+known.coeffs <- data.table(name = names(m$coefficients), coeffs = m$coefficients, counts = c(nrow(subjectDT), known.lang.counts))
+known.coeffs[2:nrow(known.coeffs),  lang := substr(name, nchar("known.lang.indicator.matrix."), 100)]
+known.coeffs[, display := c("(Intercept)", paste(tail(lang, -1), "  ", format(known.lang.counts, digits=2), sep=''))]
+
+par.orig<-par(mar=c(4,8,4,1));
+barplot(known.coeffs[!is.na(coeffs)&counts>1][order(coeffs)]$coeffs, names.arg=known.coeffs[!is.na(coeffs)&counts>1][order(coeffs)]$display, horiz=TRUE, las=2, main="Predictive power of language            \n to program study performance            ");
+par(par.orig)
+
+# Daily Languages as predictor of score including experience as confounder
+daily.lang.levels <- factor(sort(unique(unlist(subjectDT$daily.lang.list))))
+subjectDT$daily.lang.factor <- sapply(subjectDT$daily.lang.list, function(x) { factor(x, levels=daily.lang.levels) })
+daily.lang.indicators <- t(sapply(subjectDT$daily.lang.factor, table))
+exp.lang.predictors <- cbind(c.years = subjectDT$CYears, prog.years = subjectDT$ProgrammingYears, daily.lang.indicators)
+daily.lang.counts <- colSums(exp.lang.predictors)
+
+m <- lm(subjectDT$rate ~ exp.lang.predictors)
+daily.coeffs <- data.table(name = names(m$coefficients), coeffs = m$coefficients, counts = c(nrow(subjectDT), daily.lang.counts))
+daily.coeffs[2:nrow(daily.coeffs),  lang := substr(name, nchar("exp.lang.predictors."), 100)]
+daily.coeffs[, display := c("(Intercept)", paste(tail(lang, -1), "  ", format(daily.lang.counts, digits=2), sep=''))]
+par.orig<-par(mar=c(4,8,4,1), mfrow=c(1,1));
+barplot(daily.coeffs[!is.na(coeffs)&counts>1][order(coeffs)]$coeffs, names.arg=daily.coeffs[!is.na(coeffs)&counts>1][order(coeffs)]$display, horiz=TRUE, las=2)
+mtext("Predictive power of daily language\n to program study performance\nwith experience",side = 3, at = c(-0.4,4), line = -0) 
+par(par.orig)
 
