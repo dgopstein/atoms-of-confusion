@@ -17,6 +17,8 @@ library(testit)
 library(tidyr)
 
 setwd(dirname(rstudioapi::getActiveDocumentContext()$path))
+source("TatsukiRcodeTplot.R") # http://biostat.mc.vanderbilt.edu/wiki/Main/TatsukiRcode#tplot_40_41
+
 
 q.types <- c('a', 'b', 'c', 'd', 'e', 'f', 'g', 'h')
 q.cols <- c('A', 'B', 'C', 'D', 'E', 'F', 'G', 'H')
@@ -430,7 +432,7 @@ dev.off()
 filteredSubjectDT<-subjectDT[!is.na(CYears),][order(CYears)]
 y<-filteredSubjectDT$rate
 x<-filteredSubjectDT$CYears
-plot(y ~ x, main="Program Study\nC Experience vs. Performance", xlab="Years of C experience", ylab="% Correct")
+plot(y ~ x, main="Impact Study\nC Experience vs. Performance", xlab="Years of C experience", ylab="Correct Rate")
 #m<-nls(y~a*x/(x+b), start=list(a=1,b=1))
 m<-nls(y~a*x^b, start=list(a=20,b=.2))
 #m<-nls(y~a*x^2+b*x, start=list(a=1,b=2))
@@ -510,6 +512,15 @@ daily.lang.rates <- merge(daily.lang.rates, daily.lang.rates.agg, by="language",
 multi.daily.lang.rates <- daily.lang.rates[n > 1]
 multi.daily.lang.rates$language <- factor(multi.daily.lang.rates$language, multi.daily.lang.rates[,.(med=median(rate)), by=language][order(med)]$language) # order the languages by correctness
 boxplot2(rate ~ language, multi.daily.lang.rates,  las=2, medlwd=2, medcol="#444444" , main="Program Study\nAverage Correctness\nby daily language")
+
+pdf("img/program_correctness_by_daily_language.pdf", width = 3.8, height = 4.5)
+par(mar=c(5,4,7,1))
+tplot(rate ~ language, multi.daily.lang.rates,  las=2, medlwd=2, medcol="#444444",
+      show.n = TRUE, bty='U', pch=20, dist=.5, jit=.03, type='db')
+title("Impact Experiment\nCorrectness by Daily Language", line = 3)
+dev.off()
+
+
 #points(1:nrow(daily.lang.rates.agg[n>1]), daily.lang.rates.agg[n>1][order(rate)]$rate, pch=16)
 # library(vioplot)
 # vioplot(multi.daily.lang.rates[language=="javascript"]$rate, multi.daily.lang.rates[language=="python"]$rate,

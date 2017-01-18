@@ -9,6 +9,8 @@ library(ggplot2)
 
 setwd(dirname(rstudioapi::getActiveDocumentContext()$path))
 
+source("TatsukiRcodeTplot.R") # http://biostat.mc.vanderbilt.edu/wiki/Main/TatsukiRcode#tplot_40_41
+
 rf <- colorRampPalette(rev(brewer.pal(11,'Spectral')))
 r <- rf(32)
 set2 <- colorRampPalette(brewer.pal(8,'Set2'))(8)
@@ -410,9 +412,9 @@ userDT$experience[which(userDT$ID %in% expert.ids)] <- "expert"
 # plot experience vs performance
 # https://www.r-bloggers.com/first-steps-with-non-linear-regression-in-r/
 dev.off()
-y<-userDT[!is.na(CMonth),][order(CMonth)]$Score
-x<-userDT[!is.na(CMonth),][order(CMonth)]$CMonth
-plot(y ~ x, main="Snippet Study\nC Experience vs. Performance", xlab="Months of C experience", ylab="% Correct Code Snippets")
+y<-userDT[!is.na(CMonth),][order(CMonth)]$Score / 100
+x<-userDT[!is.na(CMonth),][order(CMonth)]$CMonth / 12
+plot(y ~ x, main="Existence Study\nC Experience vs. Performance", xlab="Years of C experience", ylab="Correct Rate")
 #m<-nls(y~a*x/(b+x), start=list(a=1, b=1))
 m<-nls(y~a*x^b, start=list(a=20,b=.2))
 lines(x,predict(m),lty=2,col="red",lwd=3)
@@ -571,13 +573,20 @@ cor(cmos$Score,predict(m))
 
 # Primary Language as predictor of Score
 pri.lan.rates <- userDT[,.(language = unlist(pri.lan.list)), by=Score]
-pri.lan.rates$rate <- pri.lan.rates$Score
+pri.lan.rates$rate <- pri.lan.rates$Score / 100
 pri.lan.rates.agg <- pri.lan.rates[, .(n = .N, rate = mean(rate), sd = sd(rate)), by=language]
 pri.lan.rates <- merge(pri.lan.rates, pri.lan.rates.agg, by="language", suffixes = c("", ".mean"))
 multi.pri.lan.rates <- pri.lan.rates[n > 1]
 multi.pri.lan.rates$language <- factor(multi.pri.lan.rates$language, multi.pri.lan.rates[,.(med=median(rate)), by=language][order(med)]$language) # order the languages by correctness
 boxplot2(rate ~ language, multi.pri.lan.rates,  las=2, medlwd=2, medcol="#444444" , main="Snippet Study\nAverage Correctness\nby primary language")
 points(1:nrow(pri.lan.rates.agg[n>1]), pri.lan.rates.agg[n>1][order(rate)]$rate, pch=16)
+
+pdf("img/snippet_correctness_by_primary_language.pdf", width = 3.8, height = 4.5)
+par(mar=c(5,4,7,1))
+tplot(rate ~ language, multi.pri.lan.rates,  las=2, medlwd=2, medcol="#444444",
+      show.n = TRUE, bty='U', pch=20, dist=.5, jit=.03, type='db')
+title("Existence Experiment\nCorrectness by Daily Language", line = 3)
+dev.off()
 
 # Primary Languages as predictor of score including experience as confounder
 pri.lang.levels <- factor(sort(unique(unlist(userDT$pri.lan.list))))
