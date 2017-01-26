@@ -401,7 +401,7 @@ userSurvey[, Gender := as.numeric(as.character(Gender))]
 userSurvey[, ProgMonth := as.numeric(as.character(ProgMonth))]
 userSurvey[, LastC := as.character(LastC)]
 userSurvey[, PriLan := as.character(PriLan)]
-userSurvey$pri.lan.list <- sapply(userSurvey[, PriLan], function(x) sapply(strsplit(x,", "), tolower))
+userSurvey$pri.lang.list <- sapply(userSurvey[, PriLan], function(x) sapply(strsplit(x,", "), tolower))
 
 userDT <- data.table(merge(userTable, userSurvey, all.y=TRUE, by.x="Name", by.y ="TestID"))
 userDT <- userDT[!is.na(ID)]
@@ -572,25 +572,25 @@ m<-nls(Score~(a*CMonth + b*last.c.int*CMonth), data=cmos, start=list(a=1,b=1))
 cor(cmos$Score,predict(m))
 
 # Primary Language as predictor of Score
-pri.lan.rates <- userDT[,.(language = unlist(pri.lan.list)), by=Score]
-pri.lan.rates$rate <- pri.lan.rates$Score / 100
-pri.lan.rates.agg <- pri.lan.rates[, .(n = .N, rate = mean(rate), sd = sd(rate)), by=language]
-pri.lan.rates <- merge(pri.lan.rates, pri.lan.rates.agg, by="language", suffixes = c("", ".mean"))
-multi.pri.lan.rates <- pri.lan.rates[n > 1]
-multi.pri.lan.rates$language <- factor(multi.pri.lan.rates$language, multi.pri.lan.rates[,.(med=median(rate)), by=language][order(med)]$language) # order the languages by correctness
-boxplot2(rate ~ language, multi.pri.lan.rates,  las=2, medlwd=2, medcol="#444444" , main="Snippet Study\nAverage Correctness\nby primary language")
-points(1:nrow(pri.lan.rates.agg[n>1]), pri.lan.rates.agg[n>1][order(rate)]$rate, pch=16)
+pri.lang.rates <- userDT[,.(language = unlist(pri.lang.list)), by=Score]
+pri.lang.rates$rate <- pri.lang.rates$Score / 100
+pri.lang.rates.agg <- pri.lang.rates[, .(n = .N, rate = mean(rate), sd = sd(rate)), by=language]
+pri.lang.rates <- merge(pri.lang.rates, pri.lang.rates.agg, by="language", suffixes = c("", ".mean"))
+multi.pri.lang.rates <- pri.lang.rates[n > 1]
+multi.pri.lang.rates$language <- factor(multi.pri.lang.rates$language, multi.pri.lang.rates[,.(med=median(rate)), by=language][order(med)]$language) # order the languages by correctness
+boxplot2(rate ~ language, multi.pri.lang.rates,  las=2, medlwd=2, medcol="#444444" , main="Snippet Study\nAverage Correctness\nby primary language")
+points(1:nrow(pri.lang.rates.agg[n>1]), pri.lang.rates.agg[n>1][order(rate)]$rate, pch=16)
 
 pdf("img/snippet_correctness_by_primary_language.pdf", width = 3.8, height = 4.5)
 par(mar=c(5,4,7,1))
-tplot(rate ~ language, multi.pri.lan.rates,  las=2, medlwd=2, medcol="#444444",
+tplot(rate ~ language, multi.pri.lang.rates,  las=2, medlwd=2, medcol="#444444",
       show.n = TRUE, bty='U', pch=20, dist=.5, jit=.03, type='db')
 title("Existence Experiment\nCorrectness by Daily Language", line = 3)
 dev.off()
 
 # Primary Languages as predictor of score including experience as confounder
-pri.lang.levels <- factor(sort(unique(unlist(userDT$pri.lan.list))))
-userDT$pri.lang.factor <- sapply(userDT$pri.lan.list, function(x) { factor(x, levels=pri.lang.levels) })
+pri.lang.levels <- factor(sort(unique(unlist(userDT$pri.lang.list))))
+userDT$pri.lang.factor <- sapply(userDT$pri.lang.list, function(x) { factor(x, levels=pri.lang.levels) })
 pri.lang.indicators <- t(sapply(userDT$pri.lang.factor, table))
 raw.exp.lang.predictors <- cbind(c.months = userDT$CMonth, pri.lang.indicators)
 pri.lang.indicators <- t(scale(t(pri.lang.indicators))) # Scale each subject (so adding more languages doesn't increase the mean)

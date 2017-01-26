@@ -602,3 +602,25 @@ barplot(daily.coeffs[!is.na(coeffs)&counts>1][order(coeffs)]$coeffs, names.arg=d
 mtext("Predictive power of daily language\n to program study performance\nwith experience",side = 3, at = c(-0.15,4), line = -0) 
 par(par.orig)
 
+# Compare python vs java from snippet to program studies
+# pri.lan.rates is from snippet_study/results.R
+java.py <- rbind(
+  daily.lang.rates[language %in% c("java", "python"), .(study = "prog", lang=language, rate)],
+  pri.lang.rates[language %in% c("java", "python"), .(study = "snip", lang=language, rate)])
+
+m <- lm(rate ~ study + lang, java.py)
+#m <- lm(rate ~ lang, java.py[study == "snip"])
+summary(m)
+
+
+pdf("img/program_correctness_vs_selfeval.pdf", width = 3, height = 3.5)
+par(mar=c(4,4,6,1))
+tplot(rate ~ SelfEval, data=subjectDT, las=2, xaxt='n',
+      show.n = TRUE, bty='U', pch=20, dist=.01, jit=.2, type='db',
+      boxcol=grey(1), boxborder=grey(.6), boxplot.pars=list(medlwd=2), cex=0.85)
+axis(1:6, at=1:6)
+title("Program Study\nCorrectness vs Self-Evaluation", line = -3, outer=TRUE)
+title(x=" (novice)               (expert)", line = 2.1)
+title(y="Correctness Rate", line = 2.7)
+dev.off()
+
