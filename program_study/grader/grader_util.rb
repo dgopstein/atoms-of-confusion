@@ -57,7 +57,7 @@ def run_grader_h(type, stdout)
       [scan&.first] + scan[1].split(",") if scan
     end.compact
 
-  {actual: actual,
+  {actual: actual, # [number correct, total checked]
    faults: faults,
    checks: checks,
    faults_checks: faults_checks,

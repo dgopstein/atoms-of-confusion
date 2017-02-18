@@ -8,7 +8,9 @@ require './grader_util.rb'
 require 'csv' 
 require 'open3'
 
-test_files = CSV.read('test_files.csv', headers: true)
+test_files_file = ARGV.first || 'test_files.csv'
+
+test_files = CSV.read(test_files_file, headers: true)
 
 compile_graders!
 

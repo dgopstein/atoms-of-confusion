@@ -37,17 +37,22 @@ def regrade(faults, checks)
   [numer, denom]
 end
 
-pp run_grader_h('a', results.first['A'])[:faults_checks]
+pp run_grader_h('a', results.first['A'])[:actual]
+
+def run_grader_ignore_IGU(q_type, stdout)
+  grade = run_grader(q_type, stdout)
+  real_score = grade.first
+  test_score = regrade(grade[1], grade[2])
+end
 
 
 scores = results.flat_map do |r|
   ('a'..'h').map do |q|
     ans = r[q.upcase] or next
-    grade = run_grader(q, ans)
-    real_score = grade.first
-    test_score = regrade(grade[1], grade[2])
+    real_score = run_grader(q, ans).first
+    test_score = run_grader_ignore_IGU(q, ans)
     [r['Subject'].to_i, q, real_score, test_score]
   end.compact
 end
 
-#pp scores
+pp scores
