@@ -18,11 +18,6 @@ end
 
 results = read_results(results_file)
 
-#pilot_ids = [3782, 1161, 1224, 3270, 9351, 6490, 4747, 6224, 3881, 6033]
-#pilot_ids = [3782, 1224, 3270, 9351, 6490, 4747, 6224, 3881, 6033]
-#
-#pilot_results = results.select{|r| pilot_ids.include?(r["Subject"].to_i)}.map{|r| r["Subject"].to_i}
-
 compile_graders!
 
 def calc_duration(order, times)
@@ -41,7 +36,8 @@ scores = results.flat_map do |r|
     ans = r[q.upcase] or next
     qpos = times.index{|letter, times| letter == q}
     mins = times[qpos].last
-    [r['Subject'].to_i, q, qpos, mins, run_grader(q, ans).first]
+    score = run_grader(q, ans).first
+    [r['Subject'].to_i, q, qpos, mins, score]
   end.compact
 end
 

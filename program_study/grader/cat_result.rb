@@ -1,4 +1,4 @@
-#!/usr/bin/env ruby
+#!/usr/bin/env rvm 2.3.1 do ruby
 
 # Print the answer of a specific subject/answer
 
@@ -7,7 +7,6 @@ $cwd = File.expand_path File.dirname(__FILE__)
 require "#$cwd/grader_util.rb"
 
 require 'csv' 
-
 # (results_file, s_id, q_id = ['csv/results.csv', 9998, 'h'])
 results_file, s_id, q_id = ARGV
 

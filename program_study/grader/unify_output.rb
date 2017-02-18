@@ -1,5 +1,8 @@
 #!/usr/bin/env ruby
 
+# Correct for differences in labeling between C/NC versions of the same question.
+# e.g. question D has two labels, a&c that are equivalent to C's single label a
+
 require 'active_support/core_ext/hash/indifferent_access'
 
 def parse_filename(filename)

@@ -35,7 +35,7 @@ $type_to_bin = {
   h: 'gh'
 }.with_indifferent_access
 
-def run_grader(type, stdout)
+def run_grader_h(type, stdout)
   scrubbed_stdin = unify_output_str(type, stdout)
   bin = $bins[$type_to_bin[type]] or return
 
@@ -45,6 +45,9 @@ def run_grader(type, stdout)
 
   faults = scrubbed_stdout.flat_map{|line| line.scan(/FAULT: (.*)/)[0]&.map{|s|s.split(",")}}.compact
   checks = scrubbed_stdout.flat_map{|line| line.scan(/CHECK: (.*)/)[0]&.map{|s|s.split(",")}}.compact
+  faults_checks = scrubbed_stdout.flat_map{|line|
+    scan = line.scan(/(FAULT|CHECK): (.*)/);
+    [scan&.first] + scan[1]&.map{|s|s.split(",")}}.compact
 
   if scrubbed_stdout.empty?
     puts "Error executing #{bin} on \n#{scrubbed_stdin}"
@@ -53,5 +56,15 @@ def run_grader(type, stdout)
 
   actual = scrubbed_stdout.last.split("/").map(&:to_i)
 
-  [actual, faults, checks, scrubbed_stdout]
+  {actual: actual,
+   faults: faults,
+   checks: checks,
+   faults_checks: faults_checks,
+   scrubbed_stdout: scrubbed_stdout}
+end
+
+def run_grader_h(type, stdout)
+  g = run_grader(type, stdout)
+
+  [g[:actual], g[:faults], g[:checks], g[:scrubbed_stdout]]
 end
