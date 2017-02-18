@@ -43,18 +43,19 @@ def run_grader_h(type, stdout)
   scrubbed_stdout = stdout.encode('UTF-8', 'UTF-8', :invalid => :replace)
                           .split(/\n/)
 
-  faults = scrubbed_stdout.flat_map{|line| line.scan(/FAULT: (.*)/)[0]&.map{|s|s.split(",")}}.compact
-  checks = scrubbed_stdout.flat_map{|line| line.scan(/CHECK: (.*)/)[0]&.map{|s|s.split(",")}}.compact
-  faults_checks = scrubbed_stdout.flat_map{|line|
-    scan = line.scan(/(FAULT|CHECK): (.*)/);
-    [scan&.first] + scan[1]&.map{|s|s.split(",")}}.compact
-
   if scrubbed_stdout.empty?
     puts "Error executing #{bin} on \n#{scrubbed_stdin}"
     return nil
   end
 
   actual = scrubbed_stdout.last.split("/").map(&:to_i)
+
+  faults = scrubbed_stdout.flat_map{|line| line.scan(/FAULT: (.*)/)[0]&.map{|s|s.split(",")}}.compact
+  checks = scrubbed_stdout.flat_map{|line| line.scan(/CHECK: (.*)/)[0]&.map{|s|s.split(",")}}.compact
+  faults_checks = scrubbed_stdout.map do |line|
+      scan = line.scan(/(FAULT|CHECK): (.*)/).first;
+      [scan&.first] + scan[1].split(",") if scan
+    end.compact
 
   {actual: actual,
    faults: faults,
@@ -63,8 +64,8 @@ def run_grader_h(type, stdout)
    scrubbed_stdout: scrubbed_stdout}
 end
 
-def run_grader_h(type, stdout)
-  g = run_grader(type, stdout)
+def run_grader(type, stdout)
+  g = run_grader_h(type, stdout)
 
   [g[:actual], g[:faults], g[:checks], g[:scrubbed_stdout]]
 end

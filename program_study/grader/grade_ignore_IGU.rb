@@ -37,7 +37,8 @@ def regrade(faults, checks)
   [numer, denom]
 end
 
-run_grader_h('a', results.first['A'])[:faults_checks]
+pp run_grader_h('a', results.first['A'])[:faults_checks]
+
 
 scores = results.flat_map do |r|
   ('a'..'h').map do |q|
@@ -49,4 +50,4 @@ scores = results.flat_map do |r|
   end.compact
 end
 
-pp scores
+#pp scores
