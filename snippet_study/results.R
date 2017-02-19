@@ -1,3 +1,5 @@
+# Snippet Study
+
 library(DBI)
 library(RSQLite)
 library(data.table)
@@ -77,6 +79,8 @@ cnts <- cnts[cnts[,!atom %in% c("remove_INDENTATION_atom", "Indentation")]] # Re
 cnts[, atomName := unlist(name.conversion[atom])]
 
 usercode <- query.from.string("select * from scrubbed_usercode;")
+usercode[, correct:=(Correct=='T')]
+
 
 modified.mcnemars <- durkalski
 
@@ -608,4 +612,60 @@ barplot(pri.coeffs[!is.na(coeffs)&counts>1][order(coeffs)]$coeffs, names.arg=pri
 mtext("Predictive power of primary language\n to snippet study performance\nwith experience",side = 3, at = -4) 
 par(par.orig)
 
+############################################################################
+#     Performance over time (first question through last )
+############################################################################
+
+# Subjects do better on questions as the test continues
+usercode$normed.correct <- usercode$correct - ave(usercode$correct, usercode$CodeID) # normalize results by codeid-specific averages, so that getting a hard question wrong isn't as bad as getting an easy question wrong
+over.time <- usercode[, .(normed.correct = mean(normed.correct), correct = mean(correct)), by=list(rank)]
+plot(over.time$normed.correct, main="Question Position vs Correctness", ylab="Relative Correctness of Question at this Index", xlab="Position of Question in Test")
+fit2 <- lm(normed.correct~rank, data=over.time)
+abline(fit2, col="blue")
+summary(fit2)
+
+# Subjects answer faster as the test continues
+usercode$normed.duration <- usercode$Duration - ave(usercode$Duration, usercode$CodeID) # normalize duration by codeid-specific averages
+over.time$normed.duration <- usercode[, .(normed.duration = mean(normed.duration), duration = mean(Duration)), by=list(rank)]$normed.duration
+plot(over.time$normed.duration, main="Question Position vs Duration", ylab="Relative Duration of Question at this Index", xlab="Position of Question in Test")
+fit2 <- lm(normed.duration~rank, data=over.time)
+abline(fit2, col="blue")
+summary(fit2)
+
+# Subjects answer faster as the test continues
+fit2 <- lm(correct~Duration, data=usercode)
+durationcode <- usercode[Duration > 0]
+duration.correct <-  durationcode[correct == TRUE]$Duration / 1000
+duration.incorrect <- durationcode[correct == FALSE]$Duration / 1000
+density.correct <- density(duration.correct, adjust = 3)
+density.incorrect <- density(duration.incorrect, adjust = 3)
+plot(density.correct, xlim = c(0, 100), col="blue", xlab="Seconds taken to respond", ylab="Probability", main=c("Probability density of response duration", "by correct/incorrect responses"))
+lines(density.incorrect, col="red")
+
+mean(duration.correct)
+mean(duration.incorrect)
+
+durationcode[, duration.user := mean(Duration), by=UserID]
+durationcode[, duration.code := mean(Duration), by=CodeID]
+
+colnames(durationcode)
+#fit <- glm(Duration ~ rank + duration.user + duration.code, data=durationcode)
+fit <- glm(Duration ~ rank + factor(UserID) + factor(CodeID), data=durationcode)
+cor(durationcode$Duration,predict(fit))
+plot(predict(fit),durationcode$Duration)
+
+fit <- glm(correct ~ rank + factor(UserID) + factor(CodeID), data=durationcode, family=binomial(link="logit"))
+cor(durationcode$correct,predict(fit))
+plot(predict(fit),durationcode$correct)
+
+
+# Correctness and duration covary
+durationcode$code.order <- factor(durationcode$CodeID, durationcode[, .(mcid = median(Duration)), by=CodeID][order(mcid)]$CodeID)
+durationcode$code.order <- factor(durationcode$CodeID, durationcode[, .(mcid = mean(correct)), by=CodeID][order(mcid)]$CodeID)
+#boxplot(Duration/1000 ~ code.order, data = durationcode, ylim=c(0, 100))
+plot(correctness*100 ~ code.order, data = durationcode[, .(correctness=mean(correct)), by=code.order], main = "Correctness and Duration for Questions", xlab = "Question ID", ylab = "Correctness (black) - Duration(blue)")
+points(   duration*2 ~ as.integer(code.order), data = durationcode[, .(duration=median(Duration)), by=code.order], col='blue')
+abline(lm(duration*2 ~ as.integer(code.order), data = durationcode[, .(duration=median(Duration)), by=code.order]), col="blue")
+
+plot(correctness ~ duration, data = durationcode[, .(duration=median(Duration), correctness=mean(correct)), by=code.order])
 
