@@ -17,6 +17,7 @@ library(grDevices)
 library(lattice)
 library(testit)
 library(tidyr)
+library(assertthat)
 
 setwd(dirname(rstudioapi::getActiveDocumentContext()$path))
 source("TatsukiRcodeTplot.R") # http://biostat.mc.vanderbilt.edu/wiki/Main/TatsukiRcode#tplot_40_41
@@ -42,19 +43,23 @@ f.t <- function(a, a_total, b, b_total) fisher.test(rbind(c(a,a_total-a), c(b,b_
 
 resultsDT <- data.table(read.csv("csv/results.csv", header = TRUE))
 
-assert("There are no pilot ID's in the results", !any(resultsDT$Subject %in% pilot.ids))
+assert_that(!any(resultsDT$Subject %in% pilot.ids)) # "There are no pilot ID's in the results")
 
+
+# XXXXXXXXXXX ARE These assigning the right duration to the right letter????
 resultsDT.flat <- 
   resultsDT[, .(q=q.cols, Order, output=sapply(q.cols, function(chr) as.character(get(chr))),
-                            start=do.call(c, sapply(1:4, function(i) as.POSIXct(paste(Date, as.character(get(paste("start", i, sep="")))), format='%m/%d/%Y %H:%M'), simplify=FALSE)),
-                            end  =do.call(c, sapply(1:4, function(i) as.POSIXct(paste(Date, as.character(get(paste("end", i, sep="")))), format='%m/%d/%Y %H:%M'), simplify=FALSE))
+                            start=do.call(c, sapply(order(strsplit(as.character(Order),"")[[1]]), function(i) as.POSIXct(paste(Date, as.character(get(paste("start", i, sep="")))), format='%m/%d/%Y %H:%M'), simplify=FALSE)),
+                            end  =do.call(c, sapply(order(strsplit(as.character(Order),"")[[1]]), function(i) as.POSIXct(paste(Date, as.character(get(paste("end", i, sep="")))), format='%m/%d/%Y %H:%M'), simplify=FALSE))
                 ) , by=Subject]
 resultsDT.flat <- resultsDT.flat[nchar(output) > 0]
 resultsDT.flat$pos <- apply(resultsDT.flat, 1, function(x) {regexpr(tolower(x[['q']]), x[['Order']])[1]})
 resultsDT.flat$gave.up <- resultsDT.flat[, grepl('!',output)]
-resultsDT.flat[gave.up==TRUE, .("IGUs" = sum(gave.up)), by=pos][order(pos)]
 resultsDT.flat[, confusing:=tolower(q)%in%c.types]
 resultsDT.flat[, duration:=difftime(end,start)]
+
+# Give-ups by position
+resultsDT.flat[gave.up==TRUE, .("IGUs" = sum(gave.up)), by=pos][order(pos)]
 
 
 # ./fault_rates.rb csv/results.csv > csv/fault_rates.csv
@@ -68,6 +73,7 @@ faultDT$nc_fault_rate <- faultDT$nc_faults/faultDT$nc_checks
 gradeDT <- data.table(read.csv("csv/grades.csv", header = TRUE))
 gradeDT$confusing <- gradeDT$qtype %in% c.types
 gradeDT$gave.up <- resultsDT.flat$gave.up
+gradeDT$duration <- resultsDT.flat$duration
 gradeDT[gave.up == TRUE, points := q.checks[qtype]] # penalize people for giving up
 gradeDT$rate <- gradeDT[, correct/points]
 
@@ -636,5 +642,5 @@ dev.off()
 #     Performance over time (first question through last )
 ############################################################################
 
-
+plot(correct ~ duration, gradeDT)
 
