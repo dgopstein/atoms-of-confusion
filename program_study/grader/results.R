@@ -44,12 +44,17 @@ resultsDT <- data.table(read.csv("csv/results.csv", header = TRUE))
 
 assert("There are no pilot ID's in the results", !any(resultsDT$Subject %in% pilot.ids))
 
-resultsDT.flat <- resultsDT[, .(q=q.cols, Order, output=sapply(q.cols, function(chr) as.character(get(chr)))), by=Subject]
+resultsDT.flat <- 
+  resultsDT[, .(q=q.cols, Order, output=sapply(q.cols, function(chr) as.character(get(chr))),
+                            start=do.call(c, sapply(1:4, function(i) as.POSIXct(paste(Date, as.character(get(paste("start", i, sep="")))), format='%m/%d/%Y %H:%M'), simplify=FALSE)),
+                            end  =do.call(c, sapply(1:4, function(i) as.POSIXct(paste(Date, as.character(get(paste("end", i, sep="")))), format='%m/%d/%Y %H:%M'), simplify=FALSE))
+                ) , by=Subject]
 resultsDT.flat <- resultsDT.flat[nchar(output) > 0]
 resultsDT.flat$pos <- apply(resultsDT.flat, 1, function(x) {regexpr(tolower(x[['q']]), x[['Order']])[1]})
 resultsDT.flat$gave.up <- resultsDT.flat[, grepl('!',output)]
 resultsDT.flat[gave.up==TRUE, .("IGUs" = sum(gave.up)), by=pos][order(pos)]
 resultsDT.flat[, confusing:=tolower(q)%in%c.types]
+resultsDT.flat[, duration:=difftime(end,start)]
 
 
 # ./fault_rates.rb csv/results.csv > csv/fault_rates.csv
@@ -557,11 +562,11 @@ plot(rate ~ duration, subjectDT) # no correlation
 plot(rate ~ Degree, subjectDT)
 subjectDT$Degree
 
-library(plot3D)
-library(rgl)
-library(scatterplot3d)
-library(car)
-scatter3d(x=subjectDT$SelfEval,y=subjectDT$ProgrammingYears,z=subjectDT$rate, colkey=F)
+# library(plot3D)
+# library(rgl)
+# library(scatterplot3d)
+# library(car)
+# scatter3d(x=subjectDT$SelfEval,y=subjectDT$ProgrammingYears,z=subjectDT$rate, colkey=F)
 
 # Encode known languages with the factor levels of every language mentioned in the results
 # https://stackoverflow.com/questions/41670305/indicator-matrix-for-non-exclusive-factors
@@ -625,4 +630,11 @@ title("Program Study\nCorrectness vs Self-Evaluation", line = -3, outer=TRUE)
 title(x=" (novice)               (expert)", line = 2.1)
 title(y="Correctness Rate", line = 2.7)
 dev.off()
+
+
+############################################################################
+#     Performance over time (first question through last )
+############################################################################
+
+
 

@@ -688,3 +688,5 @@ abline(lm(dur ~ as.integer(code.order), data = dc))
 legend(85, 85, legend=c("Correctness", "Duration"), pch=c(1,20), cex=1.2)
 dev.off()
 
+
+
