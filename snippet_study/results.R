@@ -633,17 +633,24 @@ abline(fit2, col="blue")
 summary(fit2)
 
 # Subjects answer faster as the test continues
+dev.off()
 fit2 <- lm(correct~Duration, data=usercode)
 durationcode <- usercode[Duration > 0]
 duration.correct <-  durationcode[correct == TRUE]$Duration / 1000
 duration.incorrect <- durationcode[correct == FALSE]$Duration / 1000
+med.c <- median(duration.correct)
+med.ic <- median(duration.incorrect)
 density.correct <- density(duration.correct, adjust = 3)
 density.incorrect <- density(duration.incorrect, adjust = 3)
-plot(density.correct, xlim = c(0, 100), col="blue", xlab="Seconds taken to respond", ylab="Probability", main=c("Probability density of response duration", "by correct/incorrect responses"))
-lines(density.incorrect, col="red")
+plot(density.correct, xlim = c(0, 100), ylim=c(0, 0.032), col="blue", xlab="Seconds taken to respond", ylab="Probability", main=c("Probability density of response duration", "by correct/incorrect responses"))
+segments(med.c, 0, med.c, density.correct$y[which(abs(density.correct$x-med.c)==min(abs(density.correct$x-med.c)))]) # draw median up to height of probability
+lines(density.incorrect, col="red", lty=5)
+segments(med.ic, 0, med.ic, lty=5, y1 = density.incorrect$y[which(abs(density.incorrect$x-med.c)==min(abs(density.incorrect$x-med.c)))]) # draw median up to height of probability)
+legend(65, 0.03, legend=c("Correct", "Incorrect"), col=c("blue", "red"), lty=c(1,5), cex=1.2)
+duration.u <- wilcox.test(duration.correct, duration.incorrect, paired=FALSE, conf.int = TRUE)
+text(56, 0.013, paste("P-value:", format(duration.u$p.value, digits=3)), adj = c(0,0))
+text(56, 0.010, paste("Difference in medians:", format(abs(duration.u$estimate), digits=3)), adj = c(0,0))
 
-mean(duration.correct)
-mean(duration.incorrect)
 
 durationcode[, duration.user := mean(Duration), by=UserID]
 durationcode[, duration.code := mean(Duration), by=CodeID]
@@ -658,14 +665,26 @@ fit <- glm(correct ~ rank + factor(UserID) + factor(CodeID), data=durationcode, 
 cor(durationcode$correct,predict(fit))
 plot(predict(fit),durationcode$correct)
 
-
 # Correctness and duration covary
-durationcode$code.order <- factor(durationcode$CodeID, durationcode[, .(mcid = median(Duration)), by=CodeID][order(mcid)]$CodeID)
+#durationcode$code.order <- factor(durationcode$CodeID, durationcode[, .(mcid = median(Duration)), by=CodeID][order(mcid)]$CodeID)
 durationcode$code.order <- factor(durationcode$CodeID, durationcode[, .(mcid = mean(correct)), by=CodeID][order(mcid)]$CodeID)
-#boxplot(Duration/1000 ~ code.order, data = durationcode, ylim=c(0, 100))
-plot(correctness*100 ~ code.order, data = durationcode[, .(correctness=mean(correct)), by=code.order], main = "Correctness and Duration for Questions", xlab = "Question ID", ylab = "Correctness (black) - Duration(blue)")
-points(   duration*2 ~ as.integer(code.order), data = durationcode[, .(duration=median(Duration)), by=code.order], col='blue')
-abline(lm(duration*2 ~ as.integer(code.order), data = durationcode[, .(duration=median(Duration)), by=code.order]), col="blue")
+#durationcode$code.order <- factor(durationcode$CodeID[order(as.integer(as.character(durationcode$CodeID)))])
 
-plot(correctness ~ duration, data = durationcode[, .(duration=median(Duration), correctness=mean(correct)), by=code.order])
+
+dc <- data.table(correctness = durationcode[, mean(correct),    by=code.order][[2]],
+                 duration    = durationcode[, median(Duration), by=code.order][[2]]/1000,
+                 code.order  = durationcode[, code.order, by=code.order][[1]])
+dc$dur <- dc$duration*2
+par(mar=c(3.1,4.1,4.1,4.1))
+plot(1, type="n", xaxt="n", yaxt="n", xlab="", ylab="", xlim=c(1,max(durationcode$CodeID)), ylim=c(0,100), main = "Correctness and Duration for Questions")
+mtext(side=2,text="Mean Correctness",line=2.5)
+axis(side=2, at=seq(0,100,length.out=5), labels=seq(0,1,length.out=5))
+mtext(side=4,text="Median Duration in Seconds",line=2.5)
+axis(side=4, at=seq(min(dc$dur),max(dc$dur), length.out=5), labels=round(seq(min(dc$duration),max(dc$duration),length.out=5)))
+mtext(side=1,text="Question",line=1)
+points(correctness*100 ~ code.order, pch=1, data = dc)#, col='blue')
+points(   dur ~ as.integer(code.order), pch=20, data = dc)#, col='red')
+abline(lm(dur ~ as.integer(code.order), data = dc))
+legend(85, 85, legend=c("Correctness", "Duration"), pch=c(1,20), cex=1.2)
+dev.off()
 
