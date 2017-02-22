@@ -46,17 +46,11 @@ resultsDT <- data.table(read.csv("csv/results.csv", header = TRUE))
 assert_that(!any(resultsDT$Subject %in% pilot.ids)) # "There are no pilot ID's in the results")
 
 
-# XXXXXXXXXXX ARE These assigning the right duration to the right letter????
-resultsDT.flat <- 
-  resultsDT[, .(q=q.cols, Order, output=sapply(q.cols, function(chr) as.character(get(chr))),
-                            start=do.call(c, sapply(order(strsplit(as.character(Order),"")[[1]]), function(i) as.POSIXct(paste(Date, as.character(get(paste("start", i, sep="")))), format='%m/%d/%Y %H:%M'), simplify=FALSE)),
-                            end  =do.call(c, sapply(order(strsplit(as.character(Order),"")[[1]]), function(i) as.POSIXct(paste(Date, as.character(get(paste("end", i, sep="")))), format='%m/%d/%Y %H:%M'), simplify=FALSE))
-                ) , by=Subject]
+resultsDT.flat <- resultsDT[, .(q=q.cols, Order, output=sapply(q.cols, function(chr) as.character(get(chr)))) , by=Subject]
 resultsDT.flat <- resultsDT.flat[nchar(output) > 0]
 resultsDT.flat$pos <- apply(resultsDT.flat, 1, function(x) {regexpr(tolower(x[['q']]), x[['Order']])[1]})
 resultsDT.flat$gave.up <- resultsDT.flat[, grepl('!',output)]
 resultsDT.flat[, confusing:=tolower(q)%in%c.types]
-resultsDT.flat[, duration:=difftime(end,start)]
 
 # Give-ups by position
 resultsDT.flat[gave.up==TRUE, .("IGUs" = sum(gave.up)), by=pos][order(pos)]
@@ -73,7 +67,6 @@ faultDT$nc_fault_rate <- faultDT$nc_faults/faultDT$nc_checks
 gradeDT <- data.table(read.csv("csv/grades.csv", header = TRUE))
 gradeDT$confusing <- gradeDT$qtype %in% c.types
 gradeDT$gave.up <- resultsDT.flat$gave.up
-gradeDT$duration <- resultsDT.flat$duration
 gradeDT[gave.up == TRUE, points := q.checks[qtype]] # penalize people for giving up
 gradeDT$rate <- gradeDT[, correct/points]
 
@@ -193,20 +186,39 @@ q.rate <- rbind(q.rate, list("all NC", all.correctness[confusing==FALSE]$correct
 #colnames(q.rate) <- null
 #q.rate$qtype <- c("", "", "", "", "", "", "", "", "", "")
 
-q.correctness.labels <- paste0(c("Q1\n", "Q2\n", "Q3\n", "Q4\n", "All\n"),
-                               sapply(c(a.v.b, c.v.d, e.v.f, g.v.h, all.q.p.value),
+q.correctness.labels <- paste0(c("All\n", "Q1\n", "Q2\n", "Q3\n", "Q4\n"),
+                               sapply(c(all.q.p.value, a.v.b, c.v.d, e.v.f, g.v.h),
                                       function(x) ifelse(x >= 0.0001, sprintf("p: %0.4f", x), sprintf("p: %0.2e", x))))
 
 
-pdf("img/average_score_per_question.pdf", width = 9, height = 8)
+add.alpha <- function(col, alpha=1){
+  if(missing(col))
+    stop("Please provide a vector of colours.")
+  apply(sapply(col, col2rgb)/255, 2, 
+        function(x) 
+          rgb(x[1], x[2], x[3], alpha=alpha))  
+}
 #https://cran.r-project.org/web/packages/lattice/lattice.pdf
-#bar.colors <- set3[c(5, 6)]
-bar.colors <- set33[c(3,2)]
-barchart(correctness~qtype,data=q.rate,groups=confusing, main='Average Score by Question Type', 
-         ylab = "Correctness Rate", xlab=list(label = q.correctness.labels, cex = 0.8), scales=list(x=list(draw=FALSE)), 
-         par.settings=list(fontsize = list(text = 24), superpose.polygon = list(col = bar.colors), par.main.text = list(just=c(.45, 0))),
-         auto.key=list(text=rev(c("Obfuscated", "Clarified")), height = 6, size = 1, padding.text = -2, columns = 2,
-                       reverse.rows = TRUE, between=.5, between.columns=0.8, width=10, space="top", cex = 0.8))
+bar.colors <- rev(sapply(set33[c(3,2)], function(x) add.alpha(x, alpha=0.8)))
+
+graph.gradeDT <- as.data.table(gradeDT)
+graph.gradeDT[, qtype := ifelse(confusing==TRUE, 'all.C', 'all.NC')]
+graph.gradeDT <- rbind(graph.gradeDT, gradeDT)
+
+pdf("img/average_score_per_question.pdf", width = 9, height = 8)
+par(mar=c(5.1,4.1,2.1,2.1), xpd=TRUE)
+tplot(rate~qtype,data=graph.gradeDT,
+      las=2, xaxt="n",
+      bty='U', pch=20, dist=.01, jit=.07, type='db',
+      col=rgb(0,0,0,alpha=0.6),
+      boxcol=bar.colors, boxborder=grey(0), cex=0.85,
+      boxplot.pars=list(medlwd=5, boxwex=1.2),
+      at=c(0.9,1.7, 3.1,3.9, 5.1,5.9, 7.1,7.9, 9.1, 9.8)#, 11.1,11.9)
+      )
+segments(2.4,-0.13,2.4,1.03)
+legend(4.2, 1.15, c('Obfuscated','Transformed'), col=bar.colors, fill=bar.colors, pt.cex=2, horiz=TRUE, bty="n", adj=1.4)
+mtext("Correctness", side=2, line=2.8, cex=1.4)
+axis(1, at=0.5+c(0.8,3,5,7,9), labels = q.correctness.labels, tick = FALSE, line = 1)
 dev.off()
 
 #$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
@@ -642,5 +654,44 @@ dev.off()
 #     Performance over time (first question through last )
 ############################################################################
 
-plot(correct ~ duration, gradeDT)
+plot(rate ~ mins, gradeDT)
+plot(mins ~ qtype, gradeDT)
+
+plot(density(gradeDT[confusing==0]$mins, adj=1), col="blue")
+lines(density(gradeDT[confusing==1]$mins, adj=1), col="red")
+
+# There's no obvious learning effect
+gradeDT[, .(correctness=mean(rate)), by=qpos]
+plot(rate ~ qpos, gradeDT)
+
+# The variance increases significantly for the 3rd question
+# which appears to be bimodal, but not the 4th
+tplot(rate ~ qpos, gradeDT,  las=2, medlwd=2, medcol="#444444",
+      show.n = TRUE, bty='U', pch=20, dist=.03, jit=.03, type='db')
+gradeDT[, var(rate), by=qpos]
+
+# Questions are answered more correctly when people spend more time on them
+gradeDT$normed.rate <- gradeDT$rate - ave(gradeDT$rate, gradeDT$subject)
+plot(normed.rate ~ mins, gradeDT[gave.up==FALSE], main="Response Duration vs Relative Correctness of Questions", xlab="Response Duration in Minutes", ylab="Relative Correctness Rate")
+fit <- lm(normed.rate ~ mins, gradeDT[gave.up==FALSE])
+abline(fit)
+cor(gradeDT[gave.up==FALSE]$normed.rate, predict(fit))
+
+# Subjects do better on questions when they spend longer on their answer (give-ups omitted)
+#subjectDT$mins 
+plot(rate ~ mins, subjectDT)
+fit <- lm(rate ~ mins, subjectDT[mins < 120])
+abline(fit)
+cor(subjectDT[mins < 120]$rate, predict(fit))
+
+
+# An exponential fit is actually less correlated then linear
+# y <- 1+gradeDT[order(mins)]$normed.rate
+# x <- gradeDT[order(mins)]$mins
+# m <- nls(y ~ a*x^b)#=list(a=1,b=1))
+# plot(x, y)
+# lines(x,predict(m),lty=2,col="red",lwd=3)
+
+
+
 
