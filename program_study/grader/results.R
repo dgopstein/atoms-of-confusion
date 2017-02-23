@@ -10,7 +10,7 @@ library(RColorBrewer)
 rf <- colorRampPalette(rev(brewer.pal(11,'Spectral')))
 set2 <- colorRampPalette(brewer.pal(8,'Set2'))(8)
 set3 <- colorRampPalette(brewer.pal(12,'Set3'))(12)
-set33 <- brewer.pal(3,'Set3')
+set33 <- brewer.pal(3,'Set3');
 set33.ramp <- colorRampPalette(set3)(12)
 library(grDevices)
 #$$$$
@@ -205,20 +205,20 @@ graph.gradeDT <- as.data.table(gradeDT)
 graph.gradeDT[, qtype := ifelse(confusing==TRUE, 'all.C', 'all.NC')]
 graph.gradeDT <- rbind(graph.gradeDT, gradeDT)
 
-pdf("img/average_score_per_question.pdf", width = 9, height = 8)
-par(mar=c(5.1,4.1,2.1,2.1), xpd=TRUE)
+pdf("img/average_score_per_question.pdf", width = 6, height = 5.5)
+par(mar=c(4.1,4.1,2.1,2.1), xpd=TRUE)
 tplot(rate~qtype,data=graph.gradeDT,
       las=2, xaxt="n",
       bty='U', pch=20, dist=.01, jit=.07, type='db',
-      col=rgb(0,0,0,alpha=0.6),
+      col=rgb(0,0,0,alpha=0.4),
       boxcol=bar.colors, boxborder=grey(0), cex=0.85,
       boxplot.pars=list(medlwd=5, boxwex=1.2),
-      at=c(0.9,1.7, 3.1,3.9, 5.1,5.9, 7.1,7.9, 9.1, 9.8)#, 11.1,11.9)
+      at=c(0.9,1.7, 3.1,3.9, 5.1,5.9, 7.1,7.9, 9.1, 9.8)
       )
 segments(2.4,-0.13,2.4,1.03)
-legend(4.2, 1.15, c('Obfuscated','Transformed'), col=bar.colors, fill=bar.colors, pt.cex=2, horiz=TRUE, bty="n", adj=1.4)
+legend(4.5, 1.18, c('Obfuscated','Clarified  '), col=bar.colors, fill=bar.colors, pt.cex=2, horiz=TRUE, bty="n", adj=1.4)
 mtext("Correctness", side=2, line=2.8, cex=1.4)
-axis(1, at=0.5+c(0.8,3,5,7,9), labels = q.correctness.labels, tick = FALSE, line = 1)
+axis(1, at=0.5+c(0.8,3,5,7,9), labels = q.correctness.labels, tick = FALSE, line = 1.0)#, cex.axis=1.6)
 dev.off()
 
 #$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$

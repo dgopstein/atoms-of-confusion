@@ -616,25 +616,31 @@ par(par.orig)
 #     Performance over time (first question through last )
 ############################################################################
 
+pdf("img/snippet_question_position_vs_correctness.pdf", width = 5, height = 4)
 # Subjects do better on questions as the test continues
 usercode$normed.correct <- usercode$correct - ave(usercode$correct, usercode$CodeID) # normalize results by codeid-specific averages, so that getting a hard question wrong isn't as bad as getting an easy question wrong
 over.time <- usercode[, .(normed.correct = mean(normed.correct), correct = mean(correct)), by=list(rank)]
-plot(over.time$normed.correct, main="Question Position vs Correctness", ylab="Relative Correctness of Question at this Index", xlab="Position of Question in Test")
+plot(over.time$normed.correct, main="Question Position vs Correctness", ylab="Relative Correctness", xlab="Question Position")
 fit2 <- lm(normed.correct~rank, data=over.time)
-abline(fit2, col="blue")
-summary(fit2)
-
-# Subjects answer faster as the test continues
-usercode$normed.duration <- usercode$Duration - ave(usercode$Duration, usercode$CodeID) # normalize duration by codeid-specific averages
-over.time$normed.duration <- usercode[, .(normed.duration = mean(normed.duration), duration = mean(Duration)), by=list(rank)]$normed.duration
-plot(over.time$normed.duration, main="Question Position vs Duration", ylab="Relative Duration of Question at this Index", xlab="Position of Question in Test")
-fit2 <- lm(normed.duration~rank, data=over.time)
-abline(fit2, col="blue")
-summary(fit2)
-
-# Subjects answer faster as the test continues
+abline(fit2, col="black", lwd=1.5, lty=5)
+r<-cor(over.time$normed.correct, predict(fit2))
+text(12,.1, paste("r =", round(r,3)))
 dev.off()
-fit2 <- lm(correct~Duration, data=usercode)
+
+# Subjects answer faster as the test continues
+pdf("img/snippet_question_position_vs_duration.pdf", width = 5, height = 4)
+par(mar=c(5.1,5.1,4.1,2.1))
+usercode$normed.duration <- usercode$Duration - ave(usercode$Duration, usercode$CodeID) # normalize duration by codeid-specific averages
+over.time$normed.duration <- usercode[, .(normed.duration = mean(normed.duration)/1000, duration = mean(Duration)/1000), by=list(rank)]$normed.duration
+plot(over.time$normed.duration, main="Question Position vs Response Duration", ylab="Relative Duration\n(seconds)", xlab="Question Position")
+fit2 <- lm(normed.duration~rank, data=over.time)
+abline(fit2, col="black", lwd=1.5, lty=5)
+r<-cor(over.time$normed.duration, predict(fit2))
+text(70,8, paste("r =", sprintf("%0.2f",round(r,3))))
+dev.off()
+
+# Subjects answer faster as the test continues
+pdf("img/snippet_pde_speed_accuracy.pdf", width = 6, height = 5)
 durationcode <- usercode[Duration > 0]
 duration.correct <-  durationcode[correct == TRUE]$Duration / 1000
 duration.incorrect <- durationcode[correct == FALSE]$Duration / 1000
@@ -642,14 +648,32 @@ med.c <- median(duration.correct)
 med.ic <- median(duration.incorrect)
 density.correct <- density(duration.correct, adjust = 3)
 density.incorrect <- density(duration.incorrect, adjust = 3)
-plot(density.correct, xlim = c(0, 100), ylim=c(0, 0.032), col="blue", xlab="Seconds taken to respond", ylab="Probability", main=c("Probability density of response duration", "by correct/incorrect responses"))
+plot(density.correct, xlim = c(0, 100), ylim=c(0, 0.032), col=set3[3], lwd=3, xlab="Response Time (seconds)", ylab="Probability", main=c("Probability density of response duration", "by correct/incorrect responses"))
 segments(med.c, 0, med.c, density.correct$y[which(abs(density.correct$x-med.c)==min(abs(density.correct$x-med.c)))]) # draw median up to height of probability
-lines(density.incorrect, col="red", lty=5)
-segments(med.ic, 0, med.ic, lty=5, y1 = density.incorrect$y[which(abs(density.incorrect$x-med.c)==min(abs(density.incorrect$x-med.c)))]) # draw median up to height of probability)
-legend(65, 0.03, legend=c("Correct", "Incorrect"), col=c("blue", "red"), lty=c(1,5), cex=1.2)
+lines(density.incorrect, col=set3[11], lty=5, lwd=3)
+segments(med.ic, 0, med.ic, lty=5, y1 = density.incorrect$y[which(abs(density.incorrect$x-med.ic)==min(abs(density.incorrect$x-med.ic)))]) # draw median up to height of probability)
+legend(62, 0.03, legend=c("Correct", "Incorrect"), col=set3[c(3,11)], lty=c(1,5), cex=1.2, lwd=4)
 duration.u <- wilcox.test(duration.correct, duration.incorrect, paired=FALSE, conf.int = TRUE)
-text(56, 0.013, paste("P-value:", format(duration.u$p.value, digits=3)), adj = c(0,0))
-text(56, 0.010, paste("Difference in medians:", format(abs(duration.u$estimate), digits=3)), adj = c(0,0))
+text(52, 0.013, paste("P-value:", format(duration.u$p.value, digits=3)), adj = c(0,0))
+text(52, 0.010, paste("Difference in medians:", format(abs(duration.u$estimate), digits=3)), adj = c(0,0))
+dev.off()
+
+pdf("img/snippet_pde_speed_atom.pdf", width = 6, height = 5)
+duration.c <-  durationcode[confusing == TRUE]$Duration / 1000
+duration.nc <- durationcode[confusing == FALSE]$Duration / 1000
+med.c <- median(duration.c)
+med.nc <- median(duration.nc)
+density.c <- density(duration.c, adjust = 3)
+density.nc <- density(duration.nc, adjust = 3)
+plot(density.c, xlim = c(0, 100), ylim=c(0, 0.032), lty=5, col=set3[11], lwd=3, xlab="Response Time (seconds)", ylab="Probability", main=c("Probability density of response duration", "by C/NC responses"))
+segments(med.c, 0, med.c, density.c$y[which(abs(density.c$x-med.c)==min(abs(density.c$x-med.c)))]) # draw median up to height of probability
+lines(density.nc, col=set3[3], lty=1, lwd=3)
+segments(med.nc, 0, med.nc, lty=5, y1 = density.nc$y[which(abs(density.nc$x-med.nc)==min(abs(density.nc$x-med.nc)))]) # draw median up to height of probability)
+legend(62, 0.03, legend=c("Clarified", "Obfuscated"), col=set3[c(3,11)], lty=c(5,1), cex=1.2, lwd=4)
+duration.u <- wilcox.test(duration.c, duration.nc, paired=FALSE, conf.int = TRUE)
+text(52, 0.013, paste("P-value:", format(duration.u$p.value, digits=3)), adj = c(0,0))
+text(52, 0.010, paste("Difference in medians:", format(abs(duration.u$estimate), digits=3)), adj = c(0,0))
+dev.off()
 
 
 durationcode[, duration.user := mean(Duration), by=UserID]
