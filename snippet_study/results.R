@@ -101,12 +101,19 @@ lines(density(rbeta(10000, 3, 20), bw=0.2), col='blue', lwd=3)
 # amount of confusion removed in most confusing atom
 durkalski.chis[order(-effect.size), (nc.rate - c.rate)][1]
 
+# Add entropy columns
+durkalski.chis <- cbind(durkalski.chis, atom.entropy[match(durkalski.chis$atom, atom), .(entropy.c, entropy.nc)])
+
 snippet.results <- durkalski.chis[order(-effect.size), .(
   "Atom" = atomName,
   "Effect" = sprintf("%3.2f", effect.size),
   "Rate Change" = nc.rate - c.rate,
-  "p-value"= p.value
+  "p-value"= p.value,
+  "Obfuscated Dispersion" = entropy.c,
+  "Clarified Dispersion" = entropy.nc
 )]
+
+durkalski.chis
 
 p.value <- snippet.results$"p-value"
 snippet.results.latex <- snippet.results
@@ -145,14 +152,31 @@ unique.answers.c <-  unique.answers[, .(atom, qid=c_id,  type="C",  unique=C_uni
 unique.answers.nc <- unique.answers[, .(atom, qid=nc_id, type="NC", unique=NC_unique, correct=NC_correct, total=NC_total)]
 unique.answers.flat <- rbind(unique.answers.c, unique.answers.nc)[order(qid)]
 unique.answers.flat[, incorrect          := (total - correct)       ]
-unique.answers.flat[, incorrect.variance := ((unique-1) / incorrect)]
+unique.answers.flat[, incorrect.variance := ((unique-1) / incorrect)] # not actually variance
 unique.answers.flat[, rate               := (correct / total)       ]
-unique.answers.flat
+unique.answers.flat[order(incorrect.variance)]
+
+#unique.answer.atom <-
+#usercode[, (nrow(unique(Answer))-1)/sum(Correct=='F'), by=Tag]
+#usercode[confusing  == TRUE && Correct == "F", .(min(1, (length(unique(Answer)))/sum(Correct == "F"))), by=Tag]
+
+##########################################
+#  Measure dispersion as entropy
+##########################################
+library(infotheo)
+question.entropy <-
+  usercode[,.(atom = first(Tag), n.unique = length(unique(Answer)), entropy = entropy(Answer)),by=list(CodeID, confusing)]
+atom.entropy.flat <-
+  question.entropy[, .(entropy = mean(entropy)) ,by=list(atom, confusing)][order(-entropy)]
+atom.entropy <- dcast(data = atom.entropy.flat,formula = atom~confusing,fun.aggregate = sum,value.var = "entropy")
+colnames(atom.entropy) <- c("atom", "entropy.nc", "entropy.c")
 
 all.qids <- unique.answers.flat$qid
 c.qids   <- unique.answers.c$qid
 nc.qids  <- unique.answers.nc$qid
 n.questions <- nrow(unique.answers.flat)
+
+unique.answers[, .(question, diff = C_unique - NC_unique)][order(diff)]
 
 # Graph the variance of incorrect answers
 varianceDT <- unique.answers.flat[is.finite(incorrect.variance)][order(incorrect.variance)]

@@ -18,6 +18,7 @@ library(lattice)
 library(testit)
 library(tidyr)
 library(assertthat)
+library(lsr)
 
 setwd(dirname(rstudioapi::getActiveDocumentContext()$path))
 source("TatsukiRcodeTplot.R") # http://biostat.mc.vanderbilt.edu/wiki/Main/TatsukiRcode#tplot_40_41
@@ -164,11 +165,22 @@ q.p.value <- function(a, b) {
   t.test(c.sum, nc.sum, alternative="less")
 }
 
+q.es <- function(a, b) {
+  c.sum <- gradeDT[qtype==a]$rate
+  nc.sum <- gradeDT[qtype==b]$rate
+  
+  cohensD(c.sum, nc.sum)
+}
 
 a.v.b <- q.p.value('a', 'b')$p.value
 c.v.d <- q.p.value('c', 'd')$p.value
 e.v.f <- q.p.value('e', 'f')$p.value
 g.v.h <- q.p.value('g', 'h')$p.value
+
+a.b.es <- q.es('a', 'b')
+c.d.es <- q.es('c', 'd')
+e.f.es <- q.es('e', 'f')
+g.h.es <- q.es('g', 'h')
 
 # Correctness of each question pair
 gradeDT[order(qtype), mean(rate), by=qtype]
@@ -179,6 +191,7 @@ all.difference <- (all.correctness[confusing==TRUE]-all.correctness[confusing==F
 
 # p-value for all C vs all NC
 all.q.p.value <- t.test(gradeDT[confusing==TRUE]$rate, gradeDT[confusing==FALSE]$rate, alternative="less")$p.value
+all.q.effect.size <- cohensD(gradeDT[confusing==TRUE]$rate, gradeDT[confusing==FALSE]$rate)
 
 q.rate <- gradeDT[order(qtype),.( correctness = mean(rate), confusing = max(confusing) ), by=qtype]
 q.rate <- rbind(q.rate, list("all C", all.correctness[confusing==TRUE]$correctness, 1))
@@ -188,7 +201,10 @@ q.rate <- rbind(q.rate, list("all NC", all.correctness[confusing==FALSE]$correct
 
 q.correctness.labels <- paste0(c("All\n", "Q1\n", "Q2\n", "Q3\n", "Q4\n"),
                                sapply(c(all.q.p.value, a.v.b, c.v.d, e.v.f, g.v.h),
-                                      function(x) ifelse(x >= 0.0001, sprintf("p: %0.4f", x), sprintf("p: %0.2e", x))))
+                                      function(x) ifelse(x >= 0.0001, sprintf("p: %0.4f\n", x), sprintf("p: %0.2e\n", x))),
+                               sapply(c(all.q.effect.size, a.b.es, c.d.es, e.f.es, g.h.es),
+                                      function(x) ifelse(x >= 0.0001, sprintf("d: %0.4f", x), sprintf("d: %0.2e", x)))
+                               )
 
 
 add.alpha <- function(col, alpha=1){
@@ -205,7 +221,7 @@ graph.gradeDT <- as.data.table(gradeDT)
 graph.gradeDT[, qtype := ifelse(confusing==TRUE, 'all.C', 'all.NC')]
 graph.gradeDT <- rbind(graph.gradeDT, gradeDT)
 
-pdf("img/average_score_per_question.pdf", width = 6, height = 5.5)
+pdf("img/program_average_score_per_question.pdf", width = 6, height = 5.5)
 par(mar=c(4.1,4.1,2.1,2.1), xpd=TRUE)
 tplot(rate~qtype,data=graph.gradeDT,
       las=2, xaxt="n",
