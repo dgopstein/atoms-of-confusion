@@ -470,19 +470,20 @@ boxplot(rate ~ SelfEval, data=subjectDT)
 
 
 # Plot years experience vs correctness
-dev.off()
-# filteredSubjectDT<-subjectDT[!is.na(CYears) & CYears != 25,][order(CYears)] # Outlier?
+pdf("img/program_experience_vs_performance.pdf", width = 6, height = 5.5)
+par(mar=c(4.6,5.1,1.6,1.6))
 filteredSubjectDT<-subjectDT[!is.na(CYears),][order(CYears)]
 y<-filteredSubjectDT$rate
 x<-filteredSubjectDT$CYears
-plot(y ~ x, main="Impact Study\nC Experience vs. Performance", xlab="Years of C experience", ylab="Correct Rate")
-#m<-nls(y~a*x/(x+b), start=list(a=1,b=1))
+plot(y ~ x, ylim=c(0,1), xlab="Years of C experience", ylab="Correctness", cex.lab=2.4, cex.axis=1.5) # main="Impact Study\nC Experience vs. Performance")
 m<-nls(y~a*x^b, start=list(a=20,b=.2))
-#m<-nls(y~a*x^2+b*x, start=list(a=1,b=2))
-lines(seq(1,30,0.2),predict(m, list(x=seq(1,30,0.2))),lty=2,col="red",lwd=3)
-cor(y,predict(m))
-aq<-aq.plot(cbind(y, predict(m)))
-plot(y ~ x, col=as.factor(aq$outliers))
+lines(seq(1,30,0.2),predict(m, list(x=seq(1,30,0.2))),lty=5,col=set33[3],lwd=8)
+r<-cor(y,predict(m))
+text(12.5, 0.1, paste("r =", round(r,2)), cex=2)
+dev.off()
+
+#aq<-aq.plot(cbind(y, predict(m)))
+#plot(y ~ x, col=as.factor(aq$outliers))
 
 library(MVN)
 library(mvoutlier)

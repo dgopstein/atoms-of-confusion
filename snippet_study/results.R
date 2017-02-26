@@ -442,14 +442,18 @@ userDT$experience[which(userDT$ID %in% expert.ids)] <- "expert"
 
 # plot experience vs performance
 # https://www.r-bloggers.com/first-steps-with-non-linear-regression-in-r/
-dev.off()
+pdf("img/snippet_experience_vs_performance.pdf", width = 6, height = 5.5)
+par(mar=c(4.6,5.1,1.6,1.6))
 y<-userDT[!is.na(CMonth),][order(CMonth)]$Score / 100
 x<-userDT[!is.na(CMonth),][order(CMonth)]$CMonth / 12
-plot(y ~ x, main="Existence Study\nC Experience vs. Performance", xlab="Years of C experience", ylab="Correct Rate")
+plot(y ~ x, ylim=c(0,1), xlab="Years of C experience", ylab="Correctness", cex.lab=2.4, cex.axis=1.5) #main="Existence Study\nC Experience vs. Performance")
 #m<-nls(y~a*x/(b+x), start=list(a=1, b=1))
 m<-nls(y~a*x^b, start=list(a=20,b=.2))
-lines(x,predict(m),lty=2,col="red",lwd=3)
-cor(y,predict(m))
+lines(x,predict(m),lty=5,col=set33[3], lwd=8)
+r<-cor(y,predict(m))
+text(6.5, 0.1, paste("r =", round(r,2)), cex=2)
+dev.off()
+
 
 y<-userDT[!is.na(ProgMonth),][order(ProgMonth)]$Score
 x<-userDT[!is.na(ProgMonth),][order(ProgMonth)]$ProgMonth
