@@ -106,14 +106,17 @@ durkalski.chis <- cbind(durkalski.chis, atom.entropy[match(durkalski.chis$atom, 
 
 snippet.results <- durkalski.chis[order(-effect.size), .(
   "Atom" = atomName,
-  "Effect" = sprintf("%3.2f", effect.size),
-  "Rate Change" = nc.rate - c.rate,
-  "p-value"= p.value,
   "Obfuscated Dispersion" = entropy.c,
-  "Clarified Dispersion" = entropy.nc
+  "Clarified Dispersion" = entropy.nc,
+  "Rate Change" = nc.rate - c.rate,
+  "Effect" = sprintf("%3.2f", effect.size),
+  "p-value"= p.value
 )]
 
 durkalski.chis
+
+entropy(c(T, T, T, F))
+entropy(c(T, T, F, F))
 
 p.value <- snippet.results$"p-value"
 snippet.results.latex <- snippet.results
@@ -493,9 +496,9 @@ t.test(userDT[experience=="novice"]$last.c.total.mon, userDT[experience=="expert
 
 pdf("img/snippet_subject_performance_c_vs_nc_questions.pdf", width = 5, height = 5.5)
 plot(unique.answers$c.rate, unique.answers$nc.rate, xlim=c(0,1), ylim=c(0,1), xlab="", ylab="")
-title(main="Subject performance on\nAtom candidate vs Transformed snippets", xlab = "Atom candidate correct rate", ylab = "Transformed correct rate")
+title(main="Subject performance on\nAtom candidate vs Transformed snippets", xlab = "Atom candidate correct rate", ylab = "Transformed correct rate", cex.lab = 1.4)
 points(unique.answers$c.rate, unique.answers$nc.rate, pch=16, bg="black", col=rgb(.2,.2,.2,.8))#'#404040F0')
-abline(0,1,lty=3)
+abline(0,1,lty=2)
 dev.off()
        
 #########################################################
@@ -736,5 +739,13 @@ abline(lm(dur ~ as.integer(code.order), data = dc))
 legend(85, 85, legend=c("Correctness", "Duration"), pch=c(1,20), cex=1.2)
 dev.off()
 
+#################################################################
+#  Discussion section numbers
+#################################################################
 
-
+usercode[Tag=="replace_Mixed_Pointer_Integer_Arithmetic",sum(correct),by=confusing]
+usercode[Tag=="Curly braces",sum(correct),by=confusing]
+usercode[Tag=="replace_Ternary_Operator",sum(correct),by=confusing]
+question.contingencies[atom=="replace_Ternary_Operator"]
+((1 + 0.9583333)/2)/ ((0.7708333 + 0.7500000)/2)
+1/0.7551020

@@ -144,9 +144,9 @@ pdf("img/program_subject_performance_c_vs_nc_questions.pdf", width = 5, height =
 # img <- image(k, col=rf(32))
 # grid()
 plot(c.sum, nc.sum, xlim=c(0,1), ylim=c(0,1), xlab="", ylab="")
-title(main="Subject performance on\nObfuscated vs Transformed programs", xlab = "Obfuscated correct rate", ylab = "Transformed correct rate")
+title(main="Subject performance on\nObfuscated vs Transformed programs", xlab = "Obfuscated correct rate", ylab = "Transformed correct rate", cex.lab=1.6)
 points(c.sum, nc.sum, pch=16, bg="black", col=rgb(.2,.2,.2,.8))#'#404040F0')
-abline(0,1,lty=3)
+abline(0,1,lty=2)
 dev.off()
 
 hist(c.sum); rug(c.sum)
@@ -220,6 +220,8 @@ bar.colors <- rev(sapply(set33[c(3,2)], function(x) add.alpha(x, alpha=0.8)))
 graph.gradeDT <- as.data.table(gradeDT)
 graph.gradeDT[, qtype := ifelse(confusing==TRUE, 'all.C', 'all.NC')]
 graph.gradeDT <- rbind(graph.gradeDT, gradeDT)
+
+graph.gradeDT[, .(rate = mean(rate)), by=qtype]
 
 pdf("img/program_average_score_per_question.pdf", width = 6, height = 5.5)
 par(mar=c(4.1,4.1,2.1,2.1), xpd=TRUE)
@@ -516,16 +518,24 @@ totally.correct.mean <- mean.dt(totally.correct, "Totally\nCorrect", "greater")
 combined.bar.data.bad <- rbind(give.ups.mean, label.faults.mean)
 combined.bar.data.good <- rbind(points.answered.mean, totally.correct.mean)  
 
-plot.bad  <- barchart(val ~ label, data=combined.bar.data.bad,  groups=rev(confusing), main="Failures",  ylab="Rate", col=set33[c(2,3)])
-plot.good <- barchart(val ~ label, data=combined.bar.data.good, groups=rev(confusing), main="Successes", ylab="Rate", col=set33[c(2,3)])
+plot.bad  <-
+  barchart(val ~ label, data=combined.bar.data.bad,  groups=rev(confusing), main=list("Failures", cex=1.4), col=set33[c(2,3)],
+                      ylim=c(0,0.35),
+                      ylab=list(label="Rate", cex=1.6), scales=list(x=list(cex=1.4), y=list(cex=1.2))
+           ,key=list(corner = c(0.95, 0.8),
+                    text=list(c("Obfuscated","Clarified"), cex=1.4),
+                    points=list(fill=set33[c(2,3)], pch=22, cex=2.3)
+                    )
+           )
+  plot.good <- barchart(val ~ label, data=combined.bar.data.good, groups=rev(confusing), main=list("Successes", cex=1.4), col=set33[c(2,3)],
+                      ylab=list(label="Rate", cex=1.6), scales=list(x=list(cex=1.4), y=list(cex=1.2)))
 
 
 plot.bad
 plot.good
 
-pdf("img/program_study_good_bad.pdf", width = 6, height = 5)
-lgnd <- legend(1, 2, legend=c("a", "b"), fill=attr(set33, "palette"), cex=0.6, bty="n")
-grid.arrange(plot.bad, plot.good, ncol=2, heights=c(10, 1))
+pdf("img/program_study_good_bad.pdf", width = 8, height = 5)
+grid.arrange(plot.bad, plot.good, ncol=2)
 dev.off()
 
 
