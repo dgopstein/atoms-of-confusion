@@ -203,7 +203,7 @@ q.correctness.labels <- paste0(c("All\n", "Q1\n", "Q2\n", "Q3\n", "Q4\n"),
                                sapply(c(all.q.p.value, a.v.b, c.v.d, e.v.f, g.v.h),
                                       function(x) ifelse(x >= 0.0001, sprintf("p: %0.4f\n", x), sprintf("p: %0.2e\n", x))),
                                sapply(c(all.q.effect.size, a.b.es, c.d.es, e.f.es, g.h.es),
-                                      function(x) ifelse(x >= 0.0001, sprintf("d: %0.4f", x), sprintf("d: %0.2e", x)))
+                                      function(x) sprintf("d: %0.2f", x))
                                )
 
 
@@ -470,16 +470,28 @@ boxplot(rate ~ SelfEval, data=subjectDT)
 
 
 # Plot years experience vs correctness
-pdf("img/program_experience_vs_performance.pdf", width = 6, height = 5.5)
-par(mar=c(4.6,5.1,1.6,1.6))
+# pdf("img/program_experience_vs_performance.pdf", width = 5, height = 4.5)
+# par(mar=c(4.6,5.1,1.6,1.6))
+# filteredSubjectDT<-subjectDT[!is.na(CYears),][order(CYears)]
+# y<-filteredSubjectDT$rate
+# x<-filteredSubjectDT$CYears
+# plot(y ~ x, ylim=c(0,1), xlab="Years of C experience", ylab="Correctness", cex.lab=1.8, cex.axis=1.5, pch=16) # main="Impact Study\nC Experience vs. Performance")
+# m<-nls(y~a*x^b, start=list(a=20,b=.2))
+# lines(seq(1,30,0.2),predict(m, list(x=seq(1,30,0.2))),lty=5,col=set33[3],lwd=8)
+# r<-cor(y,predict(m))
+# text(12.5, 0.1, paste("r =", round(r,2)), cex=2)
+# dev.off()
+pdf("img/program_experience_vs_performance.pdf", width = 4, height = 4.2)
+par(mar=c(4.6,4.6,3.1,0.6))
 filteredSubjectDT<-subjectDT[!is.na(CYears),][order(CYears)]
 y<-filteredSubjectDT$rate
 x<-filteredSubjectDT$CYears
-plot(y ~ x, ylim=c(0,1), xlab="Years of C experience", ylab="Correctness", cex.lab=2.4, cex.axis=1.5) # main="Impact Study\nC Experience vs. Performance")
+plot(y ~ x, ylim=c(0,1), yaxt="n", xlab="Years of C experience", ylab="Correctness", cex.lab=1.5, cex.axis=1.4, pch=16, cex.main=1.5, main="Impact Experiment")
+axis(2, at=c(0, .5, 1), labels = c("0.0", "0.5", "1.0"), cex.axis=1.4)
 m<-nls(y~a*x^b, start=list(a=20,b=.2))
 lines(seq(1,30,0.2),predict(m, list(x=seq(1,30,0.2))),lty=5,col=set33[3],lwd=8)
 r<-cor(y,predict(m))
-text(12.5, 0.1, paste("r =", round(r,2)), cex=2)
+text(12.5, 0.1, paste("r =", round(r,2)), cex=1.4)
 dev.off()
 
 #aq<-aq.plot(cbind(y, predict(m)))
@@ -520,15 +532,15 @@ combined.bar.data.bad <- rbind(give.ups.mean, label.faults.mean)
 combined.bar.data.good <- rbind(points.answered.mean, totally.correct.mean)  
 
 plot.bad  <-
-  barchart(val ~ label, data=combined.bar.data.bad,  groups=rev(confusing), main=list("Failures", cex=1.4), col=set33[c(2,3)],
+  barchart(val ~ label, data=combined.bar.data.bad,  groups=rev(confusing), main=list("Failures", cex=1.8), col=set33[c(2,3)],
                       ylim=c(0,0.35),
-                      ylab=list(label="Rate", cex=1.6), scales=list(x=list(cex=1.4), y=list(cex=1.2))
+                      ylab=list(label="Rate", cex=1.6), scales=list(x=list(cex=1.6), y=list(cex=1.2))
            ,key=list(corner = c(0.95, 0.8),
                     text=list(c("Obfuscated","Clarified"), cex=1.4),
                     points=list(fill=set33[c(2,3)], pch=22, cex=2.3)
                     )
            )
-  plot.good <- barchart(val ~ label, data=combined.bar.data.good, groups=rev(confusing), main=list("Successes", cex=1.4), col=set33[c(2,3)],
+  plot.good <- barchart(val ~ label, data=combined.bar.data.good, groups=rev(confusing), main=list("Successes", cex=1.8), col=set33[c(2,3)],
                       ylab=list(label="Rate", cex=1.6), scales=list(x=list(cex=1.4), y=list(cex=1.2)))
 
 
@@ -665,15 +677,15 @@ m <- lm(rate ~ study + lang, java.py)
 summary(m)
 
 
-pdf("img/program_correctness_vs_selfeval.pdf", width = 3, height = 3.5)
-par(mar=c(4,4,6,1))
+pdf("img/program_correctness_vs_selfeval.pdf", width = 4, height = 4.5)
+par(mar=c(4,4.3,6,1))
 tplot(rate ~ SelfEval, data=subjectDT, las=2, xaxt='n',
       show.n = TRUE, bty='U', pch=20, dist=.01, jit=.2, type='db',
-      boxcol=grey(1), boxborder=grey(.6), boxplot.pars=list(medlwd=2), cex=0.85)
+      boxcol=grey(1), boxborder=grey(.6), boxplot.pars=list(medlwd=4, medcol=grey(.2), lwd=2), cex=1)
 axis(1:6, at=1:6)
 title("Program Study\nCorrectness vs Self-Evaluation", line = -3, outer=TRUE)
-title(x=" (novice)               (expert)", line = 2.1)
-title(y="Correctness Rate", line = 2.7)
+title(x=" (novice)                        (expert)", line = 2.4, cex.lab=1.3)
+title(y="Correctness Rate", line = 3.0, cex.lab=1.5)
 dev.off()
 
 

@@ -62,7 +62,7 @@ name.conversion <- list(
   "Literal encoding"              = "Change of Literal Encoding",
   "Curly braces"                  = "Omitted Curly Braces",
   "Type conversion"               = "Type Conversion",
-  "move_Preprocessor_Directives_Inside_Statements" = "Preprocessor in Expression",
+  "move_Preprocessor_Directives_Inside_Statements" = "Preprocessor in Statement",
   "replace_Mixed_Pointer_Integer_Arithmetic" = "Pointer Arithmetic"
   #  "Indentation",
   #  "remove_INDENTATION_atom",
@@ -104,6 +104,7 @@ durkalski.chis[order(-effect.size), (nc.rate - c.rate)][1]
 # Add entropy columns
 durkalski.chis <- cbind(durkalski.chis, atom.entropy[match(durkalski.chis$atom, atom), .(entropy.c, entropy.nc)])
 
+
 snippet.results <- durkalski.chis[order(-effect.size), .(
   "Atom" = atomName,
   "Obfuscated Dispersion" = entropy.c,
@@ -114,9 +115,6 @@ snippet.results <- durkalski.chis[order(-effect.size), .(
 )]
 
 durkalski.chis
-
-entropy(c(T, T, T, F))
-entropy(c(T, T, F, F))
 
 p.value <- snippet.results$"p-value"
 snippet.results.latex <- snippet.results
@@ -143,6 +141,19 @@ all.q.effect.size
 
 # Playground
 atom.contingencies = cnts[, .(TT=sum(TT), TF=sum(TF), FT=sum(FT), FF=sum(FF)), by=atom]
+entropy(c(T, T, T, F))
+entropy(c(T, T, F, F))
+
+# Is entropy correlated with confusion: yes
+cor(durkalski.chis$c.rate, durkalski.chis$entropy.c)
+cor(durkalski.chis$nc.rate, durkalski.chis$entropy.nc)
+
+# Is entropy correlated with effect-size:
+cor(durkalski.chis$effect.size, durkalski.chis$entropy.c) # a little
+cor(durkalski.chis$effect.size, durkalski.chis$entropy.nc) # no
+cor(durkalski.chis$effect.size, durkalski.chis[,entropy.c - entropy.nc]) # yes
+
+
 
 ##########################################################
 #  Anecdote: How many different answer per question
@@ -442,16 +453,16 @@ userDT$experience[which(userDT$ID %in% expert.ids)] <- "expert"
 
 # plot experience vs performance
 # https://www.r-bloggers.com/first-steps-with-non-linear-regression-in-r/
-pdf("img/snippet_experience_vs_performance.pdf", width = 6, height = 5.5)
-par(mar=c(4.6,5.1,1.6,1.6))
+pdf("img/snippet_experience_vs_performance.pdf", width = 4, height = 4.2)
+par(mar=c(4.6,4.6,3.1,0.6))
 y<-userDT[!is.na(CMonth),][order(CMonth)]$Score / 100
 x<-userDT[!is.na(CMonth),][order(CMonth)]$CMonth / 12
-plot(y ~ x, ylim=c(0,1), xlab="Years of C experience", ylab="Correctness", cex.lab=2.4, cex.axis=1.5) #main="Existence Study\nC Experience vs. Performance")
-#m<-nls(y~a*x/(b+x), start=list(a=1, b=1))
+plot(y ~ x, ylim=c(0,1), yaxt = "n", xlab="Years of C experience", ylab="Correctness", cex.lab=1.5, cex.axis=1.35, pch=16, cex.main=1.5, main="Existence Experiment")
+axis(2, at=c(0, .5, 1), labels = c("0.0", "0.5", "1.0"), cex.axis=1.4)
 m<-nls(y~a*x^b, start=list(a=20,b=.2))
 lines(x,predict(m),lty=5,col=set33[3], lwd=8)
 r<-cor(y,predict(m))
-text(6.5, 0.1, paste("r =", round(r,2)), cex=2)
+text(6.5, 0.1, paste("r =", round(r,2)), cex=1.4)
 dev.off()
 
 
@@ -498,9 +509,9 @@ t.test(userDT[experience=="novice"]$last.c.total.mon, userDT[experience=="expert
 #               User Performance
 #########################################################
 
-pdf("img/snippet_subject_performance_c_vs_nc_questions.pdf", width = 5, height = 5.5)
+pdf("img/snippet_subject_performance_c_vs_nc_questions.pdf", width = 4, height = 4.3)
 plot(unique.answers$c.rate, unique.answers$nc.rate, xlim=c(0,1), ylim=c(0,1), xlab="", ylab="")
-title(main="Subject performance on\nAtom candidate vs Transformed snippets", xlab = "Atom candidate correct rate", ylab = "Transformed correct rate", cex.lab = 1.4)
+title(main="Subject performance on\nAtom candidate vs Transformed snippets", xlab = "Atom candidate correctness", ylab = "Transformed correctness", cex.lab = 1.4)
 points(unique.answers$c.rate, unique.answers$nc.rate, pch=16, bg="black", col=rgb(.2,.2,.2,.8))#'#404040F0')
 abline(0,1,lty=2)
 dev.off()
@@ -671,7 +682,8 @@ text(70,8, paste("r =", sprintf("%0.2f",round(r,3))))
 dev.off()
 
 # Subjects answer faster as the test continues
-pdf("img/snippet_pde_speed_accuracy.pdf", width = 6, height = 5)
+pdf("img/snippet_pde_speed_accuracy.pdf", width = 5, height = 4)
+par(mar=c(4.1,4.1,4.1,0.6))
 durationcode <- usercode[Duration > 0]
 duration.correct <-  durationcode[correct == TRUE]$Duration / 1000
 duration.incorrect <- durationcode[correct == FALSE]$Duration / 1000
@@ -679,15 +691,18 @@ med.c <- median(duration.correct)
 med.ic <- median(duration.incorrect)
 density.correct <- density(duration.correct, adjust = 3)
 density.incorrect <- density(duration.incorrect, adjust = 3)
-plot(density.correct, xlim = c(0, 100), ylim=c(0, 0.032), col=set3[3], lwd=3, xlab="Response Time (seconds)", ylab="Probability", main=c("Probability density of response duration", "by correct/incorrect responses"))
+plot(density.correct, xlim = c(0, 100), ylim=c(0, 0.032), col=set3[3], lwd=3, yaxt="n", cex.lab=1.2,
+     xlab="Response Time (seconds)", ylab="Probability", main=c("Probability density of response duration", "by correct/incorrect responses"))
+axis(2, at = c(0, .01, .02, .03), labels = c("0.00", "0.01", "0.02", "0.03"))
 segments(med.c, 0, med.c, density.correct$y[which(abs(density.correct$x-med.c)==min(abs(density.correct$x-med.c)))]) # draw median up to height of probability
 lines(density.incorrect, col=set3[11], lty=5, lwd=3)
 segments(med.ic, 0, med.ic, lty=5, y1 = density.incorrect$y[which(abs(density.incorrect$x-med.ic)==min(abs(density.incorrect$x-med.ic)))]) # draw median up to height of probability)
-legend(62, 0.03, legend=c("Correct", "Incorrect"), col=set3[c(3,11)], lty=c(1,5), cex=1.2, lwd=4)
+legend(52, 0.03, legend=c("Correct", "Incorrect"), col=set3[c(3,11)], lty=c(1,5), cex=1.2, lwd=4)
 duration.u <- wilcox.test(duration.correct, duration.incorrect, paired=FALSE, conf.int = TRUE)
 text(52, 0.013, paste("P-value:", format(duration.u$p.value, digits=3)), adj = c(0,0))
-text(52, 0.010, paste("Difference in medians:", format(abs(duration.u$estimate), digits=3)), adj = c(0,0))
+text(52, 0.010, paste("Diff. in medians:", format(abs(duration.u$estimate), digits=3)), adj = c(0,0))
 dev.off()
+
 
 pdf("img/snippet_pde_speed_atom.pdf", width = 6, height = 5)
 duration.c <-  durationcode[confusing == TRUE]$Duration / 1000
