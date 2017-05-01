@@ -101,9 +101,18 @@ lines(density(rbeta(10000, 3, 20), bw=0.2), col='blue', lwd=3)
 # amount of confusion removed in most confusing atom
 durkalski.chis[order(-effect.size), (nc.rate - c.rate)][1]
 
-# Add entropy columns
+##########################################
+#  Measure dispersion as entropy
+##########################################
+library(infotheo)
+question.entropy <-
+  usercode[,.(atom = first(Tag), n.unique = length(unique(Answer)), entropy = entropy(Answer)),by=list(CodeID, confusing)]
+atom.entropy.flat <-
+  question.entropy[, .(entropy = mean(entropy)) ,by=list(atom, confusing)][order(-entropy)]
+atom.entropy <- data.table(dcast(data = atom.entropy.flat,formula = atom~confusing,fun.aggregate = sum,value.var = "entropy"))
+colnames(atom.entropy) <- c("atom", "entropy.nc", "entropy.c")
+  
 durkalski.chis <- cbind(durkalski.chis, atom.entropy[match(durkalski.chis$atom, atom), .(entropy.c, entropy.nc)])
-
 
 snippet.results <- durkalski.chis[order(-effect.size), .(
   "Atom" = atomName,
@@ -126,6 +135,7 @@ snippet.results.html$"p-value" <- paste(ifelse(p.value < alpha, '<b>', ""), spri
 setorder(snippet.results, -"Effect")
 print(xtable(snippet.results.latex), include.rownames=FALSE, sanitize.text.function=identity)
 print(xtable(snippet.results.html), include.rownames=FALSE, sanitize.text.function=identity, type="html")
+print(xtable(atom.contingencies[,-1]), include.rownames=FALSE, sanitize.text.function=identity, type="html")
 
 # ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 #   Atoms figure for paper
@@ -140,7 +150,7 @@ all.q.effect.size <- phi(all.q.chi2, cnts[,.(n=sum(TT,TF,FT,FF))]$n)
 all.q.effect.size
 
 # Playground
-atom.contingencies = cnts[, .(TT=sum(TT), TF=sum(TF), FT=sum(FT), FF=sum(FF)), by=atom]
+atom.contingencies = cnts[, .(atom.name=unlist(name.conversion[atom]), TT=sum(TT), TF=sum(TF), FT=sum(FT), FF=sum(FF)), by=atom]
 entropy(c(T, T, T, F))
 entropy(c(T, T, F, F))
 
@@ -173,17 +183,6 @@ unique.answers.flat[order(incorrect.variance)]
 #unique.answer.atom <-
 #usercode[, (nrow(unique(Answer))-1)/sum(Correct=='F'), by=Tag]
 #usercode[confusing  == TRUE && Correct == "F", .(min(1, (length(unique(Answer)))/sum(Correct == "F"))), by=Tag]
-
-##########################################
-#  Measure dispersion as entropy
-##########################################
-library(infotheo)
-question.entropy <-
-  usercode[,.(atom = first(Tag), n.unique = length(unique(Answer)), entropy = entropy(Answer)),by=list(CodeID, confusing)]
-atom.entropy.flat <-
-  question.entropy[, .(entropy = mean(entropy)) ,by=list(atom, confusing)][order(-entropy)]
-atom.entropy <- dcast(data = atom.entropy.flat,formula = atom~confusing,fun.aggregate = sum,value.var = "entropy")
-colnames(atom.entropy) <- c("atom", "entropy.nc", "entropy.c")
 
 all.qids <- unique.answers.flat$qid
 c.qids   <- unique.answers.c$qid
@@ -768,3 +767,7 @@ usercode[Tag=="replace_Ternary_Operator",sum(correct),by=confusing]
 question.contingencies[atom=="replace_Ternary_Operator"]
 ((1 + 0.9583333)/2)/ ((0.7708333 + 0.7500000)/2)
 1/0.7551020
+
+q.cont.ent <- merge(question.contingencies, question.entropy, by.x='c_id', by.y='CodeID', suffixes=c("", ".c"))
+q.cont.ent <- merge(q.cont.ent, question.entropy, by.x='nc_id', by.y='CodeID', suffixes=c(".c", ".nc"))
+write.csv(q.cont.ent, file="~/snippet_question_effect_sizes.csv")
