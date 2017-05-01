@@ -108,7 +108,7 @@ library(infotheo)
 question.entropy <-
   usercode[,.(atom = first(Tag), n.unique = length(unique(Answer)), entropy = entropy(Answer)),by=list(CodeID, confusing)]
 atom.entropy.flat <-
-  question.entropy[, .(entropy = mean(entropy)) ,by=list(atom, confusing)][order(-entropy)]
+  question.entropyopy[, .(entropy = mean(entropy)) ,by=list(atom, confusing)][order(-entropy)]
 atom.entropy <- data.table(dcast(data = atom.entropy.flat,formula = atom~confusing,fun.aggregate = sum,value.var = "entropy"))
 colnames(atom.entropy) <- c("atom", "entropy.nc", "entropy.c")
   
@@ -135,7 +135,10 @@ snippet.results.html$"p-value" <- paste(ifelse(p.value < alpha, '<b>', ""), spri
 setorder(snippet.results, -"Effect")
 print(xtable(snippet.results.latex), include.rownames=FALSE, sanitize.text.function=identity)
 print(xtable(snippet.results.html), include.rownames=FALSE, sanitize.text.function=identity, type="html")
-print(xtable(atom.contingencies[,-1]), include.rownames=FALSE, sanitize.text.function=identity, type="html")
+
+atom.contingencies.html <- atom.contingencies[,-1][order(snippet.results.html$Atom)]
+colnames(atom.contingencies.html) <- c("Atom", "Both Correct", "Obfuscated Correct", "Transformed Correct", "Neither Correct")
+print(xtable(atom.contingencies.html), include.rownames=FALSE, sanitize.text.function=identity, type="html", html.table.attributes="id='atom-contingencies'")
 
 # ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 #   Atoms figure for paper
