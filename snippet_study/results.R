@@ -68,6 +68,22 @@ name.conversion <- list(
   #  "remove_INDENTATION_atom",
 )
 
+name.conversion.full <- name.conversion
+name.conversion.full[["Indentation"]] <- "Indentation with Braces"
+name.conversion.full[["remove_INDENTATION_atom"]] <- "Indentation no Braces"
+
+
+#########################
+#  CSV for website
+#########################
+code.table  <- data.table(query.from.string('select c.*, t.tag from code c join codetags ct on c.id=ct.codeid join tag t on t.id == ct.tagid;")
+# where t.tag not in ("remove_INDENTATION_atom", "Indentation");'))
+#code.table$Code <- gsub("\\n", "\n", code.table$Code)
+code.table.wide <- merge(code.table[Type=="Confusing",], code.table[Type=="Non-confusing",][, !"Pair", with=FALSE], by.x="Pair", by.y="ID", suffixes = c("_c", "_nc")) 
+code.table.wide <- code.table.wide[, AtomName := unlist(name.conversion.full[Tag_c])][, !"Tag_c", with=FALSE][, !"Tag_nc", with=FALSE]
+code.table.wide$Errata <- ""
+write.csv(code.table.wide, file="~/snippet_questions_wide.csv")
+
 is.truthy <- function(str) ifelse(str == "T", 1, 0)
 
 alpha <- 0.05
@@ -136,9 +152,12 @@ setorder(snippet.results, -"Effect")
 print(xtable(snippet.results.latex), include.rownames=FALSE, sanitize.text.function=identity)
 print(xtable(snippet.results.html), include.rownames=FALSE, sanitize.text.function=identity, type="html")
 
-atom.contingencies.html <- atom.contingencies[,-1][order(snippet.results.html$Atom)]
+atom.contingencies.html <- atom.contingencies[,-1][order(match(atom.contingencies$atom.name, snippet.results.html$Atom))]
 colnames(atom.contingencies.html) <- c("Atom", "Both Correct", "Obfuscated Correct", "Transformed Correct", "Neither Correct")
 print(xtable(atom.contingencies.html), include.rownames=FALSE, sanitize.text.function=identity, type="html", html.table.attributes="id='atom-contingencies'")
+
+# which atoms were over-all answered most incorrectly
+atom.contingencies[,.(atom, TF+FT+2*FF),][order(V2)]
 
 # ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 #   Atoms figure for paper
