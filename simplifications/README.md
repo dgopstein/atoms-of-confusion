@@ -13,8 +13,8 @@ The names of the files in the impact experiment correspond to the obfuscated and
 
 Each directory contains some of the original files from the IOCCC submission (Makefile, hint.text, etc) and several standard files used in simplifying the program:
 
- * `confusing.c` - The transformed version of the program (a.c, c.c, e.c, g.c)
- * `nonconfusing.c` - The normalized obfuscated version of the program (b.c, d.c, f.c, h.c)
+ * `confusing.c` - The obfuscated version of the program (a.c, c.c, e.c, g.c)
+ * `nonconfusing.c` - The normalized and transformed version of the program (b.c, d.c, f.c, h.c)
  * `test.sh` - A script that compares the output of `confusing.c` and `nonconfusing.c` to make sure they are functionally equivalent
  * `notes.txt` - A description of interesting things found when simplifying the source and an index of all the simplifying transformations
  * `decoded/` - Incremental versions of the transformed file after every simplifying step. These files are named with the following convention `phase-phasename-step-transformation.c` where:
