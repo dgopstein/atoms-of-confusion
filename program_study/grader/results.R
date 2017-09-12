@@ -523,8 +523,8 @@ totally.correct <- gradeDT[, .(val=as.integer(rate==1)/1), by=confusing]
 
 pvc <- function(dt, alt) sprintf("%0.4f", t.test(val ~ confusing, data=dt, alternative=alt)$p.value)
 mean.dt <- function(dt, name, alt) dt[,.(val=mean(val), label=paste(name, "\np=", pvc(dt, alt), sep="")), by=confusing]
-give.ups.mean     <-    mean.dt(give.ups, "\nGive Ups", "less")
-label.faults.mean <-    mean.dt(label.faults, "Control Flow\nErrors", "less")
+give.ups.mean     <-    mean.dt(give.ups, " Give Ups \n", "less")
+label.faults.mean <-    mean.dt(label.faults, "Control\nFlow Errors", "less")
 points.answered.mean <- mean.dt(points.answered, "Points\nAnswered", "greater")
 totally.correct.mean <- mean.dt(totally.correct, "Totally\nCorrect", "greater")
 
@@ -532,22 +532,22 @@ combined.bar.data.bad <- rbind(give.ups.mean, label.faults.mean)
 combined.bar.data.good <- rbind(points.answered.mean, totally.correct.mean)  
 
 plot.bad  <-
-  barchart(val ~ label, data=combined.bar.data.bad,  groups=rev(confusing), main=list("Failures", cex=1.8), col=set33[c(2,3)],
+  barchart(val ~ label, data=combined.bar.data.bad,  groups=rev(confusing), main=list("    Failures", cex=1.8), col=set33[c(2,3)],
                       ylim=c(0,0.35),
-                      ylab=list(label="Rate", cex=1.6), scales=list(x=list(cex=1.6), y=list(cex=1.2))
+                      ylab=list(label="Rate", cex=1.6), scales=list(x=list(cex=1.4), y=list(cex=1.2))
            ,key=list(corner = c(0.95, 0.8),
                     text=list(c("Obfuscated","Clarified"), cex=1.4),
                     points=list(fill=set33[c(2,3)], pch=22, cex=2.3)
                     )
            )
-  plot.good <- barchart(val ~ label, data=combined.bar.data.good, groups=rev(confusing), main=list("Successes", cex=1.8), col=set33[c(2,3)],
+  plot.good <- barchart(val ~ label, data=combined.bar.data.good, groups=rev(confusing), main=list("       Successes", cex=1.8), col=set33[c(2,3)],
                       ylab=list(label="Rate", cex=1.6), scales=list(x=list(cex=1.4), y=list(cex=1.2)))
 
 
 plot.bad
 plot.good
 
-pdf("img/program_study_good_bad.pdf", width = 8, height = 5)
+pdf("img/program_study_good_bad.pdf", width = 8, height = 3.0)
 grid.arrange(plot.bad, plot.good, ncol=2)
 dev.off()
 

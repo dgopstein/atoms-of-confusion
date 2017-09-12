@@ -8,7 +8,7 @@
 
 --select uc.codeid as c_id, uc2.codeid as nc_id, t.tag as atom,
 --SUM(CASE WHEN uc.correct = 'T' THEN 1 ELSE 0 END) as c_correct,
---SUM(CASE WHEN uc2.correct = 'T' THEN 1 ELSE 0 END) as nc_correct 
+--SUM(CASE WHEN uc2.correct = 'T' THEN 1 ELSE 0 END) as nc_correct
 --from scrubbed_usercode uc
 --join code c on uc.codeid = c.id
 --join scrubbed_usercode uc2 on uc.userid = uc2.userid and uc2.codeid = c.pair

@@ -35,10 +35,11 @@ add.alpha <- function(col, alpha=1){
 }
 range01 <- function(x){(x-min(x))/(max(x)-min(x))} # http://stackoverflow.com/questions/5665599/range-standardization-0-to-1-in-r
 
+pap <- function(s) { print(s); s }
 
 con <- dbConnect(drv=RSQLite::SQLite(), dbname="confusion.db")
 query.from.string <- function(query) data.table(dbGetQuery( con, query ))
-query.from.file <- function(filename) query.from.string(paste(readLines(filename), collapse = "\n"))
+query.from.file <- function(filename) query.from.string(pap(paste(readLines(filename), collapse = "\n")))
 
 clustRes <- query.from.file('sql/clustered_contingency.sql')
 cnts <- data.table(clustRes)
@@ -721,7 +722,7 @@ segments(med.ic, 0, med.ic, lty=5, y1 = density.incorrect$y[which(abs(density.in
 legend(52, 0.03, legend=c("Correct", "Incorrect"), col=set3[c(3,11)], lty=c(1,5), cex=1.2, lwd=4)
 duration.u <- wilcox.test(duration.correct, duration.incorrect, paired=FALSE, conf.int = TRUE)
 text(52, 0.013, paste("P-value:", format(duration.u$p.value, digits=3)), adj = c(0,0))
-text(52, 0.010, paste("Diff. in medians:", format(abs(duration.u$estimate), digits=3)), adj = c(0,0))
+text(52, 0.010, paste0("Diff. in medians: ", format(abs(duration.u$estimate), digits=3), "s"), adj = c(0,0))
 dev.off()
 
 
@@ -793,3 +794,22 @@ question.contingencies[atom=="replace_Ternary_Operator"]
 q.cont.ent <- merge(question.contingencies, question.entropy, by.x='c_id', by.y='CodeID', suffixes=c("", ".c"))
 q.cont.ent <- merge(q.cont.ent, question.entropy, by.x='nc_id', by.y='CodeID', suffixes=c(".c", ".nc"))
 write.csv(q.cont.ent, file="~/snippet_question_effect_sizes.csv")
+
+#################################################################
+#  Learning Effect of Pairs - Are you more likely to get a question correct if you've seen its pair
+#################################################################
+usercode[,c.id:=(CodeID - ((1+CodeID)%%2)),] # associate each C/NC pair with the id of the C question
+c.code  <- usercode[confusing==TRUE, .(UserID, c.id, correct, rank),]
+nc.code <- usercode[confusing==FALSE,.(UserID, c.id, correct, rank),]
+paired.code <- merge(c.code, nc.code, by=c('UserID', 'c.id'), suffixes = c(".c",".nc"))
+paired.code[, c.first := rank.c < rank.nc,]
+paired.code[, .(correct.c = sum(correct.c), total.c = length(correct.c), correct.nc = sum(correct.nc), total.nc = length(correct.nc)), by=c.first]
+firsts <-  paired.code[, .(rank = ifelse(c.first, rank.c, rank.nc),  correct = ifelse(c.first, correct.c, correct.nc),  confusing = ifelse(c.first, TRUE, FALSE), first = TRUE),]
+seconds <- paired.code[, .(rank = ifelse(!c.first, rank.c, rank.nc), correct = ifelse(!c.first, correct.c, correct.nc), confusing = ifelse(!c.first, TRUE, FALSE), first = FALSE),]
+firsts.and.seconds.cat <- rbind(firsts, seconds)
+
+firsts.and.seconds <- merge(firsts[, .(correctness = mean(correct==TRUE)), by=rank], seconds[, .(correctness = mean(correct==TRUE)), by=rank], by='rank', suffixes = c('.fst', '.snd'))
+firsts.and.seconds[, sum(correctness.fst < correctness.snd)]
+binom.test(33, 58, alternative = 'less')
+glm(correct ~confusing+rank+first,family=binomial(link='logit'),data=firsts.and.seconds.cat)
+lm(correct ~confusing+rank+first,data=firsts.and.seconds.cat)
