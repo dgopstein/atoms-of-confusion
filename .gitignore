@@ -9,3 +9,5 @@ bin/
 .Rproj.user
 
 *~
+
+tmp/
