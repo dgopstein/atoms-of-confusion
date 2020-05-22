@@ -95,7 +95,7 @@ phi <- function(chi2, n) sqrt(chi2/n)
 cnts <- cnts[cnts[,!atom %in% c("remove_INDENTATION_atom", "Indentation")]] # Remove old atom types
 cnts[, atomName := unlist(name.conversion[atom])]
 
-usercode <- query.from.string("select * from scrubbed_usercode;")
+usercode <- query.from.string("select uc.*,code.type as confusing from scrubbed_usercode uc join code on code.id = uc.codeid;")
 usercode[, correct:=(Correct=='T')]
 
 
@@ -125,7 +125,7 @@ library(infotheo)
 question.entropy <-
   usercode[,.(atom = first(Tag), n.unique = length(unique(Answer)), entropy = entropy(Answer)),by=list(CodeID, confusing)]
 atom.entropy.flat <-
-  question.entropyopy[, .(entropy = mean(entropy)) ,by=list(atom, confusing)][order(-entropy)]
+  question.entropy[, .(entropy = mean(entropy)) ,by=list(atom, confusing)][order(-entropy)]
 atom.entropy <- data.table(dcast(data = atom.entropy.flat,formula = atom~confusing,fun.aggregate = sum,value.var = "entropy"))
 colnames(atom.entropy) <- c("atom", "entropy.nc", "entropy.c")
   
